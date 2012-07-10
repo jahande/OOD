@@ -18,6 +18,7 @@ public class SimpleController implements Controller {
 		
 		
 	}
+	
 //	public void run() {
 //		Login li = new Login(this);
 //		li.setVisible(true);

@@ -1,22 +1,24 @@
 package logic;
 
+import java.util.Date;
+
 public abstract class Member {
 	private String firstName;
 	private String lastName;
 	private String userName;
 	private String password;
 	private String email;
-	private String birthDay;
+	private Date birthDate;
 
 	public Member(String firstName, String lastName, String userName,
-			String password, String email, String birthDay) {
+			String password, String email, Date birthDate) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userName = userName;
 		this.password = password;
 		this.email = email;
-		this.birthDay = birthDay;
+		this.birthDate = birthDate;
 	}
 
 	public String getFirstName() {
@@ -39,8 +41,8 @@ public abstract class Member {
 		return email;
 	}
 
-	public String getBirthDay() {
-		return birthDay;
+	public Date getbirthDate() {
+		return birthDate;
 	}
 
 	public void sigin() {

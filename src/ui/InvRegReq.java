@@ -17,6 +17,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
+import controllers.ApplicationContext;
+
 import logic.Invention;
 import logic.InventionRegistrationRequest;
 
@@ -134,9 +136,9 @@ public class InvRegReq extends JFrame {
 		label_7.setText("فایل های پیوست");
 		label_7.setBounds(307, 421, 66, 16);
 
-		getContentPane().add(titleTextField);
 		titleTextField
-				.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		getContentPane().add(titleTextField);
 		titleTextField.setBounds(40, 21, 254, 20);
 
 		getContentPane().add(scrollPane);
@@ -295,12 +297,9 @@ public class InvRegReq extends JFrame {
 			}
 			Invention invention = new Invention(title, invAbstract, ideaDesc,
 					ideaHistory, assertion, fullDesc, files);
-			// InventionRegistrationRequest request = new
-			// InventionRegistrationRequest(new Date(), invention);
 			this.setVisible(false);
-			InvRegReqInventors nextUI = new InvRegReqInventors();
-			nextUI.setInvention(invention);
-			nextUI.setVisible(true);
+			ApplicationContext.setParameter("invention", invention);
+			new InvRegReqInventors().setVisible(true);
 		}
 	}
 }

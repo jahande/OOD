@@ -8,8 +8,8 @@ public class User extends Member {
 	private List<InventionField> assignedInventionFields;
 
 	public User(String firstName, String lastName, String userName,
-			String password, String email, String birthDay) {
-		super(firstName, lastName, userName, password, email, birthDay);
+			String password, String email, java.util.Date birthDate) {
+		super(firstName, lastName, userName, password, email, birthDate);
 	}
 
 	public boolean isExpert() {

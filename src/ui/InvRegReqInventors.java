@@ -18,8 +18,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import controllers.ApplicationContext;
+
+import repository.Repository;
+
 import logic.Invention;
+import logic.InventionCatalog;
+import logic.Share;
 import logic.User;
+import logic.UserCatalog;
 
 public class InvRegReqInventors extends JFrame {
 
@@ -42,8 +49,6 @@ public class InvRegReqInventors extends JFrame {
 	private final JCheckBox defaultCheckBox_1 = new JCheckBox();
 	private final JLabel label_4 = new JLabel();
 	private final JTextField shareTextField_1 = new JTextField();
-	
-	private Invention invention;
 
 	/**
 	 * Launch the application
@@ -86,10 +91,6 @@ public class InvRegReqInventors extends JFrame {
 		public void setShareTextField(JTextField shareTextField) {
 			this.shareTextField = shareTextField;
 		}
-	}
-
-	public void setInvention(Invention invention) {
-		this.invention = invention;
 	}
 
 	public static void main(String args[]) {
@@ -182,8 +183,13 @@ public class InvRegReqInventors extends JFrame {
 		newInventorComboBox
 				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		// begin temp
-		newInventorComboBox.setModel(new DefaultComboBoxModel(new String[] {
-				"اصغر فشندی", "جمشید افندی", "کامبیز سهندی" }));
+		List<User> userList = UserCatalog.getUserList();
+		List<String> usernames = new ArrayList<String>();
+		for (User user : userList) {
+			usernames.add(user.getUserName());
+		}
+		newInventorComboBox.setModel(new DefaultComboBoxModel(usernames
+				.toArray()));
 		// end temp
 
 		JLabel newLabel = new JLabel();
@@ -236,11 +242,19 @@ public class InvRegReqInventors extends JFrame {
 					"مجموع سهم های مالکیت معنوی بایستی 100 باشد.", "خطا",
 					JOptionPane.ERROR_MESSAGE);
 		} else {
-//			List<User> userList = new ArrayList<User>();
-//			for (InventorData inventor : inventorsList) {
-//				userList.add(new User());
-//			}
-//			invention.setInventors(userList);
+			Invention invention = (Invention) ApplicationContext
+					.getParameter("invention");
+			List<User> userList = new ArrayList<User>();
+			for (InventorData inventor : inventorsList) {
+				User user = UserCatalog.getUserByParamater((String) inventor
+						.getInventorCombobox().getSelectedItem());
+				int shareValue = Integer.valueOf(inventor.getShareTextField()
+						.getText());
+				InventionCatalog.addShare(new Share(user, invention, shareValue));
+				userList.add(user);
+			}
+			invention.setInventors(userList);
+			ApplicationContext.setParameter("invention", invention);
 			this.setVisible(false);
 			new InvRegReqCompany().setVisible(true);
 		}
