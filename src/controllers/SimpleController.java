@@ -29,7 +29,7 @@ public class SimpleController implements Controller {
 			
 			login.setVisible(true);
 		}else if(moduleName.equals("Login")){
-			if(command.equals("admin")){
+			if(command.equals("manager")){
 				login.setVisible(false);
 				management.setVisible(true);
 				

@@ -96,11 +96,11 @@ public class Login extends JFrame {
 		this.lblLoginError.setText("");
 	}
 	public String authenticate(String un, String pa){
-		if(un=="forghani"){
+		if(un.equals("forghani")){
 			return "manager";
-		}else if(un=="jahande"){
+		}else if(un.equals("jahande")){
 			return "expert";
-		}else if(un=="alavi"){
+		}else if(un.equals("alavi")){
 			return "inventor";
 		}else{
 			return null;
@@ -113,7 +113,10 @@ public class Login extends JFrame {
 		}
 	}
 	protected void button_actionPerformed(ActionEvent e) {
-		this.controller.next(null,null,this.authenticate(this.usernameField.getText(), new String(this.passwordField.getPassword())));
+		System.out.println(this.usernameField.getText());
+		System.out.println(new String(this.passwordField.getPassword()));
+		
+		this.controller.next(null,"Login",this.authenticate(this.usernameField.getText(), new String(this.passwordField.getPassword())));
 	}
 
 }
