@@ -10,23 +10,26 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import controllers.Controller;
 
-public class login extends JFrame {
+
+public class Login extends JFrame {
 
 	private final JButton button = new JButton();
 	private final JLabel label = DefaultComponentFactory.getInstance().createLabel("نام کاربری:");
 	private final JLabel label_1 = DefaultComponentFactory.getInstance().createLabel("رمز:");
-	private final JTextField textField = new JTextField();
+	private final JTextField usernameField = new JTextField();
 	private final JPasswordField passwordField = new JPasswordField();
 	private final JButton button_1 = new JButton();
 	private final JLabel lblLoginError = new JLabel();
+	private Controller controller;
 	/**
 	 * Launch the application
 	 * @param args
 	 */
 	public static void main(String args[]) {
 		try {
-			login frame = new login();
+			Login frame = new Login();
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -34,9 +37,16 @@ public class login extends JFrame {
 	}
 
 	/**
+	 * delete the default constructor
+	 */
+	private Login(){
+		super();
+		
+	}
+	/**
 	 * Create the frame
 	 */
-	public login() {
+	public Login(Controller c) {
 		super();
 		setBounds(100, 100, 240, 215);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,6 +55,7 @@ public class login extends JFrame {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+		this.controller = c;
 		//
 	}
 	private void jbInit() throws Exception {
@@ -62,8 +73,8 @@ public class login extends JFrame {
 		getContentPane().add(label_1);
 		label_1.setBounds(178, 49, 64, 26);
 		
-		getContentPane().add(textField);
-		textField.setBounds(10, 20, 138, 22);
+		getContentPane().add(usernameField);
+		usernameField.setBounds(10, 20, 138, 22);
 		
 		getContentPane().add(passwordField);
 		passwordField.setBounds(10, 51, 138, 22);
@@ -84,6 +95,17 @@ public class login extends JFrame {
 	public void hideError() {
 		this.lblLoginError.setText("");
 	}
+	public String authenticate(String un, String pa){
+		if(un=="forghani"){
+			return "manager";
+		}else if(un=="jahande"){
+			return "expert";
+		}else if(un=="alavi"){
+			return "inventor";
+		}else{
+			return null;
+		}
+	}
 	private class ButtonActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			button_actionPerformed(e);
@@ -91,6 +113,7 @@ public class login extends JFrame {
 		}
 	}
 	protected void button_actionPerformed(ActionEvent e) {
+		this.controller.next(null,null,this.authenticate(this.usernameField.getText(), new String(this.passwordField.getPassword())));
 	}
 
 }

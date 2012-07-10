@@ -4,6 +4,9 @@ import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -14,6 +17,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
+import logic.Invention;
+import logic.InventionRegistrationRequest;
+
 public class InvRegReq extends JFrame {
 
 	private final JLabel label = new JLabel();
@@ -23,6 +29,8 @@ public class InvRegReq extends JFrame {
 	private final JLabel label_5 = new JLabel();
 	private final JLabel label_6 = new JLabel();
 	private final JLabel label_7 = new JLabel();
+	private final JLabel label_8 = new JLabel();
+	private final JTextField titleTextField = new JTextField();
 	private final JTextPane descTextPane = new JTextPane();
 	private final JScrollPane scrollPane = new JScrollPane();
 	private final JScrollPane scrollPane_2 = new JScrollPane();
@@ -42,6 +50,7 @@ public class InvRegReq extends JFrame {
 	private final JTextField fileTextField2 = new JTextField();
 	private final JTextField fileTextField3 = new JTextField();
 
+	private String title;
 	private String description;
 	private String invAbstract;
 	private String ideaDesc;
@@ -71,7 +80,7 @@ public class InvRegReq extends JFrame {
 	 */
 	public InvRegReq() {
 		super();
-		setBounds(100, 100, 419, 587);
+		setBounds(100, 100, 419, 607);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
 			jbInit();
@@ -85,78 +94,88 @@ public class InvRegReq extends JFrame {
 		getContentPane().setLayout(null);
 		setTitle("ایجاد درخواست ثبت اختراع");
 
+		getContentPane().add(label_8);
+		label_8.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		label_8.setText("عنوان");
+		label_8.setBounds(307, 21, 66, 16);
+
 		getContentPane().add(label);
 		label.setText("مشخصات کلی");
 		label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		label.setBounds(308, 37, 66, 16);
+		label.setBounds(307, 52, 66, 16);
 
 		getContentPane().add(label_2);
 		label_2.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_2.setText("چکیده");
-		label_2.setBounds(308, 95, 66, 16);
+		label_2.setBounds(307, 110, 66, 16);
 
 		getContentPane().add(label_3);
 		label_3.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_3.setText("شرح ایده");
-		label_3.setBounds(308, 154, 66, 16);
+		label_3.setBounds(307, 169, 66, 16);
 
 		getContentPane().add(label_4);
 		label_4.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_4.setText("سابقه ایده");
-		label_4.setBounds(308, 213, 66, 16);
+		label_4.setBounds(307, 228, 66, 16);
 
 		getContentPane().add(label_5);
 		label_5.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_5.setText("ادعانامه");
-		label_5.setBounds(308, 272, 66, 16);
+		label_5.setBounds(307, 287, 66, 16);
 
 		getContentPane().add(label_6);
 		label_6.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_6.setText("شرح کامل");
-		label_6.setBounds(308, 331, 66, 16);
+		label_6.setBounds(307, 346, 66, 16);
 
 		getContentPane().add(label_7);
 		label_7.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_7.setText("فایل های پیوست");
-		label_7.setBounds(308, 406, 66, 16);
+		label_7.setBounds(307, 421, 66, 16);
+
+		getContentPane().add(titleTextField);
+		titleTextField
+				.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		titleTextField.setBounds(40, 21, 254, 20);
 
 		getContentPane().add(scrollPane);
-		scrollPane.setBounds(41, 32, 254, 53);
+		scrollPane.setBounds(40, 47, 254, 53);
 
 		descTextPane
 				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		scrollPane.setViewportView(descTextPane);
 
 		getContentPane().add(scrollPane_2);
-		scrollPane_2.setBounds(41, 90, 254, 53);
+		scrollPane_2.setBounds(40, 105, 254, 53);
 
 		scrollPane_2.setViewportView(abstractTextPane);
 		abstractTextPane
 				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		getContentPane().add(scrollPane_3);
-		scrollPane_3.setBounds(41, 149, 254, 53);
+		scrollPane_3.setBounds(40, 164, 254, 53);
 
 		scrollPane_3.setViewportView(ideaDescTextPane);
 		ideaDescTextPane
 				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		getContentPane().add(scrollPane_4);
-		scrollPane_4.setBounds(41, 208, 254, 53);
+		scrollPane_4.setBounds(40, 223, 254, 53);
 
 		scrollPane_4.setViewportView(ideaHistoryTextPane);
 		ideaHistoryTextPane
 				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		getContentPane().add(scrollPane_5);
-		scrollPane_5.setBounds(41, 267, 254, 53);
+		scrollPane_5.setBounds(40, 282, 254, 53);
 
 		scrollPane_5.setViewportView(assertTextPane);
 		assertTextPane
 				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		getContentPane().add(scrollPane_6);
-		scrollPane_6.setBounds(41, 326, 254, 53);
+		scrollPane_6.setBounds(40, 341, 254, 53);
 
 		scrollPane_6.setViewportView(fullDescTextPane);
 		fullDescTextPane
@@ -166,33 +185,34 @@ public class InvRegReq extends JFrame {
 		fileChooseButton1
 				.addActionListener(new FileChooseButton1ActionListener());
 		fileChooseButton1.setText("انتخاب ...");
-		fileChooseButton1.setBounds(210, 396, 85, 26);
+		fileChooseButton1.setBounds(209, 411, 85, 26);
 
 		getContentPane().add(fileChooseButton2);
 		fileChooseButton2
 				.addActionListener(new FileChooseButton2ActionListener());
 		fileChooseButton2.setText("انتخاب ...");
-		fileChooseButton2.setBounds(210, 428, 85, 26);
+		fileChooseButton2.setBounds(209, 443, 85, 26);
 
 		getContentPane().add(fileChooseButton3);
 		fileChooseButton3
 				.addActionListener(new FileChooseButton3ActionListener());
 		fileChooseButton3.setText("انتخاب ...");
-		fileChooseButton3.setBounds(210, 460, 85, 26);
+		fileChooseButton3.setBounds(209, 475, 85, 26);
 
 		getContentPane().add(fileTextField1);
-		fileTextField1.setBounds(41, 396, 163, 20);
+		fileTextField1.setBounds(40, 411, 163, 20);
 
 		getContentPane().add(fileTextField2);
-		fileTextField2.setBounds(41, 428, 163, 20);
+		fileTextField2.setBounds(40, 443, 163, 20);
 
 		getContentPane().add(fileTextField3);
-		fileTextField3.setBounds(41, 460, 163, 20);
+		fileTextField3.setBounds(40, 475, 163, 20);
 
 		getContentPane().add(nextButton);
 		nextButton.addActionListener(new NextButtonActionListener());
 		nextButton.setText("بعدی");
-		nextButton.setBounds(169, 513, 77, 26);
+		nextButton.setBounds(168, 528, 77, 26);
+
 	}
 
 	private class FileChooseButton1ActionListener implements ActionListener {
@@ -247,6 +267,7 @@ public class InvRegReq extends JFrame {
 	}
 
 	protected void nextButton_actionPerformed(ActionEvent e) {
+		title = titleTextField.getText();
 		description = descTextPane.getText();
 		invAbstract = abstractTextPane.getText();
 		ideaDesc = ideaDescTextPane.getText();
@@ -254,15 +275,32 @@ public class InvRegReq extends JFrame {
 		assertion = assertTextPane.getText();
 		fullDesc = fullDescTextPane.getText();
 
-		if (description.equals("") || invAbstract.equals("")
-				|| ideaDesc.equals("") || ideaHistory.equals("")
-				|| assertion.equals("") || fullDesc.equals("")) {
+		if (title.equals("") || description.equals("")
+				|| invAbstract.equals("") || ideaDesc.equals("")
+				|| ideaHistory.equals("") || assertion.equals("")
+				|| fullDesc.equals("")) {
 			JOptionPane.showMessageDialog(this,
 					"لطفاً مشخصات اختراع را تکمیل نمایید.", "خطا",
 					JOptionPane.ERROR_MESSAGE);
 		} else {
+			List<File> files = new ArrayList<File>();
+			if (!fileTextField1.getText().equals("")) {
+				files.add(new File(fileTextField1.getText()));
+			}
+			if (!fileTextField2.getText().equals("")) {
+				files.add(new File(fileTextField2.getText()));
+			}
+			if (!fileTextField3.getText().equals("")) {
+				files.add(new File(fileTextField3.getText()));
+			}
+			Invention invention = new Invention(title, invAbstract, ideaDesc,
+					ideaHistory, assertion, fullDesc, files);
+			// InventionRegistrationRequest request = new
+			// InventionRegistrationRequest(new Date(), invention);
 			this.setVisible(false);
-			new InvRegReqInventors().setVisible(true);
+			InvRegReqInventors nextUI = new InvRegReqInventors();
+			nextUI.setInvention(invention);
+			nextUI.setVisible(true);
 		}
 	}
 }

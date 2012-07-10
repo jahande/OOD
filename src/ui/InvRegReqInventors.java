@@ -5,10 +5,8 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.swing.DefaultComboBoxModel;
@@ -19,6 +17,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import logic.Invention;
+import logic.User;
 
 public class InvRegReqInventors extends JFrame {
 
@@ -41,6 +42,8 @@ public class InvRegReqInventors extends JFrame {
 	private final JCheckBox defaultCheckBox_1 = new JCheckBox();
 	private final JLabel label_4 = new JLabel();
 	private final JTextField shareTextField_1 = new JTextField();
+	
+	private Invention invention;
 
 	/**
 	 * Launch the application
@@ -83,6 +86,10 @@ public class InvRegReqInventors extends JFrame {
 		public void setShareTextField(JTextField shareTextField) {
 			this.shareTextField = shareTextField;
 		}
+	}
+
+	public void setInvention(Invention invention) {
+		this.invention = invention;
 	}
 
 	public static void main(String args[]) {
@@ -229,6 +236,11 @@ public class InvRegReqInventors extends JFrame {
 					"مجموع سهم های مالکیت معنوی بایستی 100 باشد.", "خطا",
 					JOptionPane.ERROR_MESSAGE);
 		} else {
+//			List<User> userList = new ArrayList<User>();
+//			for (InventorData inventor : inventorsList) {
+//				userList.add(new User());
+//			}
+//			invention.setInventors(userList);
 			this.setVisible(false);
 			new InvRegReqCompany().setVisible(true);
 		}

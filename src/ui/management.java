@@ -6,8 +6,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import controllers.Controller;
 
-public class management extends JFrame {
+
+public class Management extends JFrame {
+	
+	private Controller controller;
 
 	private final JButton button_3 = new JButton();
 	private final JPanel panel = new JPanel();
@@ -39,19 +43,19 @@ public class management extends JFrame {
 	 * Launch the application
 	 * @param args
 	 */
-	public static void main(String args[]) {
-		try {
-			management frame = new management();
-			frame.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String args[]) {
+//		try {
+//			Management frame = new Management();
+//			frame.setVisible(true);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * Create the frame
 	 */
-	public management() {
+	public Management(Controller c) {
 		super();
 		setBounds(100, 100, 767, 580);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,6 +64,7 @@ public class management extends JFrame {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+		controller = c;
 		//
 	}
 	private void jbInit() throws Exception {
