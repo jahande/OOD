@@ -295,8 +295,9 @@ public class InvRegReq extends JFrame {
 			if (!fileTextField3.getText().equals("")) {
 				files.add(new File(fileTextField3.getText()));
 			}
-			Invention invention = new Invention(title, invAbstract, ideaDesc,
-					ideaHistory, assertion, fullDesc, files);
+			Invention invention = new Invention(title, description,
+					invAbstract, ideaDesc, ideaHistory, assertion, fullDesc,
+					files);
 			this.setVisible(false);
 			ApplicationContext.setParameter("invention", invention);
 			new InvRegReqInventors().setVisible(true);

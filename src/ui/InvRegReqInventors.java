@@ -25,6 +25,7 @@ import repository.Repository;
 import logic.actions.Share;
 import logic.invention.Invention;
 import logic.invention.InventionCatalog;
+import logic.member.Member;
 import logic.member.User;
 import logic.member.UserCatalog;
 
@@ -154,8 +155,10 @@ public class InvRegReqInventors extends JFrame {
 		inventorCombobox
 				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		// begin temp
+		String currentMember = ((Member) ApplicationContext
+				.getParameter("currentMember")).getUserName();
 		inventorCombobox.setModel(new DefaultComboBoxModel(
-				new String[] { "حسین فرقانی" }));
+				new String[] { currentMember }));
 		// end temp
 		inventorCombobox.setEnabled(false);
 
@@ -250,7 +253,8 @@ public class InvRegReqInventors extends JFrame {
 						.getInventorCombobox().getSelectedItem());
 				int shareValue = Integer.valueOf(inventor.getShareTextField()
 						.getText());
-				InventionCatalog.addShare(new Share(user, invention, shareValue));
+				InventionCatalog
+						.addShare(new Share(user, invention, shareValue));
 				userList.add(user);
 			}
 			invention.setInventors(userList);

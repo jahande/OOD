@@ -3,10 +3,12 @@ package logic.invention;
 import java.io.File;
 import java.util.List;
 
+import logic.member.Company;
 import logic.member.User;
 
 public class Invention {
 	private String title;
+	private String totalSpec;
 	private String summary;
 	private String ideaDescription;
 	private String ideaHistory;
@@ -15,12 +17,14 @@ public class Invention {
 	private List<File> attachedFiles;
 	private List<User> inventors;
 	private InventionField inventionField;
+	private Company company;
 
-	public Invention(String title, String summary, String ideaDescription,
-			String ideaHistory, String claim, String explanation,
-			List<File> attachedFiles) {
+	public Invention(String title, String totalSpec, String summary,
+			String ideaDescription, String ideaHistory, String claim,
+			String explanation, List<File> attachedFiles) {
 		super();
 		this.title = title;
+		this.totalSpec = totalSpec;
 		this.summary = summary;
 		this.ideaDescription = ideaDescription;
 		this.ideaHistory = ideaHistory;
@@ -79,5 +83,17 @@ public class Invention {
 
 	public List<Invention> getRelativeInventions() {
 		return null;
+	}
+
+	public String getTotalSpec() {
+		return totalSpec;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 }

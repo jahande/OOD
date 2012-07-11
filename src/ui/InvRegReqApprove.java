@@ -4,6 +4,9 @@ import java.awt.ComponentOrientation;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -14,10 +17,17 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
+
+import logic.invention.Invention;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
+
+import controllers.ApplicationContext;
 
 public class InvRegReqApprove extends JFrame {
 
+	private final JLabel label_9 = new JLabel();
+	private final JTextField titleTextField = new JTextField();
 	private final JLabel label = new JLabel();
 	private final JTextPane descTextPane = new JTextPane();
 	private final JLabel label_2 = new JLabel();
@@ -43,6 +53,9 @@ public class InvRegReqApprove extends JFrame {
 
 	private final JButton button_1 = new JButton();
 
+	private final JTextField fileTextField2 = new JTextField();
+	private final JTextField fileTextField3 = new JTextField();
+
 	/**
 	 * Launch the application
 	 * 
@@ -62,7 +75,7 @@ public class InvRegReqApprove extends JFrame {
 	 */
 	public InvRegReqApprove() {
 		super();
-		setBounds(100, 100, 387, 650);
+		setBounds(100, 100, 387, 744);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
 			jbInit();
@@ -73,8 +86,16 @@ public class InvRegReqApprove extends JFrame {
 	}
 
 	private void jbInit() throws Exception {
+		Invention invention = (Invention) ApplicationContext
+				.getParameter("invention");
+
 		getContentPane().setLayout(null);
 		setTitle("ایجاد درخواست ثبت اختراع");
+
+		getContentPane().add(label_9);
+		label_9.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		label_9.setText("عنوان");
+		label_9.setBounds(297, 32, 66, 16);
 
 		getContentPane().add(label);
 		label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
@@ -84,122 +105,137 @@ public class InvRegReqApprove extends JFrame {
 		getContentPane().add(label_2);
 		label_2.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_2.setText("مشخصات کلی");
-		label_2.setBounds(297, 47, 66, 16);
+		label_2.setBounds(297, 82, 66, 16);
 
 		getContentPane().add(label_3);
 		label_3.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_3.setText("چکیده");
-		label_3.setBounds(297, 125, 66, 16);
+		label_3.setBounds(297, 160, 66, 16);
 
 		getContentPane().add(label_4);
 		label_4.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_4.setText("شرح ایده");
-		label_4.setBounds(297, 203, 66, 16);
+		label_4.setBounds(297, 238, 66, 16);
 
 		getContentPane().add(label_5);
 		label_5.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_5.setText("سابقه ایده");
-		label_5.setBounds(297, 283, 66, 16);
+		label_5.setBounds(297, 318, 66, 16);
 
 		getContentPane().add(label_6);
 		label_6.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_6.setText("ادعانامه");
-		label_6.setBounds(297, 361, 66, 16);
+		label_6.setBounds(297, 396, 66, 16);
 
 		getContentPane().add(label_7);
 		label_7.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_7.setText("شرح کامل");
-		label_7.setBounds(297, 439, 66, 16);
+		label_7.setBounds(297, 474, 66, 16);
 
 		getContentPane().add(label_8);
 		label_8.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_8.setText("فایل های پیوست");
-		label_8.setBounds(297, 517, 66, 16);
+		label_8.setBounds(297, 552, 66, 16);
+
+		getContentPane().add(titleTextField);
+		titleTextField
+				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		titleTextField.setText(invention.getTitle());
+		titleTextField.setEditable(false);
+		titleTextField.setBounds(10, 56, 353, 20);
 
 		getContentPane().add(scrollPane);
-		scrollPane.setBounds(10, 69, 353, 50);
+		scrollPane.setBounds(10, 104, 353, 50);
 
 		scrollPane.setViewportView(descTextPane);
 		descTextPane
 				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		descTextPane.setText("این اختراع یک آپولوی در ابعاد آزمایشگاهی است.");
+		descTextPane.setText(invention.getTotalSpec());
 		// end temp
 		descTextPane.setEditable(false);
 
 		getContentPane().add(scrollPane_2);
-		scrollPane_2.setBounds(10, 147, 353, 50);
+		scrollPane_2.setBounds(10, 182, 353, 50);
 
 		scrollPane_2.setViewportView(abstractTextPane);
-		abstractTextPane
-				.setText("پروژه فضایی آپولو (به انگلیسی: Apollo Program) یکی از پروژه‌های فضایی ناسا در زمان مسابقه فضایی میان شوروی و آمریکا بود که کوشش می‌کرد تا اولین انسان را بر روی سطح کره ماه فرود بیاورد. ");
+		abstractTextPane.setText(invention.getSummary());
 		// end temp
 		abstractTextPane
 				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		abstractTextPane.setEditable(false);
 
 		getContentPane().add(scrollPane_3);
-		scrollPane_3.setBounds(10, 225, 353, 50);
+		scrollPane_3.setBounds(10, 260, 353, 50);
 
 		scrollPane_3.setViewportView(ideaDescTextPane);
 		// begin temp
-		ideaDescTextPane
-				.setText("ایده این است که ما دوباره آپولوی اصلی را در ابعاد کوچک آزمایشگاهی بسازیم که بفهمیم راست بوده است یا دروغ.");
+		ideaDescTextPane.setText(invention.getIdeaDescription());
 		// end temp
 		ideaDescTextPane
 				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		ideaDescTextPane.setEditable(false);
 
 		getContentPane().add(scrollPane_4);
-		scrollPane_4.setBounds(10, 305, 353, 50);
+		scrollPane_4.setBounds(10, 340, 353, 50);
 
 		scrollPane_4.setViewportView(ideaHistoryTextPane);
 		// begin temp
-		ideaHistoryTextPane
-				.setText("آپولو پس از ریاست جمهوری بعدی آمریکا جان اف. کندی با جدیت ادامه پیدا کرد. جان اف. کندی پشتیبانی خود از طرح فرود انسان بر روی کره ماه را طی یک سخنرانی ویژه خطاب به کنگره در ماه مه ۱۹۶۱ بدین گونه اعلام کرد:...من اعتقاد دارم کشورم می‌بایست برای دستیابی به هدف فرود انسان بر روی کره ماه و به سلامت بازگشتن به زمین قبل از خروج از این دهه متعهد شود.در این دوره هیج برنامه فضایی دیگری نمی‌تواند برای بشر تأثیرگذارتر از اکتشاف مسیرهای با برد طولانی در فضا باشد؛ و انجام هیچ کدام نمی‌تواند تا این حد سخت و گران باشد.");
+		ideaHistoryTextPane.setText(invention.getIdeaHistory());
 		// end temp
 		ideaHistoryTextPane
 				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		ideaHistoryTextPane.setEditable(false);
 
 		getContentPane().add(scrollPane_5);
-		scrollPane_5.setBounds(10, 383, 353, 50);
+		scrollPane_5.setBounds(10, 418, 353, 50);
 
 		scrollPane_5.setViewportView(assertTextPane);
 		// begin temp
-		assertTextPane
-				.setText("1. ادعا می کنیم این آپولو با آپولوی اصلی هیچ تفاوتی ندارد الا این که در مقیاس 1/5 است.");
+		assertTextPane.setText(invention.getClaim());
 		// end temp
 		assertTextPane
 				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		assertTextPane.setEditable(false);
 
 		getContentPane().add(scrollPane_6);
-		scrollPane_6.setBounds(10, 461, 353, 50);
+		scrollPane_6.setBounds(10, 496, 353, 50);
 
 		scrollPane_6.setViewportView(fullDescTextPane);
 		fullDescTextPane.setEditable(false);
 		// begin temp
-		fullDescTextPane
-				.setText("روژه فضایی آپولو (به انگلیسی: Apollo Program) یکی از پروژه‌های فضایی ناسا در زمان مسابقه فضایی میان شوروی و آمریکا بود که کوشش می‌کرد تا اولین انسان را بر روی سطح کره ماه فرود بیاورد. پروژه در دوره ریاست جمهوری دوایت آیزنهاور شروع به کار کرد، آپولو پس از ریاست جمهوری بعدی آمریکا جان اف. کندی با جدیت ادامه پیدا کرد. جان اف. کندی پشتیبانی خود از طرح فرود انسان بر روی کره ماه را طی یک سخنرانی ویژه خطاب به کنگره در ماه مه ۱۹۶۱ بدین گونه اعلام کرد:...من اعتقاد دارم کشورم می‌بایست برای دستیابی به هدف فرود انسان بر روی کره ماه و به سلامت بازگشتن به زمین قبل از خروج از این دهه متعهد شود.در این دوره هیج برنامه فضایی دیگری نمی‌تواند برای بشر تأثیرگذارتر از اکتشاف مسیرهای با برد طولانی در فضا باشد؛ و انجام هیچ کدام نمی‌تواند تا این حد سخت و گران باشد.");
+		fullDescTextPane.setText(invention.getExplanation());
 		// end temp
 		fullDescTextPane
 				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		getContentPane().add(fileTextField1);
 		fileTextField1.setEditable(false);
-		fileTextField1
-				.setText("C:University StuffObject Oriented DesignProjectdefinitionDefinition.pdf");
-		fileTextField1.setBounds(10, 534, 353, 20);
+		List<File> files = invention.getAttachedFiles();
+		if (files.size() > 0)
+			fileTextField1.setText(files.get(0).getPath());
+		fileTextField1.setBounds(10, 569, 353, 20);
+
+		getContentPane().add(fileTextField2);
+		if (files.size() > 1)
+			fileTextField2.setText(files.get(1).getPath());
+		fileTextField2.setEditable(false);
+		fileTextField2.setBounds(10, 595, 353, 20);
+
+		getContentPane().add(fileTextField3);
+		if (files.size() > 2)
+			fileTextField3.setText(files.get(2).getPath());
+		fileTextField3.setEditable(false);
+		fileTextField3.setBounds(10, 621, 353, 20);
 
 		getContentPane().add(button);
 		button.addActionListener(new ButtonActionListener());
 		button.setText("تأیید نهایی");
-		button.setBounds(279, 571, 84, 26);
+		button.setBounds(279, 659, 84, 26);
 
 		getContentPane().add(button_1);
 		button_1.addActionListener(new Button_1ActionListener());
 		button_1.setText("تعیین ارتباط با اختراع های دیگر");
-		button_1.setBounds(10, 571, 176, 26);
+		button_1.setBounds(10, 659, 176, 26);
 
 	}
 

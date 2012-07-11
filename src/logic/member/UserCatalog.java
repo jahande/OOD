@@ -15,6 +15,8 @@ public class UserCatalog implements Catalog {
 		userList.add(expert);
 		userList.add(new User("کاربر", "کاربری", "user", "123",
 				"user@user.com", new Date()));
+		userList.add(new User("مخترع", "اختراعی", "inventor", "123",
+				"inventor@inventor.com", new Date()));
 	}
 
 	public static List<User> getUserList() {

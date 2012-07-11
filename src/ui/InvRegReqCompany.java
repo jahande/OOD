@@ -3,11 +3,19 @@ package ui;
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
+import logic.invention.Invention;
+import logic.member.Company;
+import logic.member.CompanyCatalog;
+import controllers.ApplicationContext;
 
 public class InvRegReqCompany extends JFrame {
 
@@ -56,13 +64,20 @@ public class InvRegReqCompany extends JFrame {
 
 		getContentPane().add(comboBox);
 		// begin temp
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"---", "پوران صنعت ایران", "عمید رایانه شریف", "تمیز گستر اندیشان"}));
+		List<Company> companyList = CompanyCatalog.getCompanyList();
+		List<String> companyNames = new ArrayList<String>();
+		companyNames.add("---");
+		for (Company company : companyList) {
+			companyNames.add(company.getName());
+		}
+		comboBox.setModel(new DefaultComboBoxModel(companyNames.toArray()));
 		// end temp
 		comboBox.setBounds(62, 58, 144, 25);
 
 		getContentPane().add(label_1);
 		label_1.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		label_1.setText("در صورت تمایل شرکت دارای مالکیت معنوی اختراع را انتخاب نمایید.");
+		label_1
+				.setText("در صورت تمایل شرکت دارای مالکیت معنوی اختراع را انتخاب نمایید.");
 		label_1.setBounds(24, 21, 272, 16);
 
 		getContentPane().add(nextButton);
@@ -78,8 +93,16 @@ public class InvRegReqCompany extends JFrame {
 	}
 
 	protected void nextButton_actionPerformed(ActionEvent e) {
+		Invention invention = (Invention) ApplicationContext
+				.getParameter("invention");
+		String selectedName = comboBox.getSelectedItem().toString();
+		if (!selectedName.equals("---")) {
+			Company company = CompanyCatalog
+					.getCompanyByParameter(selectedName);
+			invention.setCompany(company);
+			ApplicationContext.setParameter("invention", invention);
+		}
 		this.setVisible(false);
 		new InvRegReqApprove().setVisible(true);
 	}
-
 }
