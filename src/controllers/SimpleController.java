@@ -29,7 +29,7 @@ public class SimpleController implements Controller {
 	private UserPage userPage;
 	private ExpertPage expertPage;
 	private Management management;
-	private AddInventionField addInventionField = new AddInventionField();
+	private AddInventionField addInventionField = new AddInventionField(this);
 	private DeleteInventionField deleteInventionField = new DeleteInventionField();
 	private AcceptOrRejectAddNewFieldRequest acceptOrRejectAddNewFieldRequest = new AcceptOrRejectAddNewFieldRequest();
 	private AcceptOrRejectCreateUserAccount acceptOrRejectCreateUserAccount = new AcceptOrRejectCreateUserAccount();
@@ -71,7 +71,7 @@ public class SimpleController implements Controller {
 	public void next(Object o, String moduleName, String command) {
 		// TODO Auto-generated method stub
 
-		System.out.println("command = " + command);
+		//System.out.println("command = " + command);
 
 		if (command.equals("start")) {
 			login.setVisible(true);
@@ -140,6 +140,11 @@ public class SimpleController implements Controller {
 			}
 			
 
+		}else if (moduleName.equals("AddInventionField")) {
+			this.addInventionField.setVisible(false);
+			if(command.equals("Return")){
+				this.management.setVisible(true);
+			}
 		}
 	}
 
