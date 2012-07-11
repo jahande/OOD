@@ -105,6 +105,7 @@ public class SimpleController implements Controller {
 				addInventionField.setVisible(true);
 			} else if (command.equals("DeleteInventionField")) {
 				// management.setVisible(false);
+				//deleteInventionField.refreshData(obj)
 				deleteInventionField.setVisible(true);
 			} else if (command.equals("AcceptOrRejectAddNewFieldRequest")) {
 				acceptOrRejectAddNewFieldRequest.setVisible(true);
