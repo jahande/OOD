@@ -36,4 +36,14 @@ public class UserCatalog implements Catalog {
 		return null;
 	}
 
+	public static List<User> getExperts() {
+		List<User> experts = new ArrayList<User>();
+		for (User user : userList) {
+			if (user.isExpert()) {
+				experts.add(user);
+			}
+		}
+		return experts;
+	}
+
 }

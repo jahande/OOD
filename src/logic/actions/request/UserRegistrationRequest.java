@@ -1,6 +1,7 @@
-package logic.actions;
+package logic.actions.request;
 
 import java.util.Date;
+
 
 public class UserRegistrationRequest extends Request {
 

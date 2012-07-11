@@ -19,7 +19,7 @@ import javax.swing.table.AbstractTableModel;
  * @usecase 45
  */
 
-public class AllUsersReport extends JFrame {
+public class RequestAllUsersReport extends JFrame {
 
 	private ButtonGroup buttonGroup = new ButtonGroup();
 	private final JButton button = new JButton();
@@ -59,7 +59,7 @@ public class AllUsersReport extends JFrame {
 	 */
 	public static void main(String args[]) {
 		try {
-			AllUsersReport frame = new AllUsersReport();
+			RequestAllUsersReport frame = new RequestAllUsersReport();
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -69,7 +69,7 @@ public class AllUsersReport extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public AllUsersReport() {
+	public RequestAllUsersReport() {
 		super();
 		setBounds(100, 100, 667, 436);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

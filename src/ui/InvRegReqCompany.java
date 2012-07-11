@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import logic.invention.Invention;
 import logic.member.Company;
 import logic.member.CompanyCatalog;
+import logic.member.Member;
 import controllers.ApplicationContext;
 
 public class InvRegReqCompany extends JFrame {
@@ -63,15 +64,17 @@ public class InvRegReqCompany extends JFrame {
 		label.setBounds(212, 62, 55, 16);
 
 		getContentPane().add(comboBox);
-		// begin temp
+		Member currentMember = (Member) ApplicationContext
+				.getParameter("currentMember");
 		List<Company> companyList = CompanyCatalog.getCompanyList();
 		List<String> companyNames = new ArrayList<String>();
 		companyNames.add("---");
 		for (Company company : companyList) {
-			companyNames.add(company.getName());
+			if (company.getAgentsList().contains(currentMember)) {
+				companyNames.add(company.getName());
+			}
 		}
 		comboBox.setModel(new DefaultComboBoxModel(companyNames.toArray()));
-		// end temp
 		comboBox.setBounds(62, 58, 144, 25);
 
 		getContentPane().add(label_1);

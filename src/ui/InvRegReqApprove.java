@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -18,6 +19,8 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
+import logic.actions.request.InventionRegistrationRequest;
+import logic.actions.request.InventionRegistrationRequestCatalog;
 import logic.invention.Invention;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
@@ -56,6 +59,8 @@ public class InvRegReqApprove extends JFrame {
 	private final JTextField fileTextField2 = new JTextField();
 	private final JTextField fileTextField3 = new JTextField();
 
+	private Invention invention;
+
 	/**
 	 * Launch the application
 	 * 
@@ -86,8 +91,7 @@ public class InvRegReqApprove extends JFrame {
 	}
 
 	private void jbInit() throws Exception {
-		Invention invention = (Invention) ApplicationContext
-				.getParameter("invention");
+		invention = (Invention) ApplicationContext.getParameter("invention");
 
 		getContentPane().setLayout(null);
 		setTitle("ایجاد درخواست ثبت اختراع");
@@ -252,6 +256,10 @@ public class InvRegReqApprove extends JFrame {
 	}
 
 	protected void button_actionPerformed(ActionEvent e) {
+		InventionRegistrationRequest request = new InventionRegistrationRequest(
+				new Date(), invention);
+		request.assignExpertToCheck();
+		InventionRegistrationRequestCatalog.addRequest(request);
 		this.setVisible(false);
 	}
 

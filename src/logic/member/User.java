@@ -2,12 +2,14 @@ package logic.member;
 
 import java.util.List;
 
+import logic.invention.Invention;
 import logic.invention.InventionField;
 
 public class User extends Member {
 
 	private boolean expert;
 	private List<InventionField> assignedInventionFields;
+	private Invention assignedInvention;
 
 	public User(String firstName, String lastName, String userName,
 			String password, String email, java.util.Date birthDate) {
@@ -23,15 +25,23 @@ public class User extends Member {
 	}
 
 	public void assignInventionField(InventionField field) {
-		// TODO
+		assignedInventionFields.add(field);
 	}
 
-	public void deleteAssignedInventionField(InventionField field) {
-		// TODO
+	public void removeAssignedInventionField(InventionField field) {
+		assignedInventionFields.remove(field);
 	}
 
 	public List<InventionField> getAssignedInventionFields() {
 		return assignedInventionFields;
+	}
+
+	public Invention getAssignedInvention() {
+		return assignedInvention;
+	}
+
+	public void setAssignedInvention(Invention assignedInvention) {
+		this.assignedInvention = assignedInvention;
 	}
 
 }

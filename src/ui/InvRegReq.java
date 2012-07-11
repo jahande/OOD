@@ -19,7 +19,7 @@ import javax.swing.JTextPane;
 
 import controllers.ApplicationContext;
 
-import logic.actions.InventionRegistrationRequest;
+import logic.actions.request.InventionRegistrationRequest;
 import logic.invention.Invention;
 
 public class InvRegReq extends JFrame {
