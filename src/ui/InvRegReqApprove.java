@@ -212,9 +212,10 @@ public class InvRegReqApprove extends JFrame {
 		fullDescTextPane
 				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
+		List<File> files = invention.getAttachedFiles();
+
 		getContentPane().add(fileTextField1);
 		fileTextField1.setEditable(false);
-		List<File> files = invention.getAttachedFiles();
 		if (files.size() > 0)
 			fileTextField1.setText(files.get(0).getPath());
 		fileTextField1.setBounds(10, 569, 353, 20);
@@ -258,7 +259,6 @@ public class InvRegReqApprove extends JFrame {
 	protected void button_actionPerformed(ActionEvent e) {
 		InventionRegistrationRequest request = new InventionRegistrationRequest(
 				new Date(), invention);
-		request.assignExpertToCheck();
 		InventionRegistrationRequestCatalog.addRequest(request);
 		this.setVisible(false);
 	}

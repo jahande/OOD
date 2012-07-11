@@ -1,6 +1,7 @@
 package logic.invention;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import logic.member.Company;
@@ -71,6 +72,15 @@ public class Invention {
 
 	public List<User> getInventors() {
 		return inventors;
+	}
+
+	public List<String> getInventorNames() {
+		List<String> namesList = new ArrayList<String>();
+		for (User inventor : inventors) {
+			namesList.add(inventor.getFirstName() + " "
+					+ inventor.getLastName());
+		}
+		return namesList;
 	}
 
 	public InventionField getInventionField() {

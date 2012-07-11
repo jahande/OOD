@@ -10,14 +10,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
+import logic.actions.request.InventionRegistrationRequest;
+import logic.invention.Invention;
+import controllers.ApplicationContext;
+
 public class ExpertInvApprove extends JFrame {
 
 	private final JLabel label = new JLabel();
-	private final JCheckBox checkBox = new JCheckBox();
-	private final JCheckBox checkBox_2 = new JCheckBox();
-	private final JCheckBox checkBox_3 = new JCheckBox();
-	private final JCheckBox checkBox_4 = new JCheckBox();
-	private final JCheckBox checkBox_5 = new JCheckBox();
+	private final JCheckBox checkBox1 = new JCheckBox();
+	private final JCheckBox checkBox2 = new JCheckBox();
+	private final JCheckBox checkBox3 = new JCheckBox();
+	private final JCheckBox checkBox4 = new JCheckBox();
+	private final JCheckBox checkBox5 = new JCheckBox();
 	private final JPanel panel = new JPanel();
 	private final JButton button = new JButton();
 
@@ -65,43 +69,35 @@ public class ExpertInvApprove extends JFrame {
 		panel.setLayout(null);
 		panel.setBounds(10, 42, 324, 178);
 
-		checkBox.setBounds(104, 10, 210, 24);
-		panel.add(checkBox);
-		checkBox.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		checkBox.setText("اصالت و نوآوری اختراع");
+		checkBox1.setBounds(104, 10, 210, 24);
+		panel.add(checkBox1);
+		checkBox1.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		checkBox1.setText("اصالت و نوآوری اختراع");
 
-		checkBox_2.setBounds(104, 40, 210, 24);
-		panel.add(checkBox_2);
-		checkBox_2.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		checkBox_2.setText("تکمیل بودن مشخصات کلی اختراع");
+		checkBox2.setBounds(104, 40, 210, 24);
+		panel.add(checkBox2);
+		checkBox2.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		checkBox2.setText("تکمیل بودن مشخصات کلی اختراع");
 
-		checkBox_3.setBounds(74, 70, 240, 24);
-		panel.add(checkBox_3);
-		checkBox_3.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		checkBox_3.setText("تکمیل بودن مستندات و کافی بودن شرح های اختراع");
+		checkBox3.setBounds(74, 70, 240, 24);
+		panel.add(checkBox3);
+		checkBox3.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		checkBox3.setText("تکمیل بودن مستندات و کافی بودن شرح های اختراع");
 
-		checkBox_4.setBounds(74, 100, 240, 24);
-		panel.add(checkBox_4);
-		checkBox_4.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		checkBox_4
-				.setText("انطباق کلی مفاد ادعانامه با مستندات و شرح داده شده");
+		checkBox4.setBounds(74, 100, 240, 24);
+		panel.add(checkBox4);
+		checkBox4.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		checkBox4.setText("انطباق کلی مفاد ادعانامه با مستندات و شرح داده شده");
 
-		checkBox_5.setBounds(104, 133, 210, 24);
-		panel.add(checkBox_5);
-		checkBox_5.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		checkBox_5.addActionListener(new CheckBox_5ActionListener());
-		checkBox_5.setText("صحت انتساب نماینده به شرکت");
+		checkBox5.setBounds(104, 133, 210, 24);
+		panel.add(checkBox5);
+		checkBox5.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		checkBox5.setText("صحت انتساب نماینده به شرکت");
 
 		getContentPane().add(button);
 		button.addActionListener(new ButtonActionListener());
 		button.setText("ثبت");
 		button.setBounds(141, 228, 48, 26);
-	}
-
-	private class CheckBox_5ActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			checkBox_5_actionPerformed(e);
-		}
 	}
 
 	private class ButtonActionListener implements ActionListener {
@@ -110,10 +106,20 @@ public class ExpertInvApprove extends JFrame {
 		}
 	}
 
-	protected void checkBox_5_actionPerformed(ActionEvent e) {
-	}
-
 	protected void button_actionPerformed(ActionEvent e) {
+		InventionRegistrationRequest invRegReq = (InventionRegistrationRequest) ApplicationContext
+				.getParameter("selectedInvRegReq");
+
+		boolean check1 = checkBox1.isSelected();
+		boolean check2 = checkBox2.isSelected();
+		boolean check3 = checkBox3.isSelected();
+		boolean check4 = checkBox4.isSelected();
+		boolean check5 = checkBox5.isSelected();
+		if (check1 && check2 && check3 && check4 && check5) {
+			invRegReq.acceptAndApplyRequest();
+		} else {
+			invRegReq.rejectRequest();
+		}
 		this.setVisible(false);
 	}
 

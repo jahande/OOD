@@ -1,52 +1,108 @@
 package ui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.ComponentOrientation;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
+
+import controllers.ApplicationContext;
+
+import logic.actions.request.InventionRegistrationRequest;
+import logic.actions.request.InventionRegistrationRequestCatalog;
+import logic.member.Company;
+import logic.member.User;
+
+import uimodels.JTableButtonMouseListener;
+import uimodels.JTableButtonRenderer;
+import utilities.ListUtilities;
 
 public class ExpertInvRegReqList extends JFrame {
 
-	private final JButton displayButton = new JButton();
-	private final JButton displayButton_1 = new JButton();
-	private final JButton displayButton_2 = new JButton();
+	// private final JButton displayButton = new JButton();
+	// private final JButton displayButton_1 = new JButton();
+	// private final JButton displayButton_2 = new JButton();
 
-	class TableTableModel extends AbstractTableModel {
-		private final String[] COLUMNS = new String[] { "عنوان اختراع",
-				"مخترعان", "شرکت", "تاریخ ارسال", "حوزه اختراع", "وضعیت" };
-		private final String[][] CELLS = new String[][] {
-				{ "آپولو", "حسین فرقانی، روح الله جهنده", "-", "90/2/20",
-						"هوافضا", "بررسی نشده" },
-				{ "تخته نئوپان محکم", "رستم کاربری", "-", "91/1/12", "مواد",
-						"تأیید شده" },
-				{ "ماهواره نوید علم و صنعت", "جمشید شاهمرادی",
-						"دانشگاه علم و صنعت", "90/2/20", "هوافضا", "رد شده" }, };
+	private JScrollPane scrollPane;
+	private JTable table;
 
-		public int getRowCount() {
-			return CELLS.length;
+	private class JTableModel extends AbstractTableModel {
+		private static final long serialVersionUID = 1L;
+		private final String[] COLUMN_NAMES = new String[] { "مشاهده", "وضعیت",
+				"حوزه اختراع", "تاریخ ارسال", "شرکت", "مخترعان", "عنوان اختراع" };
+		private final Class<?>[] COLUMN_TYPES = new Class<?>[] { JButton.class,
+				String.class, String.class, String.class, String.class,
+				String.class, String.class };
+		private List<InventionRegistrationRequest> requests;
+
+		public JTableModel(List<InventionRegistrationRequest> requests) {
+			this.requests = requests;
 		}
 
 		public int getColumnCount() {
-			return COLUMNS.length;
+			return COLUMN_NAMES.length;
 		}
 
-		public String getColumnName(int column) {
-			return COLUMNS[column];
+		public int getRowCount() {
+			return requests.size();
 		}
 
-		public Object getValueAt(int row, int column) {
-			return CELLS[row].length > column ? CELLS[row][column] : (column
-					+ " - " + row);
+		@Override
+		public String getColumnName(int columnIndex) {
+			return COLUMN_NAMES[columnIndex];
+		}
+
+		@Override
+		public Class<?> getColumnClass(int columnIndex) {
+			return COLUMN_TYPES[columnIndex];
+		}
+
+		public Object getValueAt(final int rowIndex, final int columnIndex) {
+			String colName = COLUMN_NAMES[columnIndex];
+			InventionRegistrationRequest request = null;
+			try {
+				request = requests.get(rowIndex);
+			} catch (IndexOutOfBoundsException e) {
+				return "Error";
+			}
+			if (colName.equals("مشاهده")) {
+				final JButton button = new JButton(COLUMN_NAMES[columnIndex]);
+				button.addActionListener(new DisplayButtonActionListener(
+						request));
+				return button;
+			} else if (colName.equals("وضعیت")) {
+				return request.getStateName();
+			} else if (colName.equals("حوزه اختراع")) {
+				return request.getInvention().getInventionField().getName();
+			} else if (colName.equals("تاریخ ارسال")) {
+				return request.getRequestDate().toString();
+			} else if (colName.equals("شرکت")) {
+				Company company = request.getInvention().getCompany();
+				if (company != null) {
+					return request.getInvention().getCompany().getName();
+				} else {
+					return "---";
+				}
+			} else if (colName.equals("مخترعان")) {
+				return ListUtilities.getCommaSeparated(request.getInvention()
+						.getInventorNames());
+			} else if (colName.equals("عنوان اختراع")) {
+				return request.getInvention().getTitle();
+			} else {
+				return "Error";
+			}
 		}
 	}
-
-	private final JScrollPane scrollPane_1 = new JScrollPane();
-	private final JTable table = new JTable();
 
 	/**
 	 * Launch the application
@@ -67,7 +123,6 @@ public class ExpertInvRegReqList extends JFrame {
 	 */
 	public ExpertInvRegReqList() {
 		super();
-		setBounds(100, 100, 625, 182);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
 			jbInit();
@@ -78,49 +133,40 @@ public class ExpertInvRegReqList extends JFrame {
 	}
 
 	private void jbInit() throws Exception {
-		getContentPane().setLayout(null);
+		// JFrame frame = new JFrame("Button Example");
 		setTitle("درخواست های ثبت اختراع");
 
-		getContentPane().add(scrollPane_1);
-		scrollPane_1.setBounds(76, 26, 531, 97);
+		User expert = (User) ApplicationContext.getParameter("currentMember");
+		List<InventionRegistrationRequest> requestsList = InventionRegistrationRequestCatalog
+				.getInvRegReqsByParamater(expert);
 
-		scrollPane_1.setViewportView(table);
-		table.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		table.setModel(new TableTableModel());
-		table.setRowHeight(20);
+		table = new JTable(new JTableModel(requestsList));
+		scrollPane = new JScrollPane(table);
 
-		getContentPane().add(displayButton);
-		displayButton.addActionListener(new DisplayButtonActionListener());
-		displayButton.setForeground(new Color(0, 0, 255));
-		displayButton.setContentAreaFilled(false);
-		displayButton.setBorderPainted(false);
-		displayButton.setText("مشاهده");
-		displayButton.setBounds(0, 45, 70, 15);
+		TableCellRenderer buttonRenderer = new JTableButtonRenderer();
+		table.getColumn("مشاهده").setCellRenderer(buttonRenderer);
+		table.addMouseListener(new JTableButtonMouseListener(table));
 
-		getContentPane().add(displayButton_1);
-		displayButton_1.addActionListener(new DisplayButtonActionListener());
-		displayButton_1.setForeground(new Color(0, 0, 255));
-		displayButton_1.setContentAreaFilled(false);
-		displayButton_1.setBorderPainted(false);
-		displayButton_1.setText("مشاهده");
-		displayButton_1.setBounds(0, 66, 70, 15);
-
-		getContentPane().add(displayButton_2);
-		displayButton_2.addActionListener(new DisplayButtonActionListener());
-		displayButton_2.setForeground(new Color(0, 0, 255));
-		displayButton_2.setContentAreaFilled(false);
-		displayButton_2.setBorderPainted(false);
-		displayButton_2.setText("مشاهده");
-		displayButton_2.setBounds(0, 87, 70, 15);
+		getContentPane().add(scrollPane, BorderLayout.CENTER);
+		getContentPane().setPreferredSize(new Dimension(1000, 200));
+		pack();
 	}
 
 	private class DisplayButtonActionListener implements ActionListener {
+		private InventionRegistrationRequest request;
+
+		public DisplayButtonActionListener(InventionRegistrationRequest request) {
+			this.request = request;
+		}
+
 		public void actionPerformed(ActionEvent e) {
-			displayButton_actionPerformed(e);
+			displayButton_actionPerformed(e, request);
 		}
 	}
 
-	protected void displayButton_actionPerformed(ActionEvent e) {
+	protected void displayButton_actionPerformed(ActionEvent e,
+			InventionRegistrationRequest request) {
+		ApplicationContext.setParameter("selectedInvRegReq", request);
 		new ExpertInvRegReq().setVisible(true);
 	}
 

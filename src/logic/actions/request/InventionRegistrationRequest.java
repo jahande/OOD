@@ -10,7 +10,8 @@ import logic.member.UserCatalog;
 
 public class InventionRegistrationRequest extends Request {
 	private Invention invention;
-
+	private User assignedExpert;
+	
 	public InventionRegistrationRequest(Date requestDate, Invention invention) {
 		super(requestDate);
 		this.invention = invention;
@@ -25,7 +26,7 @@ public class InventionRegistrationRequest extends Request {
 		if (experts.size() > 0) {
 			Random r = new Random();
 			User expert = experts.get(r.nextInt(experts.size()));
-			expert.setAssignedInvention(invention);
+			assignedExpert = expert;
 			return expert;
 		} else {
 			return null;
@@ -34,5 +35,13 @@ public class InventionRegistrationRequest extends Request {
 
 	public void referToAnotherExpert() {
 		// TODO
+	}
+
+	public User getAssignedExpert() {
+		return assignedExpert;
+	}
+
+	public void setAssignedExpert(User assignedExpert) {
+		this.assignedExpert = assignedExpert;
 	}
 }
