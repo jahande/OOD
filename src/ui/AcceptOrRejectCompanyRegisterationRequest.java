@@ -74,7 +74,7 @@ public class AcceptOrRejectCompanyRegisterationRequest extends JFrame {
 	public AcceptOrRejectCompanyRegisterationRequest() {
 		super();
 		setBounds(100, 100, 524, 375);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
 			jbInit();
 		} catch (Throwable e) {

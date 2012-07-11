@@ -140,8 +140,8 @@ public class Login extends JFrame {
 	}
 
 	protected void button_actionPerformed(ActionEvent e) {
-		System.out.println(this.usernameField.getText());
-		System.out.println(new String(this.passwordField.getPassword()));
+		// System.out.println(this.usernameField.getText());
+		// System.out.println(new String(this.passwordField.getPassword()));
 
 		Member member = authenticate(this.usernameField.getText(), new String(
 				this.passwordField.getPassword()));

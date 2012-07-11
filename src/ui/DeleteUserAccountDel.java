@@ -31,7 +31,7 @@ public class DeleteUserAccountDel extends UserAccountViewBase {
 	public DeleteUserAccountDel() {
 		super();
 		setBounds(100, 100, 247, 279);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
 			jbInit();
 		} catch (Throwable e) {

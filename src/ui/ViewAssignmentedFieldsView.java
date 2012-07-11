@@ -42,7 +42,7 @@ public class ViewAssignmentedFieldsView extends JFrame {
 	public ViewAssignmentedFieldsView() {
 		super();
 		setBounds(100, 100, 393, 379);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
 			jbInit();
 		} catch (Throwable e) {

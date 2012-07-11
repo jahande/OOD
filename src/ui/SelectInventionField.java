@@ -52,7 +52,7 @@ public class SelectInventionField extends JFrame {
 	public SelectInventionField() {
 		super();
 		setBounds(100, 100, 393, 379);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
 			jbInit();
 		} catch (Throwable e) {

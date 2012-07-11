@@ -72,7 +72,7 @@ public class AllUsersReport extends JFrame {
 	public AllUsersReport() {
 		super();
 		setBounds(100, 100, 667, 436);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
 			jbInit();
 		} catch (Throwable e) {

@@ -74,7 +74,7 @@ public class AcceptOrRejectCreateUserAccount extends JFrame {
 	public AcceptOrRejectCreateUserAccount() {
 		super();
 		setBounds(100, 100, 601, 375);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
 			jbInit();
 		} catch (Throwable e) {

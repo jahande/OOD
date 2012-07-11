@@ -71,7 +71,7 @@ public class DeleteAssignedFieldSel extends SelectUser {
 	public DeleteAssignedFieldSel() {
 		super();
 		setBounds(100, 100, 500, 375);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
 			jbInit();
 		} catch (Throwable e) {

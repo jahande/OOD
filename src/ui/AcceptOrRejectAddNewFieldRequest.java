@@ -77,7 +77,7 @@ public class AcceptOrRejectAddNewFieldRequest extends JFrame {
 	public AcceptOrRejectAddNewFieldRequest() {
 		super();
 		setBounds(100, 100, 324, 383);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
 			jbInit();
 		} catch (Throwable e) {
