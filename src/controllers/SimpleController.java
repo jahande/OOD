@@ -132,7 +132,13 @@ public class SimpleController implements Controller {
 				givePermitionToRequest.setVisible(true);
 			} else if (command.equals("RequestPeronsInventions")) {
 				requestPeronsInventions.setVisible(true);
+			}else if (command.equals("Logout")) {
+				login.resetLogin();
+				login.setVisible(true);
+			}else if (command.equals("Exit")) {
+				return;
 			}
+			
 
 		}
 	}

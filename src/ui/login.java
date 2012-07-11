@@ -166,4 +166,8 @@ public class Login extends JFrame {
 			showError();
 		}
 	}
+	public void resetLogin() {
+		this.passwordField.setText("");
+		this.usernameField.setText("");
+	}
 }
