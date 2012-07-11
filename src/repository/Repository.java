@@ -2,7 +2,7 @@ package repository;
 
 import java.util.Date;
 
-import logic.Manager;
+import logic.member.Manager;
 
 public class Repository {
 	private static Manager manager = new Manager("مدیر", "مدیری", "manager", "123",

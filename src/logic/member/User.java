@@ -1,6 +1,8 @@
-package logic;
+package logic.member;
 
 import java.util.List;
+
+import logic.invention.InventionField;
 
 public class User extends Member {
 

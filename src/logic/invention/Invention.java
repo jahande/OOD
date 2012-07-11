@@ -1,7 +1,9 @@
-package logic;
+package logic.invention;
 
 import java.io.File;
 import java.util.List;
+
+import logic.member.User;
 
 public class Invention {
 	private String title;

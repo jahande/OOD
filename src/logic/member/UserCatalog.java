@@ -1,8 +1,10 @@
-package logic;
+package logic.member;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import logic.Catalog;
 
 public class UserCatalog implements Catalog {
 	private static List<User> userList = new ArrayList<User>();

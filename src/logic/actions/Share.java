@@ -1,4 +1,7 @@
-package logic;
+package logic.actions;
+
+import logic.invention.Invention;
+import logic.member.User;
 
 public class Share {
 	private User user;

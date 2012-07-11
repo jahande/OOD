@@ -1,4 +1,4 @@
-package logic;
+package logic.actions;
 
 import java.util.Date;
 

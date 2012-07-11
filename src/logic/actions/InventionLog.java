@@ -1,4 +1,4 @@
-package logic;
+package logic.actions;
 
 public class InventionLog {
 

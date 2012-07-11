@@ -1,7 +1,11 @@
-package logic;
+package logic.invention;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import logic.Catalog;
+import logic.actions.Share;
+import logic.member.User;
 
 public class InventionCatalog implements Catalog {
 	private static List<Invention> inventionList = new ArrayList<Invention>();

@@ -12,10 +12,10 @@ import javax.swing.SwingConstants;
 
 import repository.Repository;
 
-import logic.Manager;
-import logic.Member;
-import logic.User;
-import logic.UserCatalog;
+import logic.member.Manager;
+import logic.member.Member;
+import logic.member.User;
+import logic.member.UserCatalog;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 

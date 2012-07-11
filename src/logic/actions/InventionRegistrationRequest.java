@@ -1,6 +1,8 @@
-package logic;
+package logic.actions;
 
 import java.util.Date;
+
+import logic.invention.Invention;
 
 public class InventionRegistrationRequest extends Request {
 	private Invention invention;

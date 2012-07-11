@@ -22,11 +22,11 @@ import controllers.ApplicationContext;
 
 import repository.Repository;
 
-import logic.Invention;
-import logic.InventionCatalog;
-import logic.Share;
-import logic.User;
-import logic.UserCatalog;
+import logic.actions.Share;
+import logic.invention.Invention;
+import logic.invention.InventionCatalog;
+import logic.member.User;
+import logic.member.UserCatalog;
 
 public class InvRegReqInventors extends JFrame {
 
