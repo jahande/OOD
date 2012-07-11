@@ -13,6 +13,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import controllers.Controller;
+
 public class ExpertPage extends JFrame {
 
 	private final JLabel label_1 = new JLabel();
@@ -33,24 +35,26 @@ public class ExpertPage extends JFrame {
 
 	private final JButton messagesButton = new JButton();
 
-	/**
-	 * Launch the application
-	 * 
-	 * @param args
-	 */
-	public static void main(String args[]) {
-		try {
-			ExpertPage frame = new ExpertPage();
-			frame.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	private Controller controller;
+
+	// /**
+	// * Launch the application
+	// *
+	// * @param args
+	// */
+	// public static void main(String args[]) {
+	// try {
+	// ExpertPage frame = new ExpertPage();
+	// frame.setVisible(true);
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
 
 	/**
 	 * Create the frame
 	 */
-	public ExpertPage() {
+	public ExpertPage(Controller controller) {
 		super();
 		setBounds(100, 100, 349, 386);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,7 +63,7 @@ public class ExpertPage extends JFrame {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-		//
+		this.controller = controller;
 	}
 
 	private void jbInit() throws Exception {
@@ -72,6 +76,7 @@ public class ExpertPage extends JFrame {
 		label_1.setBounds(187, 15, 141, 16);
 
 		getContentPane().add(exitButton);
+		exitButton.addActionListener(new ExitButtonActionListener());
 		exitButton.setText("خروج");
 		exitButton.setBounds(10, 10, 57, 26);
 
@@ -182,6 +187,12 @@ public class ExpertPage extends JFrame {
 		}
 	}
 
+	private class ExitButtonActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			exitButton_actionPerformed(e);
+		}
+	}
+
 	protected void searchButton_actionPerformed(ActionEvent e) {
 		new NonlimitedSearch().setVisible(true);
 	}
@@ -212,6 +223,10 @@ public class ExpertPage extends JFrame {
 
 	protected void messagesButton_actionPerformed(ActionEvent e) {
 		new Messages().setVisible(true);
+	}
+
+	protected void exitButton_actionPerformed(ActionEvent e) {
+		controller.next(null, "ExpertPage", "logout");
 	}
 
 }

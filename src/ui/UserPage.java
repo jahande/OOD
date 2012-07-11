@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import controllers.Controller;
+
 public class UserPage extends JFrame {
 
 	private final JButton CompanyRegReqButton = new JButton();
@@ -29,24 +31,26 @@ public class UserPage extends JFrame {
 
 	private final JButton messagesButton = new JButton();
 
-	/**
-	 * Launch the application
-	 * 
-	 * @param args
-	 */
-	public static void main(String args[]) {
-		try {
-			UserPage frame = new UserPage();
-			frame.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	private Controller controller;
+
+	// /**
+	// * Launch the application
+	// *
+	// * @param args
+	// */
+	// public static void main(String args[]) {
+	// try {
+	// UserPage frame = new UserPage();
+	// frame.setVisible(true);
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
 
 	/**
 	 * Create the frame
 	 */
-	public UserPage() {
+	public UserPage(Controller controller) {
 		super();
 		setBounds(100, 100, 317, 311);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,7 +59,7 @@ public class UserPage extends JFrame {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-		//
+		this.controller = controller;
 	}
 
 	private void jbInit() throws Exception {
@@ -68,6 +72,7 @@ public class UserPage extends JFrame {
 		label.setBounds(183, 10, 116, 16);
 
 		getContentPane().add(exitButton);
+		exitButton.addActionListener(new ExitButtonActionListener());
 		exitButton.setText("خروج");
 		exitButton.setBounds(10, 5, 57, 26);
 
@@ -157,6 +162,12 @@ public class UserPage extends JFrame {
 		}
 	}
 
+	private class ExitButtonActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			exitButton_actionPerformed(e);
+		}
+	}
+
 	protected void companyRegReqButton_actionPerformed(ActionEvent e) {
 		new CompanyRegReq().setVisible(true);
 	}
@@ -183,6 +194,10 @@ public class UserPage extends JFrame {
 
 	protected void messagesButton_actionPerformed(ActionEvent e) {
 		new Messages().setVisible(true);
+	}
+
+	protected void exitButton_actionPerformed(ActionEvent e) {
+		controller.next(null, "UserPage", "logout");
 	}
 
 }

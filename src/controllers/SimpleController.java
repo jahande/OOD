@@ -1,50 +1,60 @@
 package controllers;
 
+import ui.ExpertPage;
 import ui.Login;
 import ui.Management;
+import ui.UserPage;
 
 public class SimpleController implements Controller {
-//	public static void signup(String name,String family,String birthday,String email,String username) {
-//		
-//	}
+	// public static void signup(String name,String family,String
+	// birthday,String email,String username) {
+	//		
+	// }
 	private Login login;
+	private UserPage userPage;
+	private ExpertPage expertPage;
 	private Management management;
-	public SimpleController(){
+
+	public SimpleController() {
 		login = new Login(this);
 		login.setVisible(false);
-		
-		management  =  new  Management(this);
+		userPage = new UserPage(this);
+		userPage.setVisible(false);
+		expertPage = new ExpertPage(this);
+		expertPage.setVisible(false);
+		management = new Management(this);
 		management.setVisible(false);
-		
-		
 	}
-	
-//	public void run() {
-//		Login li = new Login(this);
-//		li.setVisible(true);
-//	}
-	public void next(Object o,String moduleName,String command) {
+
+	public void next(Object o, String moduleName, String command) {
 		// TODO Auto-generated method stub
-		
-		if(command.equals("start")){
-			
+
+		System.out.println("command = " + command);
+
+		if (command.equals("start")) {
 			login.setVisible(true);
-		}else if(moduleName.equals("Login")){
-			if(command.equals("manager")){
+		} else if (moduleName.equals("Login")) {
+			if (command.equals("manager")) {
 				login.setVisible(false);
 				management.setVisible(true);
-				
-			}else if(command.equals("expert")){
+			} else if (command.equals("expert")) {
 				login.setVisible(false);
-				//TODO hforghani expert panel
-			}else if(command.equals("user")){
+				expertPage.setVisible(true);
+			} else if (command.equals("user")) {
 				login.setVisible(false);
-				//TODO hforghani user panel
-			}else{
-				login.showError();
+				userPage.setVisible(true);
+			}
+		} else if (moduleName.equals("UserPage")) {
+			if (command.equals("logout")) {
+				userPage.setVisible(false);
+				login.setVisible(true);
+			}
+		} else if (moduleName.equals("ExpertPage")) {
+			if (command.equals("logout")) {
+				expertPage.setVisible(false);
+				login.setVisible(true);
 			}
 		}
 	}
-
 
 }

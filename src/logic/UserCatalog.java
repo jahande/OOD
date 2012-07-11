@@ -7,8 +7,6 @@ import java.util.List;
 public class UserCatalog implements Catalog {
 	private static List<User> userList = new ArrayList<User>();
 	static {
-		userList.add(new User("مدیر", "مدیری", "manager", "123",
-				"manager@manager.com", new Date()));
 		User expert = new User("کارشناس", "کارشناسی", "expert", "123",
 				"expert@expert.com", new Date());
 		expert.setExpert(true);

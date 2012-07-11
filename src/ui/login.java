@@ -9,8 +9,17 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import repository.Repository;
+
+import logic.Manager;
+import logic.Member;
+import logic.User;
+import logic.UserCatalog;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import controllers.ApplicationContext;
 import controllers.Controller;
 
 public class Login extends JFrame {
@@ -104,15 +113,22 @@ public class Login extends JFrame {
 		this.lblLoginError.setText("");
 	}
 
-	public String authenticate(String un, String pa) {
-		if(un.equals("manager")){
-			return "manager";
-		}else if(un.equals("expert")){
-			return "expert";
-		}else if(un.equals("user")){
-			return "inventor";
+	public Member authenticate(String un, String pa) {
+		User user = UserCatalog.getUserByParamater(un);
+		if (user != null) {
+			if (user.getPassword().equals(pa)) {
+				return user;
+			} else {
+				return null;
+			}
 		} else {
-			return null;
+			Manager manager = Repository.getManager();
+			if (manager.getUserName().equals(un)
+					&& manager.getPassword().equals(pa)) {
+				return manager;
+			} else {
+				return null;
+			}
 		}
 	}
 
@@ -126,8 +142,21 @@ public class Login extends JFrame {
 	protected void button_actionPerformed(ActionEvent e) {
 		System.out.println(this.usernameField.getText());
 		System.out.println(new String(this.passwordField.getPassword()));
-		
-		this.controller.next(null,"Login",this.authenticate(this.usernameField.getText(), new String(this.passwordField.getPassword())));
-	}
 
+		Member member = authenticate(this.usernameField.getText(), new String(
+				this.passwordField.getPassword()));
+		if (member != null) {
+			ApplicationContext.setParameter("currentMember", member);
+			hideError();
+			if (member instanceof Manager) {
+				this.controller.next(null, "Login", "manager");
+			} else if (((User) member).isExpert()) {
+				this.controller.next(null, "Login", "expert");
+			} else {
+				this.controller.next(null, "Login", "user");
+			}
+		} else {
+			showError();
+		}
+	}
 }
