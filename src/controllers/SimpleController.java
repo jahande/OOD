@@ -1,5 +1,6 @@
 package controllers;
 
+import logic.invention.InventionFieldCatalog;
 import ui.AcceptOrRejectAddNewFieldRequest;
 import ui.AcceptOrRejectCompanyRegisterationRequest;
 import ui.AcceptOrRejectCreateUserAccount;
@@ -30,7 +31,7 @@ public class SimpleController implements Controller {
 	private ExpertPage expertPage;
 	private Management management;
 	private AddInventionField addInventionField = new AddInventionField(this);
-	private DeleteInventionField deleteInventionField = new DeleteInventionField();
+	private DeleteInventionField deleteInventionField = new DeleteInventionField(this);
 	private AcceptOrRejectAddNewFieldRequest acceptOrRejectAddNewFieldRequest = new AcceptOrRejectAddNewFieldRequest();
 	private AcceptOrRejectCreateUserAccount acceptOrRejectCreateUserAccount = new AcceptOrRejectCreateUserAccount();
 	private AcceptOrRejectCompanyRegisterationRequest acceptOrRejectCompanyRegisterationRequest = new AcceptOrRejectCompanyRegisterationRequest();
@@ -105,7 +106,9 @@ public class SimpleController implements Controller {
 				addInventionField.setVisible(true);
 			} else if (command.equals("DeleteInventionField")) {
 				// management.setVisible(false);
-				//deleteInventionField.refreshData(obj)
+				InventionFieldCatalog catalog = (InventionFieldCatalog) ApplicationContext
+				.getCatalog(InventionFieldCatalog.class);
+				deleteInventionField.refreshData(new Object[]{catalog.getAllItems()});
 				deleteInventionField.setVisible(true);
 			} else if (command.equals("AcceptOrRejectAddNewFieldRequest")) {
 				acceptOrRejectAddNewFieldRequest.setVisible(true);
@@ -143,6 +146,11 @@ public class SimpleController implements Controller {
 
 		}else if (moduleName.equals("AddInventionField")) {
 			this.addInventionField.setVisible(false);
+			if(command.equals("Return")){
+				this.management.setVisible(true);
+			}
+		}else if (moduleName.equals("DeleteInventionField")) {
+			this.deleteInventionField.setVisible(false);
 			if(command.equals("Return")){
 				this.management.setVisible(true);
 			}
