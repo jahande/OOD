@@ -64,6 +64,10 @@ public class InventionRegistrationRequest extends Request {
 		// TODO
 	}
 
+	public List<InvestigationLog> getInvestigationHistory() {
+		return investigationLogCatalog.getItemsByParameter(this);
+	}
+
 	public User getAssignedExpert() {
 		return assignedExpert;
 	}

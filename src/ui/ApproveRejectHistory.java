@@ -4,7 +4,6 @@ import java.awt.ComponentOrientation;
 import java.util.List;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
@@ -19,8 +18,6 @@ public class ApproveRejectHistory extends JFrame {
 
 	private final JScrollPane scrollPane = new JScrollPane();
 	private final JTable table_1 = new JTable();
-
-	private InvestigationLogCatalog investigationLogCatalog;
 
 	class TableTableModel extends AbstractTableModel {
 		private final String[] COLUMNS = new String[] { "تاریخ", "نام کارشناس",
@@ -77,9 +74,6 @@ public class ApproveRejectHistory extends JFrame {
 	 */
 	public ApproveRejectHistory() {
 		super();
-		investigationLogCatalog = (InvestigationLogCatalog) ApplicationContext
-				.getCatalog(InvestigationLogCatalog.class);
-
 		setBounds(100, 100, 477, 207);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -103,8 +97,7 @@ public class ApproveRejectHistory extends JFrame {
 
 		InventionRegistrationRequest request = (InventionRegistrationRequest) ApplicationContext
 				.getParameter("selectedInvRegReq");
-		List<InvestigationLog> logsList = investigationLogCatalog
-				.getItemsByParameter(request);
+		List<InvestigationLog> logsList = request.getInvestigationHistory();
 		table_1.setModel(new TableTableModel(logsList));
 	}
 }
