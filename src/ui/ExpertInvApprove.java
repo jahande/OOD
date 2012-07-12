@@ -28,8 +28,6 @@ public class ExpertInvApprove extends JFrame {
 	private final JPanel panel = new JPanel();
 	private final JButton button = new JButton();
 
-	private InvestigationLogCatalog investigationLogCatalog;
-
 	/**
 	 * Launch the application
 	 * 
@@ -49,9 +47,6 @@ public class ExpertInvApprove extends JFrame {
 	 */
 	public ExpertInvApprove() {
 		super();
-		investigationLogCatalog = (InvestigationLogCatalog) ApplicationContext
-				.getCatalog(InvestigationLogCatalog.class);
-
 		setBounds(100, 100, 351, 302);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -127,14 +122,10 @@ public class ExpertInvApprove extends JFrame {
 
 		if (check1 && check2 && check3 && check4 && check5) {
 			invRegReq.acceptAndApplyRequest();
-			investigationLogCatalog.addItem(new InvestigationLog(expert,
-					invRegReq, true));
 			JOptionPane.showMessageDialog(this,
 					"درخواست ثبت اختراع با موفقیت ثبت شد.");
 		} else {
 			invRegReq.rejectRequest();
-			investigationLogCatalog.addItem(new InvestigationLog(expert,
-					invRegReq, false));
 			JOptionPane.showMessageDialog(this,
 					"درخواست ثبت اختراع با موفقیت رد شد.");
 		}
