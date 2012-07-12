@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.EtchedBorder;
 
+import utilities.ListUtilities;
+
 import controllers.ApplicationContext;
 
 import logic.actions.request.InventionRegistrationRequest;
@@ -58,22 +60,23 @@ public class InvPage extends JFrame {
 
 	private final JPanel panel_2 = new JPanel();
 	private final JLabel label = new JLabel();
-	private final JLabel label_9 = new JLabel();
+	private final JLabel stateLabel = new JLabel();
 	private final JLabel label_10 = new JLabel();
-	private final JLabel label_12 = new JLabel();
+	private final JLabel priceLabel = new JLabel();
 	private final JLabel label_13 = new JLabel();
 	private final JLabel label_11 = new JLabel();
 	private final JLabel label_15 = new JLabel();
 	private final JLabel label_16 = new JLabel();
-	private final JLabel label_17 = new JLabel();
+	private final JLabel sendDateLabel = new JLabel();
 	private final JLabel label_18 = new JLabel();
-	private final JLabel label_19 = new JLabel();
+	private final JLabel requestDateLabel = new JLabel();
 	private final JLabel label_20 = new JLabel();
-	private final JLabel label_21 = new JLabel();
-	private final JLabel label_22 = new JLabel();
 
 	private final JTextField fileTextField2 = new JTextField();
 	private final JTextField fileTextField3 = new JTextField();
+
+	private final JScrollPane scrollPane_7 = new JScrollPane();
+	private final JTextPane inventorsTextPane = new JTextPane();
 
 	/**
 	 * Launch the application
@@ -218,6 +221,9 @@ public class InvPage extends JFrame {
 		scrollPane_6.setBounds(10, 424, 353, 50);
 
 		scrollPane_6.setViewportView(fullDescTextPane);
+		fullDescTextPane
+				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		fullDescTextPane.setEditable(false);
 		fullDescTextPane.setText(invention.getExplanation());
 
 		List<File> files = invention.getAttachedFiles();
@@ -282,27 +288,33 @@ public class InvPage extends JFrame {
 		panel_2.add(label);
 		label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label.setText("وضعیت کنونی:");
-		label.setBounds(84, 120, 66, 16);
+		label.setBounds(84, 156, 66, 16);
 
-		panel_2.add(label_9);
-		label_9.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		label_9.setText("تأیید شده");
-		label_9.setBounds(23, 120, 55, 16);
+		panel_2.add(stateLabel);
+		stateLabel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		stateLabel.setText(invRegReq.getStateName());
+		stateLabel.setBounds(10, 155, 62, 16);
 
 		panel_2.add(label_10);
 		label_10.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_10.setText("قیمت:");
-		label_10.setBounds(84, 142, 66, 16);
+		label_10.setBounds(84, 178, 66, 16);
 
-		panel_2.add(label_12);
-		label_12.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		label_12.setText("10000000");
-		label_12.setBounds(21, 142, 68, 16);
+		panel_2.add(priceLabel);
+		priceLabel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		String price;
+		if (invention.getPrice() != 0) {
+			price = String.valueOf(invention.getPrice());
+		} else {
+			price = "---";
+		}
+		priceLabel.setText(price);
+		priceLabel.setBounds(34, 180, 93, 16);
 
 		panel_2.add(label_13);
 		label_13.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_13.setText("ریال");
-		label_13.setBounds(0, 142, 24, 16);
+		label_13.setBounds(0, 178, 24, 16);
 
 		panel_2.add(label_11);
 		label_11.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
@@ -314,40 +326,50 @@ public class InvPage extends JFrame {
 		label_15.setText("مخترعان:");
 		label_15.setBounds(84, 32, 66, 16);
 
+		scrollPane_7.setViewportView(inventorsTextPane);
+		scrollPane_7
+				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		inventorsTextPane.setEditable(false);
+		inventorsTextPane.setText(ListUtilities.getCommaSeparated(invention
+				.getInventorNames()));
+		inventorsTextPane
+				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+
 		panel_2.add(label_16);
 		label_16.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_16.setText("تاریخ ارسال:");
-		label_16.setBounds(84, 76, 66, 16);
+		label_16.setBounds(84, 112, 66, 16);
 
-		panel_2.add(label_17);
-		label_17.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		label_17.setText("1390/1/15");
-		label_17.setBounds(23, 76, 66, 16);
+		panel_2.add(sendDateLabel);
+		sendDateLabel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		String sendDate = "---";
+		if (invRegReq.getSendDate() != null) {
+			sendDate = invRegReq.getSendDate().toString();
+		}
+		sendDateLabel.setText(sendDate);
+		sendDateLabel.setBounds(0, 112, 93, 16);
 
 		panel_2.add(label_18);
 		label_18.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_18.setText("تاریخ ثبت:");
-		label_18.setBounds(84, 98, 66, 16);
+		label_18.setBounds(84, 134, 66, 16);
 
-		panel_2.add(label_19);
-		label_19.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		label_19.setText("1390/4/16");
-		label_19.setBounds(23, 98, 66, 16);
+		panel_2.add(requestDateLabel);
+		requestDateLabel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		String requestDate = "---";
+		if (invRegReq.getRequestDate() != null) {
+			requestDate = invRegReq.getRequestDate().toString();
+		}
+		requestDateLabel.setText(requestDate);
+		requestDateLabel.setBounds(0, 134, 109, 16);
 
 		panel_2.add(label_20);
 		label_20.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		label_20.setText("آپولو");
+		label_20.setText(invention.getTitle());
 		label_20.setBounds(23, 10, 66, 16);
 
-		panel_2.add(label_21);
-		label_21.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		label_21.setText("حسین فرقانی");
-		label_21.setBounds(23, 32, 66, 16);
-
-		panel_2.add(label_22);
-		label_22.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		label_22.setText("روح الله جهنده");
-		label_22.setBounds(23, 54, 66, 16);
+		panel_2.add(scrollPane_7);
+		scrollPane_7.setBounds(10, 54, 140, 51);
 
 	}
 

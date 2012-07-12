@@ -19,6 +19,7 @@ public class Invention {
 	private List<User> inventors;
 	private InventionField inventionField;
 	private Company company;
+	private long price;
 
 	public Invention(String title, String totalSpec, String summary,
 			String ideaDescription, String ideaHistory, String claim,
@@ -105,5 +106,13 @@ public class Invention {
 
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+
+	public long getPrice() {
+		return price;
+	}
+
+	public void setPrice(long price) {
+		this.price = price;
 	}
 }
