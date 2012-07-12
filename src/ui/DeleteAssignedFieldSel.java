@@ -13,6 +13,8 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 
+import controllers.Controller;
+
 /**
  * 
  * @author rj
@@ -58,7 +60,7 @@ public class DeleteAssignedFieldSel extends SelectUser {
 	 */
 	public static void main(String args[]) {
 		try {
-			DeleteAssignedFieldSel frame = new DeleteAssignedFieldSel();
+			DeleteAssignedFieldSel frame = new DeleteAssignedFieldSel(null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -68,8 +70,8 @@ public class DeleteAssignedFieldSel extends SelectUser {
 	/**
 	 * Create the frame
 	 */
-	public DeleteAssignedFieldSel() {
-		super();
+	public DeleteAssignedFieldSel(Controller c) {
+		super(c);
 		setBounds(100, 100, 500, 375);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {

@@ -2,6 +2,8 @@ package ui;
 
 import javax.swing.JFrame;
 
+import controllers.Controller;
+
 /**
  * 
  * @author rj
@@ -16,7 +18,7 @@ public class DeleteUserAccountSel extends SelectUser {
 	 */
 	public static void main(String args[]) {
 		try {
-			DeleteUserAccountSel frame = new DeleteUserAccountSel();
+			DeleteUserAccountSel frame = new DeleteUserAccountSel(null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -26,8 +28,8 @@ public class DeleteUserAccountSel extends SelectUser {
 	/**
 	 * Create the frame
 	 */
-	public DeleteUserAccountSel() {
-		super();
+	public DeleteUserAccountSel(Controller c) {
+		super(c);
 		setBounds(100, 100, 500, 375);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {

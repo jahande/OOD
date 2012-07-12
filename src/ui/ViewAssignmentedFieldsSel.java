@@ -57,7 +57,7 @@ public class ViewAssignmentedFieldsSel extends JFrame {
 	 */
 	public static void main(String args[]) {
 		try {
-			DeleteAssignedFieldSel frame = new DeleteAssignedFieldSel();
+			DeleteAssignedFieldSel frame = new DeleteAssignedFieldSel(null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();

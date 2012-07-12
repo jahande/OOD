@@ -1,6 +1,7 @@
 package controllers;
 
 import logic.invention.InventionFieldCatalog;
+import logic.member.UserCatalog;
 import ui.AcceptOrRejectAddNewFieldRequest;
 import ui.AcceptOrRejectCompanyRegisterationRequest;
 import ui.AcceptOrRejectCreateUserAccount;
@@ -37,13 +38,13 @@ public class SimpleController implements Controller {
 	private AcceptOrRejectCreateUserAccount acceptOrRejectCreateUserAccount = new AcceptOrRejectCreateUserAccount();
 	private AcceptOrRejectCompanyRegisterationRequest acceptOrRejectCompanyRegisterationRequest = new AcceptOrRejectCompanyRegisterationRequest();
 	private AssignInventionField assignInventionField = new AssignInventionField();
-	private DeleteAssignedFieldSel deleteAssignedFieldSel = new DeleteAssignedFieldSel();
+	private DeleteAssignedFieldSel deleteAssignedFieldSel = new DeleteAssignedFieldSel(this);
 	private ViewAssignmentedFieldsSel viewAssignmentedFieldsSel = new ViewAssignmentedFieldsSel();
-	private RequestReportOfUserInventionsSel requestReportOfUserInventionsSel = new RequestReportOfUserInventionsSel();
+	private RequestReportOfUserInventionsSel requestReportOfUserInventionsSel = new RequestReportOfUserInventionsSel(this);
 	private RequestInCheckByExertsReport requestInCheckByExertsReport = new RequestInCheckByExertsReport();
 	private RequestPeronsInventions requestPeronsInventions = new RequestPeronsInventions();
-	private DeleteUserAccountSel deleteUserAccountSel = new DeleteUserAccountSel();
-	private ViewUserAccountSel viewUserAccountSel = new ViewUserAccountSel();
+	private DeleteUserAccountSel deleteUserAccountSel = new DeleteUserAccountSel(this);
+	private ViewUserAccountSel viewUserAccountSel = new ViewUserAccountSel(this);
 	private GivePermitionToRequest givePermitionToRequest = new GivePermitionToRequest();
 	private RequestAllUsersReport requestAllUsersReport = new RequestAllUsersReport();
 	private ViewInventionFields viewInventionFields = new ViewInventionFields(this);
@@ -137,7 +138,13 @@ public class SimpleController implements Controller {
 				requestAllUsersReport.setVisible(true);
 			} else if (command.equals("DeleteUserAccountSel")) {
 				deleteUserAccountSel.setVisible(true);
-			} else if (command.equals("viewAssignmentedFieldsSel")) {
+			}else if (command.equals("ViewUserAccountSel")) {
+				UserCatalog catalog = (UserCatalog) ApplicationContext
+				.getCatalog(UserCatalog.class);
+				viewUserAccountSel.refreshData(new Object[]{catalog.getAllItems()});
+				
+				viewUserAccountSel.setVisible(true);
+			}  else if (command.equals("viewAssignmentedFieldsSel")) {
 				viewAssignmentedFieldsSel.setVisible(true);
 			} else if (command.equals("DeleteUserAccountSel")) {
 				givePermitionToRequest.setVisible(true);

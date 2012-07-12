@@ -2,6 +2,8 @@ package ui;
 
 import javax.swing.JFrame;
 
+import controllers.Controller;
+
 /**
  * 
  * @author rj
@@ -16,7 +18,7 @@ public class ViewUserAccountSel extends SelectUser {
 	 */
 	public static void main(String args[]) {
 		try {
-			ViewUserAccountSel frame = new ViewUserAccountSel();
+			ViewUserAccountSel frame = new ViewUserAccountSel(null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -26,8 +28,8 @@ public class ViewUserAccountSel extends SelectUser {
 	/**
 	 * Create the frame
 	 */
-	public ViewUserAccountSel() {
-		super();
+	public ViewUserAccountSel(Controller c	) {
+		super(c);
 		setBounds(100, 100, 500, 375);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
