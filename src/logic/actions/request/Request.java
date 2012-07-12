@@ -16,13 +16,8 @@ public abstract class Request {
 	public static final int ACCEPTED = 1;
 	public static final int REJECTED = -1;
 
-	private InvestigationLogCatalog investigationLogCatalog;
-
 	public Request(Date requestDate) {
 		super();
-		investigationLogCatalog = (InvestigationLogCatalog) ApplicationContext
-				.getCatalog(InvestigationLogCatalog.class);
-
 		state = 0;
 		this.requestDate = requestDate;
 	}

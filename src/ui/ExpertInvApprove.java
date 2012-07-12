@@ -121,11 +121,11 @@ public class ExpertInvApprove extends JFrame {
 		boolean check5 = checkBox5.isSelected();
 
 		if (check1 && check2 && check3 && check4 && check5) {
-			invRegReq.acceptAndApplyRequest();
+			invRegReq.acceptAndApplyRequest(expert);
 			JOptionPane.showMessageDialog(this,
 					"درخواست ثبت اختراع با موفقیت ثبت شد.");
 		} else {
-			invRegReq.rejectRequest();
+			invRegReq.rejectRequest(expert);
 			JOptionPane.showMessageDialog(this,
 					"درخواست ثبت اختراع با موفقیت رد شد.");
 		}
