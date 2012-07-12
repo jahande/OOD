@@ -1,5 +1,7 @@
 package controllers;
 
+import logic.invention.InventionFieldCatalog;
+import logic.member.UserCatalog;
 import ui.AcceptOrRejectAddNewFieldRequest;
 import ui.AcceptOrRejectCompanyRegisterationRequest;
 import ui.AcceptOrRejectCreateUserAccount;
@@ -18,6 +20,7 @@ import ui.RequestPeronsInventions;
 import ui.RequestReportOfUserInventionsSel;
 import ui.UserPage;
 import ui.ViewAssignmentedFieldsSel;
+import ui.ViewInventionFields;
 import ui.ViewUserAccountSel;
 
 public class SimpleController implements Controller {
@@ -29,21 +32,22 @@ public class SimpleController implements Controller {
 	private UserPage userPage;
 	private ExpertPage expertPage;
 	private Management management;
-	private AddInventionField addInventionField = new AddInventionField();
-	private DeleteInventionField deleteInventionField = new DeleteInventionField();
+	private AddInventionField addInventionField = new AddInventionField(this);
+	private DeleteInventionField deleteInventionField = new DeleteInventionField(this);
 	private AcceptOrRejectAddNewFieldRequest acceptOrRejectAddNewFieldRequest = new AcceptOrRejectAddNewFieldRequest();
 	private AcceptOrRejectCreateUserAccount acceptOrRejectCreateUserAccount = new AcceptOrRejectCreateUserAccount();
 	private AcceptOrRejectCompanyRegisterationRequest acceptOrRejectCompanyRegisterationRequest = new AcceptOrRejectCompanyRegisterationRequest();
 	private AssignInventionField assignInventionField = new AssignInventionField();
-	private DeleteAssignedFieldSel deleteAssignedFieldSel = new DeleteAssignedFieldSel();
+	private DeleteAssignedFieldSel deleteAssignedFieldSel = new DeleteAssignedFieldSel(this);
 	private ViewAssignmentedFieldsSel viewAssignmentedFieldsSel = new ViewAssignmentedFieldsSel();
-	private RequestReportOfUserInventionsSel requestReportOfUserInventionsSel = new RequestReportOfUserInventionsSel();
+	private RequestReportOfUserInventionsSel requestReportOfUserInventionsSel = new RequestReportOfUserInventionsSel(this);
 	private RequestInCheckByExertsReport requestInCheckByExertsReport = new RequestInCheckByExertsReport();
 	private RequestPeronsInventions requestPeronsInventions = new RequestPeronsInventions();
-	private DeleteUserAccountSel deleteUserAccountSel = new DeleteUserAccountSel();
-	private ViewUserAccountSel viewUserAccountSel = new ViewUserAccountSel();
+	private DeleteUserAccountSel deleteUserAccountSel = new DeleteUserAccountSel(this);
+	private ViewUserAccountSel viewUserAccountSel = new ViewUserAccountSel(this);
 	private GivePermitionToRequest givePermitionToRequest = new GivePermitionToRequest();
 	private RequestAllUsersReport requestAllUsersReport = new RequestAllUsersReport();
+	private ViewInventionFields viewInventionFields = new ViewInventionFields(this);
 
 	// private RequestPeronsInventions
 
@@ -71,7 +75,7 @@ public class SimpleController implements Controller {
 	public void next(Object o, String moduleName, String command) {
 		// TODO Auto-generated method stub
 
-		System.out.println("command = " + command);
+		//System.out.println("command = " + command);
 
 		if (command.equals("start")) {
 			login.setVisible(true);
@@ -105,7 +109,15 @@ public class SimpleController implements Controller {
 				addInventionField.setVisible(true);
 			} else if (command.equals("DeleteInventionField")) {
 				// management.setVisible(false);
+				InventionFieldCatalog catalog = (InventionFieldCatalog) ApplicationContext
+				.getCatalog(InventionFieldCatalog.class);
+				deleteInventionField.refreshData(new Object[]{catalog.getAllItems()});
 				deleteInventionField.setVisible(true);
+			}else if (command.equals("ViewInventionFields")) {
+				InventionFieldCatalog catalog = (InventionFieldCatalog) ApplicationContext
+				.getCatalog(InventionFieldCatalog.class);
+				viewInventionFields.refreshData(new Object[]{catalog.getAllItems()});
+				viewInventionFields.setVisible(true);
 			} else if (command.equals("AcceptOrRejectAddNewFieldRequest")) {
 				acceptOrRejectAddNewFieldRequest.setVisible(true);
 			} else if (command.equals("AcceptOrRejectCreateUserAccount")) {
@@ -126,7 +138,13 @@ public class SimpleController implements Controller {
 				requestAllUsersReport.setVisible(true);
 			} else if (command.equals("DeleteUserAccountSel")) {
 				deleteUserAccountSel.setVisible(true);
-			} else if (command.equals("viewAssignmentedFieldsSel")) {
+			}else if (command.equals("ViewUserAccountSel")) {
+				UserCatalog catalog = (UserCatalog) ApplicationContext
+				.getCatalog(UserCatalog.class);
+				viewUserAccountSel.refreshData(new Object[]{catalog.getAllItems()});
+				
+				viewUserAccountSel.setVisible(true);
+			}  else if (command.equals("viewAssignmentedFieldsSel")) {
 				viewAssignmentedFieldsSel.setVisible(true);
 			} else if (command.equals("DeleteUserAccountSel")) {
 				givePermitionToRequest.setVisible(true);
@@ -140,6 +158,21 @@ public class SimpleController implements Controller {
 			}
 			
 
+		}else if (moduleName.equals("AddInventionField")) {
+			this.addInventionField.setVisible(false);
+			if(command.equals("Return")){
+				this.management.setVisible(true);
+			}
+		}else if (moduleName.equals("DeleteInventionField")) {
+			this.deleteInventionField.setVisible(false);
+			if(command.equals("Return")){
+				this.management.setVisible(true);
+			}
+		}else if (moduleName.equals("ViewInventionFields")) {
+			this.viewInventionFields.setVisible(false);
+			if(command.equals("Return")){
+				this.management.setVisible(true);
+			}
 		}
 	}
 

@@ -2,6 +2,8 @@ package ui;
 
 import javax.swing.JFrame;
 
+import controllers.Controller;
+
 
 /***
  * 
@@ -16,7 +18,7 @@ public class RequestReportOfUserInventionsSel extends SelectUser {
 	 */
 	public static void main(String args[]) {
 		try {
-			RequestReportOfUserInventionsSel frame = new RequestReportOfUserInventionsSel();
+			RequestReportOfUserInventionsSel frame = new RequestReportOfUserInventionsSel(null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -26,8 +28,8 @@ public class RequestReportOfUserInventionsSel extends SelectUser {
 	/**
 	 * Create the frame
 	 */
-	public RequestReportOfUserInventionsSel() {
-		super();
+	public RequestReportOfUserInventionsSel(Controller c) {
+		super(c);
 		setBounds(100, 100, 500, 375);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {

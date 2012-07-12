@@ -2,6 +2,8 @@ package ui;
 
 import javax.swing.JFrame;
 
+import controllers.Controller;
+
 /**
  * 
  * @author rj
@@ -16,7 +18,7 @@ public class SelectUserAndAssignmentedFieldSel extends SelectUser {
 	 */
 	public static void main(String args[]) {
 		try {
-			SelectUserAndAssignmentedFieldSel frame = new SelectUserAndAssignmentedFieldSel();
+			SelectUserAndAssignmentedFieldSel frame = new SelectUserAndAssignmentedFieldSel(null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -26,8 +28,8 @@ public class SelectUserAndAssignmentedFieldSel extends SelectUser {
 	/**
 	 * Create the frame
 	 */
-	public SelectUserAndAssignmentedFieldSel() {
-		super();
+	public SelectUserAndAssignmentedFieldSel(Controller c) {
+		super(c);
 		setBounds(100, 100, 500, 375);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
