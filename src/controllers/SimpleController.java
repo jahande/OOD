@@ -19,6 +19,7 @@ import ui.RequestPeronsInventions;
 import ui.RequestReportOfUserInventionsSel;
 import ui.UserPage;
 import ui.ViewAssignmentedFieldsSel;
+import ui.ViewInventionFields;
 import ui.ViewUserAccountSel;
 
 public class SimpleController implements Controller {
@@ -45,6 +46,7 @@ public class SimpleController implements Controller {
 	private ViewUserAccountSel viewUserAccountSel = new ViewUserAccountSel();
 	private GivePermitionToRequest givePermitionToRequest = new GivePermitionToRequest();
 	private RequestAllUsersReport requestAllUsersReport = new RequestAllUsersReport();
+	private ViewInventionFields viewInventionFields = new ViewInventionFields(this);
 
 	// private RequestPeronsInventions
 
@@ -110,6 +112,11 @@ public class SimpleController implements Controller {
 				.getCatalog(InventionFieldCatalog.class);
 				deleteInventionField.refreshData(new Object[]{catalog.getAllItems()});
 				deleteInventionField.setVisible(true);
+			}else if (command.equals("ViewInventionFields")) {
+				InventionFieldCatalog catalog = (InventionFieldCatalog) ApplicationContext
+				.getCatalog(InventionFieldCatalog.class);
+				viewInventionFields.refreshData(new Object[]{catalog.getAllItems()});
+				viewInventionFields.setVisible(true);
 			} else if (command.equals("AcceptOrRejectAddNewFieldRequest")) {
 				acceptOrRejectAddNewFieldRequest.setVisible(true);
 			} else if (command.equals("AcceptOrRejectCreateUserAccount")) {
@@ -151,6 +158,11 @@ public class SimpleController implements Controller {
 			}
 		}else if (moduleName.equals("DeleteInventionField")) {
 			this.deleteInventionField.setVisible(false);
+			if(command.equals("Return")){
+				this.management.setVisible(true);
+			}
+		}else if (moduleName.equals("ViewInventionFields")) {
+			this.viewInventionFields.setVisible(false);
 			if(command.equals("Return")){
 				this.management.setVisible(true);
 			}

@@ -9,18 +9,13 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Iterator;
 
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.ListModel;
 import javax.swing.SwingConstants;
-import javax.swing.event.ListDataListener;
 
 import controllers.ApplicationContext;
 import controllers.Controller;
@@ -41,6 +36,10 @@ import uimodels.SimpleListModel;
 
 public class DeleteInventionField extends BaseFrame implements NeedRefreshData {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2571937414591360868L;
 	private JList list = new JList();
 	private final JLabel label = new JLabel();
 	private JPanel panel;// s= new JPanel();
@@ -48,7 +47,6 @@ public class DeleteInventionField extends BaseFrame implements NeedRefreshData {
 	// private final JLabel label_3 = new JLabel();
 	// private final JLabel label_4 = new JLabel();
 	// private final JLabel label_5 = new JLabel();
-	private ArrayList<JLabel> delLbls = new ArrayList<JLabel>();
 	private final JButton button = new JButton();
 
 	/**
