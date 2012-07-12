@@ -2,6 +2,12 @@ package logic.actions.request;
 
 import java.util.Date;
 
+import controllers.ApplicationContext;
+
+import logic.actions.InvestigationLog;
+import logic.actions.InvestigationLogCatalog;
+import logic.member.User;
+
 public abstract class Request {
 	private Date requestDate;
 	private int state;
@@ -10,8 +16,13 @@ public abstract class Request {
 	public static final int ACCEPTED = 1;
 	public static final int REJECTED = -1;
 
+	private InvestigationLogCatalog investigationLogCatalog;
+
 	public Request(Date requestDate) {
 		super();
+		investigationLogCatalog = (InvestigationLogCatalog) ApplicationContext
+				.getCatalog(InvestigationLogCatalog.class);
+
 		state = 0;
 		this.requestDate = requestDate;
 	}
