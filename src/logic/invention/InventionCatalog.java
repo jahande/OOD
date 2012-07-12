@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import controllers.ApplicationContext;
+
 import logic.Catalog;
 import logic.actions.Share;
 import logic.member.CompanyCatalog;
@@ -11,33 +13,55 @@ import logic.member.User;
 import logic.member.UserCatalog;
 
 public class InventionCatalog implements Catalog {
-	private static List<Invention> inventionList = new ArrayList<Invention>();
-	private static List<Share> shareList = new ArrayList<Share>();
+	private List<Invention> inventionList = new ArrayList<Invention>();
+	private List<Share> shareList = new ArrayList<Share>();
+	private InventionFieldCatalog inventionFieldCatalog;
+	private UserCatalog userCatalog;
+	private CompanyCatalog companyCatalog;
 
-	static {
+	public InventionCatalog() {
+		super();
+		inventionFieldCatalog = (InventionFieldCatalog) ApplicationContext
+				.getCatalog(InventionFieldCatalog.class);
+		userCatalog = (UserCatalog) ApplicationContext
+				.getCatalog(UserCatalog.class);
+		companyCatalog = (CompanyCatalog) ApplicationContext
+				.getCatalog(CompanyCatalog.class);
 		Invention invention = new Invention("عنوان", "مشخصات کلی", "چکیده",
 				"شرح ایده", "سابقه ایده", "ادعانامه", "شرح کامل",
 				new ArrayList<File>());
-		invention.setInventionField(InventionFieldCatalog
+		invention.setInventionField(inventionFieldCatalog
 				.getInventionFieldByParamater("کامپیوتر"));
 		List<User> inventors = new ArrayList<User>();
-		inventors.add(UserCatalog.getUserByParamater("user"));
-		inventors.add(UserCatalog.getUserByParamater("inventor"));
+		inventors.add(userCatalog.getUserByParamater("user"));
+		inventors.add(userCatalog.getUserByParamater("inventor"));
 		invention.setInventors(inventors);
-		invention.setCompany(CompanyCatalog
+		invention.setCompany(companyCatalog
 				.getCompanyByParameter("عمید رایانه شریف"));
 		inventionList.add(invention);
 	}
 
-	public static void addShare(Share share) {
+	public void addItem(Object item) {
+		inventionList.add((Invention) item);
+	}
+
+	public List<?> getAllItems() {
+		return inventionList;
+	}
+
+	public void removeItem(Object removedItem) {
+		inventionList.remove(removedItem);
+	}
+
+	public void addShare(Share share) {
 		shareList.add(share);
 	}
 
-	public static List<Share> getShareList() {
+	public List<Share> getShareList() {
 		return shareList;
 	}
 
-	public static Share getShareByParameter(User user, Invention invention) {
+	public Share getShareByParameter(User user, Invention invention) {
 		for (Share share : shareList) {
 			if (share.getUser().equals(user)
 					&& share.getInvention().equals(invention)) {
@@ -47,15 +71,7 @@ public class InventionCatalog implements Catalog {
 		return null;
 	}
 
-	public static void addInvention(Invention invention) {
-		inventionList.add(invention);
-	}
-
-	public static List<Invention> getInventionList() {
-		return inventionList;
-	}
-
-	public static Invention getInventionByParameter(String title) {
+	public Invention getInventionByParameter(String title) {
 		for (Invention invention : inventionList) {
 			if (invention.getTitle().equals(title)) {
 				return invention;

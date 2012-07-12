@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,6 +16,11 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.EtchedBorder;
+
+import controllers.ApplicationContext;
+
+import logic.actions.request.InventionRegistrationRequest;
+import logic.invention.Invention;
 
 public class InvPage extends JFrame {
 
@@ -63,6 +71,10 @@ public class InvPage extends JFrame {
 	private final JLabel label_20 = new JLabel();
 	private final JLabel label_21 = new JLabel();
 	private final JLabel label_22 = new JLabel();
+
+	private final JTextField fileTextField2 = new JTextField();
+	private final JTextField fileTextField3 = new JTextField();
+
 	/**
 	 * Launch the application
 	 * 
@@ -93,6 +105,10 @@ public class InvPage extends JFrame {
 	}
 
 	private void jbInit() throws Exception {
+		InventionRegistrationRequest invRegReq = (InventionRegistrationRequest) ApplicationContext
+				.getParameter("selectedInvRegReq");
+		Invention invention = invRegReq.getInvention();
+
 		getContentPane().setLayout(null);
 		setTitle("درخواست ثبت اختراع");
 
@@ -144,7 +160,7 @@ public class InvPage extends JFrame {
 		scrollPane_1.setViewportView(descTextPane);
 		descTextPane
 				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		descTextPane.setText("این اختراع یک آپولوی در ابعاد آزمایشگاهی است.");
+		descTextPane.setText(invention.getTotalSpec());
 		descTextPane.setEditable(false);
 
 		panel.add(scrollPane_2);
@@ -155,8 +171,7 @@ public class InvPage extends JFrame {
 		scrollPane_2.setViewportView(abstractTextPane);
 		abstractTextPane
 				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		abstractTextPane
-				.setText("پروژه فضایی آپولو (به انگلیسی: Apollo Program) یکی از پروژه‌های فضایی ناسا در زمان مسابقه فضایی میان شوروی و آمریکا بود که کوشش می‌کرد تا اولین انسان را بر روی سطح کره ماه فرود بیاورد. ");
+		abstractTextPane.setText(invention.getSummary());
 		abstractTextPane.setEditable(false);
 
 		panel.add(scrollPane_3);
@@ -167,8 +182,7 @@ public class InvPage extends JFrame {
 		scrollPane_3.setViewportView(ideaDescTextPane);
 		ideaDescTextPane
 				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		ideaDescTextPane
-				.setText("ایده این است که ما دوباره آپولوی اصلی را در ابعاد کوچک آزمایشگاهی بسازیم که بفهمیم راست بوده است یا دروغ.");
+		ideaDescTextPane.setText(invention.getIdeaDescription());
 		ideaDescTextPane.setEditable(false);
 
 		panel.add(scrollPane_4);
@@ -179,8 +193,7 @@ public class InvPage extends JFrame {
 		scrollPane_4.setViewportView(ideaHistoryTextPane);
 		ideaHistoryTextPane
 				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		ideaHistoryTextPane
-				.setText("آپولو پس از ریاست جمهوری بعدی آمریکا جان اف. کندی با جدیت ادامه پیدا کرد. جان اف. کندی پشتیبانی خود از طرح فرود انسان بر روی کره ماه را طی یک سخنرانی ویژه خطاب به کنگره در ماه مه ۱۹۶۱ بدین گونه اعلام کرد:...من اعتقاد دارم کشورم می‌بایست برای دستیابی به هدف فرود انسان بر روی کره ماه و به سلامت بازگشتن به زمین قبل از خروج از این دهه متعهد شود.در این دوره هیج برنامه فضایی دیگری نمی‌تواند برای بشر تأثیرگذارتر از اکتشاف مسیرهای با برد طولانی در فضا باشد؛ و انجام هیچ کدام نمی‌تواند تا این حد سخت و گران باشد.");
+		ideaHistoryTextPane.setText(invention.getIdeaHistory());
 		ideaHistoryTextPane.setEditable(false);
 
 		panel.add(scrollPane_5);
@@ -191,8 +204,7 @@ public class InvPage extends JFrame {
 		scrollPane_5.setViewportView(assertTextPane);
 		assertTextPane
 				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		assertTextPane
-				.setText("1. ادعا می کنیم این آپولو با آپولوی اصلی هیچ تفاوتی ندارد الا این که در مقیاس 1/5 است.");
+		assertTextPane.setText(invention.getClaim());
 		assertTextPane.setEditable(false);
 
 		panel.add(label_8);
@@ -206,14 +218,27 @@ public class InvPage extends JFrame {
 		scrollPane_6.setBounds(10, 424, 353, 50);
 
 		scrollPane_6.setViewportView(fullDescTextPane);
-		fullDescTextPane
-				.setText("روژه فضایی آپولو (به انگلیسی: Apollo Program) یکی از پروژه‌های فضایی ناسا در زمان مسابقه فضایی میان شوروی و آمریکا بود که کوشش می‌کرد تا اولین انسان را بر روی سطح کره ماه فرود بیاورد. پروژه در دوره ریاست جمهوری دوایت آیزنهاور شروع به کار کرد، آپولو پس از ریاست جمهوری بعدی آمریکا جان اف. کندی با جدیت ادامه پیدا کرد. جان اف. کندی پشتیبانی خود از طرح فرود انسان بر روی کره ماه را طی یک سخنرانی ویژه خطاب به کنگره در ماه مه ۱۹۶۱ بدین گونه اعلام کرد:...من اعتقاد دارم کشورم می‌بایست برای دستیابی به هدف فرود انسان بر روی کره ماه و به سلامت بازگشتن به زمین قبل از خروج از این دهه متعهد شود.در این دوره هیج برنامه فضایی دیگری نمی‌تواند برای بشر تأثیرگذارتر از اکتشاف مسیرهای با برد طولانی در فضا باشد؛ و انجام هیچ کدام نمی‌تواند تا این حد سخت و گران باشد.");
+		fullDescTextPane.setText(invention.getExplanation());
+
+		List<File> files = invention.getAttachedFiles();
 
 		panel.add(fileTextField1);
-		fileTextField1
-				.setText("C:University StuffObject Oriented DesignProjectdefinitionDefinition.pdf");
+		if (files.size() > 0)
+			fileTextField1.setText(files.get(0).getPath());
 		fileTextField1.setEditable(false);
 		fileTextField1.setBounds(10, 497, 353, 20);
+
+		panel.add(fileTextField2);
+		if (files.size() > 1)
+			fileTextField2.setText(files.get(1).getPath());
+		fileTextField2.setEditable(false);
+		fileTextField2.setBounds(10, 524, 353, 20);
+
+		panel.add(fileTextField3);
+		if (files.size() > 2)
+			fileTextField2.setText(files.get(2).getPath());
+		fileTextField3.setEditable(false);
+		fileTextField3.setBounds(10, 550, 353, 20);
 
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
@@ -248,77 +273,77 @@ public class InvPage extends JFrame {
 
 		panel_1.add(separator);
 		separator.setBounds(7, 114, 145, 2);
-		
+
 		getContentPane().add(panel_2);
 		panel_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
 		panel_2.setLayout(null);
 		panel_2.setBounds(391, 224, 160, 366);
-		
+
 		panel_2.add(label);
 		label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label.setText("وضعیت کنونی:");
 		label.setBounds(84, 120, 66, 16);
-		
+
 		panel_2.add(label_9);
 		label_9.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_9.setText("تأیید شده");
 		label_9.setBounds(23, 120, 55, 16);
-		
+
 		panel_2.add(label_10);
 		label_10.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_10.setText("قیمت:");
 		label_10.setBounds(84, 142, 66, 16);
-		
+
 		panel_2.add(label_12);
 		label_12.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_12.setText("10000000");
 		label_12.setBounds(21, 142, 68, 16);
-		
+
 		panel_2.add(label_13);
 		label_13.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_13.setText("ریال");
 		label_13.setBounds(0, 142, 24, 16);
-		
+
 		panel_2.add(label_11);
 		label_11.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_11.setText("عنوان:");
 		label_11.setBounds(84, 10, 66, 16);
-		
+
 		panel_2.add(label_15);
 		label_15.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_15.setText("مخترعان:");
 		label_15.setBounds(84, 32, 66, 16);
-		
+
 		panel_2.add(label_16);
 		label_16.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_16.setText("تاریخ ارسال:");
 		label_16.setBounds(84, 76, 66, 16);
-		
+
 		panel_2.add(label_17);
 		label_17.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_17.setText("1390/1/15");
 		label_17.setBounds(23, 76, 66, 16);
-		
+
 		panel_2.add(label_18);
 		label_18.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_18.setText("تاریخ ثبت:");
 		label_18.setBounds(84, 98, 66, 16);
-		
+
 		panel_2.add(label_19);
 		label_19.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_19.setText("1390/4/16");
 		label_19.setBounds(23, 98, 66, 16);
-		
+
 		panel_2.add(label_20);
 		label_20.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_20.setText("آپولو");
 		label_20.setBounds(23, 10, 66, 16);
-		
+
 		panel_2.add(label_21);
 		label_21.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_21.setText("حسین فرقانی");
 		label_21.setBounds(23, 32, 66, 16);
-		
+
 		panel_2.add(label_22);
 		label_22.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		label_22.setText("روح الله جهنده");

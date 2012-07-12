@@ -7,11 +7,14 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
+import logic.actions.InvestigationLog;
+import logic.actions.InvestigationLogCatalog;
 import logic.actions.request.InventionRegistrationRequest;
-import logic.invention.Invention;
+import logic.member.User;
 import controllers.ApplicationContext;
 
 public class ExpertInvApprove extends JFrame {
@@ -24,6 +27,8 @@ public class ExpertInvApprove extends JFrame {
 	private final JCheckBox checkBox5 = new JCheckBox();
 	private final JPanel panel = new JPanel();
 	private final JButton button = new JButton();
+
+	private InvestigationLogCatalog investigationLogCatalog;
 
 	/**
 	 * Launch the application
@@ -44,6 +49,9 @@ public class ExpertInvApprove extends JFrame {
 	 */
 	public ExpertInvApprove() {
 		super();
+		investigationLogCatalog = (InvestigationLogCatalog) ApplicationContext
+				.getCatalog(InvestigationLogCatalog.class);
+
 		setBounds(100, 100, 351, 302);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -109,16 +117,26 @@ public class ExpertInvApprove extends JFrame {
 	protected void button_actionPerformed(ActionEvent e) {
 		InventionRegistrationRequest invRegReq = (InventionRegistrationRequest) ApplicationContext
 				.getParameter("selectedInvRegReq");
+		User expert = (User) ApplicationContext.getParameter("currentMember");
 
 		boolean check1 = checkBox1.isSelected();
 		boolean check2 = checkBox2.isSelected();
 		boolean check3 = checkBox3.isSelected();
 		boolean check4 = checkBox4.isSelected();
 		boolean check5 = checkBox5.isSelected();
+
 		if (check1 && check2 && check3 && check4 && check5) {
 			invRegReq.acceptAndApplyRequest();
+			investigationLogCatalog.addItem(new InvestigationLog(expert,
+					invRegReq, true));
+			JOptionPane.showMessageDialog(this,
+					"درخواست ثبت اختراع با موفقیت ثبت شد.");
 		} else {
 			invRegReq.rejectRequest();
+			investigationLogCatalog.addItem(new InvestigationLog(expert,
+					invRegReq, false));
+			JOptionPane.showMessageDialog(this,
+					"درخواست ثبت اختراع با موفقیت رد شد.");
 		}
 		this.setVisible(false);
 	}

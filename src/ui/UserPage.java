@@ -10,8 +10,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
+
+import logic.member.Member;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import controllers.ApplicationContext;
 import controllers.Controller;
 
 public class UserPage extends JFrame {
@@ -68,7 +72,12 @@ public class UserPage extends JFrame {
 
 		getContentPane().add(label);
 		label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		label.setText("خوش آمدید، رستم کاربری");
+		try {
+			Member currentMember = (Member) ApplicationContext
+					.getParameter("currentMember");
+			label.setText("خوش آمدید، " + currentMember.getFullName());
+		} catch (NullPointerException e) {
+		}
 		label.setBounds(183, 10, 116, 16);
 
 		getContentPane().add(exitButton);

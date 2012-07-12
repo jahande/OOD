@@ -11,8 +11,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
+
+import logic.member.Member;
+import logic.member.User;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import controllers.ApplicationContext;
 import controllers.Controller;
 
 public class ExpertPage extends JFrame {
@@ -72,7 +77,12 @@ public class ExpertPage extends JFrame {
 
 		getContentPane().add(label_1);
 		label_1.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		label_1.setText("خوش آمدید، سهراب کارشناسی");
+		try {
+			Member currentMember = (Member) ApplicationContext
+					.getParameter("currentMember");
+			label_1.setText("خوش آمدید، " + currentMember.getFullName());
+		} catch (NullPointerException e) {
+		}
 		label_1.setBounds(187, 15, 141, 16);
 
 		getContentPane().add(exitButton);

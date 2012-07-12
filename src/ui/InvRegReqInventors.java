@@ -51,6 +51,9 @@ public class InvRegReqInventors extends JFrame {
 	private final JLabel label_4 = new JLabel();
 	private final JTextField shareTextField_1 = new JTextField();
 
+	private UserCatalog userCatalog;
+	private InventionCatalog inventionCatalog;
+
 	/**
 	 * Launch the application
 	 * 
@@ -108,6 +111,11 @@ public class InvRegReqInventors extends JFrame {
 	 */
 	public InvRegReqInventors() {
 		super();
+		userCatalog = (UserCatalog) ApplicationContext
+				.getCatalog(UserCatalog.class);
+		inventionCatalog = (InventionCatalog) ApplicationContext
+				.getCatalog(InventionCatalog.class);
+
 		setBounds(frameRect);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -186,7 +194,7 @@ public class InvRegReqInventors extends JFrame {
 		newInventorComboBox
 				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		// begin temp
-		List<User> userList = UserCatalog.getUserList();
+		List<User> userList = (List<User>) userCatalog.getAllItems();
 		List<String> usernames = new ArrayList<String>();
 		for (User user : userList) {
 			usernames.add(user.getUserName());
@@ -249,11 +257,11 @@ public class InvRegReqInventors extends JFrame {
 					.getParameter("invention");
 			List<User> userList = new ArrayList<User>();
 			for (InventorData inventor : inventorsList) {
-				User user = UserCatalog.getUserByParamater((String) inventor
+				User user = userCatalog.getUserByParamater((String) inventor
 						.getInventorCombobox().getSelectedItem());
 				int shareValue = Integer.valueOf(inventor.getShareTextField()
 						.getText());
-				InventionCatalog
+				inventionCatalog
 						.addShare(new Share(user, invention, shareValue));
 				userList.add(user);
 			}

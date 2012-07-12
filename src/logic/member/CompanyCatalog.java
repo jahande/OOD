@@ -3,33 +3,43 @@ package logic.member;
 import java.util.ArrayList;
 import java.util.List;
 
+import controllers.ApplicationContext;
+
 import logic.Catalog;
 
 public class CompanyCatalog implements Catalog {
-	private static List<Company> companyList = new ArrayList<Company>();
+	private List<Company> itemsList = new ArrayList<Company>();
+	private UserCatalog userCatalog;
 
-	static {
+	public CompanyCatalog() {
+		super();
+		userCatalog = (UserCatalog) ApplicationContext
+				.getCatalog(UserCatalog.class);
 		List<User> agents = new ArrayList<User>();
-		agents.add(UserCatalog.getUserByParamater("user"));
-		companyList.add(new Company("عمید رایانه شریف", agents));
+		agents.add(userCatalog.getUserByParamater("user"));
+		itemsList.add(new Company("عمید رایانه شریف", agents));
 		agents = new ArrayList<User>();
-		agents.add(UserCatalog.getUserByParamater("inventor"));
-		companyList.add(new Company("پوران صنعت ایران", agents));
+		agents.add(userCatalog.getUserByParamater("inventor"));
+		itemsList.add(new Company("پوران صنعت ایران", agents));
 		agents = new ArrayList<User>();
-		agents.add(UserCatalog.getUserByParamater("expert"));
-		companyList.add(new Company("تمیز گستر اندیشان", agents));
+		agents.add(userCatalog.getUserByParamater("expert"));
+		itemsList.add(new Company("تمیز گستر اندیشان", agents));
 	}
 
-	public static void addCompany(Company company) {
-		companyList.add(company);
+	public void addItem(Object item) {
+		itemsList.add((Company) item);
 	}
 
-	public static List<Company> getCompanyList() {
-		return companyList;
+	public List<?> getAllItems() {
+		return itemsList;
 	}
 
-	public static Company getCompanyByParameter(String name) {
-		for (Company company : companyList) {
+	public void removeItem(Object removedItem) {
+		itemsList.remove(removedItem);
+	}
+
+	public Company getCompanyByParameter(String name) {
+		for (Company company : itemsList) {
 			if (company.getName().equals(name)) {
 				return company;
 			}

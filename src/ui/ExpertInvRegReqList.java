@@ -36,6 +36,8 @@ public class ExpertInvRegReqList extends JFrame {
 	private JScrollPane scrollPane;
 	private JTable table;
 
+	private InventionRegistrationRequestCatalog invRegReqCatalog;
+
 	private class JTableModel extends AbstractTableModel {
 		private static final long serialVersionUID = 1L;
 		private final String[] COLUMN_NAMES = new String[] { "مشاهده", "وضعیت",
@@ -123,6 +125,9 @@ public class ExpertInvRegReqList extends JFrame {
 	 */
 	public ExpertInvRegReqList() {
 		super();
+		invRegReqCatalog = (InventionRegistrationRequestCatalog) ApplicationContext
+				.getCatalog(InventionRegistrationRequestCatalog.class);
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
 			jbInit();
@@ -133,11 +138,10 @@ public class ExpertInvRegReqList extends JFrame {
 	}
 
 	private void jbInit() throws Exception {
-		// JFrame frame = new JFrame("Button Example");
 		setTitle("درخواست های ثبت اختراع");
 
 		User expert = (User) ApplicationContext.getParameter("currentMember");
-		List<InventionRegistrationRequest> requestsList = InventionRegistrationRequestCatalog
+		List<InventionRegistrationRequest> requestsList = invRegReqCatalog
 				.getInvRegReqsByParamater(expert);
 
 		table = new JTable(new JTableModel(requestsList));

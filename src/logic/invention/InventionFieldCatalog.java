@@ -4,26 +4,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 import logic.Catalog;
+import logic.actions.InvestigationLog;
 
 public class InventionFieldCatalog implements Catalog {
-	private static List<InventionField> inventionFieldList = new ArrayList<InventionField>();
-	static {
-		inventionFieldList.add(new InventionField("کامپیوتر"));
-		inventionFieldList.add(new InventionField("عمران"));
-		inventionFieldList.add(new InventionField("هوافضا"));
-		inventionFieldList.add(new InventionField("مواد"));
+	private List<InventionField> itemsList = new ArrayList<InventionField>();
+
+	public InventionFieldCatalog() {
+		super();
+		itemsList.add(new InventionField("کامپیوتر"));
+		itemsList.add(new InventionField("عمران"));
+		itemsList.add(new InventionField("هوافضا"));
+		itemsList.add(new InventionField("مواد"));
 	}
 
-	public static List<InventionField> getInventionFieldList() {
-		return inventionFieldList;
+	public void addItem(Object item) {
+		itemsList.add((InventionField) item);
 	}
 
-	public static void addInventionField(InventionField inventionField) {
-		inventionFieldList.add(inventionField);
+	public List<?> getAllItems() {
+		return itemsList;
 	}
 
-	public static InventionField getInventionFieldByParamater(String name) {
-		for (InventionField inventionField : inventionFieldList) {
+	public void removeItem(Object removedItem) {
+		itemsList.remove(removedItem);
+	}
+
+	public InventionField getInventionFieldByParamater(String name) {
+		for (InventionField inventionField : itemsList) {
 			if (inventionField.getName().equals(name)) {
 				return inventionField;
 			}

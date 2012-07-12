@@ -60,6 +60,7 @@ public class InvRegReqApprove extends JFrame {
 	private final JTextField fileTextField3 = new JTextField();
 
 	private Invention invention;
+	private InventionRegistrationRequestCatalog inveRegReqCatalog;
 
 	/**
 	 * Launch the application
@@ -80,6 +81,9 @@ public class InvRegReqApprove extends JFrame {
 	 */
 	public InvRegReqApprove() {
 		super();
+		inveRegReqCatalog = (InventionRegistrationRequestCatalog) ApplicationContext
+				.getCatalog(InventionRegistrationRequestCatalog.class);
+
 		setBounds(100, 100, 387, 744);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -259,7 +263,7 @@ public class InvRegReqApprove extends JFrame {
 	protected void button_actionPerformed(ActionEvent e) {
 		InventionRegistrationRequest request = new InventionRegistrationRequest(
 				new Date(), invention);
-		InventionRegistrationRequestCatalog.addRequest(request);
+		inveRegReqCatalog.addItem(request);
 		this.setVisible(false);
 	}
 

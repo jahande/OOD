@@ -44,8 +44,9 @@ public class SimpleController implements Controller {
 	private ViewUserAccountSel viewUserAccountSel = new ViewUserAccountSel();
 	private GivePermitionToRequest givePermitionToRequest = new GivePermitionToRequest();
 	private RequestAllUsersReport requestAllUsersReport = new RequestAllUsersReport();
-//	private RequestPeronsInventions 
-	
+
+	// private RequestPeronsInventions
+
 	public SimpleController() {
 		login = new Login(this);
 		login.setVisible(false);
@@ -80,9 +81,11 @@ public class SimpleController implements Controller {
 				management.setVisible(true);
 			} else if (command.equals("expert")) {
 				login.setVisible(false);
+				expertPage = new ExpertPage(this);
 				expertPage.setVisible(true);
 			} else if (command.equals("user")) {
 				login.setVisible(false);
+				userPage = new UserPage(this);
 				userPage.setVisible(true);
 			}
 		} else if (moduleName.equals("UserPage")) {
@@ -117,20 +120,19 @@ public class SimpleController implements Controller {
 				viewAssignmentedFieldsSel.setVisible(true);
 			} else if (command.equals("RequestReportOfUserInventionsSel")) {
 				requestReportOfUserInventionsSel.setVisible(true);
-			}else if (command.equals("RequestInCheckByExertsReport")) {
+			} else if (command.equals("RequestInCheckByExertsReport")) {
 				requestInCheckByExertsReport.setVisible(true);
 			} else if (command.equals("RequestAllUsersReport")) {
 				requestAllUsersReport.setVisible(true);
-			}else if (command.equals("DeleteUserAccountSel")) {
+			} else if (command.equals("DeleteUserAccountSel")) {
 				deleteUserAccountSel.setVisible(true);
-			}  else if (command.equals("viewAssignmentedFieldsSel")) {
+			} else if (command.equals("viewAssignmentedFieldsSel")) {
 				viewAssignmentedFieldsSel.setVisible(true);
 			} else if (command.equals("DeleteUserAccountSel")) {
 				givePermitionToRequest.setVisible(true);
 			} else if (command.equals("RequestPeronsInventions")) {
 				requestPeronsInventions.setVisible(true);
-			} 
-			
+			}
 
 		}
 	}

@@ -45,6 +45,10 @@ public abstract class Member {
 		return birthDate;
 	}
 
+	public String getFullName() {
+		return firstName + " " + lastName;
+	}
+
 	public void sigin() {
 
 	}

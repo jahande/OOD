@@ -25,6 +25,8 @@ public class InvRegReqCompany extends JFrame {
 	private final JLabel label_1 = new JLabel();
 	private final JButton nextButton = new JButton();
 
+	private CompanyCatalog companyCatalog;
+
 	/**
 	 * Launch the application
 	 * 
@@ -44,6 +46,9 @@ public class InvRegReqCompany extends JFrame {
 	 */
 	public InvRegReqCompany() {
 		super();
+		companyCatalog = (CompanyCatalog) ApplicationContext
+				.getCatalog(CompanyCatalog.class);
+
 		setBounds(100, 100, 328, 195);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -66,7 +71,8 @@ public class InvRegReqCompany extends JFrame {
 		getContentPane().add(comboBox);
 		Member currentMember = (Member) ApplicationContext
 				.getParameter("currentMember");
-		List<Company> companyList = CompanyCatalog.getCompanyList();
+		List<Company> companyList = (List<Company>) companyCatalog
+				.getAllItems();
 		List<String> companyNames = new ArrayList<String>();
 		companyNames.add("---");
 		for (Company company : companyList) {
@@ -100,7 +106,7 @@ public class InvRegReqCompany extends JFrame {
 				.getParameter("invention");
 		String selectedName = comboBox.getSelectedItem().toString();
 		if (!selectedName.equals("---")) {
-			Company company = CompanyCatalog
+			Company company = companyCatalog
 					.getCompanyByParameter(selectedName);
 			invention.setCompany(company);
 			ApplicationContext.setParameter("invention", invention);

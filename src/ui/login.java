@@ -33,7 +33,9 @@ public class Login extends JFrame {
 	private final JPasswordField passwordField = new JPasswordField();
 	private final JButton button_1 = new JButton();
 	private final JLabel lblLoginError = new JLabel();
+
 	private Controller controller;
+	private UserCatalog userCatalog;
 
 	/**
 	 * Launch the application
@@ -55,6 +57,8 @@ public class Login extends JFrame {
 	private Login() {
 		super();
 
+		userCatalog = (UserCatalog) ApplicationContext
+				.getCatalog(UserCatalog.class);
 	}
 
 	/**
@@ -62,6 +66,9 @@ public class Login extends JFrame {
 	 */
 	public Login(Controller c) {
 		super();
+		userCatalog = (UserCatalog) ApplicationContext
+				.getCatalog(UserCatalog.class);
+
 		setBounds(100, 100, 240, 215);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		try {
@@ -114,7 +121,7 @@ public class Login extends JFrame {
 	}
 
 	public Member authenticate(String un, String pa) {
-		User user = UserCatalog.getUserByParamater(un);
+		User user = userCatalog.getUserByParamater(un);
 		if (user != null) {
 			if (user.getPassword().equals(pa)) {
 				return user;
