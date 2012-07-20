@@ -19,8 +19,8 @@ import javax.swing.JTextPane;
 
 import controllers.ApplicationContext;
 
-import logic.actions.request.InventionRegistrationRequest;
 import logic.invention.Invention;
+import logic.invention.InventionRegistrationRequest;
 
 public class InvRegReq extends JFrame {
 
@@ -285,15 +285,15 @@ public class InvRegReq extends JFrame {
 					"لطفاً مشخصات اختراع را تکمیل نمایید.", "خطا",
 					JOptionPane.ERROR_MESSAGE);
 		} else {
-			List<File> files = new ArrayList<File>();
+			List<String> files = new ArrayList<String>();
 			if (!fileTextField1.getText().equals("")) {
-				files.add(new File(fileTextField1.getText()));
+				files.add(fileTextField1.getText());
 			}
 			if (!fileTextField2.getText().equals("")) {
-				files.add(new File(fileTextField2.getText()));
+				files.add(fileTextField2.getText());
 			}
 			if (!fileTextField3.getText().equals("")) {
-				files.add(new File(fileTextField3.getText()));
+				files.add(fileTextField3.getText());
 			}
 			Invention invention = new Invention(title, description,
 					invAbstract, ideaDesc, ideaHistory, assertion, fullDesc,

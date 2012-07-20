@@ -4,10 +4,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import utilities.db.BaseEntity;
+
 import logic.member.Company;
 import logic.member.User;
 
-public class Invention {
+public class Invention extends BaseEntity<Integer> {
+	private Integer id;
 	private String title;
 	private String totalSpec;
 	private String summary;
@@ -15,7 +18,10 @@ public class Invention {
 	private String ideaHistory;
 	private String claim;
 	private String explanation;
-	private List<File> attachedFiles;
+	// private List<File> attachedFiles;
+	private String file1;
+	private String file2;
+	private String file3;
 	private List<User> inventors;
 	private InventionField inventionField;
 	private Company company;
@@ -23,8 +29,9 @@ public class Invention {
 
 	public Invention(String title, String totalSpec, String summary,
 			String ideaDescription, String ideaHistory, String claim,
-			String explanation, List<File> attachedFiles) {
+			String explanation, List<String> attachedFiles) {
 		super();
+		this.id = -1;
 		this.title = title;
 		this.totalSpec = totalSpec;
 		this.summary = summary;
@@ -32,11 +39,54 @@ public class Invention {
 		this.ideaHistory = ideaHistory;
 		this.explanation = explanation;
 		this.claim = claim;
-		this.attachedFiles = attachedFiles;
+		if (attachedFiles.size() > 0)
+			this.file1 = attachedFiles.get(0);
+		if (attachedFiles.size() > 1)
+			this.file1 = attachedFiles.get(1);
+		if (attachedFiles.size() > 2)
+			this.file1 = attachedFiles.get(2);
+	}
+
+	@Override
+	public Integer getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public void setInventors(List<User> inventors) {
 		this.inventors = inventors;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setTotalSpec(String totalSpec) {
+		this.totalSpec = totalSpec;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+
+	public void setIdeaDescription(String ideaDescription) {
+		this.ideaDescription = ideaDescription;
+	}
+
+	public void setIdeaHistory(String ideaHistory) {
+		this.ideaHistory = ideaHistory;
+	}
+
+	public void setClaim(String claim) {
+		this.claim = claim;
+	}
+
+	public void setExplanation(String explanation) {
+		this.explanation = explanation;
 	}
 
 	public void setInventionField(InventionField inventionField) {
@@ -65,10 +115,6 @@ public class Invention {
 
 	public String getClaim() {
 		return claim;
-	}
-
-	public List<File> getAttachedFiles() {
-		return attachedFiles;
 	}
 
 	public List<User> getInventors() {
@@ -114,5 +160,29 @@ public class Invention {
 
 	public void setPrice(long price) {
 		this.price = price;
+	}
+
+	public String getFile1() {
+		return file1;
+	}
+
+	public void setFile1(String file1) {
+		this.file1 = file1;
+	}
+
+	public String getFile2() {
+		return file2;
+	}
+
+	public void setFile2(String file2) {
+		this.file2 = file2;
+	}
+
+	public String getFile3() {
+		return file3;
+	}
+
+	public void setFile3(String file3) {
+		this.file3 = file3;
 	}
 }

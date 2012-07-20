@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="logic.invention.Invention" table="logic_invention_invention">
+  <id column="id" name="id" type="integer">
+   <generator class="increment"/>
+  </id>
+  <property column="title" name="title" type="character"/>
+  <property column="totalSpec" name="totalSpec" type="character"/>
+  <property column="summary" name="summary" type="character"/>
+  <property column="ideaDescription" name="ideaDescription" type="character"/>
+  <property column="ideaHistory" name="ideaHistory" type="character"/>
+  <property column="claim" name="claim" type="character"/>
+  <property column="explanation" name="explanation" type="character"/>
+  <property column="file1" name="file1" type="character"/>
+  <property column="file2" name="file2" type="character"/>
+  <property column="file3" name="file3" type="character"/>
+  <property column="price" name="price" type="long"/>
+ </class>
+</hibernate-mapping>

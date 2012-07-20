@@ -11,9 +11,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
-import logic.actions.InvestigationLog;
-import logic.actions.InvestigationLogCatalog;
-import logic.actions.request.InventionRegistrationRequest;
+import logic.invention.InventionRegistrationRequest;
+import logic.invention.InvestigationLog;
+import logic.invention.InvestigationLogCatalog;
 import logic.member.User;
 import controllers.ApplicationContext;
 

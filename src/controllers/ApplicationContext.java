@@ -3,14 +3,14 @@ package controllers;
 import java.util.HashMap;
 import java.util.Map;
 
-import logic.actions.InvestigationLogCatalog;
-import logic.actions.request.CompanyRegistrationRequestCatalog;
-import logic.actions.request.InventionRegistrationRequestCatalog;
-import logic.actions.request.UserRegistrationRequestCatalog;
 import logic.invention.InventionCatalog;
 import logic.invention.InventionFieldCatalog;
+import logic.invention.InventionRegistrationRequestCatalog;
+import logic.invention.InvestigationLogCatalog;
 import logic.member.CompanyCatalog;
+import logic.member.CompanyRegistrationRequestCatalog;
 import logic.member.UserCatalog;
+import logic.member.UserRegistrationRequestCatalog;
 import logic.Catalog;
 
 public class ApplicationContext {
@@ -23,8 +23,6 @@ public class ApplicationContext {
 	private static UserRegistrationRequestCatalog userRegistrationRequestCatalog;
 	private static CompanyRegistrationRequestCatalog companyRegistrationRequestCatalog;
 	private static InvestigationLogCatalog investigationLogCatalog;
-
-	private static Map<Class<?>, Catalog> catalogInstances;
 
 	public static void setParameter(String name, Object value) {
 		parameters.put(name, value);
@@ -39,7 +37,6 @@ public class ApplicationContext {
 	}
 
 	public static Catalog getCatalog(Class<?> catalogClazz) {
-		catalogInstances = new HashMap<Class<?>, Catalog>();
 		if (catalogClazz.equals(InventionCatalog.class)) {
 			if (inventionCatalog == null) {
 				inventionCatalog = new InventionCatalog();

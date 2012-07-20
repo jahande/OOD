@@ -21,8 +21,8 @@ import utilities.ListUtilities;
 
 import controllers.ApplicationContext;
 
-import logic.actions.request.InventionRegistrationRequest;
 import logic.invention.Invention;
+import logic.invention.InventionRegistrationRequest;
 
 public class InvPage extends JFrame {
 
@@ -226,23 +226,21 @@ public class InvPage extends JFrame {
 		fullDescTextPane.setEditable(false);
 		fullDescTextPane.setText(invention.getExplanation());
 
-		List<File> files = invention.getAttachedFiles();
-
 		panel.add(fileTextField1);
-		if (files.size() > 0)
-			fileTextField1.setText(files.get(0).getPath());
+		if (invention.getFile1() != null)
+			fileTextField1.setText(invention.getFile1());
 		fileTextField1.setEditable(false);
 		fileTextField1.setBounds(10, 497, 353, 20);
 
 		panel.add(fileTextField2);
-		if (files.size() > 1)
-			fileTextField2.setText(files.get(1).getPath());
+		if (invention.getFile2() != null)
+			fileTextField2.setText(invention.getFile2());
 		fileTextField2.setEditable(false);
 		fileTextField2.setBounds(10, 524, 353, 20);
 
 		panel.add(fileTextField3);
-		if (files.size() > 2)
-			fileTextField2.setText(files.get(2).getPath());
+		if (invention.getFile3() != null)
+			fileTextField3.setText(invention.getFile3());
 		fileTextField3.setEditable(false);
 		fileTextField3.setBounds(10, 550, 353, 20);
 
@@ -341,7 +339,8 @@ public class InvPage extends JFrame {
 		label_16.setBounds(84, 112, 66, 16);
 
 		panel_2.add(sendDateLabel);
-		sendDateLabel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		sendDateLabel
+				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		String sendDate = "---";
 		if (invRegReq.getSendDate() != null) {
 			sendDate = invRegReq.getSendDate().toString();
@@ -355,7 +354,8 @@ public class InvPage extends JFrame {
 		label_18.setBounds(84, 134, 66, 16);
 
 		panel_2.add(requestDateLabel);
-		requestDateLabel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		requestDateLabel
+				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		String requestDate = "---";
 		if (invRegReq.getRequestDate() != null) {
 			requestDate = invRegReq.getRequestDate().toString();

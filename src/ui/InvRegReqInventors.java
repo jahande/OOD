@@ -22,9 +22,9 @@ import controllers.ApplicationContext;
 
 import repository.Repository;
 
-import logic.actions.Share;
 import logic.invention.Invention;
 import logic.invention.InventionCatalog;
+import logic.invention.ShareProperties;
 import logic.member.Member;
 import logic.member.User;
 import logic.member.UserCatalog;
@@ -262,7 +262,7 @@ public class InvRegReqInventors extends JFrame {
 				int shareValue = Integer.valueOf(inventor.getShareTextField()
 						.getText());
 				inventionCatalog
-						.addShare(new Share(user, invention, shareValue));
+						.addShare(new ShareProperties(user, invention, shareValue));
 				userList.add(user);
 			}
 			invention.setInventors(userList);

@@ -17,8 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.EtchedBorder;
 
-import logic.actions.request.InventionRegistrationRequest;
 import logic.invention.Invention;
+import logic.invention.InventionRegistrationRequest;
 import controllers.ApplicationContext;
 
 public class ExpertInvRegReq extends JFrame {
@@ -213,23 +213,21 @@ public class ExpertInvRegReq extends JFrame {
 		label_8.setText("فایل های پیوست");
 		label_8.setBounds(297, 528, 66, 16);
 
-		List<File> files = invention.getAttachedFiles();
-
 		panel.add(fileTextField1);
-		if (files.size() > 0)
-			fileTextField1.setText(files.get(0).getPath());
+		if (invention.getFile1() != null)
+			fileTextField1.setText(invention.getFile1());
 		fileTextField1.setEditable(false);
 		fileTextField1.setBounds(10, 545, 353, 20);
 
 		panel.add(fileTextField2);
-		if (files.size() > 1)
-			fileTextField2.setText(files.get(1).getPath());
+		if (invention.getFile2() != null)
+			fileTextField2.setText(invention.getFile2());
 		fileTextField2.setEditable(false);
 		fileTextField2.setBounds(10, 573, 353, 20);
 
 		panel.add(fileTextField3);
-		if (files.size() > 2)
-			fileTextField3.setText(files.get(2).getPath());
+		if (invention.getFile3() != null)
+			fileTextField3.setText(invention.getFile3());
 		fileTextField3.setEditable(false);
 		fileTextField3.setBounds(10, 599, 353, 20);
 

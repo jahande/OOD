@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import logic.Catalog;
-import logic.actions.InvestigationLog;
 
 public class InventionFieldCatalog implements Catalog {
 	private List<InventionField> itemsList = new ArrayList<InventionField>();

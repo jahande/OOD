@@ -19,9 +19,10 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
-import logic.actions.request.InventionRegistrationRequest;
-import logic.actions.request.InventionRegistrationRequestCatalog;
 import logic.invention.Invention;
+import logic.invention.InventionCatalog;
+import logic.invention.InventionRegistrationRequest;
+import logic.invention.InventionRegistrationRequestCatalog;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
@@ -60,7 +61,8 @@ public class InvRegReqApprove extends JFrame {
 	private final JTextField fileTextField3 = new JTextField();
 
 	private Invention invention;
-	private InventionRegistrationRequestCatalog inveRegReqCatalog;
+	private InventionRegistrationRequestCatalog invRegReqCatalog;
+	private InventionCatalog inventionCatalog;
 
 	/**
 	 * Launch the application
@@ -81,8 +83,10 @@ public class InvRegReqApprove extends JFrame {
 	 */
 	public InvRegReqApprove() {
 		super();
-		inveRegReqCatalog = (InventionRegistrationRequestCatalog) ApplicationContext
+		invRegReqCatalog = (InventionRegistrationRequestCatalog) ApplicationContext
 				.getCatalog(InventionRegistrationRequestCatalog.class);
+		inventionCatalog = (InventionCatalog) ApplicationContext
+				.getCatalog(InventionCatalog.class);
 
 		setBounds(100, 100, 387, 744);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -216,23 +220,21 @@ public class InvRegReqApprove extends JFrame {
 		fullDescTextPane
 				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
-		List<File> files = invention.getAttachedFiles();
-
 		getContentPane().add(fileTextField1);
 		fileTextField1.setEditable(false);
-		if (files.size() > 0)
-			fileTextField1.setText(files.get(0).getPath());
+		if (invention.getFile1() != null)
+			fileTextField1.setText(invention.getFile1());
 		fileTextField1.setBounds(10, 569, 353, 20);
 
 		getContentPane().add(fileTextField2);
-		if (files.size() > 1)
-			fileTextField2.setText(files.get(1).getPath());
+		if (invention.getFile2() != null)
+			fileTextField2.setText(invention.getFile2());
 		fileTextField2.setEditable(false);
 		fileTextField2.setBounds(10, 595, 353, 20);
 
 		getContentPane().add(fileTextField3);
-		if (files.size() > 2)
-			fileTextField3.setText(files.get(2).getPath());
+		if (invention.getFile3() != null)
+			fileTextField3.setText(invention.getFile3());
 		fileTextField3.setEditable(false);
 		fileTextField3.setBounds(10, 621, 353, 20);
 
@@ -261,9 +263,10 @@ public class InvRegReqApprove extends JFrame {
 	}
 
 	protected void button_actionPerformed(ActionEvent e) {
+		inventionCatalog.addItem(invention);
 		InventionRegistrationRequest request = new InventionRegistrationRequest(
 				new Date(), invention);
-		inveRegReqCatalog.addItem(request);
+		invRegReqCatalog.addItem(request);
 		this.setVisible(false);
 	}
 
