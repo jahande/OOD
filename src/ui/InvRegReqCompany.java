@@ -16,7 +16,7 @@ import logic.invention.Invention;
 import logic.member.Company;
 import logic.member.CompanyCatalog;
 import logic.member.Member;
-import controllers.ApplicationContext;
+import logic.member.User;
 
 public class InvRegReqCompany extends JFrame {
 
@@ -26,6 +26,8 @@ public class InvRegReqCompany extends JFrame {
 	private final JButton nextButton = new JButton();
 
 	private CompanyCatalog companyCatalog;
+	private Invention invention;
+	private User currentUser;
 
 	/**
 	 * Launch the application
@@ -34,7 +36,7 @@ public class InvRegReqCompany extends JFrame {
 	 */
 	public static void main(String args[]) {
 		try {
-			InvRegReqCompany frame = new InvRegReqCompany();
+			InvRegReqCompany frame = new InvRegReqCompany(null, null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -44,9 +46,11 @@ public class InvRegReqCompany extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public InvRegReqCompany() {
+	public InvRegReqCompany(User currentUser, Invention invention) {
 		super();
 		companyCatalog = CompanyCatalog.getInstance();
+		this.currentUser = currentUser;
+		this.invention = invention;
 
 		setBounds(100, 100, 328, 195);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -68,14 +72,11 @@ public class InvRegReqCompany extends JFrame {
 		label.setBounds(212, 62, 55, 16);
 
 		getContentPane().add(comboBox);
-		Member currentMember = (Member) ApplicationContext
-				.getParameter("currentMember");
-		List<Company> companyList = (List<Company>) companyCatalog
-				.getAllItems();
+		List<Company> companyList = (List<Company>) companyCatalog.getAllItems();
 		List<String> companyNames = new ArrayList<String>();
 		companyNames.add("---");
 		for (Company company : companyList) {
-			if (company.getAgentsList().contains(currentMember)) {
+			if (company.getAgentsList().contains(currentUser)) {
 				companyNames.add(company.getName());
 			}
 		}
@@ -84,8 +85,7 @@ public class InvRegReqCompany extends JFrame {
 
 		getContentPane().add(label_1);
 		label_1.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		label_1
-				.setText("در صورت تمایل شرکت دارای مالکیت معنوی اختراع را انتخاب نمایید.");
+		label_1.setText("در صورت تمایل شرکت دارای مالکیت معنوی اختراع را انتخاب نمایید.");
 		label_1.setBounds(24, 21, 272, 16);
 
 		getContentPane().add(nextButton);
@@ -101,16 +101,12 @@ public class InvRegReqCompany extends JFrame {
 	}
 
 	protected void nextButton_actionPerformed(ActionEvent e) {
-		Invention invention = (Invention) ApplicationContext
-				.getParameter("invention");
 		String selectedName = comboBox.getSelectedItem().toString();
 		if (!selectedName.equals("---")) {
-			Company company = companyCatalog
-					.getCompanyByParameter(selectedName);
+			Company company = companyCatalog.getCompanyByParameter(selectedName);
 			invention.setCompany(company);
-			ApplicationContext.setParameter("invention", invention);
 		}
 		this.setVisible(false);
-		new InvRegReqApprove().setVisible(true);
+		new InvRegReqApprove(invention).setVisible(true);
 	}
 }

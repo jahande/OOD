@@ -5,20 +5,15 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
-import logic.member.Member;
 import logic.member.User;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
-
-import controllers.ApplicationContext;
-import controllers.Controller;
 
 public class ExpertPage extends JFrame {
 
@@ -33,14 +28,12 @@ public class ExpertPage extends JFrame {
 	private final JButton searchButton = new JButton();
 
 	private final JButton button = new JButton();
-	private final Container separator = DefaultComponentFactory.getInstance()
-			.createSeparator("امور کاربری", SwingConstants.CENTER);
-	private final Container separator_2 = DefaultComponentFactory.getInstance()
-			.createSeparator("امور کارشناسی", SwingConstants.CENTER);
+	private final Container separator = DefaultComponentFactory.getInstance().createSeparator("امور کاربری", SwingConstants.CENTER);
+	private final Container separator_2 = DefaultComponentFactory.getInstance().createSeparator("امور کارشناسی", SwingConstants.CENTER);
 
 	private final JButton messagesButton = new JButton();
 
-	private Controller controller;
+	private User currentUser;
 
 	// /**
 	// * Launch the application
@@ -59,8 +52,9 @@ public class ExpertPage extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public ExpertPage(Controller controller) {
+	public ExpertPage(User currentUser) {
 		super();
+		this.currentUser = currentUser;
 		setBounds(100, 100, 349, 386);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		try {
@@ -68,7 +62,6 @@ public class ExpertPage extends JFrame {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-		this.controller = controller;
 	}
 
 	private void jbInit() throws Exception {
@@ -78,9 +71,7 @@ public class ExpertPage extends JFrame {
 		getContentPane().add(label_1);
 		label_1.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		try {
-			Member currentMember = (Member) ApplicationContext
-					.getParameter("currentMember");
-			label_1.setText("خوش آمدید، " + currentMember.getFullName());
+			label_1.setText("خوش آمدید، " + currentUser.getFullName());
 		} catch (NullPointerException e) {
 		}
 		label_1.setBounds(187, 15, 141, 16);
@@ -96,8 +87,7 @@ public class ExpertPage extends JFrame {
 		panel_1.setBounds(10, 56, 318, 281);
 
 		panel_1.add(CompanyRegReqButton);
-		CompanyRegReqButton
-				.addActionListener(new CompanyRegReqButtonActionListener());
+		CompanyRegReqButton.addActionListener(new CompanyRegReqButtonActionListener());
 		CompanyRegReqButton.setText("ثبت شرکت");
 		CompanyRegReqButton.setBounds(82, 32, 161, 26);
 
@@ -107,8 +97,7 @@ public class ExpertPage extends JFrame {
 		InvRegReqButton.setBounds(82, 64, 161, 26);
 
 		panel_1.add(invHistoryButton);
-		invHistoryButton
-				.addActionListener(new InvHistoryButtonActionListener());
+		invHistoryButton.addActionListener(new InvHistoryButtonActionListener());
 		invHistoryButton.setText("سوابق اختراعات");
 		invHistoryButton.setBounds(82, 96, 161, 26);
 
@@ -118,8 +107,7 @@ public class ExpertPage extends JFrame {
 		invReportButton.setBounds(82, 128, 161, 26);
 
 		panel_1.add(inventionsListButton);
-		inventionsListButton
-				.addActionListener(new InventionsListButtonActionListener());
+		inventionsListButton.addActionListener(new InventionsListButtonActionListener());
 		inventionsListButton.setText("لیست اختراعات");
 		inventionsListButton.setBounds(82, 160, 161, 26);
 
@@ -212,11 +200,11 @@ public class ExpertPage extends JFrame {
 	}
 
 	protected void invRegReqButton_actionPerformed(ActionEvent e) {
-		new InvRegReq().setVisible(true);
+		new InvRegReq(currentUser).setVisible(true);
 	}
 
 	protected void invHistoryButton_actionPerformed(ActionEvent e) {
-		new InvHistory().setVisible(true);
+		new InvHistory(currentUser).setVisible(true);
 	}
 
 	protected void invReportButton_actionPerformed(ActionEvent e) {
@@ -228,7 +216,7 @@ public class ExpertPage extends JFrame {
 	}
 
 	protected void button_actionPerformed(ActionEvent e) {
-		new ExpertInvRegReqList().setVisible(true);
+		new ExpertInvRegReqList(currentUser).setVisible(true);
 	}
 
 	protected void messagesButton_actionPerformed(ActionEvent e) {
@@ -236,7 +224,8 @@ public class ExpertPage extends JFrame {
 	}
 
 	protected void exitButton_actionPerformed(ActionEvent e) {
-		controller.next(null, "ExpertPage", "logout");
+		this.setVisible(false);
+		new Login().setVisible(true);
 	}
 
 }

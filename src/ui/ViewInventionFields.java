@@ -15,11 +15,8 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
-import controllers.Controller;
-
 import logic.invention.InventionField;
 
-import uimodels.BaseFrame;
 import uimodels.NeedRefreshData;
 import uimodels.SimpleListModel;
 
@@ -29,7 +26,7 @@ import uimodels.SimpleListModel;
  * @usecase 42
  */
 
-public class ViewInventionFields extends BaseFrame implements NeedRefreshData {
+public class ViewInventionFields extends JFrame implements NeedRefreshData {
 
 	/**
 	 * 
@@ -46,8 +43,8 @@ public class ViewInventionFields extends BaseFrame implements NeedRefreshData {
 	/**
 	 * Create the frame
 	 */
-	public ViewInventionFields(Controller c) {
-		super(c);
+	public ViewInventionFields() {
+		super();
 		setBounds(100, 100, 393, 410);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -55,7 +52,6 @@ public class ViewInventionFields extends BaseFrame implements NeedRefreshData {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-		//
 	}
 
 	private void jbInit() throws Exception {
@@ -140,7 +136,7 @@ public class ViewInventionFields extends BaseFrame implements NeedRefreshData {
 	// private JList resetInventionFieldsNamePanel(){
 	// try {
 	// getContentPane().remove(list);
-	//			
+	//
 	// } catch (Exception e) {
 	// // TODO: handle exception
 	// }
@@ -155,7 +151,7 @@ public class ViewInventionFields extends BaseFrame implements NeedRefreshData {
 	// }
 
 	protected void button_actionPerformed(ActionEvent e) {
-		this.simpleCommand("Return");
+		this.setVisible(false);
 	}
 
 }

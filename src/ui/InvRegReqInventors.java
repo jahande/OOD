@@ -18,12 +18,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import controllers.ApplicationContext;
-
 import repository.Repository;
 
 import logic.invention.Invention;
 import logic.invention.InventionCatalog;
+import logic.invention.InventionRegistrationRequest;
 import logic.invention.Share;
 import logic.member.Member;
 import logic.member.User;
@@ -53,6 +52,8 @@ public class InvRegReqInventors extends JFrame {
 
 	private UserCatalog userCatalog;
 	private InventionCatalog inventionCatalog;
+	private Invention invention;
+	private User currentUser;
 
 	/**
 	 * Launch the application
@@ -61,8 +62,7 @@ public class InvRegReqInventors extends JFrame {
 	 */
 
 	private class InventorData {
-		public InventorData(JComboBox inventorCombobox,
-				JCheckBox defaultCheckBox, JTextField shareTextField) {
+		public InventorData(JComboBox inventorCombobox, JCheckBox defaultCheckBox, JTextField shareTextField) {
 			this.inventorCombobox = inventorCombobox;
 			this.defaultCheckBox = defaultCheckBox;
 			this.shareTextField = shareTextField;
@@ -99,7 +99,7 @@ public class InvRegReqInventors extends JFrame {
 
 	public static void main(String args[]) {
 		try {
-			InvRegReqInventors frame = new InvRegReqInventors();
+			InvRegReqInventors frame = new InvRegReqInventors(null, null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -109,8 +109,10 @@ public class InvRegReqInventors extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public InvRegReqInventors() {
+	public InvRegReqInventors(User currentUser, Invention invention) {
 		super();
+		this.currentUser = currentUser;
+		this.invention = invention;
 		userCatalog = UserCatalog.getInstance();
 		inventionCatalog = InventionCatalog.getInstance();
 
@@ -149,22 +151,17 @@ public class InvRegReqInventors extends JFrame {
 
 		defaultCheckBox_1.setBounds(defaultCheckBoxRect);
 		getContentPane().add(defaultCheckBox_1);
-		defaultCheckBox_1
-				.addActionListener(new DefaultCheckBoxActionListener());
-		defaultCheckBox_1
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		defaultCheckBox_1.addActionListener(new DefaultCheckBoxActionListener());
+		defaultCheckBox_1.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		defaultCheckBox_1.setSelected(true);
 		defaultCheckBox_1.setText("سهم پیش فرض");
 
 		inventorCombobox.setBounds(inventorComboBoxRect);
 		getContentPane().add(inventorCombobox);
-		inventorCombobox
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		inventorCombobox.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		// begin temp
-		String currentMember = ((Member) ApplicationContext
-				.getParameter("currentMember")).getUserName();
-		inventorCombobox.setModel(new DefaultComboBoxModel(
-				new String[] { currentMember }));
+		String username = currentUser.getUserName();
+		inventorCombobox.setModel(new DefaultComboBoxModel(new String[] { username }));
 		// end temp
 		inventorCombobox.setEnabled(false);
 
@@ -172,8 +169,7 @@ public class InvRegReqInventors extends JFrame {
 		getContentPane().add(label_3);
 		label_3.setText("مخترع:");
 
-		inventorsList.add(new InventorData(inventorCombobox, defaultCheckBox_1,
-				shareTextField_1));
+		inventorsList.add(new InventorData(inventorCombobox, defaultCheckBox_1, shareTextField_1));
 	}
 
 	private class AddButtonActionListener implements ActionListener {
@@ -189,16 +185,14 @@ public class InvRegReqInventors extends JFrame {
 		JComboBox newInventorComboBox = new JComboBox();
 		getContentPane().add(newInventorComboBox);
 		newInventorComboBox.setBounds(moveDown(inventorComboBoxRect));
-		newInventorComboBox
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		newInventorComboBox.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		// begin temp
 		List<User> userList = (List<User>) userCatalog.getAllItems();
 		List<String> usernames = new ArrayList<String>();
 		for (User user : userList) {
 			usernames.add(user.getUserName());
 		}
-		newInventorComboBox.setModel(new DefaultComboBoxModel(usernames
-				.toArray()));
+		newInventorComboBox.setModel(new DefaultComboBoxModel(usernames.toArray()));
 		// end temp
 
 		JLabel newLabel = new JLabel();
@@ -209,12 +203,10 @@ public class InvRegReqInventors extends JFrame {
 
 		JCheckBox newDefaultCheckBox = new JCheckBox();
 		getContentPane().add(newDefaultCheckBox);
-		newDefaultCheckBox
-				.addActionListener(new DefaultCheckBoxActionListener());
+		newDefaultCheckBox.addActionListener(new DefaultCheckBoxActionListener());
 		newDefaultCheckBox.setBounds(moveDown(defaultCheckBoxRect));
 		newDefaultCheckBox.setSelected(true);
-		newDefaultCheckBox
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		newDefaultCheckBox.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		newDefaultCheckBox.setText("سهم پیش فرض");
 
 		JTextField newShareTextField = new JTextField();
@@ -228,8 +220,7 @@ public class InvRegReqInventors extends JFrame {
 		newLabel_2.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		newLabel_2.setText("سهم مالکیت:  %");
 
-		InventorData invData = new InventorData(newInventorComboBox,
-				newDefaultCheckBox, newShareTextField);
+		InventorData invData = new InventorData(newInventorComboBox, newDefaultCheckBox, newShareTextField);
 		updateShares(invData, inventorsList);
 		inventorsList.add(invData);
 	}
@@ -242,31 +233,21 @@ public class InvRegReqInventors extends JFrame {
 
 	protected void nextButton_actionPerformed(ActionEvent e) {
 		if (areRepeatedInventors(inventorsList)) {
-			JOptionPane.showMessageDialog(this,
-					"لطفاً اسامی تکراری وارد نکنید.", "خطا",
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "لطفاً اسامی تکراری وارد نکنید.", "خطا", JOptionPane.ERROR_MESSAGE);
 		} else if (getPercentSum(inventorsList) < 99) { // Float accuracy
 			// error considered.
-			JOptionPane.showMessageDialog(this,
-					"مجموع سهم های مالکیت معنوی بایستی 100 باشد.", "خطا",
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "مجموع سهم های مالکیت معنوی بایستی 100 باشد.", "خطا", JOptionPane.ERROR_MESSAGE);
 		} else {
-			Invention invention = (Invention) ApplicationContext
-					.getParameter("invention");
 			List<User> userList = new ArrayList<User>();
 			for (InventorData inventor : inventorsList) {
-				User user = userCatalog.getUserByParamater((String) inventor
-						.getInventorCombobox().getSelectedItem());
-				int shareValue = Integer.valueOf(inventor.getShareTextField()
-						.getText());
-				inventionCatalog
-						.addShare(new Share(user, invention, shareValue));
+				User user = userCatalog.getUserByParamater((String) inventor.getInventorCombobox().getSelectedItem());
+				int shareValue = Integer.valueOf(inventor.getShareTextField().getText());
+				inventionCatalog.addShare(new Share(user, invention, shareValue));
 				userList.add(user);
 			}
 			invention.setInventors(userList);
-			ApplicationContext.setParameter("invention", invention);
 			this.setVisible(false);
-			new InvRegReqCompany().setVisible(true);
+			new InvRegReqCompany(currentUser, invention).setVisible(true);
 		}
 	}
 
@@ -290,19 +271,16 @@ public class InvRegReqInventors extends JFrame {
 	}
 
 	private Rectangle moveDown(Rectangle bounds) {
-		bounds.setLocation((int) bounds.getX(), (int) bounds.getY()
-				+ INVENTOR_HIEGHT);
+		bounds.setLocation((int) bounds.getX(), (int) bounds.getY() + INVENTOR_HIEGHT);
 		return bounds;
 	}
 
 	private Rectangle increaseHeight(Rectangle bounds) {
-		bounds.setSize((int) bounds.getWidth(), (int) bounds.getHeight()
-				+ INVENTOR_HIEGHT);
+		bounds.setSize((int) bounds.getWidth(), (int) bounds.getHeight() + INVENTOR_HIEGHT);
 		return bounds;
 	}
 
-	private void updateShares(InventorData invData,
-			List<InventorData> inventorsList) {
+	private void updateShares(InventorData invData, List<InventorData> inventorsList) {
 		if (isManualShareAssign(inventorsList)) { // Get remainder percent.
 			float sum = getPercentSum(inventorsList);
 			if (sum <= 100) {
@@ -331,8 +309,7 @@ public class InvRegReqInventors extends JFrame {
 	private boolean areRepeatedInventors(List<InventorData> inventorsList) {
 		Set<String> names = new HashSet<String>();
 		for (InventorData invData : inventorsList) {
-			String name = invData.getInventorCombobox().getSelectedItem()
-					.toString();
+			String name = invData.getInventorCombobox().getSelectedItem().toString();
 			if (names.contains(name)) {
 				return true;
 			} else {

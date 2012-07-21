@@ -13,8 +13,6 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import controllers.SimpleController;
-
 public class AddAccount extends JFrame {
 
 	private final JPanel panel_1 = new JPanel();

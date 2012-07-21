@@ -2,9 +2,6 @@ package ui;
 
 import javax.swing.JFrame;
 
-import controllers.Controller;
-
-
 /***
  * 
  * @author rj
@@ -14,11 +11,12 @@ public class RequestReportOfUserInventionsSel extends SelectUser {
 
 	/**
 	 * Launch the application
+	 * 
 	 * @param args
 	 */
 	public static void main(String args[]) {
 		try {
-			RequestReportOfUserInventionsSel frame = new RequestReportOfUserInventionsSel(null);
+			RequestReportOfUserInventionsSel frame = new RequestReportOfUserInventionsSel();
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -28,8 +26,8 @@ public class RequestReportOfUserInventionsSel extends SelectUser {
 	/**
 	 * Create the frame
 	 */
-	public RequestReportOfUserInventionsSel(Controller c) {
-		super(c);
+	public RequestReportOfUserInventionsSel() {
+		super();
 		setBounds(100, 100, 500, 375);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -37,8 +35,8 @@ public class RequestReportOfUserInventionsSel extends SelectUser {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-		//
 	}
+
 	private void jbInit() throws Exception {
 		System.currentTimeMillis();
 		setTitle("اخذ گزارش اختراعات کاربر- انتخاب کاربر");

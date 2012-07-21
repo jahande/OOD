@@ -12,10 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
 import logic.invention.InventionRegistrationRequest;
-import logic.invention.InvestigationLog;
-import logic.invention.InvestigationLogCatalog;
 import logic.member.User;
-import controllers.ApplicationContext;
 
 public class ExpertInvApprove extends JFrame {
 
@@ -28,6 +25,9 @@ public class ExpertInvApprove extends JFrame {
 	private final JPanel panel = new JPanel();
 	private final JButton button = new JButton();
 
+	private InventionRegistrationRequest invRegReq;
+	private User currentUser;
+
 	/**
 	 * Launch the application
 	 * 
@@ -35,7 +35,7 @@ public class ExpertInvApprove extends JFrame {
 	 */
 	public static void main(String args[]) {
 		try {
-			ExpertInvApprove frame = new ExpertInvApprove();
+			ExpertInvApprove frame = new ExpertInvApprove(null, null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -45,8 +45,10 @@ public class ExpertInvApprove extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public ExpertInvApprove() {
+	public ExpertInvApprove(User currentUser, InventionRegistrationRequest selectedInvRegReq) {
 		super();
+		this.currentUser = currentUser;
+		this.invRegReq = selectedInvRegReq;
 		setBounds(100, 100, 351, 302);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -63,8 +65,7 @@ public class ExpertInvApprove extends JFrame {
 
 		getContentPane().add(label);
 		label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		label
-				.setText("هر گزینه در صورتی که انتخاب شده باشد تأیید، و در غیر این صورت رد می شود:");
+		label.setText("هر گزینه در صورتی که انتخاب شده باشد تأیید، و در غیر این صورت رد می شود:");
 		label.setBounds(10, 10, 324, 26);
 
 		getContentPane().add(panel);
@@ -110,10 +111,6 @@ public class ExpertInvApprove extends JFrame {
 	}
 
 	protected void button_actionPerformed(ActionEvent e) {
-		InventionRegistrationRequest invRegReq = (InventionRegistrationRequest) ApplicationContext
-				.getParameter("selectedInvRegReq");
-		User expert = (User) ApplicationContext.getParameter("currentMember");
-
 		boolean check1 = checkBox1.isSelected();
 		boolean check2 = checkBox2.isSelected();
 		boolean check3 = checkBox3.isSelected();
@@ -121,13 +118,11 @@ public class ExpertInvApprove extends JFrame {
 		boolean check5 = checkBox5.isSelected();
 
 		if (check1 && check2 && check3 && check4 && check5) {
-			invRegReq.acceptAndApplyRequest(expert);
-			JOptionPane.showMessageDialog(this,
-					"درخواست ثبت اختراع با موفقیت ثبت شد.");
+			invRegReq.acceptAndApplyRequest(currentUser);
+			JOptionPane.showMessageDialog(this, "درخواست ثبت اختراع با موفقیت ثبت شد.");
 		} else {
-			invRegReq.rejectRequest(expert);
-			JOptionPane.showMessageDialog(this,
-					"درخواست ثبت اختراع با موفقیت رد شد.");
+			invRegReq.rejectRequest(currentUser);
+			JOptionPane.showMessageDialog(this, "درخواست ثبت اختراع با موفقیت رد شد.");
 		}
 		this.setVisible(false);
 	}

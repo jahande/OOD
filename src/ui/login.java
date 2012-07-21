@@ -19,22 +19,16 @@ import logic.member.UserCatalog;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
-import controllers.ApplicationContext;
-import controllers.Controller;
-
 public class Login extends JFrame {
 
 	private final JButton button = new JButton();
-	private final JLabel label = DefaultComponentFactory.getInstance()
-			.createLabel("نام کاربری:");
-	private final JLabel label_1 = DefaultComponentFactory.getInstance()
-			.createLabel("رمز:");
+	private final JLabel label = DefaultComponentFactory.getInstance().createLabel("نام کاربری:");
+	private final JLabel label_1 = DefaultComponentFactory.getInstance().createLabel("رمز:");
 	private final JTextField usernameField = new JTextField();
 	private final JPasswordField passwordField = new JPasswordField();
 	private final JButton button_1 = new JButton();
 	private final JLabel lblLoginError = new JLabel();
 
-	private Controller controller;
 	private UserCatalog userCatalog;
 
 	/**
@@ -52,17 +46,9 @@ public class Login extends JFrame {
 	}
 
 	/**
-	 * delete the default constructor
-	 */
-	private Login() {
-		super();
-		userCatalog = UserCatalog.getInstance();
-	}
-
-	/**
 	 * Create the frame
 	 */
-	public Login(Controller c) {
+	public Login() {
 		super();
 		userCatalog = UserCatalog.getInstance();
 
@@ -73,8 +59,6 @@ public class Login extends JFrame {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-		this.controller = c;
-		//
 	}
 
 	private void jbInit() throws Exception {
@@ -127,8 +111,7 @@ public class Login extends JFrame {
 			}
 		} else {
 			Manager manager = Repository.getManager();
-			if (manager.getUserName().equals(un)
-					&& manager.getPassword().equals(pa)) {
+			if (manager.getUserName().equals(un) && manager.getPassword().equals(pa)) {
 				return manager;
 			} else {
 				return null;
@@ -147,17 +130,16 @@ public class Login extends JFrame {
 		// System.out.println(this.usernameField.getText());
 		// System.out.println(new String(this.passwordField.getPassword()));
 
-		Member member = authenticate(this.usernameField.getText(), new String(
-				this.passwordField.getPassword()));
+		Member member = authenticate(this.usernameField.getText(), new String(this.passwordField.getPassword()));
 		if (member != null) {
-			ApplicationContext.setParameter("currentMember", member);
 			hideError();
+			this.setVisible(false);
 			if (member instanceof Manager) {
-				this.controller.next(null, "Login", "manager");
+				new Management((Manager) member).setVisible(true);
 			} else if (((User) member).isExpert()) {
-				this.controller.next(null, "Login", "expert");
+				new ExpertPage((User) member).setVisible(true);
 			} else {
-				this.controller.next(null, "Login", "user");
+				new UserPage((User) member).setVisible(true);
 			}
 		} else {
 			showError();

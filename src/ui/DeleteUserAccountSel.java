@@ -2,8 +2,6 @@ package ui;
 
 import javax.swing.JFrame;
 
-import controllers.Controller;
-
 /**
  * 
  * @author rj
@@ -14,11 +12,12 @@ public class DeleteUserAccountSel extends SelectUser {
 
 	/**
 	 * Launch the application
+	 * 
 	 * @param args
 	 */
 	public static void main(String args[]) {
 		try {
-			DeleteUserAccountSel frame = new DeleteUserAccountSel(null);
+			DeleteUserAccountSel frame = new DeleteUserAccountSel();
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -28,8 +27,8 @@ public class DeleteUserAccountSel extends SelectUser {
 	/**
 	 * Create the frame
 	 */
-	public DeleteUserAccountSel(Controller c) {
-		super(c);
+	public DeleteUserAccountSel() {
+		super();
 		setBounds(100, 100, 500, 375);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -39,6 +38,7 @@ public class DeleteUserAccountSel extends SelectUser {
 		}
 		//
 	}
+
 	private void jbInit() throws Exception {
 		System.currentTimeMillis();
 		setTitle("حذف حساب کاربری- انتخاب کاربر");

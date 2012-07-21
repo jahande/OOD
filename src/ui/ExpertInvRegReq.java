@@ -1,25 +1,21 @@
 package ui;
 
-import java.awt.BorderLayout;
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.EtchedBorder;
 
 import logic.invention.Invention;
 import logic.invention.InventionRegistrationRequest;
-import controllers.ApplicationContext;
+import logic.member.User;
 
 public class ExpertInvRegReq extends JFrame {
 
@@ -50,8 +46,10 @@ public class ExpertInvRegReq extends JFrame {
 	private final JTextField fileTextField2 = new JTextField();
 	private final JTextField fileTextField3 = new JTextField();
 	private final JButton approveHistoryButton = new JButton();
-	private final JButton button = new JButton();
 	private final JButton approveButton = new JButton();
+
+	private InventionRegistrationRequest selectedInvRegReq;
+	private User currentUser;
 
 	/**
 	 * Launch the application
@@ -60,7 +58,7 @@ public class ExpertInvRegReq extends JFrame {
 	 */
 	public static void main(String args[]) {
 		try {
-			ExpertInvRegReq frame = new ExpertInvRegReq();
+			ExpertInvRegReq frame = new ExpertInvRegReq(null, null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -70,8 +68,10 @@ public class ExpertInvRegReq extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public ExpertInvRegReq() {
+	public ExpertInvRegReq(User currentUser, InventionRegistrationRequest selectedInvRegReq) {
 		super();
+		this.currentUser = currentUser;
+		this.selectedInvRegReq = selectedInvRegReq;
 		setBounds(100, 100, 399, 741);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -83,9 +83,7 @@ public class ExpertInvRegReq extends JFrame {
 	}
 
 	private void jbInit() throws Exception {
-		InventionRegistrationRequest invRegReq = (InventionRegistrationRequest) ApplicationContext
-				.getParameter("selectedInvRegReq");
-		Invention invention = invRegReq.getInvention();
+		Invention invention = selectedInvRegReq.getInvention();
 
 		getContentPane().setLayout(null);
 		setTitle("درخواست ثبت اختراع");
@@ -136,75 +134,62 @@ public class ExpertInvRegReq extends JFrame {
 		label_7.setBounds(297, 450, 66, 16);
 
 		panel.add(titleTextField);
-		titleTextField
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		titleTextField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		titleTextField.setText(invention.getTitle());
 		titleTextField.setEditable(false);
 		titleTextField.setBounds(10, 32, 353, 20);
 
 		panel.add(scrollPane_1);
-		scrollPane_1
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		scrollPane_1.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		scrollPane_1.setBounds(10, 80, 353, 50);
 
 		scrollPane_1.setViewportView(descTextPane);
-		descTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		descTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		descTextPane.setText(invention.getTotalSpec());
 		descTextPane.setEditable(false);
 
 		panel.add(scrollPane_2);
-		scrollPane_2
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		scrollPane_2.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		scrollPane_2.setBounds(10, 158, 353, 50);
 
 		scrollPane_2.setViewportView(abstractTextPane);
-		abstractTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		abstractTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		abstractTextPane.setText(invention.getSummary());
 		abstractTextPane.setEditable(false);
 
 		panel.add(scrollPane_3);
-		scrollPane_3
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		scrollPane_3.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		scrollPane_3.setBounds(10, 236, 353, 50);
 
 		scrollPane_3.setViewportView(ideaDescTextPane);
-		ideaDescTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		ideaDescTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		ideaDescTextPane.setText(invention.getIdeaDescription());
 		ideaDescTextPane.setEditable(false);
 
 		panel.add(scrollPane_4);
-		scrollPane_4
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		scrollPane_4.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		scrollPane_4.setBounds(10, 316, 353, 50);
 
 		scrollPane_4.setViewportView(ideaHistoryTextPane);
-		ideaHistoryTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		ideaHistoryTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		ideaHistoryTextPane.setText(invention.getIdeaHistory());
 		ideaHistoryTextPane.setEditable(false);
 
 		panel.add(scrollPane_5);
-		scrollPane_5
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		scrollPane_5.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		scrollPane_5.setBounds(10, 394, 353, 50);
 
 		scrollPane_5.setViewportView(assertTextPane);
-		assertTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		assertTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		assertTextPane.setText(invention.getClaim());
 		assertTextPane.setEditable(false);
 
 		panel.add(scrollPane_6);
-		scrollPane_6
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		scrollPane_6.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		scrollPane_6.setBounds(10, 472, 353, 50);
 
 		scrollPane_6.setViewportView(fullDescTextPane);
-		fullDescTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		fullDescTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		fullDescTextPane.setEditable(false);
 		fullDescTextPane.setText(invention.getExplanation());
 
@@ -233,8 +218,7 @@ public class ExpertInvRegReq extends JFrame {
 
 		approveHistoryButton.setBounds(79, 667, 99, 26);
 		getContentPane().add(approveHistoryButton);
-		approveHistoryButton
-				.addActionListener(new ApproveHistoryButtonActionListener());
+		approveHistoryButton.addActionListener(new ApproveHistoryButtonActionListener());
 		approveHistoryButton.setText("سوابق تأیید یا رد");
 
 		getContentPane().add(approveButton);
@@ -257,11 +241,11 @@ public class ExpertInvRegReq extends JFrame {
 	}
 
 	protected void approveHistoryButton_actionPerformed(ActionEvent e) {
-		new ApproveRejectHistory().setVisible(true);
+		new ApproveRejectHistory(selectedInvRegReq).setVisible(true);
 	}
 
 	protected void approveButton_actionPerformed(ActionEvent e) {
-		new ExpertInvApprove().setVisible(true);
+		new ExpertInvApprove(currentUser, selectedInvRegReq).setVisible(true);
 	}
 
 }

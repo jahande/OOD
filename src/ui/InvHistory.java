@@ -13,8 +13,6 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
-import controllers.ApplicationContext;
-
 import logic.invention.InventionRegistrationRequest;
 import logic.invention.InventionRegistrationRequestCatalog;
 import logic.member.Company;
@@ -29,6 +27,7 @@ public class InvHistory extends JFrame {
 	private JTable table;
 
 	private InventionRegistrationRequestCatalog invRegReqCatalog;
+	private User currentUser;
 
 	private class JTableModel extends AbstractTableModel {
 		private static final long serialVersionUID = 1L;
@@ -95,7 +94,7 @@ public class InvHistory extends JFrame {
 	 */
 	public static void main(String args[]) {
 		try {
-			InvHistory frame = new InvHistory();
+			InvHistory frame = new InvHistory(null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -105,8 +104,9 @@ public class InvHistory extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public InvHistory() {
+	public InvHistory(User currentUser) {
 		super();
+		this.currentUser = currentUser;
 		invRegReqCatalog = InventionRegistrationRequestCatalog.getInstance();
 
 		setBounds(100, 100, 500, 168);
@@ -122,9 +122,8 @@ public class InvHistory extends JFrame {
 	private void jbInit() throws Exception {
 		setTitle("سوابق اختراعات");
 
-		User user = (User) ApplicationContext.getParameter("currentMember");
 		List<InventionRegistrationRequest> requestsList = invRegReqCatalog
-				.getInvRegReqsByInventor(user);
+				.getInvRegReqsByInventor(currentUser);
 
 		table = new JTable(new JTableModel(requestsList));
 		scrollPane = new JScrollPane(table);
@@ -152,8 +151,7 @@ public class InvHistory extends JFrame {
 
 	protected void displayButton_actionPerformed(ActionEvent e,
 			InventionRegistrationRequest request) {
-		ApplicationContext.setParameter("selectedInvRegReq", request);
-		new InvPage().setVisible(true);
+		new InvPage(request).setVisible(true);
 	}
 
 }

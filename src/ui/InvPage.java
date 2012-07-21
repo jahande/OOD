@@ -1,11 +1,8 @@
 package ui;
 
-import java.awt.BorderLayout;
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,8 +15,6 @@ import javax.swing.JTextPane;
 import javax.swing.border.EtchedBorder;
 
 import utilities.ListUtilities;
-
-import controllers.ApplicationContext;
 
 import logic.invention.Invention;
 import logic.invention.InventionRegistrationRequest;
@@ -71,12 +66,12 @@ public class InvPage extends JFrame {
 	private final JLabel label_18 = new JLabel();
 	private final JLabel requestDateLabel = new JLabel();
 	private final JLabel label_20 = new JLabel();
-
 	private final JTextField fileTextField2 = new JTextField();
 	private final JTextField fileTextField3 = new JTextField();
-
 	private final JScrollPane scrollPane_7 = new JScrollPane();
 	private final JTextPane inventorsTextPane = new JTextPane();
+
+	private InventionRegistrationRequest selectedInvRegReq;
 
 	/**
 	 * Launch the application
@@ -85,7 +80,7 @@ public class InvPage extends JFrame {
 	 */
 	public static void main(String args[]) {
 		try {
-			InvPage frame = new InvPage();
+			InvPage frame = new InvPage(null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -95,8 +90,9 @@ public class InvPage extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public InvPage() {
+	public InvPage(InventionRegistrationRequest selectedInvRegReq) {
 		super();
+		this.selectedInvRegReq = selectedInvRegReq;
 		setBounds(100, 100, 569, 642);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -108,9 +104,7 @@ public class InvPage extends JFrame {
 	}
 
 	private void jbInit() throws Exception {
-		InventionRegistrationRequest invRegReq = (InventionRegistrationRequest) ApplicationContext
-				.getParameter("selectedInvRegReq");
-		Invention invention = invRegReq.getInvention();
+		Invention invention = selectedInvRegReq.getInvention();
 
 		getContentPane().setLayout(null);
 		setTitle("درخواست ثبت اختراع");
@@ -156,57 +150,47 @@ public class InvPage extends JFrame {
 		label_7.setBounds(297, 402, 66, 16);
 
 		panel.add(scrollPane_1);
-		scrollPane_1
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		scrollPane_1.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		scrollPane_1.setBounds(10, 32, 353, 50);
 
 		scrollPane_1.setViewportView(descTextPane);
-		descTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		descTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		descTextPane.setText(invention.getTotalSpec());
 		descTextPane.setEditable(false);
 
 		panel.add(scrollPane_2);
-		scrollPane_2
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		scrollPane_2.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		scrollPane_2.setBounds(10, 110, 353, 50);
 
 		scrollPane_2.setViewportView(abstractTextPane);
-		abstractTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		abstractTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		abstractTextPane.setText(invention.getSummary());
 		abstractTextPane.setEditable(false);
 
 		panel.add(scrollPane_3);
-		scrollPane_3
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		scrollPane_3.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		scrollPane_3.setBounds(10, 188, 353, 50);
 
 		scrollPane_3.setViewportView(ideaDescTextPane);
-		ideaDescTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		ideaDescTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		ideaDescTextPane.setText(invention.getIdeaDescription());
 		ideaDescTextPane.setEditable(false);
 
 		panel.add(scrollPane_4);
-		scrollPane_4
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		scrollPane_4.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		scrollPane_4.setBounds(10, 268, 353, 50);
 
 		scrollPane_4.setViewportView(ideaHistoryTextPane);
-		ideaHistoryTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		ideaHistoryTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		ideaHistoryTextPane.setText(invention.getIdeaHistory());
 		ideaHistoryTextPane.setEditable(false);
 
 		panel.add(scrollPane_5);
-		scrollPane_5
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		scrollPane_5.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		scrollPane_5.setBounds(10, 346, 353, 50);
 
 		scrollPane_5.setViewportView(assertTextPane);
-		assertTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		assertTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		assertTextPane.setText(invention.getClaim());
 		assertTextPane.setEditable(false);
 
@@ -216,13 +200,11 @@ public class InvPage extends JFrame {
 		label_8.setBounds(297, 480, 66, 16);
 
 		panel.add(scrollPane_6);
-		scrollPane_6
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		scrollPane_6.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		scrollPane_6.setBounds(10, 424, 353, 50);
 
 		scrollPane_6.setViewportView(fullDescTextPane);
-		fullDescTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		fullDescTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		fullDescTextPane.setEditable(false);
 		fullDescTextPane.setText(invention.getExplanation());
 
@@ -255,8 +237,7 @@ public class InvPage extends JFrame {
 		sendButton.setText("ارسال درخواست ثبت اختراع");
 
 		panel_1.add(approveHistoryButton);
-		approveHistoryButton
-				.addActionListener(new ApproveHistoryButtonActionListener());
+		approveHistoryButton.addActionListener(new ApproveHistoryButtonActionListener());
 		approveHistoryButton.setText("سوابق تأیید یا رد");
 		approveHistoryButton.setBounds(7, 39, 145, 26);
 
@@ -290,7 +271,7 @@ public class InvPage extends JFrame {
 
 		panel_2.add(stateLabel);
 		stateLabel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		stateLabel.setText(invRegReq.getStateName());
+		stateLabel.setText(selectedInvRegReq.getStateName());
 		stateLabel.setBounds(10, 155, 62, 16);
 
 		panel_2.add(label_10);
@@ -325,13 +306,10 @@ public class InvPage extends JFrame {
 		label_15.setBounds(84, 32, 66, 16);
 
 		scrollPane_7.setViewportView(inventorsTextPane);
-		scrollPane_7
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		scrollPane_7.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		inventorsTextPane.setEditable(false);
-		inventorsTextPane.setText(ListUtilities.getCommaSeparated(invention
-				.getInventorNames()));
-		inventorsTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		inventorsTextPane.setText(ListUtilities.getCommaSeparated(invention.getInventorNames()));
+		inventorsTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		panel_2.add(label_16);
 		label_16.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
@@ -339,11 +317,10 @@ public class InvPage extends JFrame {
 		label_16.setBounds(84, 112, 66, 16);
 
 		panel_2.add(sendDateLabel);
-		sendDateLabel
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		sendDateLabel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		String sendDate = "---";
-		if (invRegReq.getSendDate() != null) {
-			sendDate = invRegReq.getSendDate().toString();
+		if (selectedInvRegReq.getSendDate() != null) {
+			sendDate = selectedInvRegReq.getSendDate().toString();
 		}
 		sendDateLabel.setText(sendDate);
 		sendDateLabel.setBounds(0, 112, 93, 16);
@@ -354,11 +331,10 @@ public class InvPage extends JFrame {
 		label_18.setBounds(84, 134, 66, 16);
 
 		panel_2.add(requestDateLabel);
-		requestDateLabel
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		requestDateLabel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		String requestDate = "---";
-		if (invRegReq.getRequestDate() != null) {
-			requestDate = invRegReq.getRequestDate().toString();
+		if (selectedInvRegReq.getRequestDate() != null) {
+			requestDate = selectedInvRegReq.getRequestDate().toString();
 		}
 		requestDateLabel.setText(requestDate);
 		requestDateLabel.setBounds(0, 134, 109, 16);
@@ -416,7 +392,7 @@ public class InvPage extends JFrame {
 	}
 
 	protected void approveHistoryButton_actionPerformed(ActionEvent e) {
-		new ApproveRejectHistory().setVisible(true);
+		new ApproveRejectHistory(selectedInvRegReq).setVisible(true);
 	}
 
 	protected void priceButton_actionPerformed(ActionEvent e) {

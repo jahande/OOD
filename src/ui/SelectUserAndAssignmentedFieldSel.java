@@ -2,8 +2,6 @@ package ui;
 
 import javax.swing.JFrame;
 
-import controllers.Controller;
-
 /**
  * 
  * @author rj
@@ -14,11 +12,12 @@ public class SelectUserAndAssignmentedFieldSel extends SelectUser {
 
 	/**
 	 * Launch the application
+	 * 
 	 * @param args
 	 */
 	public static void main(String args[]) {
 		try {
-			SelectUserAndAssignmentedFieldSel frame = new SelectUserAndAssignmentedFieldSel(null);
+			SelectUserAndAssignmentedFieldSel frame = new SelectUserAndAssignmentedFieldSel();
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -28,8 +27,8 @@ public class SelectUserAndAssignmentedFieldSel extends SelectUser {
 	/**
 	 * Create the frame
 	 */
-	public SelectUserAndAssignmentedFieldSel(Controller c) {
-		super(c);
+	public SelectUserAndAssignmentedFieldSel() {
+		super();
 		setBounds(100, 100, 500, 375);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -37,8 +36,8 @@ public class SelectUserAndAssignmentedFieldSel extends SelectUser {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-		//
 	}
+
 	private void jbInit() throws Exception {
 		System.currentTimeMillis();
 		setTitle("انتخاب کاربر و حوزه‌ی کارشناسی - انتخاب کاربر");

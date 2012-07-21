@@ -17,12 +17,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import controllers.Controller;
-
 import logic.invention.InventionField;
 import logic.invention.InventionFieldCatalog;
 
-import uimodels.BaseFrame;
 import uimodels.IdLabel;
 import uimodels.NeedRefreshData;
 import uimodels.SimpleListModel;
@@ -33,7 +30,7 @@ import uimodels.SimpleListModel;
  * @usecase 42
  */
 
-public class DeleteInventionField extends BaseFrame implements NeedRefreshData {
+public class DeleteInventionField extends JFrame implements NeedRefreshData {
 
 	/**
 	 * 
@@ -55,7 +52,7 @@ public class DeleteInventionField extends BaseFrame implements NeedRefreshData {
 	 */
 	public static void main(String args[]) {
 		try {
-			DeleteInventionField frame = new DeleteInventionField(null);
+			DeleteInventionField frame = new DeleteInventionField();
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -65,8 +62,8 @@ public class DeleteInventionField extends BaseFrame implements NeedRefreshData {
 	/**
 	 * Create the frame
 	 */
-	public DeleteInventionField(Controller c) {
-		super(c);
+	public DeleteInventionField() {
+		super();
 		setBounds(100, 100, 393, 410);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -142,11 +139,8 @@ public class DeleteInventionField extends BaseFrame implements NeedRefreshData {
 	}
 
 	protected void label_1_mouseClicked(MouseEvent e, InventionField inf) {
-		JLabel mes = new JLabel(
-				"آیا شما به حذف حوزه‌ی اختراع مطمئن هستید؟ این عمل برگشت پذیر نیست!");
-		int n = JOptionPane.showOptionDialog(this, mes, "اخطار",
-				JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE,
-				null, null, null);
+		JLabel mes = new JLabel("آیا شما به حذف حوزه‌ی اختراع مطمئن هستید؟ این عمل برگشت پذیر نیست!");
+		int n = JOptionPane.showOptionDialog(this, mes, "اخطار", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
 		// pane.set
 		if (n == JOptionPane.YES_OPTION) {
 			InventionFieldCatalog catalog = null;
@@ -209,22 +203,6 @@ public class DeleteInventionField extends BaseFrame implements NeedRefreshData {
 
 	}
 
-	// private JList resetInventionFieldsNamePanel(){
-	// try {
-	// getContentPane().remove(list);
-	//			
-	// } catch (Exception e) {
-	// // TODO: handle exception
-	// }
-	// //ArrayList<String> invFields = new ArrayList<String>();
-	// /*invFields.add(inven);
-	// invFields.add("کامپیوتر");
-	// invFields.add("فیزیک");
-	// invFields.add("اقتصاد");*/
-	// list.setModel(new SimpleListModel(invFields));
-	// //list.setModel(null);
-	// list.setBounds(83, 75, 237, 244);
-	// }
 	private JPanel resetInventionFieldsPanel() {
 		try {
 			getContentPane().remove(this.panel);
@@ -243,7 +221,7 @@ public class DeleteInventionField extends BaseFrame implements NeedRefreshData {
 	}
 
 	protected void button_actionPerformed(ActionEvent e) {
-		this.simpleCommand("Return");
+		this.setVisible(false);
 	}
 
 }

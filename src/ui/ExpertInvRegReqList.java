@@ -1,8 +1,6 @@
 package ui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,13 +8,10 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
-
-import controllers.ApplicationContext;
 
 import logic.invention.InventionRegistrationRequest;
 import logic.invention.InventionRegistrationRequestCatalog;
@@ -29,22 +24,16 @@ import utilities.ListUtilities;
 
 public class ExpertInvRegReqList extends JFrame {
 
-	// private final JButton displayButton = new JButton();
-	// private final JButton displayButton_1 = new JButton();
-	// private final JButton displayButton_2 = new JButton();
-
 	private JScrollPane scrollPane;
 	private JTable table;
 
 	private InventionRegistrationRequestCatalog invRegReqCatalog;
+	private User currentUser;
 
 	private class JTableModel extends AbstractTableModel {
 		private static final long serialVersionUID = 1L;
-		private final String[] COLUMN_NAMES = new String[] { "مشاهده", "وضعیت",
-				"حوزه اختراع", "تاریخ ارسال", "شرکت", "مخترعان", "عنوان اختراع" };
-		private final Class<?>[] COLUMN_TYPES = new Class<?>[] { JButton.class,
-				String.class, String.class, String.class, String.class,
-				String.class, String.class };
+		private final String[] COLUMN_NAMES = new String[] { "مشاهده", "وضعیت", "حوزه اختراع", "تاریخ ارسال", "شرکت", "مخترعان", "عنوان اختراع" };
+		private final Class<?>[] COLUMN_TYPES = new Class<?>[] { JButton.class, String.class, String.class, String.class, String.class, String.class, String.class };
 		private List<InventionRegistrationRequest> requests;
 
 		public JTableModel(List<InventionRegistrationRequest> requests) {
@@ -79,8 +68,7 @@ public class ExpertInvRegReqList extends JFrame {
 			}
 			if (colName.equals("مشاهده")) {
 				final JButton button = new JButton(COLUMN_NAMES[columnIndex]);
-				button.addActionListener(new DisplayButtonActionListener(
-						request));
+				button.addActionListener(new DisplayButtonActionListener(request));
 				return button;
 			} else if (colName.equals("وضعیت")) {
 				return request.getStateName();
@@ -96,8 +84,7 @@ public class ExpertInvRegReqList extends JFrame {
 					return "---";
 				}
 			} else if (colName.equals("مخترعان")) {
-				return ListUtilities.getCommaSeparated(request.getInvention()
-						.getInventorNames());
+				return ListUtilities.getCommaSeparated(request.getInvention().getInventorNames());
 			} else if (colName.equals("عنوان اختراع")) {
 				return request.getInvention().getTitle();
 			} else {
@@ -113,7 +100,7 @@ public class ExpertInvRegReqList extends JFrame {
 	 */
 	public static void main(String args[]) {
 		try {
-			ExpertInvRegReqList frame = new ExpertInvRegReqList();
+			ExpertInvRegReqList frame = new ExpertInvRegReqList(null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -123,10 +110,10 @@ public class ExpertInvRegReqList extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public ExpertInvRegReqList() {
+	public ExpertInvRegReqList(User currentUser) {
 		super();
+		this.currentUser = currentUser;
 		invRegReqCatalog = InventionRegistrationRequestCatalog.getInstance();
-
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
 			jbInit();
@@ -139,9 +126,7 @@ public class ExpertInvRegReqList extends JFrame {
 	private void jbInit() throws Exception {
 		setTitle("درخواست های ثبت اختراع");
 
-		User expert = (User) ApplicationContext.getParameter("currentMember");
-		List<InventionRegistrationRequest> requestsList = invRegReqCatalog
-				.getInvRegReqsByParamater(expert);
+		List<InventionRegistrationRequest> requestsList = invRegReqCatalog.getInvRegReqsByExpert(currentUser);
 
 		table = new JTable(new JTableModel(requestsList));
 		scrollPane = new JScrollPane(table);
@@ -167,10 +152,8 @@ public class ExpertInvRegReqList extends JFrame {
 		}
 	}
 
-	protected void displayButton_actionPerformed(ActionEvent e,
-			InventionRegistrationRequest request) {
-		ApplicationContext.setParameter("selectedInvRegReq", request);
-		new ExpertInvRegReq().setVisible(true);
+	protected void displayButton_actionPerformed(ActionEvent e, InventionRegistrationRequest request) {
+		new ExpertInvRegReq(currentUser, request).setVisible(true);
 	}
 
 }

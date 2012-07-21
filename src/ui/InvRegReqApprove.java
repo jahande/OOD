@@ -26,8 +26,6 @@ import logic.invention.InventionRegistrationRequestCatalog;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
-import controllers.ApplicationContext;
-
 public class InvRegReqApprove extends JFrame {
 
 	private final JLabel label_9 = new JLabel();
@@ -71,7 +69,7 @@ public class InvRegReqApprove extends JFrame {
 	 */
 	public static void main(String args[]) {
 		try {
-			InvRegReqApprove frame = new InvRegReqApprove();
+			InvRegReqApprove frame = new InvRegReqApprove(null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -81,10 +79,11 @@ public class InvRegReqApprove extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public InvRegReqApprove() {
+	public InvRegReqApprove(Invention invention) {
 		super();
 		invRegReqCatalog = InventionRegistrationRequestCatalog.getInstance();
 		inventionCatalog = InventionCatalog.getInstance();
+		this.invention = invention;
 
 		setBounds(100, 100, 387, 744);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -97,8 +96,6 @@ public class InvRegReqApprove extends JFrame {
 	}
 
 	private void jbInit() throws Exception {
-		invention = (Invention) ApplicationContext.getParameter("invention");
-
 		getContentPane().setLayout(null);
 		setTitle("ایجاد درخواست ثبت اختراع");
 
@@ -148,8 +145,7 @@ public class InvRegReqApprove extends JFrame {
 		label_8.setBounds(297, 552, 66, 16);
 
 		getContentPane().add(titleTextField);
-		titleTextField
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		titleTextField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		titleTextField.setText(invention.getTitle());
 		titleTextField.setEditable(false);
 		titleTextField.setBounds(10, 56, 353, 20);
@@ -158,8 +154,7 @@ public class InvRegReqApprove extends JFrame {
 		scrollPane.setBounds(10, 104, 353, 50);
 
 		scrollPane.setViewportView(descTextPane);
-		descTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		descTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		descTextPane.setText(invention.getTotalSpec());
 		// end temp
 		descTextPane.setEditable(false);
@@ -170,8 +165,7 @@ public class InvRegReqApprove extends JFrame {
 		scrollPane_2.setViewportView(abstractTextPane);
 		abstractTextPane.setText(invention.getSummary());
 		// end temp
-		abstractTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		abstractTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		abstractTextPane.setEditable(false);
 
 		getContentPane().add(scrollPane_3);
@@ -181,8 +175,7 @@ public class InvRegReqApprove extends JFrame {
 		// begin temp
 		ideaDescTextPane.setText(invention.getIdeaDescription());
 		// end temp
-		ideaDescTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		ideaDescTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		ideaDescTextPane.setEditable(false);
 
 		getContentPane().add(scrollPane_4);
@@ -192,8 +185,7 @@ public class InvRegReqApprove extends JFrame {
 		// begin temp
 		ideaHistoryTextPane.setText(invention.getIdeaHistory());
 		// end temp
-		ideaHistoryTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		ideaHistoryTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		ideaHistoryTextPane.setEditable(false);
 
 		getContentPane().add(scrollPane_5);
@@ -203,8 +195,7 @@ public class InvRegReqApprove extends JFrame {
 		// begin temp
 		assertTextPane.setText(invention.getClaim());
 		// end temp
-		assertTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		assertTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		assertTextPane.setEditable(false);
 
 		getContentPane().add(scrollPane_6);
@@ -215,8 +206,7 @@ public class InvRegReqApprove extends JFrame {
 		// begin temp
 		fullDescTextPane.setText(invention.getExplanation());
 		// end temp
-		fullDescTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		fullDescTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		getContentPane().add(fileTextField1);
 		fileTextField1.setEditable(false);
@@ -262,8 +252,7 @@ public class InvRegReqApprove extends JFrame {
 
 	protected void button_actionPerformed(ActionEvent e) {
 		inventionCatalog.addItem(invention);
-		InventionRegistrationRequest request = new InventionRegistrationRequest(
-				new Date(), invention);
+		InventionRegistrationRequest request = new InventionRegistrationRequest(new Date(), invention);
 		invRegReqCatalog.addItem(request);
 		this.setVisible(false);
 	}

@@ -8,8 +8,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
-import controllers.ApplicationContext;
-
 import logic.invention.InventionRegistrationRequest;
 import logic.invention.InvestigationLog;
 import logic.invention.InvestigationLogCatalog;
@@ -19,9 +17,10 @@ public class ApproveRejectHistory extends JFrame {
 	private final JScrollPane scrollPane = new JScrollPane();
 	private final JTable table_1 = new JTable();
 
+	private InventionRegistrationRequest selectedInvRegReq;
+
 	class TableTableModel extends AbstractTableModel {
-		private final String[] COLUMNS = new String[] { "تاریخ", "نام کارشناس",
-				"تأیید یا رد" };
+		private final String[] COLUMNS = new String[] { "تاریخ", "نام کارشناس", "تأیید یا رد" };
 		private List<InvestigationLog> logList;
 
 		public TableTableModel(List<InvestigationLog> logList) {
@@ -62,7 +61,7 @@ public class ApproveRejectHistory extends JFrame {
 	 */
 	public static void main(String args[]) {
 		try {
-			ApproveRejectHistory frame = new ApproveRejectHistory();
+			ApproveRejectHistory frame = new ApproveRejectHistory(null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -72,8 +71,9 @@ public class ApproveRejectHistory extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public ApproveRejectHistory() {
+	public ApproveRejectHistory(InventionRegistrationRequest selectedInvRegReq) {
 		super();
+		this.selectedInvRegReq = selectedInvRegReq;
 		setBounds(100, 100, 477, 207);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -95,9 +95,7 @@ public class ApproveRejectHistory extends JFrame {
 		table_1.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		scrollPane.setViewportView(table_1);
 
-		InventionRegistrationRequest request = (InventionRegistrationRequest) ApplicationContext
-				.getParameter("selectedInvRegReq");
-		List<InvestigationLog> logsList = request.getInvestigationHistory();
+		List<InvestigationLog> logsList = selectedInvRegReq.getInvestigationHistory();
 		table_1.setModel(new TableTableModel(logsList));
 	}
 }

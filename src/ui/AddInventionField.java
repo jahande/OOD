@@ -12,17 +12,13 @@ import javax.swing.SwingConstants;
 import logic.invention.InventionField;
 import logic.invention.InventionFieldCatalog;
 
-import controllers.ApplicationContext;
-import controllers.Controller;
-import uimodels.BaseFrame;
-
 /**
  * 
  * @author rj
  * @usecase 40
  */
 
-public class AddInventionField extends BaseFrame {
+public class AddInventionField extends JFrame {
 
 	private final JButton button = new JButton();
 	private final JTextField textField = new JTextField();
@@ -37,7 +33,7 @@ public class AddInventionField extends BaseFrame {
 	 */
 	public static void main(String args[]) {
 		try {
-			AddInventionField frame = new AddInventionField(null);
+			AddInventionField frame = new AddInventionField();
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -47,8 +43,8 @@ public class AddInventionField extends BaseFrame {
 	/**
 	 * Create the frame
 	 */
-	public AddInventionField(Controller c) {
-		super(c);
+	public AddInventionField() {
+		super();
 		setBounds(100, 100, 277, 173);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -56,7 +52,6 @@ public class AddInventionField extends BaseFrame {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-		//
 	}
 
 	private void jbInit() throws Exception {
@@ -108,8 +103,7 @@ public class AddInventionField extends BaseFrame {
 	}
 
 	protected void button_1_actionPerformed(ActionEvent e) {
-		this.simpleCommand("Return");
-
+		this.setVisible(false);
 	}
 
 }

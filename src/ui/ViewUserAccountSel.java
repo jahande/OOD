@@ -2,8 +2,6 @@ package ui;
 
 import javax.swing.JFrame;
 
-import controllers.Controller;
-
 /**
  * 
  * @author rj
@@ -18,7 +16,7 @@ public class ViewUserAccountSel extends SelectUser {
 	 */
 	public static void main(String args[]) {
 		try {
-			ViewUserAccountSel frame = new ViewUserAccountSel(null);
+			ViewUserAccountSel frame = new ViewUserAccountSel();
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -28,8 +26,8 @@ public class ViewUserAccountSel extends SelectUser {
 	/**
 	 * Create the frame
 	 */
-	public ViewUserAccountSel(Controller c	) {
-		super(c);
+	public ViewUserAccountSel() {
+		super();
 		setBounds(100, 100, 500, 375);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -37,7 +35,6 @@ public class ViewUserAccountSel extends SelectUser {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-		//
 	}
 	private void jbInit() throws Exception {
 		System.currentTimeMillis();

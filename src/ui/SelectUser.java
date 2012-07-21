@@ -2,14 +2,10 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -17,15 +13,9 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 
-import logic.invention.InventionField;
 import logic.member.User;
 
-import controllers.Controller;
-
-import uimodels.BaseFrame;
-import uimodels.IdLabel;
 import uimodels.NeedRefreshData;
-import uimodels.SimpleListModel;
 
 /**
  * 
@@ -34,37 +24,12 @@ import uimodels.SimpleListModel;
  * @usecase 30 base class for 37
  */
 
-public class SelectUser extends BaseFrame implements NeedRefreshData {
+public class SelectUser extends JFrame implements NeedRefreshData {
 
-	private  JPanel panel = new JPanel();
+	private JPanel panel = new JPanel();
 	private final JLabel label_1 = new JLabel();
 	private final JLabel label_3 = new JLabel();
 	private final JLabel label_4 = new JLabel();
-	// class TableTableModel extends AbstractTableModel {
-	// private final String[] COLUMNS = new String[] {
-	// "نام انوادگی","نام","نام کاربری"
-	// };
-	// private final String[][] CELLS = new String[][] {
-	// {"علوی", "علی", "alialavi"},
-	// {"جهنده", "روح الله", "rjahande"},
-	// {"فرقانی", "حسین", "hforghani"},
-	//			
-	// };
-	// public int getRowCount() {
-	// return CELLS.length;
-	// }
-	// public int getColumnCount() {
-	// return COLUMNS.length;
-	// }
-	// public String getColumnName(int column) {
-	// return COLUMNS[column];
-	// }
-	// public Object getValueAt(int row, int column) {
-	// return CELLS[row].length > column ? CELLS[row][column] : (column + " - "
-	// + row);
-	// }
-	// }
-
 	private final JScrollPane scrollPane = new JScrollPane();
 	private final JTable table = new JTable();
 	private final JLabel label = new JLabel();
@@ -76,7 +41,7 @@ public class SelectUser extends BaseFrame implements NeedRefreshData {
 	 */
 	public static void main(String args[]) {
 		try {
-			SelectUser frame = new SelectUser(null);
+			SelectUser frame = new SelectUser();
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -86,8 +51,8 @@ public class SelectUser extends BaseFrame implements NeedRefreshData {
 	/**
 	 * Create the frame
 	 */
-	public SelectUser(Controller c) {
-		super(c);
+	public SelectUser() {
+		super();
 		setBounds(100, 100, 500, 375);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -95,7 +60,6 @@ public class SelectUser extends BaseFrame implements NeedRefreshData {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-		//
 	}
 
 	private void jbInit() throws Exception {
@@ -181,14 +145,8 @@ public class SelectUser extends BaseFrame implements NeedRefreshData {
 }
 
 class UserTableModel extends AbstractTableModel {
-	private final String[] COLUMNS = new String[] { "نام انوادگی", "نام",
-			"نام کاربری" };
-	private final String[][] CELLS;// = new String[][] {
-	// {"علوی", "علی", "alialavi"},
-	// {"جهنده", "روح الله", "rjahande"},
-	// {"فرقانی", "حسین", "hforghani"},
-	//		
-	// };
+	private final String[] COLUMNS = new String[] { "نام انوادگی", "نام", "نام کاربری" };
+	private final String[][] CELLS;
 
 	private UserTableModel() {
 		CELLS = null;
@@ -211,7 +169,6 @@ class UserTableModel extends AbstractTableModel {
 	}
 
 	public Object getValueAt(int row, int column) {
-		return CELLS[row].length > column ? CELLS[row][column] : (column
-				+ " - " + row);
+		return CELLS[row].length > column ? CELLS[row][column] : (column + " - " + row);
 	}
 }

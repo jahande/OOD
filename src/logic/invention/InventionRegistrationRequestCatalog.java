@@ -45,7 +45,7 @@ public class InventionRegistrationRequestCatalog extends RequestCatalog {
 		return null;
 	}
 
-	public List<InventionRegistrationRequest> getInvRegReqsByParamater(
+	public List<InventionRegistrationRequest> getInvRegReqsByExpert(
 			User expert) {
 		List<InventionRegistrationRequest> results = new ArrayList<InventionRegistrationRequest>();
 		for (Request request : requestList) {

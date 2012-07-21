@@ -17,10 +17,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-import controllers.ApplicationContext;
-
 import logic.invention.Invention;
 import logic.invention.InventionRegistrationRequest;
+import logic.member.User;
 
 public class InvRegReq extends JFrame {
 
@@ -51,6 +50,7 @@ public class InvRegReq extends JFrame {
 	private final JTextField fileTextField1 = new JTextField();
 	private final JTextField fileTextField2 = new JTextField();
 	private final JTextField fileTextField3 = new JTextField();
+	private final JButton nextButton = new JButton();
 
 	private String title;
 	private String description;
@@ -61,7 +61,7 @@ public class InvRegReq extends JFrame {
 	private String fullDesc;
 	private File[] attachedFiles = new File[3];
 
-	private final JButton nextButton = new JButton();
+	private User currentUser;
 
 	/**
 	 * Launch the application
@@ -70,7 +70,7 @@ public class InvRegReq extends JFrame {
 	 */
 	public static void main(String args[]) {
 		try {
-			InvRegReq frame = new InvRegReq();
+			InvRegReq frame = new InvRegReq(null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -80,8 +80,9 @@ public class InvRegReq extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public InvRegReq() {
+	public InvRegReq(User currentUser) {
 		super();
+		this.currentUser = currentUser;
 		setBounds(100, 100, 419, 607);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -136,68 +137,58 @@ public class InvRegReq extends JFrame {
 		label_7.setText("فایل های پیوست");
 		label_7.setBounds(307, 421, 66, 16);
 
-		titleTextField
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		titleTextField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		getContentPane().add(titleTextField);
 		titleTextField.setBounds(40, 21, 254, 20);
 
 		getContentPane().add(scrollPane);
 		scrollPane.setBounds(40, 47, 254, 53);
 
-		descTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		descTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		scrollPane.setViewportView(descTextPane);
 
 		getContentPane().add(scrollPane_2);
 		scrollPane_2.setBounds(40, 105, 254, 53);
 
 		scrollPane_2.setViewportView(abstractTextPane);
-		abstractTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		abstractTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		getContentPane().add(scrollPane_3);
 		scrollPane_3.setBounds(40, 164, 254, 53);
 
 		scrollPane_3.setViewportView(ideaDescTextPane);
-		ideaDescTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		ideaDescTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		getContentPane().add(scrollPane_4);
 		scrollPane_4.setBounds(40, 223, 254, 53);
 
 		scrollPane_4.setViewportView(ideaHistoryTextPane);
-		ideaHistoryTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		ideaHistoryTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		getContentPane().add(scrollPane_5);
 		scrollPane_5.setBounds(40, 282, 254, 53);
 
 		scrollPane_5.setViewportView(assertTextPane);
-		assertTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		assertTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		getContentPane().add(scrollPane_6);
 		scrollPane_6.setBounds(40, 341, 254, 53);
 
 		scrollPane_6.setViewportView(fullDescTextPane);
-		fullDescTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		fullDescTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		getContentPane().add(fileChooseButton1);
-		fileChooseButton1
-				.addActionListener(new FileChooseButton1ActionListener());
+		fileChooseButton1.addActionListener(new FileChooseButton1ActionListener());
 		fileChooseButton1.setText("انتخاب ...");
 		fileChooseButton1.setBounds(209, 411, 85, 26);
 
 		getContentPane().add(fileChooseButton2);
-		fileChooseButton2
-				.addActionListener(new FileChooseButton2ActionListener());
+		fileChooseButton2.addActionListener(new FileChooseButton2ActionListener());
 		fileChooseButton2.setText("انتخاب ...");
 		fileChooseButton2.setBounds(209, 443, 85, 26);
 
 		getContentPane().add(fileChooseButton3);
-		fileChooseButton3
-				.addActionListener(new FileChooseButton3ActionListener());
+		fileChooseButton3.addActionListener(new FileChooseButton3ActionListener());
 		fileChooseButton3.setText("انتخاب ...");
 		fileChooseButton3.setBounds(209, 475, 85, 26);
 
@@ -277,13 +268,8 @@ public class InvRegReq extends JFrame {
 		assertion = assertTextPane.getText();
 		fullDesc = fullDescTextPane.getText();
 
-		if (title.equals("") || description.equals("")
-				|| invAbstract.equals("") || ideaDesc.equals("")
-				|| ideaHistory.equals("") || assertion.equals("")
-				|| fullDesc.equals("")) {
-			JOptionPane.showMessageDialog(this,
-					"لطفاً مشخصات اختراع را تکمیل نمایید.", "خطا",
-					JOptionPane.ERROR_MESSAGE);
+		if (title.equals("") || description.equals("") || invAbstract.equals("") || ideaDesc.equals("") || ideaHistory.equals("") || assertion.equals("") || fullDesc.equals("")) {
+			JOptionPane.showMessageDialog(this, "لطفاً مشخصات اختراع را تکمیل نمایید.", "خطا", JOptionPane.ERROR_MESSAGE);
 		} else {
 			List<String> files = new ArrayList<String>();
 			if (!fileTextField1.getText().equals("")) {
@@ -295,12 +281,9 @@ public class InvRegReq extends JFrame {
 			if (!fileTextField3.getText().equals("")) {
 				files.add(fileTextField3.getText());
 			}
-			Invention invention = new Invention(title, description,
-					invAbstract, ideaDesc, ideaHistory, assertion, fullDesc,
-					files);
+			Invention invention = new Invention(title, description, invAbstract, ideaDesc, ideaHistory, assertion, fullDesc, files);
 			this.setVisible(false);
-			ApplicationContext.setParameter("invention", invention);
-			new InvRegReqInventors().setVisible(true);
+			new InvRegReqInventors(currentUser, invention).setVisible(true);
 		}
 	}
 }

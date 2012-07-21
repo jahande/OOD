@@ -1,41 +1,30 @@
 package ui;
 
 import java.awt.ComponentOrientation;
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
-import logic.member.Member;
-
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-
-import controllers.ApplicationContext;
-import controllers.Controller;
+import logic.member.User;
 
 public class UserPage extends JFrame {
 
 	private final JButton CompanyRegReqButton = new JButton();
 	private final JButton InvRegReqButton = new JButton();
-
 	private final JButton invHistoryButton = new JButton();
 	private final JButton invReportButton = new JButton();
-
 	private final JButton inventionsListButton = new JButton();
-
 	private final JButton searchButton = new JButton();
 	private final JLabel label = new JLabel();
 	private final JButton exitButton = new JButton();
 	private final JPanel panel = new JPanel();
-
 	private final JButton messagesButton = new JButton();
 
-	private Controller controller;
+	private User currentUser;
 
 	// /**
 	// * Launch the application
@@ -54,8 +43,9 @@ public class UserPage extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public UserPage(Controller controller) {
+	public UserPage(User currentUser) {
 		super();
+		this.currentUser = currentUser;
 		setBounds(100, 100, 317, 311);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		try {
@@ -63,7 +53,6 @@ public class UserPage extends JFrame {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-		this.controller = controller;
 	}
 
 	private void jbInit() throws Exception {
@@ -73,9 +62,7 @@ public class UserPage extends JFrame {
 		getContentPane().add(label);
 		label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		try {
-			Member currentMember = (Member) ApplicationContext
-					.getParameter("currentMember");
-			label.setText("خوش آمدید، " + currentMember.getFullName());
+			label.setText("خوش آمدید، " + currentUser.getFullName());
 		} catch (NullPointerException e) {
 		}
 		label.setBounds(183, 10, 116, 16);
@@ -92,8 +79,7 @@ public class UserPage extends JFrame {
 
 		CompanyRegReqButton.setBounds(68, 10, 161, 26);
 		panel.add(CompanyRegReqButton);
-		CompanyRegReqButton
-				.addActionListener(new CompanyRegReqActionListener());
+		CompanyRegReqButton.addActionListener(new CompanyRegReqActionListener());
 		CompanyRegReqButton.setText("ثبت شرکت");
 
 		InvRegReqButton.setBounds(68, 42, 161, 26);
@@ -103,8 +89,7 @@ public class UserPage extends JFrame {
 
 		invHistoryButton.setBounds(68, 74, 161, 26);
 		panel.add(invHistoryButton);
-		invHistoryButton
-				.addActionListener(new InvHistoryButtonActionListener());
+		invHistoryButton.addActionListener(new InvHistoryButtonActionListener());
 		invHistoryButton.setText("سوابق اختراعات");
 
 		invReportButton.setBounds(68, 106, 161, 26);
@@ -113,8 +98,7 @@ public class UserPage extends JFrame {
 		invReportButton.setText("گزارش اختراعات حساب کاربری");
 
 		inventionsListButton.setBounds(68, 138, 161, 26);
-		inventionsListButton
-				.addActionListener(new InventionsListButtonActionListener());
+		inventionsListButton.addActionListener(new InventionsListButtonActionListener());
 		panel.add(inventionsListButton);
 		inventionsListButton.setText("لیست اختراعات");
 
@@ -182,11 +166,11 @@ public class UserPage extends JFrame {
 	}
 
 	protected void invRegReqButton_actionPerformed(ActionEvent e) {
-		new InvRegReq().setVisible(true);
+		new InvRegReq(currentUser).setVisible(true);
 	}
 
 	protected void invHistoryButton_actionPerformed(ActionEvent e) {
-		new InvHistory().setVisible(true);
+		new InvHistory(currentUser).setVisible(true);
 	}
 
 	protected void invReportButton_actionPerformed(ActionEvent e) {
@@ -206,7 +190,8 @@ public class UserPage extends JFrame {
 	}
 
 	protected void exitButton_actionPerformed(ActionEvent e) {
-		controller.next(null, "UserPage", "logout");
+		this.setVisible(false);
+		new Login().setVisible(true);
 	}
 
 }
