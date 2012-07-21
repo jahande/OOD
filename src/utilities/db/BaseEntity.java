@@ -5,7 +5,7 @@ import java.io.Serializable;
 public abstract class BaseEntity<T extends Serializable> {
 	public abstract T getId();
 
-	public abstract void setId(T entity);
+	public abstract void setId(T id);
 
 	@Override
 	public String toString() {

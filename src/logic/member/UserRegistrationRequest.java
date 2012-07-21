@@ -4,8 +4,10 @@ import java.util.Date;
 
 import logic.Request;
 
-
 public class UserRegistrationRequest extends Request {
+	public UserRegistrationRequest() {
+
+	}
 
 	public UserRegistrationRequest(Date requestDate) {
 		super(requestDate);

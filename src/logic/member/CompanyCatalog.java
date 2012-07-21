@@ -3,24 +3,20 @@ package logic.member;
 import java.util.ArrayList;
 import java.util.List;
 
+import utilities.db.dao.CompanyAgentDao;
+import utilities.db.dao.CompanyDao;
+
 import logic.Catalog;
 
 public class CompanyCatalog implements Catalog {
 	private static CompanyCatalog instance;
-	private List<Company> itemsList = new ArrayList<Company>();
+	private CompanyDao companyDao;
+	private CompanyAgentDao companyAgentDao;
 
 	private CompanyCatalog() {
 		super();
-		// userCatalog = UserCatalog.getInstance();
-		// List<User> agents = new ArrayList<User>();
-		// agents.add(userCatalog.getUserByParamater("user"));
-		// itemsList.add(new Company("عمید رایانه شریف", agents));
-		// agents = new ArrayList<User>();
-		// agents.add(userCatalog.getUserByParamater("inventor"));
-		// itemsList.add(new Company("پوران صنعت ایران", agents));
-		// agents = new ArrayList<User>();
-		// agents.add(userCatalog.getUserByParamater("expert"));
-		// itemsList.add(new Company("تمیز گستر اندیشان", agents));
+		companyDao = CompanyDao.getInstance();
+		companyAgentDao = CompanyAgentDao.getInstance();
 	}
 
 	public static CompanyCatalog getInstance() {
@@ -31,24 +27,36 @@ public class CompanyCatalog implements Catalog {
 	}
 
 	public void addItem(Object item) {
-		itemsList.add((Company) item);
+		companyDao.save((Company) item);
 	}
 
 	public List<?> getAllItems() {
-		return itemsList;
+		return companyDao.fetchAll();
 	}
 
 	public void removeItem(Object removedItem) {
-		itemsList.remove(removedItem);
+		companyDao.delete((Company) removedItem);
 	}
 
-	public Company getCompanyByParameter(String name) {
-		for (Company company : itemsList) {
-			if (company.getName().equals(name)) {
-				return company;
-			}
+	public void updateItem(Object item) {
+		companyDao.update((Company) item);
+	}
+
+	public Company getCompanyByName(String name) {
+		List<Company> result = companyDao.findByParameter("name", name);
+		if (!result.isEmpty()) {
+			return result.get(0);
+		} else {
+			return null;
 		}
-		return null;
 	}
 
+	public List<User> getAgents(Company company) {
+		List<CompanyAgent> companyAgents = companyAgentDao.findByParameter("company", company);
+		List<User> result = new ArrayList<User>();
+		for (CompanyAgent companyAgent : companyAgents) {
+			result.add(companyAgent.getAgent());
+		}
+		return result;
+	}
 }

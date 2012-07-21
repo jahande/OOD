@@ -8,5 +8,7 @@ public interface Catalog {
 
 	public void addItem(Object item);
 
-	public void removeItem(Object removedItem);
+	public void removeItem(Object item);
+
+	public void updateItem(Object item);
 }

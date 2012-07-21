@@ -76,7 +76,7 @@ public class InvRegReqCompany extends JFrame {
 		List<String> companyNames = new ArrayList<String>();
 		companyNames.add("---");
 		for (Company company : companyList) {
-			if (company.getAgentsList().contains(currentUser)) {
+			if (companyCatalog.getAgents(company).contains(currentUser)) {
 				companyNames.add(company.getName());
 			}
 		}
@@ -103,7 +103,7 @@ public class InvRegReqCompany extends JFrame {
 	protected void nextButton_actionPerformed(ActionEvent e) {
 		String selectedName = comboBox.getSelectedItem().toString();
 		if (!selectedName.equals("---")) {
-			Company company = companyCatalog.getCompanyByParameter(selectedName);
+			Company company = companyCatalog.getCompanyByName(selectedName);
 			invention.setCompany(company);
 		}
 		this.setVisible(false);

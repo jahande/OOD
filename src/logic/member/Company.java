@@ -7,12 +7,15 @@ import utilities.db.BaseEntity;
 public class Company extends BaseEntity<Integer> {
 	private Integer id;
 	private String name;
-	private List<User> agentsList;
+	private List<CompanyAgent> companyAgentsList;
 
-	public Company(String name, List<User> agentsList) {
+	public Company() {
+
+	}
+
+	public Company(String name) {
 		super();
 		this.name = name;
-		this.agentsList = agentsList;
 	}
 
 	public Integer getId() {
@@ -31,12 +34,12 @@ public class Company extends BaseEntity<Integer> {
 		this.name = name;
 	}
 
-	public void setAgentsList(List<User> agentsList) {
-		this.agentsList = agentsList;
+	public List<CompanyAgent> getCompanyAgentsList() {
+		return companyAgentsList;
 	}
 
-	public List<User> getAgentsList() {
-		return agentsList;
+	public void setCompanyAgentsList(List<CompanyAgent> companyAgentsList) {
+		this.companyAgentsList = companyAgentsList;
 	}
 
 }

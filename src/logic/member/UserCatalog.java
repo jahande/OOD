@@ -1,26 +1,19 @@
 package logic.member;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import utilities.db.dao.UserDao;
 
 import logic.Catalog;
 
 public class UserCatalog implements Catalog {
 	private static UserCatalog instance;
-
-	private List<User> itemsList = new ArrayList<User>();
+	private UserDao userDao;
 
 	private UserCatalog() {
 		super();
-		User expert = new User("کارشناس", "کارشناسی", "expert", "123",
-				"expert@expert.com", new Date());
-		expert.setExpert(true);
-		itemsList.add(expert);
-		itemsList.add(new User("کاربر", "کاربری", "user", "123",
-				"user@user.com", new Date()));
-		itemsList.add(new User("مخترع", "اختراعی", "inventor", "123",
-				"inventor@inventor.com", new Date()));
+		userDao = UserDao.getInstance();
 	}
 
 	public static UserCatalog getInstance() {
@@ -31,34 +24,37 @@ public class UserCatalog implements Catalog {
 	}
 
 	public void addItem(Object item) {
-		itemsList.add((User) item);
+		userDao.save((User) item);
 	}
 
 	public List<?> getAllItems() {
-		return itemsList;
+		return userDao.fetchAll();
 	}
 
 	public void removeItem(Object removedItem) {
-		itemsList.remove(removedItem);
+		userDao.delete((User) removedItem);
 	}
 
-	public User getUserByParamater(String username) {
-		for (User user : itemsList) {
-			if (user.getUserName().equals(username)) {
-				return user;
-			}
+	public void updateItem(Object item) {
+		userDao.update((User) item);
+	}
+
+	public User getUserByUsername(String username) {
+		List<User> result = userDao.findByParameter("userName", username);
+		if (!result.isEmpty()) {
+			return result.get(0);
+		} else {
+			return null;
 		}
-		return null;
 	}
 
 	public List<User> getExperts() {
-		List<User> experts = new ArrayList<User>();
-		for (User user : itemsList) {
-			if (user.isExpert()) {
-				experts.add(user);
-			}
+		List<User> result = userDao.findByParameter("expert", true);
+		if (!result.isEmpty()) {
+			return new ArrayList<User>();
+		} else {
+			return result;
 		}
-		return experts;
 	}
 
 }

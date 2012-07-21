@@ -1,21 +1,18 @@
 package logic.invention;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import utilities.db.dao.InventionFieldDao;
 
 import logic.Catalog;
 
 public class InventionFieldCatalog implements Catalog {
 	private static InventionFieldCatalog instance;
-
-	private List<InventionField> itemsList = new ArrayList<InventionField>();
+	private InventionFieldDao inventionFieldDao;
 
 	private InventionFieldCatalog() {
 		super();
-		itemsList.add(new InventionField("کامپیوتر"));
-		itemsList.add(new InventionField("عمران"));
-		itemsList.add(new InventionField("هوافضا"));
-		itemsList.add(new InventionField("مواد"));
+		inventionFieldDao = InventionFieldDao.getInstance();
 	}
 
 	public static InventionFieldCatalog getInstance() {
@@ -26,24 +23,28 @@ public class InventionFieldCatalog implements Catalog {
 	}
 
 	public void addItem(Object item) {
-		itemsList.add((InventionField) item);
+		inventionFieldDao.save((InventionField) item);
 	}
 
 	public List<?> getAllItems() {
-		return itemsList;
+		return inventionFieldDao.fetchAll();
 	}
 
 	public void removeItem(Object removedItem) {
-		itemsList.remove(removedItem);
+		inventionFieldDao.delete((InventionField) removedItem);
 	}
 
-	public InventionField getInventionFieldByParamater(String name) {
-		for (InventionField inventionField : itemsList) {
-			if (inventionField.getName().equals(name)) {
-				return inventionField;
-			}
+	public void updateItem(Object item) {
+		inventionFieldDao.update((InventionField) item);
+	}
+
+	public InventionField getInventionFieldByName(String name) {
+		List<InventionField> result = inventionFieldDao.findByParameter("name", name);
+		if (!result.isEmpty()) {
+			return result.get(0);
+		} else {
+			return null;
 		}
-		return null;
 	}
 
 }

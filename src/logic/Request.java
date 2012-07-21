@@ -13,6 +13,10 @@ public abstract class Request extends BaseEntity<Integer> {
 	public static final int ACCEPTED = 1;
 	public static final int REJECTED = -1;
 
+	public Request() {
+
+	}
+
 	public Request(Date requestDate) {
 		super();
 		state = 0;

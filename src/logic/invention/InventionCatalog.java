@@ -4,37 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import utilities.db.dao.InventionDao;
+import utilities.db.dao.ShareDao;
 
 import logic.Catalog;
 import logic.member.User;
 
 public class InventionCatalog implements Catalog {
 	private static InventionCatalog instance;
-	private List<Share> shareList = new ArrayList<Share>();
 	private InventionDao inventionDao;
+	private ShareDao shareDao;
 
 	private InventionCatalog() {
 		super();
 		inventionDao = InventionDao.getInstance();
-
-		// inventionFieldCatalog = (InventionFieldCatalog) ApplicationContext
-		// .getCatalog(InventionFieldCatalog.class);
-		// userCatalog = (UserCatalog) ApplicationContext
-		// .getCatalog(UserCatalog.class);
-		// companyCatalog = (CompanyCatalog) ApplicationContext
-		// .getCatalog(CompanyCatalog.class);
-		// Invention invention = new Invention("عنوان", "مشخصات کلی", "چکیده",
-		// "شرح ایده", "سابقه ایده", "ادعانامه", "شرح کامل",
-		// new ArrayList<String>());
-		// invention.setInventionField(inventionFieldCatalog
-		// .getInventionFieldByParamater("کامپیوتر"));
-		// List<User> inventors = new ArrayList<User>();
-		// inventors.add(userCatalog.getUserByParamater("user"));
-		// inventors.add(userCatalog.getUserByParamater("inventor"));
-		// invention.setInventors(inventors);
-		// invention.setCompany(companyCatalog
-		// .getCompanyByParameter("عمید رایانه شریف"));
-		// inventionList.add(invention);
+		shareDao = ShareDao.getInstance();
 	}
 
 	public static InventionCatalog getInstance() {
@@ -45,18 +28,19 @@ public class InventionCatalog implements Catalog {
 	}
 
 	public void addItem(Object item) {
-		// inventionList.add((Invention) item);
 		inventionDao.save((Invention) item);
 	}
 
 	public List<?> getAllItems() {
-		// return inventionList;
 		return inventionDao.fetchAll();
 	}
 
 	public void removeItem(Object removedItem) {
-		// inventionList.remove(removedItem);
 		inventionDao.delete((Invention) removedItem);
+	}
+
+	public void updateItem(Object item) {
+		inventionDao.update((Invention) item);
 	}
 
 	public Invention getInventionByTitle(String title) {
@@ -66,29 +50,41 @@ public class InventionCatalog implements Catalog {
 		} else {
 			return null;
 		}
-		// for (Invention invention : inventionList) {
-		// if (invention.getTitle().equals(title)) {
-		// return invention;
-		// }
-		// }
-		// return null;
 	}
 
 	public void addShare(Share share) {
-		shareList.add(share);
+		shareDao.save((Share) share);
 	}
 
 	public List<Share> getShareList() {
-		return shareList;
+		return shareDao.fetchAll();
 	}
 
 	public Share getShareByParameter(User user, Invention invention) {
-		for (Share share : shareList) {
-			if (share.getUser().equals(user)
-					&& share.getInvention().equals(invention)) {
+		List<Share> result = shareDao.findByParameter("invention", invention);
+		for (Share share : result) {
+			if (share.getUser().equals(user)) {
 				return share;
 			}
 		}
 		return null;
+	}
+
+	public List<User> getInventors(Invention invention) {
+		List<Share> shares = shareDao.findByParameter("invention", invention);
+		List<User> inventors = new ArrayList<User>();
+		for (Share share : shares) {
+			inventors.add(share.getUser());
+		}
+		return inventors;
+	}
+
+	public List<String> getInventorNames(Invention invention) {
+		List<String> namesList = new ArrayList<String>();
+		List<User> inventors = getInventors(invention);
+		for (User inventor : inventors) {
+			namesList.add(inventor.getFirstName() + " " + inventor.getLastName());
+		}
+		return namesList;
 	}
 }

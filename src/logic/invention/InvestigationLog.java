@@ -13,6 +13,10 @@ public class InvestigationLog extends BaseEntity<Integer> {
 	private Date date;
 	private boolean accepted;
 
+	public InvestigationLog() {
+
+	}
+
 	public InvestigationLog(User expert, InventionRegistrationRequest request, boolean accepted) {
 		super();
 		this.expert = expert;

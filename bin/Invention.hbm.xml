@@ -6,23 +6,28 @@
   <id column="id" name="id" type="integer">
    <generator class="increment"/>
   </id>
-  <property column="title" lazy="false" name="title" type="character"/>
+  <property column="title" lazy="false" name="title" type="string"/>
   <property column="totalSpec" lazy="false"
-   name="totalSpec" type="character"/>
+   name="totalSpec" type="string"/>
   <property column="summary" lazy="false"
-   name="summary" type="character"/>
+   name="summary" type="string"/>
   <property column="ideaDescription" lazy="false"
-   name="ideaDescription" type="character"/>
+   name="ideaDescription" type="string"/>
   <property column="ideaHistory" lazy="false"
-   name="ideaHistory" type="character"/>
-  <property column="claim" lazy="false" name="claim" type="character"/>
+   name="ideaHistory" type="string"/>
+  <property column="claim" lazy="false" name="claim" type="string"/>
   <property column="explanation" lazy="false"
-   name="explanation" type="character"/>
-  <property column="file1" lazy="false" name="file1" type="character"/>
-  <property column="file2" lazy="false" name="file2" type="character"/>
-  <property column="file3" lazy="false" name="file3" type="character"/>
+   name="explanation" type="string"/>
+  <property column="file1" lazy="false" name="file1" type="string"/>
+  <property column="file2" lazy="false" name="file2" type="string"/>
+  <property column="file3" lazy="false" name="file3" type="string"/>
   <property column="price" lazy="false" name="price" type="long"/>
   <many-to-one class="logic.invention.InventionField" column="inventionField" name="inventionField"/>
   <many-to-one class="logic.member.Company" column="company" name="company"/>
+<!--  <list name="shares" table="logic_invention_share">
+   <key column="invention"/>
+   <index column="id" />
+   <one-to-many class="logic.invention.Share"/>
+  </list> -->
  </class>
 </hibernate-mapping>

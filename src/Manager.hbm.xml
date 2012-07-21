@@ -3,16 +3,18 @@
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
  <class name="logic.member.Manager" table="logic_member_manager">
-  <id column="id" name="id" type="integer"/>
+  <id column="id" name="id" type="integer">
+   <generator class="increment"/>
+  </id>
   <property column="firstName" lazy="false"
-   name="firstName" type="character"/>
+   name="firstName" type="string"/>
   <property column="lastName" lazy="false"
-   name="lastName" type="character"/>
+   name="lastName" type="string"/>
   <property column="userName" lazy="false"
-   name="userName" type="character"/>
+   name="userName" type="string"/>
   <property column="password" lazy="false"
-   name="password" type="character"/>
-  <property column="email" lazy="false" name="email" type="character"/>
+   name="password" type="string"/>
+  <property column="email" lazy="false" name="email" type="string"/>
   <property column="birthDate" lazy="false"
    name="birthDate" type="date"/>
  </class>

@@ -238,14 +238,11 @@ public class InvRegReqInventors extends JFrame {
 			// error considered.
 			JOptionPane.showMessageDialog(this, "مجموع سهم های مالکیت معنوی بایستی 100 باشد.", "خطا", JOptionPane.ERROR_MESSAGE);
 		} else {
-			List<User> userList = new ArrayList<User>();
 			for (InventorData inventor : inventorsList) {
-				User user = userCatalog.getUserByParamater((String) inventor.getInventorCombobox().getSelectedItem());
+				User user = userCatalog.getUserByUsername((String) inventor.getInventorCombobox().getSelectedItem());
 				int shareValue = Integer.valueOf(inventor.getShareTextField().getText());
 				inventionCatalog.addShare(new Share(user, invention, shareValue));
-				userList.add(user);
 			}
-			invention.setInventors(userList);
 			this.setVisible(false);
 			new InvRegReqCompany(currentUser, invention).setVisible(true);
 		}

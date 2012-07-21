@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import logic.invention.InventionCatalog;
 import logic.invention.InventionRegistrationRequest;
 import logic.invention.InventionRegistrationRequestCatalog;
 import logic.member.Company;
@@ -31,10 +32,8 @@ public class InvHistory extends JFrame {
 
 	private class JTableModel extends AbstractTableModel {
 		private static final long serialVersionUID = 1L;
-		private final String[] COLUMN_NAMES = new String[] { "مشاهده",
-				"تاریخ ثبت", "تاریخ ارسال درخواست", "مخترعان", "عنوان اختراع" };
-		private final Class<?>[] COLUMN_TYPES = new Class<?>[] { JButton.class,
-				String.class, String.class, String.class, String.class };
+		private final String[] COLUMN_NAMES = new String[] { "مشاهده", "تاریخ ثبت", "تاریخ ارسال درخواست", "مخترعان", "عنوان اختراع" };
+		private final Class<?>[] COLUMN_TYPES = new Class<?>[] { JButton.class, String.class, String.class, String.class, String.class };
 		private List<InventionRegistrationRequest> requests;
 
 		public JTableModel(List<InventionRegistrationRequest> requests) {
@@ -69,16 +68,15 @@ public class InvHistory extends JFrame {
 			}
 			if (colName.equals("مشاهده")) {
 				final JButton button = new JButton(COLUMN_NAMES[columnIndex]);
-				button.addActionListener(new DisplayButtonActionListener(
-						request));
+				button.addActionListener(new DisplayButtonActionListener(request));
 				return button;
 			} else if (colName.equals("تاریخ ثبت")) {
 				return request.getRequestDate();
 			} else if (colName.equals("تاریخ ارسال درخواست")) {
 				return request.getSendDate();
 			} else if (colName.equals("مخترعان")) {
-				return ListUtilities.getCommaSeparated(request.getInvention()
-						.getInventorNames());
+				InventionCatalog inventionCatalog = InventionCatalog.getInstance();
+				return ListUtilities.getCommaSeparated(inventionCatalog.getInventorNames(request.getInvention()));
 			} else if (colName.equals("عنوان اختراع")) {
 				return request.getInvention().getTitle();
 			} else {
@@ -122,8 +120,7 @@ public class InvHistory extends JFrame {
 	private void jbInit() throws Exception {
 		setTitle("سوابق اختراعات");
 
-		List<InventionRegistrationRequest> requestsList = invRegReqCatalog
-				.getInvRegReqsByInventor(currentUser);
+		List<InventionRegistrationRequest> requestsList = invRegReqCatalog.getInvRegReqsByInventor(currentUser);
 
 		table = new JTable(new JTableModel(requestsList));
 		scrollPane = new JScrollPane(table);
@@ -149,8 +146,7 @@ public class InvHistory extends JFrame {
 		}
 	}
 
-	protected void displayButton_actionPerformed(ActionEvent e,
-			InventionRegistrationRequest request) {
+	protected void displayButton_actionPerformed(ActionEvent e, InventionRegistrationRequest request) {
 		new InvPage(request).setVisible(true);
 	}
 

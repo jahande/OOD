@@ -3,7 +3,9 @@
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
  <class name="logic.member.UserRegistrationRequest" table="logic_member_userregistrationrequest">
-  <id column="id" name="id" type="integer"/>
+  <id column="id" name="id" type="integer">
+   <generator class="increment"/>
+  </id>
   <property column="requestDate" lazy="false"
    name="requestDate" type="date"/>
   <property column="state" lazy="false" name="state" type="integer"/>

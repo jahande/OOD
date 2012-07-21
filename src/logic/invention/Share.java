@@ -9,6 +9,10 @@ public class Share extends BaseEntity<Integer> {
 	private Invention invention;
 	private int shareValue;
 
+	public Share() {
+
+	}
+
 	public Share(User user, Invention invention, int shareValue) {
 		super();
 		this.user = user;

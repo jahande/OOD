@@ -3,7 +3,9 @@
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
  <class name="logic.invention.InventionRegistrationRequest" table="logic_invention_inventionregistrationrequest">
-  <id column="id" name="id" type="integer"/>
+  <id column="id" name="id" type="integer">
+   <generator class="increment"/>
+  </id>
   <many-to-one class="logic.invention.Invention" column="invention" name="invention"/>
   <many-to-one class="logic.member.User" column="assignedExpert" name="assignedExpert"/>
   <property column="hasAssignedExpert" lazy="false"

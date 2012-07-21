@@ -13,8 +13,11 @@ public abstract class Member extends BaseEntity<Integer> {
 	private String email;
 	private Date birthDate;
 
-	public Member(String firstName, String lastName, String userName,
-			String password, String email, Date birthDate) {
+	public Member() {
+
+	}
+
+	public Member(String firstName, String lastName, String userName, String password, String email, Date birthDate) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;

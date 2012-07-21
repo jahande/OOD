@@ -10,11 +10,13 @@ import logic.member.User;
 public class InventionRegistrationRequestCatalog extends RequestCatalog {
 	private static InventionRegistrationRequestCatalog instance;
 
-	// private InventionCatalog inventionCatalog;
+	private InventionCatalog inventionCatalog;
+
 	// private UserCatalog userCatalog;
 
 	private InventionRegistrationRequestCatalog() {
 		super();
+		inventionCatalog = InventionCatalog.getInstance();
 		// inventionCatalog = (InventionCatalog) ApplicationContext
 		// .getCatalog(InventionCatalog.class);
 		// userCatalog = (UserCatalog) ApplicationContext
@@ -34,36 +36,31 @@ public class InventionRegistrationRequestCatalog extends RequestCatalog {
 		return instance;
 	}
 
-	public InventionRegistrationRequest getInvRegReqByParamater(
-			Invention invention) {
+	public InventionRegistrationRequest getInvRegReqByParamater(Invention invention) {
 		for (Request request : requestList) {
-			if (((InventionRegistrationRequest) request).getInvention().equals(
-					invention)) {
+			if (((InventionRegistrationRequest) request).getInvention().equals(invention)) {
 				return (InventionRegistrationRequest) request;
 			}
 		}
 		return null;
 	}
 
-	public List<InventionRegistrationRequest> getInvRegReqsByExpert(
-			User expert) {
+	public List<InventionRegistrationRequest> getInvRegReqsByExpert(User expert) {
 		List<InventionRegistrationRequest> results = new ArrayList<InventionRegistrationRequest>();
 		for (Request request : requestList) {
 			InventionRegistrationRequest invRegReq = (InventionRegistrationRequest) request;
-			if (invRegReq.hasAssignedExpert()
-					&& invRegReq.getAssignedExpert().equals(expert)) {
+			if (invRegReq.hasAssignedExpert() && invRegReq.getAssignedExpert().equals(expert)) {
 				results.add(invRegReq);
 			}
 		}
 		return results;
 	}
 
-	public List<InventionRegistrationRequest> getInvRegReqsByInventor(
-			User inventor) {
+	public List<InventionRegistrationRequest> getInvRegReqsByInventor(User inventor) {
 		List<InventionRegistrationRequest> results = new ArrayList<InventionRegistrationRequest>();
 		for (Request request : requestList) {
 			InventionRegistrationRequest invRegReq = (InventionRegistrationRequest) request;
-			if (invRegReq.getInvention().getInventors().contains(inventor)) {
+			if (inventionCatalog.getInventors(invRegReq.getInvention()).contains(inventor)) {
 				results.add(invRegReq);
 			}
 		}

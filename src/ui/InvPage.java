@@ -17,6 +17,7 @@ import javax.swing.border.EtchedBorder;
 import utilities.ListUtilities;
 
 import logic.invention.Invention;
+import logic.invention.InventionCatalog;
 import logic.invention.InventionRegistrationRequest;
 
 public class InvPage extends JFrame {
@@ -308,7 +309,8 @@ public class InvPage extends JFrame {
 		scrollPane_7.setViewportView(inventorsTextPane);
 		scrollPane_7.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		inventorsTextPane.setEditable(false);
-		inventorsTextPane.setText(ListUtilities.getCommaSeparated(invention.getInventorNames()));
+		InventionCatalog inventionCatalog = InventionCatalog.getInstance();
+		inventorsTextPane.setText(ListUtilities.getCommaSeparated(inventionCatalog.getInventorNames(invention)));
 		inventorsTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		panel_2.add(label_16);

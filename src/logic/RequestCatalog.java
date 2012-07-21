@@ -19,6 +19,10 @@ public abstract class RequestCatalog implements Catalog {
 		requestList.remove(removedItem);
 	}
 
+	public void updateItem(Object item) {
+		// TODO Auto-generated method stub
+	}
+
 //	public static void addRequest(Request request) {
 //		requestList.add(request);
 //	}

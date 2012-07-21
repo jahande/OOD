@@ -102,7 +102,7 @@ public class Login extends JFrame {
 	}
 
 	public Member authenticate(String un, String pa) {
-		User user = userCatalog.getUserByParamater(un);
+		User user = userCatalog.getUserByUsername(un);
 		if (user != null) {
 			if (user.getPassword().equals(pa)) {
 				return user;

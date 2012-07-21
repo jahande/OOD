@@ -16,6 +16,7 @@
       <!-- Mapping files -->
       <mapping resource="Change.hbm.xml"></mapping>
       <mapping resource="Company.hbm.xml"></mapping>
+      <mapping resource="CompanyAgent.hbm.xml"></mapping>
       <mapping resource="CompanyRegistrationRequest.hbm.xml"></mapping>
       <mapping resource="Invention.hbm.xml"></mapping>
       <mapping resource="InventionField.hbm.xml"></mapping>
@@ -26,5 +27,6 @@
       <mapping resource="Share.hbm.xml"></mapping>
       <mapping resource="User.hbm.xml"></mapping>
       <mapping resource="UserRegistrationRequest.hbm.xml"></mapping>
+      <mapping resource="ExpertInventionField.hbm.xml"></mapping>
 </session-factory>
 </hibernate-configuration>

@@ -33,6 +33,10 @@ public class InvestigationLogCatalog implements Catalog {
 		itemsList.remove(removedItem);
 	}
 
+	public void updateItem(Object item) {
+		// TODO Auto-generated method stub
+	}
+
 	public List<InvestigationLog> getItemsByParameter(
 			InventionRegistrationRequest request) {
 		List<InvestigationLog> result = new ArrayList<InvestigationLog>();

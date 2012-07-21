@@ -17,6 +17,10 @@ public class InventionRegistrationRequest extends Request {
 	private UserCatalog userCatalog;
 	private InvestigationLogCatalog investigationLogCatalog;
 
+	public InventionRegistrationRequest() {
+
+	}
+
 	public InventionRegistrationRequest(Date requestDate, Invention invention) {
 		super(requestDate);
 		this.invention = invention;
@@ -32,14 +36,12 @@ public class InventionRegistrationRequest extends Request {
 
 	public void acceptAndApplyRequest(User expert) {
 		super.acceptAndApplyRequest();
-		investigationLogCatalog
-				.addItem(new InvestigationLog(expert, this, true));
+		investigationLogCatalog.addItem(new InvestigationLog(expert, this, true));
 	}
 
 	public void rejectRequest(User expert) {
 		super.rejectRequest();
-		investigationLogCatalog.addItem(new InvestigationLog(expert, this,
-				false));
+		investigationLogCatalog.addItem(new InvestigationLog(expert, this, false));
 	}
 
 	public User assignExpertToCheck() {

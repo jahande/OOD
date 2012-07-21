@@ -6,6 +6,9 @@ public class InventionField extends BaseEntity<Integer> {
 	private Integer id;
 	private String name;
 
+	public InventionField() {
+	}
+
 	public InventionField(String name) {
 		super();
 		this.name = name;

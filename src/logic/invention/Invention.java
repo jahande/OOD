@@ -1,12 +1,10 @@
 package logic.invention;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import utilities.db.BaseEntity;
 
 import logic.member.Company;
-import logic.member.User;
 
 public class Invention extends BaseEntity<Integer> {
 	private Integer id;
@@ -21,14 +19,16 @@ public class Invention extends BaseEntity<Integer> {
 	private String file1;
 	private String file2;
 	private String file3;
-	private List<User> inventors;
+	private long price;
 	private InventionField inventionField;
 	private Company company;
-	private long price;
+	private List<Share> shares;
 
-	public Invention(String title, String totalSpec, String summary,
-			String ideaDescription, String ideaHistory, String claim,
-			String explanation, List<String> attachedFiles) {
+	public Invention() {
+
+	}
+
+	public Invention(String title, String totalSpec, String summary, String ideaDescription, String ideaHistory, String claim, String explanation, List<String> attachedFiles) {
 		super();
 		this.title = title;
 		this.totalSpec = totalSpec;
@@ -53,10 +53,6 @@ public class Invention extends BaseEntity<Integer> {
 	@Override
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public void setInventors(List<User> inventors) {
-		this.inventors = inventors;
 	}
 
 	public void setTitle(String title) {
@@ -115,25 +111,12 @@ public class Invention extends BaseEntity<Integer> {
 		return claim;
 	}
 
-	public List<User> getInventors() {
-		return inventors;
-	}
-
-	public List<String> getInventorNames() {
-		List<String> namesList = new ArrayList<String>();
-		for (User inventor : inventors) {
-			namesList.add(inventor.getFirstName() + " "
-					+ inventor.getLastName());
-		}
-		return namesList;
-	}
-
 	public InventionField getInventionField() {
 		return inventionField;
 	}
 
 	public void resendForObjection() {
-
+		// TODO
 	}
 
 	public List<Invention> getRelativeInventions() {
@@ -182,5 +165,13 @@ public class Invention extends BaseEntity<Integer> {
 
 	public void setFile3(String file3) {
 		this.file3 = file3;
+	}
+
+	public List<Share> getShares() {
+		return shares;
+	}
+
+	public void setShares(List<Share> shares) {
+		this.shares = shares;
 	}
 }

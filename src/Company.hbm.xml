@@ -3,12 +3,14 @@
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
  <class name="logic.member.Company" table="logic_member_company">
-  <id column="id" name="id" type="integer"/>
-  <property column="name" name="name" type="character"/>
-  <list name="agentsList" table="logic_member_companyagent">
-   <key column="companyId"/>
-   <index/>
-   <many-to-many class="logic.member.User" column="userId" unique="false"/>
-  </list>
+  <id column="id" name="id" type="integer">
+   <generator class="increment"/>
+  </id>
+  <property column="name" name="name" type="string"/>
+<!--  <list name="companyAgentsList" table="logic_member_companyagent">
+   <key column="company"/>
+   <index column name="id"/>
+   <one-to-many class="logic.member.CompanyAgent"/>
+  </list> -->
  </class>
 </hibernate-mapping>
