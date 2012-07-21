@@ -1,32 +1,37 @@
 package logic.invention;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import controllers.ApplicationContext;
 
 import logic.Request;
 import logic.RequestCatalog;
 import logic.member.User;
-import logic.member.UserCatalog;
 
 public class InventionRegistrationRequestCatalog extends RequestCatalog {
+	private static InventionRegistrationRequestCatalog instance;
 
-	private InventionCatalog inventionCatalog;
-	private UserCatalog userCatalog;
+	// private InventionCatalog inventionCatalog;
+	// private UserCatalog userCatalog;
 
-	public InventionRegistrationRequestCatalog() {
+	private InventionRegistrationRequestCatalog() {
 		super();
-		inventionCatalog = (InventionCatalog) ApplicationContext
-				.getCatalog(InventionCatalog.class);
-		userCatalog = (UserCatalog) ApplicationContext
-				.getCatalog(UserCatalog.class);
-//		Invention invention = (Invention) inventionCatalog.getAllItems().get(0);
-//		InventionRegistrationRequest req = new InventionRegistrationRequest(
-//				new Date(), invention);
-//		req.setAssignedExpert(userCatalog.getUserByParamater("expert"));
-//		requestList.add(req);
+		// inventionCatalog = (InventionCatalog) ApplicationContext
+		// .getCatalog(InventionCatalog.class);
+		// userCatalog = (UserCatalog) ApplicationContext
+		// .getCatalog(UserCatalog.class);
+		// Invention invention = (Invention)
+		// inventionCatalog.getAllItems().get(0);
+		// InventionRegistrationRequest req = new InventionRegistrationRequest(
+		// new Date(), invention);
+		// req.setAssignedExpert(userCatalog.getUserByParamater("expert"));
+		// requestList.add(req);
+	}
+
+	public static InventionRegistrationRequestCatalog getInstance() {
+		if (instance == null) {
+			instance = new InventionRegistrationRequestCatalog();
+		}
+		return instance;
 	}
 
 	public InventionRegistrationRequest getInvRegReqByParamater(

@@ -17,7 +17,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import controllers.ApplicationContext;
 import controllers.Controller;
 
 import logic.invention.InventionField;
@@ -149,16 +148,12 @@ public class DeleteInventionField extends BaseFrame implements NeedRefreshData {
 				JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE,
 				null, null, null);
 		// pane.set
-		if (n ==JOptionPane.YES_OPTION) {
+		if (n == JOptionPane.YES_OPTION) {
 			InventionFieldCatalog catalog = null;
 			try {
-				catalog = (InventionFieldCatalog) ApplicationContext
-						.getCatalog(InventionFieldCatalog.class);
+				catalog = InventionFieldCatalog.getInstance();
 				catalog.removeItem(inf);
-				
-				InventionFieldCatalog catalog2 = (InventionFieldCatalog) ApplicationContext
-				.getCatalog(InventionFieldCatalog.class);
-				this.refreshData(new Object[]{catalog2.getAllItems()});
+				this.refreshData(new Object[] { catalog.getAllItems() });
 			} catch (Exception e2) {
 				// TODO: handle exception
 				JOptionPane.showMessageDialog(this, "خطای شماره ی ۱۰۲۵");

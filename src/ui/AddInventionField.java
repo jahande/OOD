@@ -22,13 +22,14 @@ import uimodels.BaseFrame;
  * @usecase 40
  */
 
-public class AddInventionField extends BaseFrame{
+public class AddInventionField extends BaseFrame {
 
 	private final JButton button = new JButton();
 	private final JTextField textField = new JTextField();
 	private final JLabel label = new JLabel();
 
 	private final JButton button_1 = new JButton();
+
 	/**
 	 * Launch the application
 	 * 
@@ -75,7 +76,7 @@ public class AddInventionField extends BaseFrame{
 		label.setHorizontalTextPosition(SwingConstants.CENTER);
 		label.setText("نام حوزه‌ی اختراع");
 		label.setBounds(154, 68, 88, 16);
-		
+
 		getContentPane().add(button_1);
 		button_1.addActionListener(new Button_1ActionListener());
 		button_1.setText("بازگشت");
@@ -87,6 +88,7 @@ public class AddInventionField extends BaseFrame{
 			button_actionPerformed(e);
 		}
 	}
+
 	private class Button_1ActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			button_1_actionPerformed(e);
@@ -95,20 +97,19 @@ public class AddInventionField extends BaseFrame{
 
 	protected void button_actionPerformed(ActionEvent e) {
 		String name = this.textField.getText();
-		if (name == null
-				|| name.equals("")) {
+		if (name == null || name.equals("")) {
 			JOptionPane.showMessageDialog(this, "شما نامی را وارد نکردید.");
 		} else {
-
-			InventionFieldCatalog catalog = (InventionFieldCatalog) ApplicationContext
-					.getCatalog(InventionFieldCatalog.class);
+			InventionFieldCatalog catalog = InventionFieldCatalog.getInstance();
 			catalog.addItem(new InventionField(name));
-			JOptionPane.showMessageDialog(this, "حوزه اختراع \""+name+"\" با موفقیت ثبت شد");
+			JOptionPane.showMessageDialog(this, "حوزه اختراع \"" + name
+					+ "\" با موفقیت ثبت شد");
 		}
 	}
+
 	protected void button_1_actionPerformed(ActionEvent e) {
 		this.simpleCommand("Return");
-		
+
 	}
 
 }

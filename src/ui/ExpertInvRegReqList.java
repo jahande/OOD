@@ -125,8 +125,7 @@ public class ExpertInvRegReqList extends JFrame {
 	 */
 	public ExpertInvRegReqList() {
 		super();
-		invRegReqCatalog = (InventionRegistrationRequestCatalog) ApplicationContext
-				.getCatalog(InventionRegistrationRequestCatalog.class);
+		invRegReqCatalog = InventionRegistrationRequestCatalog.getInstance();
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {

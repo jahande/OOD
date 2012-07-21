@@ -4,8 +4,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import controllers.ApplicationContext;
-
 import logic.Request;
 import logic.member.User;
 import logic.member.UserCatalog;
@@ -24,10 +22,8 @@ public class InventionRegistrationRequest extends Request {
 		this.invention = invention;
 		this.hasAssignedExpert = false;
 
-		userCatalog = (UserCatalog) ApplicationContext
-				.getCatalog(UserCatalog.class);
-		investigationLogCatalog = (InvestigationLogCatalog) ApplicationContext
-				.getCatalog(InvestigationLogCatalog.class);
+		userCatalog = UserCatalog.getInstance();
+		investigationLogCatalog = InvestigationLogCatalog.getInstance();
 	}
 
 	public Invention getInvention() {
@@ -56,6 +52,18 @@ public class InventionRegistrationRequest extends Request {
 		} else {
 			return null;
 		}
+	}
+
+	public boolean isHasAssignedExpert() {
+		return hasAssignedExpert;
+	}
+
+	public void setHasAssignedExpert(boolean hasAssignedExpert) {
+		this.hasAssignedExpert = hasAssignedExpert;
+	}
+
+	public void setInvention(Invention invention) {
+		this.invention = invention;
 	}
 
 	public void referToAnotherExpert() {

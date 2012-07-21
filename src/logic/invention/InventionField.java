@@ -1,28 +1,29 @@
 package logic.invention;
 
-import com.sun.org.apache.bcel.internal.generic.IINC;
+import utilities.db.BaseEntity;
 
-public class InventionField {
+public class InventionField extends BaseEntity<Integer> {
+	private Integer id;
 	private String name;
-	private int id;
-
-	private static int idCounter =0;
-	public int getId() {
-		return id;
-	}
-
-//	public void setId(int id) {
-//		this.id = id;
-//	}
 
 	public InventionField(String name) {
 		super();
 		this.name = name;
-		InventionField.idCounter++;
-		this.id = InventionField.idCounter;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getName() {
 		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

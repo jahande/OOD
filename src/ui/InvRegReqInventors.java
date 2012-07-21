@@ -24,7 +24,7 @@ import repository.Repository;
 
 import logic.invention.Invention;
 import logic.invention.InventionCatalog;
-import logic.invention.ShareProperties;
+import logic.invention.Share;
 import logic.member.Member;
 import logic.member.User;
 import logic.member.UserCatalog;
@@ -111,10 +111,8 @@ public class InvRegReqInventors extends JFrame {
 	 */
 	public InvRegReqInventors() {
 		super();
-		userCatalog = (UserCatalog) ApplicationContext
-				.getCatalog(UserCatalog.class);
-		inventionCatalog = (InventionCatalog) ApplicationContext
-				.getCatalog(InventionCatalog.class);
+		userCatalog = UserCatalog.getInstance();
+		inventionCatalog = InventionCatalog.getInstance();
 
 		setBounds(frameRect);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -262,7 +260,7 @@ public class InvRegReqInventors extends JFrame {
 				int shareValue = Integer.valueOf(inventor.getShareTextField()
 						.getText());
 				inventionCatalog
-						.addShare(new ShareProperties(user, invention, shareValue));
+						.addShare(new Share(user, invention, shareValue));
 				userList.add(user);
 			}
 			invention.setInventors(userList);

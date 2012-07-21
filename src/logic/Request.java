@@ -2,13 +2,10 @@ package logic;
 
 import java.util.Date;
 
-import controllers.ApplicationContext;
+import utilities.db.BaseEntity;
 
-import logic.invention.InvestigationLog;
-import logic.invention.InvestigationLogCatalog;
-import logic.member.User;
-
-public abstract class Request {
+public abstract class Request extends BaseEntity<Integer> {
+	private Integer id;
 	private Date requestDate;
 	private int state;
 
@@ -20,6 +17,14 @@ public abstract class Request {
 		super();
 		state = 0;
 		this.requestDate = requestDate;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Date getRequestDate() {
@@ -53,5 +58,13 @@ public abstract class Request {
 		default:
 			return null;
 		}
+	}
+
+	public void setRequestDate(Date requestDate) {
+		this.requestDate = requestDate;
+	}
+
+	public void setState(int state) {
+		this.state = state;
 	}
 }

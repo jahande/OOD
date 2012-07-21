@@ -46,8 +46,7 @@ public class InvRegReqCompany extends JFrame {
 	 */
 	public InvRegReqCompany() {
 		super();
-		companyCatalog = (CompanyCatalog) ApplicationContext
-				.getCatalog(CompanyCatalog.class);
+		companyCatalog = CompanyCatalog.getInstance();
 
 		setBounds(100, 100, 328, 195);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

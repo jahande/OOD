@@ -5,6 +5,7 @@ import java.util.Date;
 import logic.member.User;
 
 public class InvestigationLog {
+	private Integer id;
 	private User expert;
 	private InventionRegistrationRequest request;
 	private Date date;
@@ -19,8 +20,32 @@ public class InvestigationLog {
 		this.accepted = accepted;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public User getExpert() {
 		return expert;
+	}
+
+	public void setExpert(User expert) {
+		this.expert = expert;
+	}
+
+	public void setRequest(InventionRegistrationRequest request) {
+		this.request = request;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public void setAccepted(boolean accepted) {
+		this.accepted = accepted;
 	}
 
 	public InventionRegistrationRequest getRequest() {

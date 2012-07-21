@@ -1,6 +1,5 @@
 package logic.invention;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +30,6 @@ public class Invention extends BaseEntity<Integer> {
 			String ideaDescription, String ideaHistory, String claim,
 			String explanation, List<String> attachedFiles) {
 		super();
-		this.id = -1;
 		this.title = title;
 		this.totalSpec = totalSpec;
 		this.summary = summary;

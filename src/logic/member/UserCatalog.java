@@ -7,9 +7,11 @@ import java.util.List;
 import logic.Catalog;
 
 public class UserCatalog implements Catalog {
+	private static UserCatalog instance;
+
 	private List<User> itemsList = new ArrayList<User>();
 
-	public UserCatalog() {
+	private UserCatalog() {
 		super();
 		User expert = new User("کارشناس", "کارشناسی", "expert", "123",
 				"expert@expert.com", new Date());
@@ -19,6 +21,13 @@ public class UserCatalog implements Catalog {
 				"user@user.com", new Date()));
 		itemsList.add(new User("مخترع", "اختراعی", "inventor", "123",
 				"inventor@inventor.com", new Date()));
+	}
+
+	public static UserCatalog getInstance() {
+		if (instance == null) {
+			instance = new UserCatalog();
+		}
+		return instance;
 	}
 
 	public void addItem(Object item) {

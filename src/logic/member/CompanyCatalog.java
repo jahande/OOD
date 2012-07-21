@@ -3,27 +3,31 @@ package logic.member;
 import java.util.ArrayList;
 import java.util.List;
 
-import controllers.ApplicationContext;
-
 import logic.Catalog;
 
 public class CompanyCatalog implements Catalog {
+	private static CompanyCatalog instance;
 	private List<Company> itemsList = new ArrayList<Company>();
-	private UserCatalog userCatalog;
 
-	public CompanyCatalog() {
+	private CompanyCatalog() {
 		super();
-		userCatalog = (UserCatalog) ApplicationContext
-				.getCatalog(UserCatalog.class);
-		List<User> agents = new ArrayList<User>();
-		agents.add(userCatalog.getUserByParamater("user"));
-		itemsList.add(new Company("عمید رایانه شریف", agents));
-		agents = new ArrayList<User>();
-		agents.add(userCatalog.getUserByParamater("inventor"));
-		itemsList.add(new Company("پوران صنعت ایران", agents));
-		agents = new ArrayList<User>();
-		agents.add(userCatalog.getUserByParamater("expert"));
-		itemsList.add(new Company("تمیز گستر اندیشان", agents));
+		// userCatalog = UserCatalog.getInstance();
+		// List<User> agents = new ArrayList<User>();
+		// agents.add(userCatalog.getUserByParamater("user"));
+		// itemsList.add(new Company("عمید رایانه شریف", agents));
+		// agents = new ArrayList<User>();
+		// agents.add(userCatalog.getUserByParamater("inventor"));
+		// itemsList.add(new Company("پوران صنعت ایران", agents));
+		// agents = new ArrayList<User>();
+		// agents.add(userCatalog.getUserByParamater("expert"));
+		// itemsList.add(new Company("تمیز گستر اندیشان", agents));
+	}
+
+	public static CompanyCatalog getInstance() {
+		if (instance == null) {
+			instance = new CompanyCatalog();
+		}
+		return instance;
 	}
 
 	public void addItem(Object item) {

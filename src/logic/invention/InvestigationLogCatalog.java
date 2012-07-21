@@ -6,7 +6,20 @@ import java.util.List;
 import logic.Catalog;
 
 public class InvestigationLogCatalog implements Catalog {
+	private static InvestigationLogCatalog instance;
+
 	private List<InvestigationLog> itemsList = new ArrayList<InvestigationLog>();
+
+	private InvestigationLogCatalog() {
+
+	}
+
+	public static InvestigationLogCatalog getInstance() {
+		if (instance == null) {
+			instance = new InvestigationLogCatalog();
+		}
+		return instance;
+	}
 
 	public void addItem(Object item) {
 		itemsList.add((InvestigationLog) item);

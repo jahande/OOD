@@ -6,7 +6,7 @@ import java.util.List;
 
 public abstract class RequestCatalog implements Catalog {
 	protected static List<Request> requestList = new ArrayList<Request>();
-
+	
 	public void addItem(Object item) {
 		requestList.add((Request) item);
 	}

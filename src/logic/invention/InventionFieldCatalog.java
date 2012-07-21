@@ -6,14 +6,23 @@ import java.util.List;
 import logic.Catalog;
 
 public class InventionFieldCatalog implements Catalog {
+	private static InventionFieldCatalog instance;
+
 	private List<InventionField> itemsList = new ArrayList<InventionField>();
 
-	public InventionFieldCatalog() {
+	private InventionFieldCatalog() {
 		super();
 		itemsList.add(new InventionField("کامپیوتر"));
 		itemsList.add(new InventionField("عمران"));
 		itemsList.add(new InventionField("هوافضا"));
 		itemsList.add(new InventionField("مواد"));
+	}
+
+	public static InventionFieldCatalog getInstance() {
+		if (instance == null) {
+			instance = new InventionFieldCatalog();
+		}
+		return instance;
 	}
 
 	public void addItem(Object item) {

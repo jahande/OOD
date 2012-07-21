@@ -6,7 +6,20 @@ import java.util.List;
 import logic.RequestCatalog;
 
 public class CompanyRegistrationRequestCatalog extends RequestCatalog {
+	private static CompanyRegistrationRequestCatalog instance;
+
 	private List<CompanyRegistrationRequest> itemsList = new ArrayList<CompanyRegistrationRequest>();
+
+	private CompanyRegistrationRequestCatalog() {
+
+	}
+
+	public static CompanyRegistrationRequestCatalog getInstance() {
+		if (instance == null) {
+			instance = new CompanyRegistrationRequestCatalog();
+		}
+		return instance;
+	}
 
 	public void addItem(Object item) {
 		itemsList.add((CompanyRegistrationRequest) item);

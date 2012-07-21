@@ -56,9 +56,7 @@ public class Login extends JFrame {
 	 */
 	private Login() {
 		super();
-
-		userCatalog = (UserCatalog) ApplicationContext
-				.getCatalog(UserCatalog.class);
+		userCatalog = UserCatalog.getInstance();
 	}
 
 	/**
@@ -66,8 +64,7 @@ public class Login extends JFrame {
 	 */
 	public Login(Controller c) {
 		super();
-		userCatalog = (UserCatalog) ApplicationContext
-				.getCatalog(UserCatalog.class);
+		userCatalog = UserCatalog.getInstance();
 
 		setBounds(100, 100, 240, 215);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -166,6 +163,7 @@ public class Login extends JFrame {
 			showError();
 		}
 	}
+
 	public void resetLogin() {
 		this.passwordField.setText("");
 		this.usernameField.setText("");

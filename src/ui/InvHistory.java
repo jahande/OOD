@@ -107,8 +107,7 @@ public class InvHistory extends JFrame {
 	 */
 	public InvHistory() {
 		super();
-		invRegReqCatalog = (InventionRegistrationRequestCatalog) ApplicationContext
-				.getCatalog(InventionRegistrationRequestCatalog.class);
+		invRegReqCatalog = InventionRegistrationRequestCatalog.getInstance();
 
 		setBounds(100, 100, 500, 168);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -83,10 +83,8 @@ public class InvRegReqApprove extends JFrame {
 	 */
 	public InvRegReqApprove() {
 		super();
-		invRegReqCatalog = (InventionRegistrationRequestCatalog) ApplicationContext
-				.getCatalog(InventionRegistrationRequestCatalog.class);
-		inventionCatalog = (InventionCatalog) ApplicationContext
-				.getCatalog(InventionCatalog.class);
+		invRegReqCatalog = InventionRegistrationRequestCatalog.getInstance();
+		inventionCatalog = InventionCatalog.getInstance();
 
 		setBounds(100, 100, 387, 744);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
