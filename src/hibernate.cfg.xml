@@ -14,6 +14,17 @@
       <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
       <property name="hibernate.hbm2ddl.auto">update</property>
       <!-- Mapping files -->
-      <mapping resource="mapping.hbm.xml"></mapping>
+      <mapping resource="Change.hbm.xml"></mapping>
+      <mapping resource="Company.hbm.xml"></mapping>
+      <mapping resource="CompanyRegistrationRequest.hbm.xml"></mapping>
+      <mapping resource="Invention.hbm.xml"></mapping>
+      <mapping resource="InventionField.hbm.xml"></mapping>
+      <mapping resource="InventionLog.hbm.xml"></mapping>
+      <mapping resource="InventionRegistrationRequest.hbm.xml"></mapping>
+      <mapping resource="InvestigationLog.hbm.xml"></mapping>
+      <mapping resource="Manager.hbm.xml"></mapping>
+      <mapping resource="Share.hbm.xml"></mapping>
+      <mapping resource="User.hbm.xml"></mapping>
+      <mapping resource="UserRegistrationRequest.hbm.xml"></mapping>
 </session-factory>
 </hibernate-configuration>

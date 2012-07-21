@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="logic.invention.InvestigationLog" table="logic_invention_investigationlog">
+  <id column="id" name="id" type="integer"/>
+  <many-to-one class="logic.member.User" column="expert" name="expert"/>
+  <many-to-one class="logic.invention.InventionRegistrationRequest"
+   column="request" name="request"/>
+  <property column="date" lazy="false" name="date" type="date"/>
+  <property column="accepted" lazy="false"
+   name="accepted" type="boolean"/>
+ </class>
+</hibernate-mapping>
