@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -18,7 +17,6 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 import logic.invention.Invention;
-import logic.invention.InventionRegistrationRequest;
 import logic.member.User;
 
 public class InvRegReq extends JFrame {

@@ -70,7 +70,7 @@ public class InventionCatalog implements Catalog {
 		return null;
 	}
 
-	public List<User> getInventors(Invention invention) {
+	public List<User> getInventorsByInvention(Invention invention) {
 		List<Share> shares = shareDao.findByParameter("invention", invention);
 		List<User> inventors = new ArrayList<User>();
 		for (Share share : shares) {
@@ -81,10 +81,20 @@ public class InventionCatalog implements Catalog {
 
 	public List<String> getInventorNames(Invention invention) {
 		List<String> namesList = new ArrayList<String>();
-		List<User> inventors = getInventors(invention);
+		List<User> inventors = getInventorsByInvention(invention);
 		for (User inventor : inventors) {
 			namesList.add(inventor.getFirstName() + " " + inventor.getLastName());
 		}
 		return namesList;
 	}
+
+	public List<Invention> getInventionsByInventor(User inventor) {
+		List<Share> shares = shareDao.findByParameter("user", inventor);
+		List<Invention> inventions = new ArrayList<Invention>();
+		for (Share share : shares) {
+			inventions.add(share.getInvention());
+		}
+		return inventions;
+	}
+
 }

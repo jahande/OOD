@@ -32,11 +32,9 @@ public class LimitedSearch extends JFrame {
 	private final JPanel panel = new JPanel();
 	private final JButton searchButton = new JButton();
 
-	private String[] COLUMNS = new String[] { "عنوان اختراع", "مخترعان",
-			"تعداد مخترعان", "تاریخ ثبت", "قیمت", };
+	private String[] COLUMNS = new String[] { "عنوان اختراع", "مخترعان", "تعداد مخترعان", "تاریخ ثبت", "قیمت", };
 	private final JScrollPane scrollPane_1 = new JScrollPane();
-	private JTable table = new JTable(new DefaultTableModel(
-			new String[0][0], COLUMNS));
+	private JTable table = new JTable(new DefaultTableModel(new String[0][0], COLUMNS));
 
 	/**
 	 * Launch the application
@@ -112,38 +110,31 @@ public class LimitedSearch extends JFrame {
 		label_6.setText("چکیده");
 
 		inventorTextField.setBounds(191, 10, 117, 20);
-		inventorTextField
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		inventorTextField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		panel.add(inventorTextField);
 
 		invTitleTextField.setBounds(191, 32, 117, 20);
-		invTitleTextField
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		invTitleTextField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		panel.add(invTitleTextField);
 
 		descTextField.setBounds(191, 54, 117, 20);
-		descTextField
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		descTextField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		panel.add(descTextField);
 
 		ideaDescTextField.setBounds(191, 76, 117, 20);
-		ideaDescTextField
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		ideaDescTextField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		panel.add(ideaDescTextField);
 
 		ideaHistoryTextField.setBounds(10, 10, 117, 20);
-		ideaHistoryTextField
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		ideaHistoryTextField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		panel.add(ideaHistoryTextField);
 
 		assertTextField.setBounds(10, 32, 117, 20);
-		assertTextField
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		assertTextField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		panel.add(assertTextField);
 
 		absTextField.setBounds(10, 54, 117, 20);
-		absTextField
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		absTextField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		panel.add(absTextField);
 
 		panel.add(searchButton);
@@ -166,12 +157,8 @@ public class LimitedSearch extends JFrame {
 
 	protected void searchButton_actionPerformed(ActionEvent e) {
 		// begin temp
-		String[][] cells = new String[][] {
-				{ "آپولو", "حسین فرقانی", "1", "1390/8/23", "50000000" },
-				{ "تایر بدون عاج", "حسین فرقانی, روح الله جهنده", "2",
-						"1390/12/27", "5000000" },
-				{ "تخته نئوپان محکم", "مراد قفقازی", "1", "1391/2/12",
-						"10000000" }, };
+		String[][] cells = new String[][] { { "آپولو", "حسین فرقانی", "1", "1390/8/23", "50000000" }, { "تایر بدون عاج", "حسین فرقانی, روح الله جهنده", "2", "1390/12/27", "5000000" },
+				{ "تخته نئوپان محکم", "مراد قفقازی", "1", "1391/2/12", "10000000" }, };
 		// end temp
 		table = new JTable(new DefaultTableModel(cells, COLUMNS));
 		scrollPane_1.setViewportView(table);

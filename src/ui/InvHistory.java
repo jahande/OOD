@@ -16,7 +16,6 @@ import javax.swing.table.TableCellRenderer;
 import logic.invention.InventionCatalog;
 import logic.invention.InventionRegistrationRequest;
 import logic.invention.InventionRegistrationRequestCatalog;
-import logic.member.Company;
 import logic.member.User;
 import uimodels.JTableButtonMouseListener;
 import uimodels.JTableButtonRenderer;

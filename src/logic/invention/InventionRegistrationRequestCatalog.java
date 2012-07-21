@@ -60,7 +60,7 @@ public class InventionRegistrationRequestCatalog extends RequestCatalog {
 		List<InventionRegistrationRequest> results = new ArrayList<InventionRegistrationRequest>();
 		for (Request request : requestList) {
 			InventionRegistrationRequest invRegReq = (InventionRegistrationRequest) request;
-			if (inventionCatalog.getInventors(invRegReq.getInvention()).contains(inventor)) {
+			if (inventionCatalog.getInventorsByInvention(invRegReq.getInvention()).contains(inventor)) {
 				results.add(invRegReq);
 			}
 		}

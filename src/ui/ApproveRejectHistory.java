@@ -10,7 +10,6 @@ import javax.swing.table.AbstractTableModel;
 
 import logic.invention.InventionRegistrationRequest;
 import logic.invention.InvestigationLog;
-import logic.invention.InvestigationLogCatalog;
 
 public class ApproveRejectHistory extends JFrame {
 
