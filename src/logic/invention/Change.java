@@ -1,6 +1,8 @@
 package logic.invention;
 
-public class Change {
+import utilities.db.BaseEntity;
+
+public class Change extends BaseEntity<Integer> {
 	private Integer id;
 
 	public Integer getId() {

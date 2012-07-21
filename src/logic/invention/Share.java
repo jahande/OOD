@@ -1,8 +1,9 @@
 package logic.invention;
 
+import utilities.db.BaseEntity;
 import logic.member.User;
 
-public class Share {
+public class Share extends BaseEntity<Integer> {
 	private Integer id;
 	private User user;
 	private Invention invention;

@@ -2,17 +2,18 @@ package logic.invention;
 
 import java.util.Date;
 
+import utilities.db.BaseEntity;
+
 import logic.member.User;
 
-public class InvestigationLog {
+public class InvestigationLog extends BaseEntity<Integer> {
 	private Integer id;
 	private User expert;
 	private InventionRegistrationRequest request;
 	private Date date;
 	private boolean accepted;
 
-	public InvestigationLog(User expert, InventionRegistrationRequest request,
-			boolean accepted) {
+	public InvestigationLog(User expert, InventionRegistrationRequest request, boolean accepted) {
 		super();
 		this.expert = expert;
 		this.request = request;

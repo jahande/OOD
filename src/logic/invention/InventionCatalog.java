@@ -3,7 +3,7 @@ package logic.invention;
 import java.util.ArrayList;
 import java.util.List;
 
-import utilities.db.InventionDao;
+import utilities.db.dao.InventionDao;
 
 import logic.Catalog;
 import logic.member.User;
