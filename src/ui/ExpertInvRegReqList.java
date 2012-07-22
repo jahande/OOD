@@ -18,10 +18,10 @@ import javax.swing.table.TableCellRenderer;
 
 import controllers.ApplicationContext;
 
-import logic.actions.request.InventionRegistrationRequest;
-import logic.actions.request.InventionRegistrationRequestCatalog;
 import logic.member.Company;
 import logic.member.User;
+import logic.request.InventionRegistrationRequest;
+import logic.request.InventionRegistrationRequestCatalog;
 
 import uimodels.JTableButtonMouseListener;
 import uimodels.JTableButtonRenderer;

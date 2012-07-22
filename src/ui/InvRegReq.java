@@ -19,8 +19,8 @@ import javax.swing.JTextPane;
 
 import controllers.ApplicationContext;
 
-import logic.actions.request.InventionRegistrationRequest;
 import logic.invention.Invention;
+import logic.request.InventionRegistrationRequest;
 
 public class InvRegReq extends JFrame {
 

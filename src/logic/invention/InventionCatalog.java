@@ -7,7 +7,7 @@ import java.util.List;
 import controllers.ApplicationContext;
 
 import logic.Catalog;
-import logic.actions.Share;
+import logic.invention.operations.Share;
 import logic.member.CompanyCatalog;
 import logic.member.User;
 import logic.member.UserCatalog;

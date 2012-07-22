@@ -1,4 +1,4 @@
-package logic.actions.request;
+package logic.request;
 
 import java.util.Date;
 import java.util.List;
@@ -6,9 +6,9 @@ import java.util.Random;
 
 import controllers.ApplicationContext;
 
-import logic.actions.InvestigationLog;
-import logic.actions.InvestigationLogCatalog;
 import logic.invention.Invention;
+import logic.invention.operations.InvestigationLog;
+import logic.invention.operations.InvestigationLogCatalog;
 import logic.member.User;
 import logic.member.UserCatalog;
 

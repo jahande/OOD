@@ -11,10 +11,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
-import logic.actions.InvestigationLog;
-import logic.actions.InvestigationLogCatalog;
-import logic.actions.request.InventionRegistrationRequest;
+import logic.invention.operations.InvestigationLog;
+import logic.invention.operations.InvestigationLogCatalog;
 import logic.member.User;
+import logic.request.InventionRegistrationRequest;
 import controllers.ApplicationContext;
 
 public class ExpertInvApprove extends JFrame {

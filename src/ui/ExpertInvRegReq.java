@@ -17,8 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.EtchedBorder;
 
-import logic.actions.request.InventionRegistrationRequest;
 import logic.invention.Invention;
+import logic.request.InventionRegistrationRequest;
 import controllers.ApplicationContext;
 
 public class ExpertInvRegReq extends JFrame {

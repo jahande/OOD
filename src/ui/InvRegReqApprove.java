@@ -19,9 +19,9 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
-import logic.actions.request.InventionRegistrationRequest;
-import logic.actions.request.InventionRegistrationRequestCatalog;
 import logic.invention.Invention;
+import logic.request.InventionRegistrationRequest;
+import logic.request.InventionRegistrationRequestCatalog;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 

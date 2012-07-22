@@ -1,4 +1,4 @@
-package logic.actions.request;
+package logic.request;
 
 import java.util.ArrayList;
 import java.util.List;

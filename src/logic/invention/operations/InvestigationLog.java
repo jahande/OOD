@@ -1,9 +1,9 @@
-package logic.actions;
+package logic.invention.operations;
 
 import java.util.Date;
 
-import logic.actions.request.InventionRegistrationRequest;
 import logic.member.User;
+import logic.request.InventionRegistrationRequest;
 
 public class InvestigationLog {
 	private User expert;

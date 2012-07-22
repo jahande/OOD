@@ -11,9 +11,9 @@ import javax.swing.table.AbstractTableModel;
 
 import controllers.ApplicationContext;
 
-import logic.actions.InvestigationLog;
-import logic.actions.InvestigationLogCatalog;
-import logic.actions.request.InventionRegistrationRequest;
+import logic.invention.operations.InvestigationLog;
+import logic.invention.operations.InvestigationLogCatalog;
+import logic.request.InventionRegistrationRequest;
 
 public class ApproveRejectHistory extends JFrame {
 

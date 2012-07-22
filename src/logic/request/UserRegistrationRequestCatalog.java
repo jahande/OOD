@@ -1,4 +1,4 @@
-package logic.actions.request;
+package logic.request;
 
 
 public class UserRegistrationRequestCatalog extends RequestCatalog {

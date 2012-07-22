@@ -1,4 +1,4 @@
-package logic.actions;
+package logic.invention.operations;
 
 import logic.invention.Invention;
 import logic.member.User;

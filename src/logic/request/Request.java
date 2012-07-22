@@ -1,11 +1,11 @@
-package logic.actions.request;
+package logic.request;
 
 import java.util.Date;
 
 import controllers.ApplicationContext;
 
-import logic.actions.InvestigationLog;
-import logic.actions.InvestigationLogCatalog;
+import logic.invention.operations.InvestigationLog;
+import logic.invention.operations.InvestigationLogCatalog;
 import logic.member.User;
 
 public abstract class Request {

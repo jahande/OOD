@@ -21,8 +21,8 @@ import utilities.ListUtilities;
 
 import controllers.ApplicationContext;
 
-import logic.actions.request.InventionRegistrationRequest;
 import logic.invention.Invention;
+import logic.request.InventionRegistrationRequest;
 
 public class InvPage extends JFrame {
 

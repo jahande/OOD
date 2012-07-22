@@ -3,14 +3,14 @@ package controllers;
 import java.util.HashMap;
 import java.util.Map;
 
-import logic.actions.InvestigationLogCatalog;
-import logic.actions.request.CompanyRegistrationRequestCatalog;
-import logic.actions.request.InventionRegistrationRequestCatalog;
-import logic.actions.request.UserRegistrationRequestCatalog;
 import logic.invention.InventionCatalog;
 import logic.invention.InventionFieldCatalog;
+import logic.invention.operations.InvestigationLogCatalog;
 import logic.member.CompanyCatalog;
 import logic.member.UserCatalog;
+import logic.request.CompanyRegistrationRequestCatalog;
+import logic.request.InventionRegistrationRequestCatalog;
+import logic.request.UserRegistrationRequestCatalog;
 import logic.Catalog;
 
 public class ApplicationContext {
