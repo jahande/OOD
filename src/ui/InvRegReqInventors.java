@@ -18,8 +18,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import repository.Repository;
-
 import logic.invention.Invention;
 import logic.invention.InventionCatalog;
 import logic.invention.InventionRegistrationRequest;

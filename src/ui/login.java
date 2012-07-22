@@ -10,8 +10,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import repository.Repository;
-
 import logic.member.Manager;
 import logic.member.Member;
 import logic.member.User;
@@ -110,7 +108,7 @@ public class Login extends JFrame {
 				return null;
 			}
 		} else {
-			Manager manager = Repository.getManager();
+			Manager manager = Manager.getManager();
 			if (manager.getUserName().equals(un) && manager.getPassword().equals(pa)) {
 				return manager;
 			} else {
