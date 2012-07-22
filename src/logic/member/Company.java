@@ -2,7 +2,8 @@ package logic.member;
 
 import java.util.List;
 
-import utilities.db.BaseEntity;
+import db.BaseEntity;
+
 
 public class Company extends BaseEntity<Integer> {
 	private Integer id;

@@ -1,9 +1,10 @@
-package logic.invention;
+package logic.invention.operation;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import logic.Catalog;
+import logic.invention.InventionRegistrationRequest;
 
 public class InvestigationLogCatalog implements Catalog {
 	private static InvestigationLogCatalog instance;

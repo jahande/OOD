@@ -2,7 +2,8 @@ package logic.member;
 
 import java.util.Date;
 
-import utilities.db.BaseEntity;
+import db.BaseEntity;
+
 
 public abstract class Member extends BaseEntity<Integer> {
 	private Integer id;

@@ -1,8 +1,8 @@
-package utilities.db.dao;
+package db;
 
 import java.util.List;
 
-import logic.invention.Change;
+import logic.invention.operation.Change;
 
 public class ChangeDao extends BaseDao<Change, Integer> {
 	private static ChangeDao instance;

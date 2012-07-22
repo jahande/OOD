@@ -1,8 +1,8 @@
-package logic.invention;
+package logic.invention.operation;
 
-import utilities.db.BaseEntity;
+import db.BaseEntity;
 
-public class Change extends BaseEntity<Integer> {
+public class InventionLog extends BaseEntity<Integer> {
 	private Integer id;
 
 	public Integer getId() {

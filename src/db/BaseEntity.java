@@ -1,4 +1,4 @@
-package utilities.db;
+package db;
 
 import java.io.Serializable;
 

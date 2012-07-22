@@ -1,4 +1,4 @@
-package utilities.db.dao;
+package db;
 
 import java.util.List;
 

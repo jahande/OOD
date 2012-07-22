@@ -1,4 +1,4 @@
-package utilities.db.dao;
+package db;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,8 +11,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import utilities.db.BaseEntity;
-import utilities.db.HibernateUtil;
+import utilities.HibernateUtil;
 
 public abstract class BaseDao<T extends BaseEntity<PKType>, PKType extends Serializable> {
 

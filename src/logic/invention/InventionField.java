@@ -1,6 +1,6 @@
 package logic.invention;
 
-import utilities.db.BaseEntity;
+import db.BaseEntity;
 
 public class InventionField extends BaseEntity<Integer> {
 	private Integer id;

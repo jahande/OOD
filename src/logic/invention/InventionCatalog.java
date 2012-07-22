@@ -3,8 +3,9 @@ package logic.invention;
 import java.util.ArrayList;
 import java.util.List;
 
-import utilities.db.dao.InventionDao;
-import utilities.db.dao.ShareDao;
+import db.InventionDao;
+import db.ShareDao;
+
 
 import logic.Catalog;
 import logic.member.User;

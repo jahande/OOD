@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Random;
 
 import logic.Request;
+import logic.invention.operation.InvestigationLog;
+import logic.invention.operation.InvestigationLogCatalog;
 import logic.member.User;
 import logic.member.UserCatalog;
 

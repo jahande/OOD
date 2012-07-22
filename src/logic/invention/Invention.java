@@ -2,7 +2,8 @@ package logic.invention;
 
 import java.util.List;
 
-import utilities.db.BaseEntity;
+import db.BaseEntity;
+
 
 import logic.member.Company;
 

@@ -2,7 +2,8 @@ package logic;
 
 import java.util.Date;
 
-import utilities.db.BaseEntity;
+import db.BaseEntity;
+
 
 public abstract class Request extends BaseEntity<Integer> {
 	private Integer id;

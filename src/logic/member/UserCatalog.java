@@ -3,7 +3,8 @@ package logic.member;
 import java.util.ArrayList;
 import java.util.List;
 
-import utilities.db.dao.UserDao;
+import db.UserDao;
+
 
 import logic.Catalog;
 

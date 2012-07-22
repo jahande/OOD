@@ -9,7 +9,7 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 import logic.invention.InventionRegistrationRequest;
-import logic.invention.InvestigationLog;
+import logic.invention.operation.InvestigationLog;
 
 public class ApproveRejectHistory extends JFrame {
 

@@ -1,9 +1,11 @@
-package logic.invention;
+package logic.invention.operation;
 
 import java.util.Date;
 
-import utilities.db.BaseEntity;
+import db.BaseEntity;
 
+
+import logic.invention.InventionRegistrationRequest;
 import logic.member.User;
 
 public class InvestigationLog extends BaseEntity<Integer> {

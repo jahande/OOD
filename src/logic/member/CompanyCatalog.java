@@ -3,8 +3,9 @@ package logic.member;
 import java.util.ArrayList;
 import java.util.List;
 
-import utilities.db.dao.CompanyAgentDao;
-import utilities.db.dao.CompanyDao;
+import db.CompanyAgentDao;
+import db.CompanyDao;
+
 
 import logic.Catalog;
 

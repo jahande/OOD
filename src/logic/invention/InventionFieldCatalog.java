@@ -2,7 +2,8 @@ package logic.invention;
 
 import java.util.List;
 
-import utilities.db.dao.InventionFieldDao;
+import db.InventionFieldDao;
+
 
 import logic.Catalog;
 

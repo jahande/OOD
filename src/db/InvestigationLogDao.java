@@ -1,8 +1,8 @@
-package utilities.db.dao;
+package db;
 
 import java.util.List;
 
-import logic.invention.InvestigationLog;
+import logic.invention.operation.InvestigationLog;
 
 public class InvestigationLogDao extends BaseDao<InvestigationLog, Integer> {
 	private static InvestigationLogDao instance;

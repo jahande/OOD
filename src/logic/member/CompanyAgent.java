@@ -1,6 +1,6 @@
 package logic.member;
 
-import utilities.db.BaseEntity;
+import db.BaseEntity;
 
 public class CompanyAgent extends BaseEntity<Integer> {
 	private Integer id;
