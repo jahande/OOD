@@ -2,10 +2,17 @@ package logic.member;
 
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
 public class User extends Member {
 
+	@Column(name = "expert")
 	private boolean expert;
-	private List<ExpertInventionField> expertInventionFieldsList;
+
+	// private List<ExpertInventionField> expertInventionFieldsList;
 
 	public User() {
 
@@ -22,13 +29,4 @@ public class User extends Member {
 	public void setExpert(boolean expert) {
 		this.expert = expert;
 	}
-
-	public List<ExpertInventionField> getExpertInventionFieldsList() {
-		return expertInventionFieldsList;
-	}
-
-	public void setExpertInventionFieldsList(List<ExpertInventionField> expertInventionFields) {
-		this.expertInventionFieldsList = expertInventionFields;
-	}
-
 }

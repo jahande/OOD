@@ -1,14 +1,27 @@
 package logic.member;
 
-import java.util.List;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import db.BaseEntity;
 
-
+@Entity
 public class Company extends BaseEntity<Integer> {
+
+	@Id
+	@GeneratedValue
+	@Column(name = "companyId")
 	private Integer id;
+
+	@Column(name = "name")
 	private String name;
-	private List<CompanyAgent> companyAgentsList;
+
+	// private Set<CompanyAgent> companyAgents;
 
 	public Company() {
 
@@ -35,12 +48,12 @@ public class Company extends BaseEntity<Integer> {
 		this.name = name;
 	}
 
-	public List<CompanyAgent> getCompanyAgentsList() {
-		return companyAgentsList;
-	}
-
-	public void setCompanyAgentsList(List<CompanyAgent> companyAgentsList) {
-		this.companyAgentsList = companyAgentsList;
-	}
+	// public Set<CompanyAgent> getCompanyAgents() {
+	// return companyAgents;
+	// }
+	//
+	// public void setCompanyAgents(Set<CompanyAgent> companyAgents) {
+	// this.companyAgents = companyAgents;
+	// }
 
 }

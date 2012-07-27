@@ -2,16 +2,39 @@ package logic.member;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
 import db.BaseEntity;
 
-
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Member extends BaseEntity<Integer> {
+	@Id
+	@GeneratedValue
+	@Column(name = "memberId")
 	private Integer id;
+
+	@Column(name = "firstName")
 	private String firstName;
+
+	@Column(name = "lastName")
 	private String lastName;
+
+	@Column(name = "userName")
 	private String userName;
+
+	@Column(name = "password")
 	private String password;
+
+	@Column(name = "email")
 	private String email;
+
+	@Column(name = "birthDate")
 	private Date birthDate;
 
 	public Member() {

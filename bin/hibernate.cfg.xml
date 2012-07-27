@@ -1,32 +1,24 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE hibernate-configuration PUBLIC
-"-//Hibernate/Hibernate Configuration DTD//EN"
-"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
-
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+ 
 <hibernate-configuration>
-<session-factory>
-      <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-      <property name="hibernate.connection.url">jdbc:mysql://localhost/invention?useUnicode=true&#38;characterEncoding=utf8</property>
-      <property name="hibernate.connection.username">root</property>
-      <property name="hibernate.connection.password"></property>
-      <property name="hibernate.connection.pool_size">10</property>
-      <property name="show_sql">true</property>
-      <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-      <property name="hibernate.hbm2ddl.auto">update</property>
-      <!-- Mapping files -->
-      <mapping resource="Change.hbm.xml"></mapping>
-      <mapping resource="Company.hbm.xml"></mapping>
-      <mapping resource="CompanyAgent.hbm.xml"></mapping>
-      <mapping resource="CompanyRegistrationRequest.hbm.xml"></mapping>
-      <mapping resource="Invention.hbm.xml"></mapping>
-      <mapping resource="InventionField.hbm.xml"></mapping>
-      <mapping resource="InventionLog.hbm.xml"></mapping>
-      <mapping resource="InventionRegistrationRequest.hbm.xml"></mapping>
-      <mapping resource="InvestigationLog.hbm.xml"></mapping>
-      <mapping resource="Manager.hbm.xml"></mapping>
-      <mapping resource="Share.hbm.xml"></mapping>
-      <mapping resource="User.hbm.xml"></mapping>
-      <mapping resource="UserRegistrationRequest.hbm.xml"></mapping>
-      <mapping resource="ExpertInventionField.hbm.xml"></mapping>
-</session-factory>
+    <session-factory>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/invention?useUnicode=true&#38;characterEncoding=utf8</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password"></property>
+        
+        <property name="connection.pool_size">1</property>
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="current_session_context_class">thread</property>
+        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+        <property name="show_sql">true</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
+ 
+		<mapping class="logic.member.Company"/>
+		<mapping class="logic.member.User"/>
+ 		 
+    </session-factory>
 </hibernate-configuration>

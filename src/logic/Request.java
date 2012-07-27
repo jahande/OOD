@@ -2,12 +2,27 @@ package logic;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
 import db.BaseEntity;
 
-
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Request extends BaseEntity<Integer> {
+	@Id
+	@GeneratedValue
+	@Column(name = "id")
 	private Integer id;
+
+	@Column(name = "requestDate")
 	private Date requestDate;
+
+	@Column(name = "state")
 	private int state;
 
 	public static final int NOT_INVESTIGATED = 0;
