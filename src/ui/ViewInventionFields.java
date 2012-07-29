@@ -17,8 +17,8 @@ import javax.swing.SwingConstants;
 
 import logic.invention.InventionField;
 
-import uimodels.NeedRefreshData;
-import uimodels.SimpleListModel;
+import ui.models.NeedRefreshData;
+import ui.models.SimpleListModel;
 
 /**
  * 

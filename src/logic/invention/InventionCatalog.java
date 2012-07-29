@@ -6,7 +6,6 @@ import java.util.List;
 import db.InventionDao;
 import db.ShareDao;
 
-
 import logic.Catalog;
 import logic.member.User;
 

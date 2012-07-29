@@ -2,17 +2,37 @@ package logic.invention.operation;
 
 import java.util.Date;
 
-import db.BaseEntity;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+import db.BaseEntity;
 
 import logic.invention.InventionRegistrationRequest;
 import logic.member.User;
 
+@Entity
 public class InvestigationLog extends BaseEntity<Integer> {
+	@Id
+	@GeneratedValue
+	@Column(name = "investigationLogId")
 	private Integer id;
+
+	@ManyToOne
+	@JoinColumn(name = "memberId")
 	private User expert;
+
+	@ManyToOne
+	@JoinColumn(name = "requestId")
 	private InventionRegistrationRequest request;
+
+	@Column(name = "date")
 	private Date date;
+
+	@Column(name = "accepted")
 	private boolean accepted;
 
 	public InvestigationLog() {

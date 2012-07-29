@@ -3,8 +3,11 @@ package logic.member;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Entity;
+
 import db.ManagerDao;
 
+@Entity
 public class Manager extends Member {
 	public Manager() {
 	}

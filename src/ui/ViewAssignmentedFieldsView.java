@@ -11,7 +11,7 @@ import javax.swing.ListModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListDataListener;
 
-import uimodels.SimpleListModel;
+import ui.models.SimpleListModel;
 
 /**
  * 

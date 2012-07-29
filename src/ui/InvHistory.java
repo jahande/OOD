@@ -17,8 +17,8 @@ import logic.invention.InventionCatalog;
 import logic.invention.InventionRegistrationRequest;
 import logic.invention.InventionRegistrationRequestCatalog;
 import logic.member.User;
-import uimodels.JTableButtonMouseListener;
-import uimodels.JTableButtonRenderer;
+import ui.models.JTableButtonMouseListener;
+import ui.models.JTableButtonRenderer;
 import utilities.ListUtilities;
 
 public class InvHistory extends JFrame {

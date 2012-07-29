@@ -15,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
 
 import logic.member.User;
 
-import uimodels.NeedRefreshData;
+import ui.models.NeedRefreshData;
 
 /**
  * 

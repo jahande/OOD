@@ -1,12 +1,31 @@
 package logic.invention;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import db.BaseEntity;
 import logic.member.User;
 
+@Entity
 public class Share extends BaseEntity<Integer> {
+	@Id
+	@GeneratedValue
+	@Column(name = "shareId")
 	private Integer id;
+
+	@ManyToOne
+	@JoinColumn(name = "userId")
 	private User user;
+
+	@ManyToOne
+	@JoinColumn(name = "inventionId")
 	private Invention invention;
+
+	@Column(name = "shareValue")
 	private int shareValue;
 
 	public Share() {

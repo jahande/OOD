@@ -1,9 +1,20 @@
 package logic.invention;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import db.BaseEntity;
 
+@Entity
 public class InventionField extends BaseEntity<Integer> {
+	@Id
+	@GeneratedValue
+	@Column(name = "inventionFieldId")
 	private Integer id;
+
+	@Column(name = "name")
 	private String name;
 
 	public InventionField() {

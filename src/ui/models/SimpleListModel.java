@@ -1,4 +1,4 @@
-package uimodels;
+package ui.models;
 
 import java.util.ArrayList;
 

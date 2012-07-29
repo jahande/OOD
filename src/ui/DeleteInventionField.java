@@ -20,9 +20,9 @@ import javax.swing.SwingConstants;
 import logic.invention.InventionField;
 import logic.invention.InventionFieldCatalog;
 
-import uimodels.IdLabel;
-import uimodels.NeedRefreshData;
-import uimodels.SimpleListModel;
+import ui.models.IdLabel;
+import ui.models.NeedRefreshData;
+import ui.models.SimpleListModel;
 
 /**
  * 

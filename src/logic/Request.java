@@ -16,7 +16,7 @@ import db.BaseEntity;
 public abstract class Request extends BaseEntity<Integer> {
 	@Id
 	@GeneratedValue
-	@Column(name = "id")
+	@Column(name = "requestId")
 	private Integer id;
 
 	@Column(name = "requestDate")

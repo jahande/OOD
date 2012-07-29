@@ -1,4 +1,4 @@
-package uimodels;
+package ui.models;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

@@ -4,20 +4,32 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import logic.Request;
 import logic.invention.operation.InvestigationLog;
 import logic.invention.operation.InvestigationLogCatalog;
 import logic.member.User;
 import logic.member.UserCatalog;
 
+@Entity
 public class InventionRegistrationRequest extends Request {
+	@ManyToOne
+	@JoinColumn(name = "inventionId")
 	private Invention invention;
-	private User assignedExpert;
-	private boolean hasAssignedExpert;
-	private Date sendDate;
 
-	private UserCatalog userCatalog;
-	private InvestigationLogCatalog investigationLogCatalog;
+	@ManyToOne
+	@JoinColumn(name = "memberId")
+	private User assignedExpert;
+
+	@Column(name = "hasAssignedExpert")
+	private boolean hasAssignedExpert;
+
+	@Column(name = "sendDate")
+	private Date sendDate;
 
 	public InventionRegistrationRequest() {
 
@@ -27,9 +39,6 @@ public class InventionRegistrationRequest extends Request {
 		super(requestDate);
 		this.invention = invention;
 		this.hasAssignedExpert = false;
-
-		userCatalog = UserCatalog.getInstance();
-		investigationLogCatalog = InvestigationLogCatalog.getInstance();
 	}
 
 	public Invention getInvention() {
@@ -38,15 +47,18 @@ public class InventionRegistrationRequest extends Request {
 
 	public void acceptAndApplyRequest(User expert) {
 		super.acceptAndApplyRequest();
+		InvestigationLogCatalog investigationLogCatalog = InvestigationLogCatalog.getInstance();
 		investigationLogCatalog.addItem(new InvestigationLog(expert, this, true));
 	}
 
 	public void rejectRequest(User expert) {
 		super.rejectRequest();
+		InvestigationLogCatalog investigationLogCatalog = InvestigationLogCatalog.getInstance();
 		investigationLogCatalog.addItem(new InvestigationLog(expert, this, false));
 	}
 
 	public User assignExpertToCheck() {
+		UserCatalog userCatalog = UserCatalog.getInstance();
 		List<User> experts = userCatalog.getExperts();
 		if (experts.size() > 0) {
 			Random r = new Random();
@@ -75,6 +87,7 @@ public class InventionRegistrationRequest extends Request {
 	}
 
 	public List<InvestigationLog> getInvestigationHistory() {
+		InvestigationLogCatalog investigationLogCatalog = InvestigationLogCatalog.getInstance();
 		return investigationLogCatalog.getItemsByParameter(this);
 	}
 

@@ -1,4 +1,4 @@
-package uimodels;
+package ui.models;
 
 public interface HasId {
 	int getId();
