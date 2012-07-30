@@ -1,13 +1,18 @@
 package logic.invention;
 
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import db.BaseEntity;
 
@@ -41,8 +46,6 @@ public class Invention extends BaseEntity<Integer> {
 	@Column(name = "explanation")
 	private String explanation;
 
-	// private List<File> attachedFiles;
-
 	@Column(name = "file1")
 	private String file1;
 
@@ -63,7 +66,8 @@ public class Invention extends BaseEntity<Integer> {
 	@JoinColumn(name = "companyId")
 	private Company company;
 
-	// private List<Share> shares;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "invention")
+	private Set<Share> shares;
 
 	public Invention() {
 
@@ -208,11 +212,12 @@ public class Invention extends BaseEntity<Integer> {
 		this.file3 = file3;
 	}
 
-	// public List<Share> getShares() {
-	// return shares;
-	// }
-	//
-	// public void setShares(List<Share> shares) {
-	// this.shares = shares;
-	// }
+	public Set<Share> getShares() {
+		return shares;
+	}
+
+	public void setShares(Set<Share> shares) {
+		this.shares = shares;
+	}
+
 }

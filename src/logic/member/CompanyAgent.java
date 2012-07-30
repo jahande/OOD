@@ -1,10 +1,25 @@
 package logic.member;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import db.BaseEntity;
 
 public class CompanyAgent extends BaseEntity<Integer> {
+	@Id
+	@GeneratedValue
+	@Column(name = "companyAgentId")
 	private Integer id;
+
+	@ManyToOne
+	@JoinColumn(name = "company")
 	private Company company;
+
+	@ManyToOne
+	@JoinColumn(name = "agent")
 	private User agent;
 
 	public CompanyAgent() {

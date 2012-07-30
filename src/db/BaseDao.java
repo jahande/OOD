@@ -22,7 +22,7 @@ public abstract class BaseDao<T extends BaseEntity<PKType>, PKType extends Seria
 		Transaction tx = null;
 		try {
 			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-			session = sessionFactory.openSession();
+			session = sessionFactory.getCurrentSession();
 			session.beginTransaction();
 			result = (T) session.load(clazz, id);
 			session.getTransaction().commit();
@@ -50,7 +50,7 @@ public abstract class BaseDao<T extends BaseEntity<PKType>, PKType extends Seria
 		Transaction tx = null;
 		try {
 			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-			session = sessionFactory.openSession();
+			session = sessionFactory.getCurrentSession();
 			tx = session.beginTransaction();
 			Criteria crit = session.createCriteria(clazz);
 			crit.add(Restrictions.eq(parameter, value)); // Like condition
@@ -74,7 +74,7 @@ public abstract class BaseDao<T extends BaseEntity<PKType>, PKType extends Seria
 		Transaction tx = null;
 		try {
 			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-			session = sessionFactory.openSession();
+			session = sessionFactory.getCurrentSession();
 			tx = session.beginTransaction();
 			Criteria crit = session.createCriteria(clazz).addOrder(Order.asc("id"));
 			result = (List<T>) crit.list();
@@ -97,7 +97,7 @@ public abstract class BaseDao<T extends BaseEntity<PKType>, PKType extends Seria
 		Transaction tx = null;
 		try {
 			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-			session = sessionFactory.openSession();
+			session = sessionFactory.getCurrentSession();
 			tx = session.beginTransaction();
 			session.clear();
 			session.save(entity);
@@ -121,7 +121,7 @@ public abstract class BaseDao<T extends BaseEntity<PKType>, PKType extends Seria
 		Transaction tx = null;
 		try {
 			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-			session = sessionFactory.openSession();
+			session = sessionFactory.getCurrentSession();
 			tx = session.beginTransaction();
 			session.merge(entity);
 			tx.commit();
@@ -144,7 +144,7 @@ public abstract class BaseDao<T extends BaseEntity<PKType>, PKType extends Seria
 		Transaction tx = null;
 		try {
 			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-			session = sessionFactory.openSession();
+			session = sessionFactory.getCurrentSession();
 			tx = session.beginTransaction();
 			session.clear();
 			session.delete(entity);

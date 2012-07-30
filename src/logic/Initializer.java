@@ -2,7 +2,9 @@ package logic;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import logic.invention.Invention;
 import logic.invention.InventionCatalog;
@@ -30,15 +32,15 @@ public class Initializer {
 		User user = userCatalog.getUserByUsername("user");
 		User inventor = userCatalog.getUserByUsername("inventor");
 
-		List<User> agents = new ArrayList<User>();
+		Set<User> agents = new HashSet<User>();
 		agents.add(user);
-		companyCatalog.addItem(new Company("عمید رایانه شریف"));
-		agents = new ArrayList<User>();
+		companyCatalog.addItem(new Company("عمید رایانه شریف", agents));
+		agents = new HashSet<User>();
 		agents.add(inventor);
-		companyCatalog.addItem(new Company("پوران صنعت ایران"));
-		agents = new ArrayList<User>();
+		companyCatalog.addItem(new Company("پوران صنعت ایران", agents));
+		agents = new HashSet<User>();
 		agents.add(expert);
-		companyCatalog.addItem(new Company("تمیز گستر اندیشان"));
+		companyCatalog.addItem(new Company("تمیز گستر اندیشان", agents));
 
 		inventionFieldCatalog.addItem(new InventionField("کامپیوتر"));
 		inventionFieldCatalog.addItem(new InventionField("مواد"));

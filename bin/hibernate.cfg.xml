@@ -25,9 +25,11 @@
 		<mapping class="logic.invention.operation.InventionLog"/>
 		<mapping class="logic.invention.operation.InvestigationLog"/>
 		<mapping class="logic.member.Company"/>
-		<mapping class="logic.member.User"/>
+		<mapping class="logic.member.CompanyAgent"/>
 		<mapping class="logic.member.CompanyRegistrationRequest"/>
+		<mapping class="logic.member.ExpertInventionField"/>
 		<mapping class="logic.member.Manager"/>
+		<mapping class="logic.member.User"/>
 		<mapping class="logic.member.UserRegistrationRequest"/>
  		 
     </session-factory>

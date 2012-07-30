@@ -2,11 +2,14 @@ package logic.member;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 
 import db.BaseEntity;
 
@@ -21,15 +24,18 @@ public class Company extends BaseEntity<Integer> {
 	@Column(name = "name")
 	private String name;
 
-	// private Set<CompanyAgent> companyAgents;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "companyagent", joinColumns = { @JoinColumn(name = "companyId") }, inverseJoinColumns = { @JoinColumn(name = "memberId") })
+	private Set<User> agents;
 
 	public Company() {
 
 	}
 
-	public Company(String name) {
+	public Company(String name, Set<User> agents) {
 		super();
 		this.name = name;
+		this.agents = agents;
 	}
 
 	public Integer getId() {
@@ -48,12 +54,12 @@ public class Company extends BaseEntity<Integer> {
 		this.name = name;
 	}
 
-	// public Set<CompanyAgent> getCompanyAgents() {
-	// return companyAgents;
-	// }
-	//
-	// public void setCompanyAgents(Set<CompanyAgent> companyAgents) {
-	// this.companyAgents = companyAgents;
-	// }
+	public Set<User> getAgents() {
+		return agents;
+	}
+
+	public void setAgents(Set<User> agents) {
+		this.agents = agents;
+	}
 
 }
