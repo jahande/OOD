@@ -1,18 +1,18 @@
 package logic.invention.operation;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import db.InvestigationLogDao;
 
 import logic.Catalog;
 import logic.invention.InventionRegistrationRequest;
 
 public class InvestigationLogCatalog implements Catalog {
 	private static InvestigationLogCatalog instance;
-
-	private List<InvestigationLog> itemsList = new ArrayList<InvestigationLog>();
+	private InvestigationLogDao investigationLogDao;
 
 	private InvestigationLogCatalog() {
-
+		investigationLogDao = InvestigationLogDao.getInstance();
 	}
 
 	public static InvestigationLogCatalog getInstance() {
@@ -23,30 +23,22 @@ public class InvestigationLogCatalog implements Catalog {
 	}
 
 	public void addItem(Object item) {
-		itemsList.add((InvestigationLog) item);
+		investigationLogDao.save((InvestigationLog) item);
 	}
 
 	public List<?> getAllItems() {
-		return itemsList;
+		return investigationLogDao.fetchAll();
 	}
 
 	public void removeItem(Object removedItem) {
-		itemsList.remove(removedItem);
+		investigationLogDao.delete((InvestigationLog) removedItem);
 	}
 
 	public void updateItem(Object item) {
-		// TODO Auto-generated method stub
+		investigationLogDao.update((InvestigationLog) item);
 	}
 
-	public List<InvestigationLog> getItemsByParameter(
-			InventionRegistrationRequest request) {
-		List<InvestigationLog> result = new ArrayList<InvestigationLog>();
-		for (Object item : itemsList) {
-			InvestigationLog log = (InvestigationLog) item;
-			if (log.getRequest().equals(request)) {
-				result.add(log);
-			}
-		}
-		return result;
+	public List<InvestigationLog> getItemsByRequest(InventionRegistrationRequest request) {
+		return investigationLogDao.findByParameter("request", request);
 	}
 }

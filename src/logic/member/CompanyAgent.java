@@ -15,11 +15,11 @@ public class CompanyAgent extends BaseEntity<Integer> {
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "company")
+	@JoinColumn(name = "companyId")
 	private Company company;
 
 	@ManyToOne
-	@JoinColumn(name = "agent")
+	@JoinColumn(name = "agentId")
 	private User agent;
 
 	public CompanyAgent() {

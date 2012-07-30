@@ -10,9 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import db.BaseEntity;
 
@@ -68,6 +68,9 @@ public class Invention extends BaseEntity<Integer> {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "invention")
 	private Set<Share> shares;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private InventionRegistrationRequest inventionRegistrationRequest;
 
 	public Invention() {
 
@@ -218,6 +221,14 @@ public class Invention extends BaseEntity<Integer> {
 
 	public void setShares(Set<Share> shares) {
 		this.shares = shares;
+	}
+
+	public InventionRegistrationRequest getInventionRegistrationRequest() {
+		return inventionRegistrationRequest;
+	}
+
+	public void setInventionRegistrationRequest(InventionRegistrationRequest inventionRegistrationRequest) {
+		this.inventionRegistrationRequest = inventionRegistrationRequest;
 	}
 
 }

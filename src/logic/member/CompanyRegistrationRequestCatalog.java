@@ -1,17 +1,17 @@
 package logic.member;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import db.CompanyRegistrationRequestDao;
 
 import logic.RequestCatalog;
 
 public class CompanyRegistrationRequestCatalog extends RequestCatalog {
 	private static CompanyRegistrationRequestCatalog instance;
-
-	private List<CompanyRegistrationRequest> itemsList = new ArrayList<CompanyRegistrationRequest>();
+	private CompanyRegistrationRequestDao companyRegistrationRequestDao;
 
 	private CompanyRegistrationRequestCatalog() {
-
+		companyRegistrationRequestDao = CompanyRegistrationRequestDao.getInstance();
 	}
 
 	public static CompanyRegistrationRequestCatalog getInstance() {
@@ -22,15 +22,20 @@ public class CompanyRegistrationRequestCatalog extends RequestCatalog {
 	}
 
 	public void addItem(Object item) {
-		itemsList.add((CompanyRegistrationRequest) item);
+		companyRegistrationRequestDao.save((CompanyRegistrationRequest) item);
 	}
 
 	public List<?> getAllItems() {
-		return itemsList;
+		return companyRegistrationRequestDao.fetchAll();
 	}
 
 	public void removeItem(Object removedItem) {
-		itemsList.remove(removedItem);
+		companyRegistrationRequestDao.delete((CompanyRegistrationRequest) removedItem);
+	}
+
+	@Override
+	public void updateItem(Object item) {
+		companyRegistrationRequestDao.update((CompanyRegistrationRequest) item);
 	}
 
 }

@@ -4,10 +4,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import logic.Request;
 import logic.invention.operation.InvestigationLog;
@@ -17,12 +19,11 @@ import logic.member.UserCatalog;
 
 @Entity
 public class InventionRegistrationRequest extends Request {
-	@ManyToOne
-	@JoinColumn(name = "inventionId")
+	@OneToOne(cascade = CascadeType.ALL)
 	private Invention invention;
 
 	@ManyToOne
-	@JoinColumn(name = "memberId")
+	@JoinColumn(name = "expertId")
 	private User assignedExpert;
 
 	@Column(name = "hasAssignedExpert")
@@ -88,7 +89,7 @@ public class InventionRegistrationRequest extends Request {
 
 	public List<InvestigationLog> getInvestigationHistory() {
 		InvestigationLogCatalog investigationLogCatalog = InvestigationLogCatalog.getInstance();
-		return investigationLogCatalog.getItemsByParameter(this);
+		return investigationLogCatalog.getItemsByRequest(this);
 	}
 
 	public User getAssignedExpert() {

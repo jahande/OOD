@@ -3,7 +3,8 @@ package logic.invention;
 import java.util.ArrayList;
 import java.util.List;
 
-import logic.Request;
+import db.InventionRegistrationRequestDao;
+
 import logic.RequestCatalog;
 import logic.member.User;
 
@@ -11,12 +12,12 @@ public class InventionRegistrationRequestCatalog extends RequestCatalog {
 	private static InventionRegistrationRequestCatalog instance;
 
 	private InventionCatalog inventionCatalog;
-
-	// private UserCatalog userCatalog;
+	private InventionRegistrationRequestDao invRegReqDao;
 
 	private InventionRegistrationRequestCatalog() {
 		super();
 		inventionCatalog = InventionCatalog.getInstance();
+		invRegReqDao = InventionRegistrationRequestDao.getInstance();
 		// inventionCatalog = (InventionCatalog) ApplicationContext
 		// .getCatalog(InventionCatalog.class);
 		// userCatalog = (UserCatalog) ApplicationContext
@@ -36,35 +37,48 @@ public class InventionRegistrationRequestCatalog extends RequestCatalog {
 		return instance;
 	}
 
-	public InventionRegistrationRequest getInvRegReqByParamater(Invention invention) {
-		for (Request request : requestList) {
-			if (((InventionRegistrationRequest) request).getInvention().equals(invention)) {
-				return (InventionRegistrationRequest) request;
-			}
+	@Override
+	public List<?> getAllItems() {
+		return invRegReqDao.fetchAll();
+	}
+
+	@Override
+	public void addItem(Object item) {
+		invRegReqDao.save((InventionRegistrationRequest) item);
+
+	}
+
+	@Override
+	public void removeItem(Object item) {
+		invRegReqDao.delete((InventionRegistrationRequest) item);
+	}
+
+	@Override
+	public void updateItem(Object item) {
+		invRegReqDao.update((InventionRegistrationRequest) item);
+	}
+
+	public InventionRegistrationRequest getInvRegReqByInvention(Invention invention) {
+		List<InventionRegistrationRequest> list = invRegReqDao.findByParameter("invention", invention);
+		if (!list.isEmpty()) {
+			return list.get(0);
+		} else {
+			return null;
 		}
-		return null;
 	}
 
 	public List<InventionRegistrationRequest> getInvRegReqsByExpert(User expert) {
-		List<InventionRegistrationRequest> results = new ArrayList<InventionRegistrationRequest>();
-		for (Request request : requestList) {
-			InventionRegistrationRequest invRegReq = (InventionRegistrationRequest) request;
-			if (invRegReq.hasAssignedExpert() && invRegReq.getAssignedExpert().equals(expert)) {
-				results.add(invRegReq);
-			}
-		}
-		return results;
+		List<InventionRegistrationRequest> list = invRegReqDao.findByParameter("assignedExpert", expert);
+		return list;
 	}
 
 	public List<InventionRegistrationRequest> getInvRegReqsByInventor(User inventor) {
-		List<InventionRegistrationRequest> results = new ArrayList<InventionRegistrationRequest>();
-		for (Request request : requestList) {
-			InventionRegistrationRequest invRegReq = (InventionRegistrationRequest) request;
-			if (inventionCatalog.getInventorsByInvention(invRegReq.getInvention()).contains(inventor)) {
-				results.add(invRegReq);
-			}
+		List<Invention> inventions = inventionCatalog.getInventionsByInventor(inventor);
+		List<InventionRegistrationRequest> requests = new ArrayList<InventionRegistrationRequest>();
+		for (Invention inv : inventions) {
+			requests.add(inv.getInventionRegistrationRequest());
 		}
-		return results;
+		return requests;
 	}
 
 }
