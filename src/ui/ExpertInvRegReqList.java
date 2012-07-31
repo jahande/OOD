@@ -1,5 +1,7 @@
 package ui;
 
+import interfaces.AbstractCompany;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -78,7 +80,7 @@ public class ExpertInvRegReqList extends JFrame {
 			} else if (colName.equals("تاریخ ارسال")) {
 				return request.getRequestDate().toString();
 			} else if (colName.equals("شرکت")) {
-				Company company = request.getInvention().getCompany();
+				AbstractCompany company = request.getInvention().getCompany();
 				if (company != null) {
 					return request.getInvention().getCompany().getName();
 				} else {

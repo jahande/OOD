@@ -1,6 +1,7 @@
 package logic.member;
 
 import java.util.Set;
+import interfaces.AbstractCompany;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,7 +15,7 @@ import javax.persistence.JoinColumn;
 import db.BaseEntity;
 
 @Entity
-public class Company extends BaseEntity<Integer> {
+public class Company extends AbstractCompany {
 
 	@Id
 	@GeneratedValue

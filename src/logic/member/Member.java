@@ -1,5 +1,8 @@
 package logic.member;
 
+import interfaces.AbstractCompany;
+import interfaces.AbstractMember;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,7 +16,7 @@ import db.BaseEntity;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Member extends BaseEntity<Integer> {
+public abstract class Member extends AbstractMember {
 	@Id
 	@GeneratedValue
 	@Column(name = "memberId")

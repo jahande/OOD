@@ -1,5 +1,7 @@
 package logic.member;
 
+import interfaces.AbstractCompany;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,8 +45,8 @@ public class CompanyCatalog implements Catalog {
 		companyDao.update((Company) item);
 	}
 
-	public Company getCompanyByName(String name) {
-		List<Company> result = companyDao.findByParameter("name", name);
+	public AbstractCompany getCompanyByName(String name) {
+		List<AbstractCompany> result = companyDao.findByParameter("name", name);
 		if (!result.isEmpty()) {
 			return result.get(0);
 		} else {

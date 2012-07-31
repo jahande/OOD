@@ -1,5 +1,7 @@
 package ui;
 
+import interfaces.AbstractCompany;
+
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -103,7 +105,7 @@ public class InvRegReqCompany extends JFrame {
 	protected void nextButton_actionPerformed(ActionEvent e) {
 		String selectedName = comboBox.getSelectedItem().toString();
 		if (!selectedName.equals("---")) {
-			Company company = companyCatalog.getCompanyByName(selectedName);
+			AbstractCompany company = companyCatalog.getCompanyByName(selectedName);
 			invention.setCompany(company);
 		}
 		this.setVisible(false);

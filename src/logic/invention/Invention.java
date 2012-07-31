@@ -1,5 +1,8 @@
 package logic.invention;
 
+import interfaces.AbstractCompany;
+import interfaces.AbstractInvention;
+
 import java.util.List;
 import java.util.Set;
 
@@ -19,7 +22,7 @@ import db.BaseEntity;
 import logic.member.Company;
 
 @Entity
-public class Invention extends BaseEntity<Integer> {
+public class Invention extends AbstractInvention{
 	@Id
 	@GeneratedValue
 	@Column(name = "inventionId")
@@ -64,7 +67,7 @@ public class Invention extends BaseEntity<Integer> {
 
 	@ManyToOne
 	@JoinColumn(name = "companyId")
-	private Company company;
+	private AbstractCompany company;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "invention")
 	private Set<Share> shares;
@@ -167,7 +170,7 @@ public class Invention extends BaseEntity<Integer> {
 		// TODO
 	}
 
-	public List<Invention> getRelativeInventions() {
+	public List<AbstractInvention> getRelativeInventions() {
 		return null;
 	}
 
@@ -175,11 +178,11 @@ public class Invention extends BaseEntity<Integer> {
 		return totalSpec;
 	}
 
-	public Company getCompany() {
+	public AbstractCompany getCompany() {
 		return company;
 	}
 
-	public void setCompany(Company company) {
+	public void setCompany(AbstractCompany company) {
 		this.company = company;
 	}
 
