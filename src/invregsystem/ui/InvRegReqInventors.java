@@ -1,12 +1,12 @@
 package invregsystem.ui;
 
-import invregsystemlogic.invention.Invention;
-import invregsystemlogic.invention.InventionCatalog;
-import invregsystemlogic.invention.InventionRegistrationRequest;
-import invregsystemlogic.invention.Share;
-import invregsystemlogic.member.Member;
-import invregsystemlogic.member.User;
-import invregsystemlogic.member.UserCatalog;
+import invregsystem.logic.invention.Invention;
+import invregsystem.logic.invention.InventionCatalog;
+import invregsystem.logic.invention.InventionRegistrationRequest;
+import invregsystem.logic.invention.Share;
+import invregsystem.logic.member.Member;
+import invregsystem.logic.member.User;
+import invregsystem.logic.member.UserCatalog;
 
 import java.awt.ComponentOrientation;
 import java.awt.Rectangle;

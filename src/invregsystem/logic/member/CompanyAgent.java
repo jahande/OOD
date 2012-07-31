@@ -1,4 +1,4 @@
-package invregsystemlogic.member;
+package invregsystem.logic.member;
 
 import invregsystem.db.BaseEntity;
 

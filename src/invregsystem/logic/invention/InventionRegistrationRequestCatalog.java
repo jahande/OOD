@@ -1,8 +1,8 @@
-package invregsystemlogic.invention;
+package invregsystem.logic.invention;
 
 import invregsystem.db.InventionRegistrationRequestDao;
-import invregsystemlogic.RequestCatalog;
-import invregsystemlogic.member.User;
+import invregsystem.logic.RequestCatalog;
+import invregsystem.logic.member.User;
 
 import java.util.ArrayList;
 import java.util.List;

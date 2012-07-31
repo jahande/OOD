@@ -1,6 +1,6 @@
 package invregsystem.ui;
 
-import invregsystemlogic.member.Manager;
+import invregsystem.logic.member.Manager;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;

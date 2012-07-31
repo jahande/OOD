@@ -1,4 +1,4 @@
-package invregsystemlogic;
+package invregsystem.logic;
 
 import java.util.List;
 

@@ -1,9 +1,9 @@
-package invregsystemlogic.invention;
+package invregsystem.logic.invention;
 
 import interfaces.AbstractCompany;
 import interfaces.AbstractInvention;
 import invregsystem.db.BaseEntity;
-import invregsystemlogic.member.Company;
+import invregsystem.logic.member.Company;
 
 import java.util.List;
 import java.util.Set;
@@ -19,10 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-
-
 @Entity
-public class Invention extends AbstractInvention{
+public class Invention extends AbstractInvention {
 	@Id
 	@GeneratedValue
 	@Column(name = "inventionId")
@@ -67,7 +65,7 @@ public class Invention extends AbstractInvention{
 
 	@ManyToOne
 	@JoinColumn(name = "companyId")
-	private AbstractCompany company;
+	private Company company;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "invention")
 	private Set<Share> shares;
@@ -183,7 +181,7 @@ public class Invention extends AbstractInvention{
 	}
 
 	public void setCompany(AbstractCompany company) {
-		this.company = company;
+		this.company = (Company) company;
 	}
 
 	public long getPrice() {

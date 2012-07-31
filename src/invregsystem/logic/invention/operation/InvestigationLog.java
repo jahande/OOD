@@ -1,8 +1,8 @@
-package invregsystemlogic.invention.operation;
+package invregsystem.logic.invention.operation;
 
 import invregsystem.db.BaseEntity;
-import invregsystemlogic.invention.InventionRegistrationRequest;
-import invregsystemlogic.member.User;
+import invregsystem.logic.invention.InventionRegistrationRequest;
+import invregsystem.logic.member.User;
 
 import java.util.Date;
 

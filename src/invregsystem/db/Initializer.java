@@ -1,11 +1,11 @@
 package invregsystem.db;
 
-import invregsystemlogic.invention.Invention;
-import invregsystemlogic.invention.InventionField;
-import invregsystemlogic.invention.Share;
-import invregsystemlogic.member.Company;
-import invregsystemlogic.member.Manager;
-import invregsystemlogic.member.User;
+import invregsystem.logic.invention.Invention;
+import invregsystem.logic.invention.InventionField;
+import invregsystem.logic.invention.Share;
+import invregsystem.logic.member.Company;
+import invregsystem.logic.member.Manager;
+import invregsystem.logic.member.User;
 
 import java.util.ArrayList;
 import java.util.Date;

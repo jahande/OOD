@@ -17,20 +17,20 @@
         <property name="show_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
  
-		<mapping class="logic.invention.Invention"/>
-		<mapping class="logic.invention.InventionField"/>
-		<mapping class="logic.invention.InventionRegistrationRequest"/>
-		<mapping class="logic.invention.Share"/>
-		<mapping class="logic.invention.operation.Change"/>
-		<mapping class="logic.invention.operation.InventionLog"/>
-		<mapping class="logic.invention.operation.InvestigationLog"/>
-		<mapping class="logic.member.Company"/>
-		<mapping class="logic.member.CompanyAgent"/>
-		<mapping class="logic.member.CompanyRegistrationRequest"/>
-		<mapping class="logic.member.ExpertInventionField"/>
-		<mapping class="logic.member.Manager"/>
-		<mapping class="logic.member.User"/>
-		<mapping class="logic.member.UserRegistrationRequest"/>
+		<mapping class="invregsystem.logic.invention.Invention"/>
+		<mapping class="invregsystem.logic.invention.InventionField"/>
+		<mapping class="invregsystem.logic.invention.InventionRegistrationRequest"/>
+		<mapping class="invregsystem.logic.invention.Share"/>
+		<mapping class="invregsystem.logic.invention.operation.Change"/>
+		<mapping class="invregsystem.logic.invention.operation.InventionLog"/>
+		<mapping class="invregsystem.logic.invention.operation.InvestigationLog"/>
+		<mapping class="invregsystem.logic.member.Company"/>
+		<mapping class="invregsystem.logic.member.CompanyAgent"/>
+		<mapping class="invregsystem.logic.member.CompanyRegistrationRequest"/>
+		<mapping class="invregsystem.logic.member.ExpertInventionField"/>
+		<mapping class="invregsystem.logic.member.Manager"/>
+		<mapping class="invregsystem.logic.member.User"/>
+		<mapping class="invregsystem.logic.member.UserRegistrationRequest"/>
  		 
     </session-factory>
 </hibernate-configuration>

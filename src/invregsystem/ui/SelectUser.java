@@ -1,7 +1,7 @@
 package invregsystem.ui;
 
+import invregsystem.logic.member.User;
 import invregsystem.ui.models.NeedRefreshData;
-import invregsystemlogic.member.User;
 
 import java.awt.Color;
 import java.awt.Dimension;

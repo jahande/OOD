@@ -1,6 +1,6 @@
 package invregsystem.db;
 
-import invregsystemlogic.invention.operation.Change;
+import invregsystem.logic.invention.operation.Change;
 
 import java.util.List;
 

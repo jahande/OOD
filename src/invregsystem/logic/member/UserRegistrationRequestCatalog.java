@@ -1,7 +1,7 @@
-package invregsystemlogic.member;
+package invregsystem.logic.member;
 
 import invregsystem.db.UserRegistrationRequestDao;
-import invregsystemlogic.RequestCatalog;
+import invregsystem.logic.RequestCatalog;
 
 import java.util.List;
 

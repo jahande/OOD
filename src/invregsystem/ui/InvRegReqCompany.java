@@ -1,11 +1,11 @@
 package invregsystem.ui;
 
 import interfaces.AbstractCompany;
-import invregsystemlogic.invention.Invention;
-import invregsystemlogic.member.Company;
-import invregsystemlogic.member.CompanyCatalog;
-import invregsystemlogic.member.Member;
-import invregsystemlogic.member.User;
+import invregsystem.logic.invention.Invention;
+import invregsystem.logic.member.Company;
+import invregsystem.logic.member.CompanyCatalog;
+import invregsystem.logic.member.Member;
+import invregsystem.logic.member.User;
 
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;

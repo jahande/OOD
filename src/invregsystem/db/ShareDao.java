@@ -1,6 +1,6 @@
 package invregsystem.db;
 
-import invregsystemlogic.invention.Share;
+import invregsystem.logic.invention.Share;
 
 import java.util.List;
 

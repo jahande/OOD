@@ -1,6 +1,6 @@
 package invregsystem.db;
 
-import invregsystemlogic.invention.operation.InventionLog;
+import invregsystem.logic.invention.operation.InventionLog;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package invregsystemlogic.member;
+package invregsystem.logic.member;
 
 import java.util.Set;
 import interfaces.AbstractCompany;

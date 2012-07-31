@@ -1,6 +1,6 @@
 package invregsystem.db;
 
-import invregsystemlogic.member.CompanyAgent;
+import invregsystem.logic.member.CompanyAgent;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package invregsystem.db;
 
-import invregsystemlogic.member.ExpertInventionField;
+import invregsystem.logic.member.ExpertInventionField;
 
 import java.util.List;
 

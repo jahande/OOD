@@ -1,7 +1,7 @@
 package interfaces;
 
 import invregsystem.db.BaseEntity;
-import invregsystemlogic.invention.InventionField;
+import invregsystem.logic.invention.InventionField;
 
 import java.util.Set;
 

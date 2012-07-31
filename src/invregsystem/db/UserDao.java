@@ -1,6 +1,6 @@
 package invregsystem.db;
 
-import invregsystemlogic.member.User;
+import invregsystem.logic.member.User;
 
 import java.util.List;
 

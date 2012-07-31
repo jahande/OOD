@@ -1,8 +1,8 @@
 package invregsystem.ui;
 
-import invregsystemlogic.invention.Invention;
-import invregsystemlogic.invention.InventionRegistrationRequest;
-import invregsystemlogic.member.User;
+import invregsystem.logic.invention.Invention;
+import invregsystem.logic.invention.InventionRegistrationRequest;
+import invregsystem.logic.member.User;
 
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;

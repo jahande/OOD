@@ -1,6 +1,6 @@
-package invregsystemlogic.member;
+package invregsystem.logic.member;
 
-import invregsystemlogic.Request;
+import invregsystem.logic.Request;
 
 import java.util.Date;
 

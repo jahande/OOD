@@ -1,11 +1,11 @@
 package invregsystem.ui;
 
+import invregsystem.logic.invention.InventionCatalog;
+import invregsystem.logic.invention.InventionRegistrationRequest;
+import invregsystem.logic.invention.InventionRegistrationRequestCatalog;
+import invregsystem.logic.member.User;
 import invregsystem.ui.models.JTableButtonMouseListener;
 import invregsystem.ui.models.JTableButtonRenderer;
-import invregsystemlogic.invention.InventionCatalog;
-import invregsystemlogic.invention.InventionRegistrationRequest;
-import invregsystemlogic.invention.InventionRegistrationRequestCatalog;
-import invregsystemlogic.member.User;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

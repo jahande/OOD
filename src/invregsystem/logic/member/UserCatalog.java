@@ -1,7 +1,7 @@
-package invregsystemlogic.member;
+package invregsystem.logic.member;
 
 import invregsystem.db.UserDao;
-import invregsystemlogic.Catalog;
+import invregsystem.logic.Catalog;
 
 import java.util.ArrayList;
 import java.util.List;

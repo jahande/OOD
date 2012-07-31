@@ -1,10 +1,10 @@
 package interfaces;
 
 import invregsystem.db.BaseEntity;
-import invregsystemlogic.invention.Invention;
-import invregsystemlogic.invention.InventionField;
-import invregsystemlogic.invention.Share;
-import invregsystemlogic.member.Company;
+import invregsystem.logic.invention.Invention;
+import invregsystem.logic.invention.InventionField;
+import invregsystem.logic.invention.Share;
+import invregsystem.logic.member.Company;
 
 import java.util.List;
 import java.util.Set;

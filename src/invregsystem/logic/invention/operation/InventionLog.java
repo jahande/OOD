@@ -1,4 +1,4 @@
-package invregsystemlogic.invention.operation;
+package invregsystem.logic.invention.operation;
 
 import invregsystem.db.BaseEntity;
 
@@ -9,10 +9,10 @@ import javax.persistence.Id;
 
 
 @Entity
-public class Change extends BaseEntity<Integer> {
+public class InventionLog extends BaseEntity<Integer> {
 	@Id
 	@GeneratedValue
-	@Column(name = "changeId")
+	@Column(name = "inventionLogId")
 	private Integer id;
 
 	public Integer getId() {

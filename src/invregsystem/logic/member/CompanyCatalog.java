@@ -1,9 +1,9 @@
-package invregsystemlogic.member;
+package invregsystem.logic.member;
 
 import interfaces.AbstractCompany;
 import invregsystem.db.CompanyAgentDao;
 import invregsystem.db.CompanyDao;
-import invregsystemlogic.Catalog;
+import invregsystem.logic.Catalog;
 
 import java.util.ArrayList;
 import java.util.List;

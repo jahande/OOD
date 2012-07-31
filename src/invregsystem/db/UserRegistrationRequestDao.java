@@ -1,6 +1,6 @@
 package invregsystem.db;
 
-import invregsystemlogic.member.UserRegistrationRequest;
+import invregsystem.logic.member.UserRegistrationRequest;
 
 import java.util.List;
 

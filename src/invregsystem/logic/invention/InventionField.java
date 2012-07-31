@@ -1,4 +1,4 @@
-package invregsystemlogic.invention;
+package invregsystem.logic.invention;
 
 import invregsystem.db.BaseEntity;
 

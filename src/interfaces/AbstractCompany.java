@@ -1,7 +1,7 @@
 package interfaces;
 
 import invregsystem.db.BaseEntity;
-import invregsystemlogic.member.User;
+import invregsystem.logic.member.User;
 
 import java.util.Set;
 

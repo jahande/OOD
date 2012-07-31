@@ -1,6 +1,6 @@
 package invregsystem.ui;
 
-import invregsystemlogic.member.User;
+import invregsystem.logic.member.User;
 
 import java.awt.ComponentOrientation;
 import java.awt.Container;

@@ -1,7 +1,7 @@
-package invregsystemlogic.invention;
+package invregsystem.logic.invention;
 
 import invregsystem.db.InventionFieldDao;
-import invregsystemlogic.Catalog;
+import invregsystem.logic.Catalog;
 
 import java.util.List;
 

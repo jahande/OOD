@@ -1,7 +1,7 @@
 package invregsystem.ui;
 
-import invregsystemlogic.invention.InventionRegistrationRequest;
-import invregsystemlogic.invention.operation.InvestigationLog;
+import invregsystem.logic.invention.InventionRegistrationRequest;
+import invregsystem.logic.invention.operation.InvestigationLog;
 
 import java.awt.ComponentOrientation;
 import java.util.List;

@@ -1,4 +1,4 @@
-package invregsystemlogic.member;
+package invregsystem.logic.member;
 
 import interfaces.AbstractCompany;
 import interfaces.AbstractMember;
@@ -13,9 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
-
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Member extends AbstractMember {
 	@Id
 	@GeneratedValue

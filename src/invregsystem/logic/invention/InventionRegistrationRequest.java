@@ -1,10 +1,10 @@
-package invregsystemlogic.invention;
+package invregsystem.logic.invention;
 
-import invregsystemlogic.Request;
-import invregsystemlogic.invention.operation.InvestigationLog;
-import invregsystemlogic.invention.operation.InvestigationLogCatalog;
-import invregsystemlogic.member.User;
-import invregsystemlogic.member.UserCatalog;
+import invregsystem.logic.Request;
+import invregsystem.logic.invention.operation.InvestigationLog;
+import invregsystem.logic.invention.operation.InvestigationLogCatalog;
+import invregsystem.logic.member.User;
+import invregsystem.logic.member.UserCatalog;
 
 import java.util.Date;
 import java.util.List;

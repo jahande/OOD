@@ -1,9 +1,9 @@
-package invregsystemlogic.invention;
+package invregsystem.logic.invention;
 
 import invregsystem.db.InventionDao;
 import invregsystem.db.ShareDao;
-import invregsystemlogic.Catalog;
-import invregsystemlogic.member.User;
+import invregsystem.logic.Catalog;
+import invregsystem.logic.member.User;
 
 import java.util.ArrayList;
 import java.util.List;

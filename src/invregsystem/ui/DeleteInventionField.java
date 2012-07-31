@@ -1,10 +1,10 @@
 package invregsystem.ui;
 
+import invregsystem.logic.invention.InventionField;
+import invregsystem.logic.invention.InventionFieldCatalog;
 import invregsystem.ui.models.IdLabel;
 import invregsystem.ui.models.NeedRefreshData;
 import invregsystem.ui.models.SimpleListModel;
-import invregsystemlogic.invention.InventionField;
-import invregsystemlogic.invention.InventionFieldCatalog;
 
 import java.awt.Color;
 import java.awt.Dimension;

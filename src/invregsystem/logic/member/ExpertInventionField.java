@@ -1,7 +1,7 @@
-package invregsystemlogic.member;
+package invregsystem.logic.member;
 
 import invregsystem.db.BaseEntity;
-import invregsystemlogic.invention.InventionField;
+import invregsystem.logic.invention.InventionField;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

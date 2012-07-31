@@ -1,8 +1,8 @@
-package invregsystemlogic.invention.operation;
+package invregsystem.logic.invention.operation;
 
 import invregsystem.db.InvestigationLogDao;
-import invregsystemlogic.Catalog;
-import invregsystemlogic.invention.InventionRegistrationRequest;
+import invregsystem.logic.Catalog;
+import invregsystem.logic.invention.InventionRegistrationRequest;
 
 import java.util.List;
 

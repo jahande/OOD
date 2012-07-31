@@ -1,9 +1,12 @@
 package invregsystem.ui;
 
-import invregsystemlogic.member.Manager;
-import invregsystemlogic.member.Member;
-import invregsystemlogic.member.User;
-import invregsystemlogic.member.UserCatalog;
+import interfaces.AbstractManager;
+import interfaces.AbstractMember;
+import interfaces.AbstractUser;
+import invregsystem.logic.member.Manager;
+import invregsystem.logic.member.Member;
+import invregsystem.logic.member.User;
+import invregsystem.logic.member.UserCatalog;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -14,7 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
@@ -100,8 +102,8 @@ public class Login extends JFrame {
 		this.lblLoginError.setText("");
 	}
 
-	public Member authenticate(String un, String pa) {
-		User user = userCatalog.getUserByUsername(un);
+	public AbstractMember authenticate(String un, String pa) {
+		AbstractUser user = userCatalog.getUserByUsername(un);
 		if (user != null) {
 			if (user.getPassword().equals(pa)) {
 				return user;
@@ -129,13 +131,13 @@ public class Login extends JFrame {
 		// System.out.println(this.usernameField.getText());
 		// System.out.println(new String(this.passwordField.getPassword()));
 
-		Member member = authenticate(this.usernameField.getText(), new String(this.passwordField.getPassword()));
+		AbstractMember member = authenticate(this.usernameField.getText(), new String(this.passwordField.getPassword()));
 		if (member != null) {
 			hideError();
 			this.setVisible(false);
-			if (member instanceof Manager) {
+			if (member instanceof AbstractManager) {
 				new Management((Manager) member).setVisible(true);
-			} else if (((User) member).isExpert()) {
+			} else if (((AbstractUser) member).isExpert()) {
 				new ExpertPage((User) member).setVisible(true);
 			} else {
 				new UserPage((User) member).setVisible(true);

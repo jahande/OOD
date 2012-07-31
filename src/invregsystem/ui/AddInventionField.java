@@ -1,7 +1,7 @@
 package invregsystem.ui;
 
-import invregsystemlogic.invention.InventionField;
-import invregsystemlogic.invention.InventionFieldCatalog;
+import invregsystem.logic.invention.InventionField;
+import invregsystem.logic.invention.InventionFieldCatalog;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

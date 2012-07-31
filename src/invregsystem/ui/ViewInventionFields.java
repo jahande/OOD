@@ -1,8 +1,8 @@
 package invregsystem.ui;
 
+import invregsystem.logic.invention.InventionField;
 import invregsystem.ui.models.NeedRefreshData;
 import invregsystem.ui.models.SimpleListModel;
-import invregsystemlogic.invention.InventionField;
 
 import java.awt.Color;
 import java.awt.Dimension;
