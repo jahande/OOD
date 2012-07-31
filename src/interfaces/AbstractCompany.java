@@ -1,9 +1,10 @@
 package interfaces;
 
+import invregsystem.db.BaseEntity;
+import invregsystemlogic.member.User;
+
 import java.util.Set;
 
-import logic.member.User;
-import db.BaseEntity;
 
 public abstract class AbstractCompany  extends BaseEntity<Integer>{
 	public abstract String getName() ;

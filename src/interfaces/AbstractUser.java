@@ -1,9 +1,10 @@
 package interfaces;
 
+import invregsystem.db.BaseEntity;
+import invregsystemlogic.invention.InventionField;
+
 import java.util.Set;
 
-import logic.invention.InventionField;
-import db.BaseEntity;
 
 public abstract class AbstractUser extends AbstractMember{
 	public abstract boolean isExpert() ;

@@ -1,13 +1,14 @@
 package interfaces;
 
+import invregsystem.db.BaseEntity;
+import invregsystemlogic.invention.Invention;
+import invregsystemlogic.invention.InventionField;
+import invregsystemlogic.invention.Share;
+import invregsystemlogic.member.Company;
+
 import java.util.List;
 import java.util.Set;
 
-import logic.invention.Invention;
-import logic.invention.InventionField;
-import logic.invention.Share;
-import logic.member.Company;
-import db.BaseEntity;
 
 public abstract class AbstractInvention extends BaseEntity<Integer>{
 	public abstract void setTitle(String title) ;

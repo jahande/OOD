@@ -1,8 +1,9 @@
 package interfaces;
 
+import invregsystem.db.BaseEntity;
+
 import java.util.Date;
 
-import db.BaseEntity;
 
 public abstract class AbstractMember extends BaseEntity<Integer>{
 
