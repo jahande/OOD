@@ -1,5 +1,6 @@
 package invregsystem.db;
 
+import interfaces.AbstractUser;
 import invregsystem.logic.invention.Invention;
 import invregsystem.logic.invention.InventionField;
 import invregsystem.logic.invention.Share;
@@ -11,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
 
 public class Initializer {
 	public static void main(String[] args) {
@@ -33,15 +33,15 @@ public class Initializer {
 		Manager manager = new Manager("مدیر", "مدیری", "manager", "123", "manager@manage.com", new Date());
 		managerDao.save(manager);
 
-		Set<User> agents = new HashSet<User>();
+		Set<AbstractUser> agents = new HashSet<AbstractUser>();
 		agents.add(user);
-		companyDao.save(new Company("عمید رایانه شریف", agents));
-		agents = new HashSet<User>();
+		companyDao.save(new Company("عمید رایانه شریف", "1234", "آدرس", "arsh.co.ir", "", agents));
+		agents = new HashSet<AbstractUser>();
 		agents.add(inventor);
-		companyDao.save(new Company("پوران صنعت ایران", agents));
-		agents = new HashSet<User>();
+		companyDao.save(new Company("پوران صنعت ایران", "1234", "آدرس", "www", "", agents));
+		agents = new HashSet<AbstractUser>();
 		agents.add(expert);
-		companyDao.save(new Company("تمیز گستر اندیشان", agents));
+		companyDao.save(new Company("تمیز گستر اندیشان", "1234", "آدرس", "www", "", agents));
 
 		inventionFieldDao.save(new InventionField("کامپیوتر"));
 		inventionFieldDao.save(new InventionField("مواد"));

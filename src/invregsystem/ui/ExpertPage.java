@@ -196,7 +196,7 @@ public class ExpertPage extends JFrame {
 	}
 
 	protected void companyRegReqButton_actionPerformed(ActionEvent e) {
-		new CompanyRegReq().setVisible(true);
+		new CompanyRegReq(currentUser).setVisible(true);
 	}
 
 	protected void invRegReqButton_actionPerformed(ActionEvent e) {

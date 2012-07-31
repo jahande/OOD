@@ -1,8 +1,9 @@
 package invregsystem.logic.member;
 
+import java.util.HashSet;
 import java.util.Set;
 import interfaces.AbstractCompany;
-import invregsystem.db.BaseEntity;
+import interfaces.AbstractUser;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.JoinColumn;
-
 
 @Entity
 public class Company extends AbstractCompany {
@@ -25,6 +25,18 @@ public class Company extends AbstractCompany {
 	@Column(name = "name")
 	private String name;
 
+	@Column(name = "phone")
+	private String phone;
+
+	@Column(name = "address")
+	private String address;
+
+	@Column(name = "website")
+	private String website;
+
+	@Column(name = "introDocFile")
+	private String introDocFile;
+
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "companyagent", joinColumns = { @JoinColumn(name = "companyId") }, inverseJoinColumns = { @JoinColumn(name = "memberId") })
 	private Set<User> agents;
@@ -33,10 +45,18 @@ public class Company extends AbstractCompany {
 
 	}
 
-	public Company(String name, Set<User> agents) {
+	public Company(String name, String phone, String address, String website, String introDocFile, Set<AbstractUser> agents) {
 		super();
 		this.name = name;
-		this.agents = agents;
+		this.phone = phone;
+		this.address = address;
+		this.website = website;
+		this.introDocFile = introDocFile;
+		Set<User> usersSet = new HashSet<User>();
+		for (AbstractUser user : agents) {
+			usersSet.add((User) user);
+		}
+		this.agents = usersSet;
 	}
 
 	public Integer getId() {
@@ -61,6 +81,38 @@ public class Company extends AbstractCompany {
 
 	public void setAgents(Set<User> agents) {
 		this.agents = agents;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getWebsite() {
+		return website;
+	}
+
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+
+	public String getIntroDocFile() {
+		return introDocFile;
+	}
+
+	public void setIntroDocFile(String introDocFile) {
+		this.introDocFile = introDocFile;
 	}
 
 }

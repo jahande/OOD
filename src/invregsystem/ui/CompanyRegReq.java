@@ -1,9 +1,19 @@
 package invregsystem.ui;
 
+import interfaces.AbstractCompany;
+import interfaces.AbstractUser;
+import invregsystem.logic.member.Company;
+import invregsystem.logic.member.CompanyCatalog;
+import invregsystem.logic.member.CompanyRegistrationRequest;
+import invregsystem.logic.member.CompanyRegistrationRequestCatalog;
+
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -12,6 +22,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import sun.management.resources.agent;
 
 public class CompanyRegReq extends JFrame {
 
@@ -29,6 +41,8 @@ public class CompanyRegReq extends JFrame {
 	private final JButton fileChooseButton = new JButton();
 
 	private File introDocFile;
+	private AbstractUser currentUser;
+
 	/**
 	 * Launch the application
 	 * 
@@ -36,7 +50,7 @@ public class CompanyRegReq extends JFrame {
 	 */
 	public static void main(String args[]) {
 		try {
-			CompanyRegReq frame = new CompanyRegReq();
+			CompanyRegReq frame = new CompanyRegReq(null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -46,8 +60,9 @@ public class CompanyRegReq extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public CompanyRegReq() {
+	public CompanyRegReq(AbstractUser currentUser) {
 		super();
+		this.currentUser = currentUser;
 		setBounds(100, 100, 499, 269);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -61,8 +76,7 @@ public class CompanyRegReq extends JFrame {
 	private void jbInit() throws Exception {
 		getContentPane().setLayout(null);
 		setTitle("ثبت شرکت");
-		getContentPane().setComponentOrientation(
-				ComponentOrientation.RIGHT_TO_LEFT);
+		getContentPane().setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		getContentPane().add(nameTextField);
 		nameTextField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
@@ -103,7 +117,7 @@ public class CompanyRegReq extends JFrame {
 
 		getContentPane().add(siteTextField);
 		siteTextField.setBounds(56, 98, 299, 20);
-		
+
 		getContentPane().add(submitButton);
 		submitButton.addActionListener(new SubmitButtonActionListener());
 		submitButton.setText("ثبت");
@@ -113,7 +127,7 @@ public class CompanyRegReq extends JFrame {
 		cancelButton.addActionListener(new CancelButtonActionListener());
 		cancelButton.setText("انصراف");
 		cancelButton.setBounds(249, 195, 73, 26);
-		
+
 		getContentPane().add(fileChooseButton);
 		fileChooseButton.addActionListener(new FileChooseButtonActionListener());
 		fileChooseButton.setText("انتخاب ...");
@@ -131,6 +145,7 @@ public class CompanyRegReq extends JFrame {
 			submitButton_actionPerformed(e);
 		}
 	}
+
 	private class FileChooseButtonActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			fileChooseButton_actionPerformed(e);
@@ -138,6 +153,21 @@ public class CompanyRegReq extends JFrame {
 	}
 
 	protected void cancelButton_actionPerformed(ActionEvent e) {
+		String name = this.nameTextField.getText();
+		String phone = this.phoneTextField.getText();
+		String address = this.addrTextField.getText();
+		String website = this.siteTextField.getText();
+
+		Set<AbstractUser> agents = new HashSet<AbstractUser>();
+		agents.add(currentUser);
+		AbstractCompany company = new Company(name, phone, address, website, introDocFile.getPath(), agents);
+		CompanyCatalog companyCatalog = CompanyCatalog.getInstance();
+		companyCatalog.addItem(company);
+		CompanyRegistrationRequest companyRegReq = new CompanyRegistrationRequest(new Date(), company);
+		CompanyRegistrationRequestCatalog companyRegReqCatalog = CompanyRegistrationRequestCatalog.getInstance();
+		companyRegReqCatalog.addItem(companyRegReq);
+
+		JOptionPane.showMessageDialog(this, "درخواست ثبت شرکت با موفقیت صادر شد.");
 		this.nameTextField.setText("");
 		this.phoneTextField.setText("");
 		this.addrTextField.setText("");
@@ -146,10 +176,9 @@ public class CompanyRegReq extends JFrame {
 	}
 
 	protected void submitButton_actionPerformed(ActionEvent e) {
-		JOptionPane.showMessageDialog(this,
-				"درخواست ثبت شرکت با موفقیت صادر شد.");
 		cancelButton_actionPerformed(e);
 	}
+
 	protected void fileChooseButton_actionPerformed(ActionEvent e) {
 		JFileChooser fc = new JFileChooser();
 		fc.showOpenDialog(this);

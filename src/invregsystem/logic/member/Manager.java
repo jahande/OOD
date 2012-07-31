@@ -116,15 +116,8 @@ public class Manager extends AbstractManager {
 	}
 
 	@Override
-	public Date getbirthDate() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public String getFullName() {
-		// TODO Auto-generated method stub
-		return null;
+		return firstName + " " + lastName;
 	}
 
 	@Override
