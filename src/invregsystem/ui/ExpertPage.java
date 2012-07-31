@@ -1,6 +1,6 @@
 package invregsystem.ui;
 
-import invregsystem.logic.member.User;
+import interfaces.AbstractUser;
 
 import java.awt.ComponentOrientation;
 import java.awt.Container;
@@ -12,7 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
-
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
@@ -34,7 +33,7 @@ public class ExpertPage extends JFrame {
 
 	private final JButton messagesButton = new JButton();
 
-	private User currentUser;
+	private AbstractUser currentUser;
 
 	// /**
 	// * Launch the application
@@ -53,7 +52,7 @@ public class ExpertPage extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public ExpertPage(User currentUser) {
+	public ExpertPage(AbstractUser currentUser) {
 		super();
 		this.currentUser = currentUser;
 		setBounds(100, 100, 349, 386);

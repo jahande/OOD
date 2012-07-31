@@ -1,11 +1,10 @@
 package invregsystem.ui;
 
 import interfaces.AbstractCompany;
+import interfaces.AbstractUser;
 import invregsystem.logic.invention.Invention;
 import invregsystem.logic.member.Company;
 import invregsystem.logic.member.CompanyCatalog;
-import invregsystem.logic.member.Member;
-import invregsystem.logic.member.User;
 
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
@@ -19,7 +18,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-
 public class InvRegReqCompany extends JFrame {
 
 	private final JLabel label = new JLabel();
@@ -29,7 +27,7 @@ public class InvRegReqCompany extends JFrame {
 
 	private CompanyCatalog companyCatalog;
 	private Invention invention;
-	private User currentUser;
+	private AbstractUser currentUser;
 
 	/**
 	 * Launch the application
@@ -48,7 +46,7 @@ public class InvRegReqCompany extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public InvRegReqCompany(User currentUser, Invention invention) {
+	public InvRegReqCompany(AbstractUser currentUser, Invention invention) {
 		super();
 		companyCatalog = CompanyCatalog.getInstance();
 		this.currentUser = currentUser;

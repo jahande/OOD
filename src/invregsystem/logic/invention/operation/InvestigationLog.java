@@ -1,5 +1,6 @@
 package invregsystem.logic.invention.operation;
 
+import interfaces.AbstractUser;
 import invregsystem.db.BaseEntity;
 import invregsystem.logic.invention.InventionRegistrationRequest;
 import invregsystem.logic.member.User;
@@ -12,8 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-
 
 @Entity
 public class InvestigationLog extends BaseEntity<Integer> {
@@ -40,9 +39,9 @@ public class InvestigationLog extends BaseEntity<Integer> {
 
 	}
 
-	public InvestigationLog(User expert, InventionRegistrationRequest request, boolean accepted) {
+	public InvestigationLog(AbstractUser expert, InventionRegistrationRequest request, boolean accepted) {
 		super();
-		this.expert = expert;
+		this.expert = (User) expert;
 		this.request = request;
 		this.date = new Date();
 		this.accepted = accepted;

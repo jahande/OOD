@@ -1,9 +1,9 @@
 package invregsystem.ui;
 
+import interfaces.AbstractUser;
 import invregsystem.logic.invention.InventionCatalog;
 import invregsystem.logic.invention.InventionRegistrationRequest;
 import invregsystem.logic.invention.InventionRegistrationRequestCatalog;
-import invregsystem.logic.member.User;
 import invregsystem.ui.models.JTableButtonMouseListener;
 import invregsystem.ui.models.JTableButtonRenderer;
 
@@ -28,7 +28,7 @@ public class InvHistory extends JFrame {
 	private JTable table;
 
 	private InventionRegistrationRequestCatalog invRegReqCatalog;
-	private User currentUser;
+	private AbstractUser currentUser;
 
 	private class JTableModel extends AbstractTableModel {
 		private static final long serialVersionUID = 1L;
@@ -102,7 +102,7 @@ public class InvHistory extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public InvHistory(User currentUser) {
+	public InvHistory(AbstractUser currentUser) {
 		super();
 		this.currentUser = currentUser;
 		invRegReqCatalog = InventionRegistrationRequestCatalog.getInstance();

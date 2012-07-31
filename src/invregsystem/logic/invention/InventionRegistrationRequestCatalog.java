@@ -1,8 +1,8 @@
 package invregsystem.logic.invention;
 
+import interfaces.AbstractUser;
 import invregsystem.db.InventionRegistrationRequestDao;
 import invregsystem.logic.RequestCatalog;
-import invregsystem.logic.member.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,12 +68,12 @@ public class InventionRegistrationRequestCatalog extends RequestCatalog {
 		}
 	}
 
-	public List<InventionRegistrationRequest> getInvRegReqsByExpert(User expert) {
+	public List<InventionRegistrationRequest> getInvRegReqsByExpert(AbstractUser expert) {
 		List<InventionRegistrationRequest> list = invRegReqDao.findByParameter("assignedExpert", expert);
 		return list;
 	}
 
-	public List<InventionRegistrationRequest> getInvRegReqsByInventor(User inventor) {
+	public List<InventionRegistrationRequest> getInvRegReqsByInventor(AbstractUser inventor) {
 		List<Invention> inventions = inventionCatalog.getInventionsByInventor(inventor);
 		List<InventionRegistrationRequest> requests = new ArrayList<InventionRegistrationRequest>();
 		for (Invention inv : inventions) {

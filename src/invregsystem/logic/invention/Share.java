@@ -1,5 +1,6 @@
 package invregsystem.logic.invention;
 
+import interfaces.AbstractUser;
 import invregsystem.db.BaseEntity;
 import invregsystem.logic.member.User;
 
@@ -9,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
 
 @Entity
 public class Share extends BaseEntity<Integer> {
@@ -33,9 +33,9 @@ public class Share extends BaseEntity<Integer> {
 
 	}
 
-	public Share(User user, Invention invention, int shareValue) {
+	public Share(AbstractUser user, Invention invention, int shareValue) {
 		super();
-		this.user = user;
+		this.user = (User) user;
 		this.invention = invention;
 		this.shareValue = shareValue;
 	}

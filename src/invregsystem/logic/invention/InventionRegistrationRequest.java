@@ -1,5 +1,6 @@
 package invregsystem.logic.invention;
 
+import interfaces.AbstractUser;
 import invregsystem.logic.Request;
 import invregsystem.logic.invention.operation.InvestigationLog;
 import invregsystem.logic.invention.operation.InvestigationLogCatalog;
@@ -47,13 +48,13 @@ public class InventionRegistrationRequest extends Request {
 		return invention;
 	}
 
-	public void acceptAndApplyRequest(User expert) {
+	public void acceptAndApplyRequest(AbstractUser expert) {
 		super.acceptAndApplyRequest();
 		InvestigationLogCatalog investigationLogCatalog = InvestigationLogCatalog.getInstance();
 		investigationLogCatalog.addItem(new InvestigationLog(expert, this, true));
 	}
 
-	public void rejectRequest(User expert) {
+	public void rejectRequest(AbstractUser expert) {
 		super.rejectRequest();
 		InvestigationLogCatalog investigationLogCatalog = InvestigationLogCatalog.getInstance();
 		investigationLogCatalog.addItem(new InvestigationLog(expert, this, false));

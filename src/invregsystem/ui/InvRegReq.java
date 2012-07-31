@@ -1,7 +1,7 @@
 package invregsystem.ui;
 
+import interfaces.AbstractUser;
 import invregsystem.logic.invention.Invention;
-import invregsystem.logic.member.User;
 
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
@@ -60,7 +60,7 @@ public class InvRegReq extends JFrame {
 	private String fullDesc;
 	private File[] attachedFiles = new File[3];
 
-	private User currentUser;
+	private AbstractUser currentUser;
 
 	/**
 	 * Launch the application
@@ -79,7 +79,7 @@ public class InvRegReq extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public InvRegReq(User currentUser) {
+	public InvRegReq(AbstractUser currentUser) {
 		super();
 		this.currentUser = currentUser;
 		setBounds(100, 100, 419, 607);

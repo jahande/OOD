@@ -1,5 +1,6 @@
 package invregsystem.logic.invention;
 
+import interfaces.AbstractUser;
 import invregsystem.db.InventionDao;
 import invregsystem.db.ShareDao;
 import invregsystem.logic.Catalog;
@@ -89,7 +90,7 @@ public class InventionCatalog implements Catalog {
 		return namesList;
 	}
 
-	public List<Invention> getInventionsByInventor(User inventor) {
+	public List<Invention> getInventionsByInventor(AbstractUser inventor) {
 		List<Share> shares = shareDao.findByParameter("user", inventor);
 		List<Invention> inventions = new ArrayList<Invention>();
 		for (Share share : shares) {

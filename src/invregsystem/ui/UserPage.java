@@ -1,6 +1,6 @@
 package invregsystem.ui;
 
-import invregsystem.logic.member.User;
+import interfaces.AbstractUser;
 
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
@@ -10,7 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
-
 
 public class UserPage extends JFrame {
 
@@ -25,7 +24,7 @@ public class UserPage extends JFrame {
 	private final JPanel panel = new JPanel();
 	private final JButton messagesButton = new JButton();
 
-	private User currentUser;
+	private AbstractUser currentUser;
 
 	// /**
 	// * Launch the application
@@ -44,7 +43,7 @@ public class UserPage extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public UserPage(User currentUser) {
+	public UserPage(AbstractUser currentUser) {
 		super();
 		this.currentUser = currentUser;
 		setBounds(100, 100, 317, 311);

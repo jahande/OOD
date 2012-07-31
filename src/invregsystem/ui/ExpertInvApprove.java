@@ -1,7 +1,7 @@
 package invregsystem.ui;
 
+import interfaces.AbstractUser;
 import invregsystem.logic.invention.InventionRegistrationRequest;
-import invregsystem.logic.member.User;
 
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
@@ -13,7 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
-
 
 public class ExpertInvApprove extends JFrame {
 
@@ -27,7 +26,7 @@ public class ExpertInvApprove extends JFrame {
 	private final JButton button = new JButton();
 
 	private InventionRegistrationRequest invRegReq;
-	private User currentUser;
+	private AbstractUser currentUser;
 
 	/**
 	 * Launch the application
@@ -46,7 +45,7 @@ public class ExpertInvApprove extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public ExpertInvApprove(User currentUser, InventionRegistrationRequest selectedInvRegReq) {
+	public ExpertInvApprove(AbstractUser currentUser, InventionRegistrationRequest selectedInvRegReq) {
 		super();
 		this.currentUser = currentUser;
 		this.invRegReq = selectedInvRegReq;

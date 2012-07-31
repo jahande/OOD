@@ -1,11 +1,11 @@
 package invregsystem.ui;
 
+import interfaces.AbstractUser;
 import invregsystem.logic.invention.Invention;
 import invregsystem.logic.invention.InventionCatalog;
 import invregsystem.logic.invention.InventionRegistrationRequest;
 import invregsystem.logic.invention.Share;
 import invregsystem.logic.member.Member;
-import invregsystem.logic.member.User;
 import invregsystem.logic.member.UserCatalog;
 
 import java.awt.ComponentOrientation;
@@ -25,7 +25,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
 
 public class InvRegReqInventors extends JFrame {
 
@@ -52,7 +51,7 @@ public class InvRegReqInventors extends JFrame {
 	private UserCatalog userCatalog;
 	private InventionCatalog inventionCatalog;
 	private Invention invention;
-	private User currentUser;
+	private AbstractUser currentUser;
 
 	/**
 	 * Launch the application
@@ -108,7 +107,7 @@ public class InvRegReqInventors extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public InvRegReqInventors(User currentUser, Invention invention) {
+	public InvRegReqInventors(AbstractUser currentUser, Invention invention) {
 		super();
 		this.currentUser = currentUser;
 		this.invention = invention;
@@ -186,9 +185,9 @@ public class InvRegReqInventors extends JFrame {
 		newInventorComboBox.setBounds(moveDown(inventorComboBoxRect));
 		newInventorComboBox.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		// begin temp
-		List<User> userList = (List<User>) userCatalog.getAllItems();
+		List<AbstractUser> userList = (List<AbstractUser>) userCatalog.getAllItems();
 		List<String> usernames = new ArrayList<String>();
-		for (User user : userList) {
+		for (AbstractUser user : userList) {
 			usernames.add(user.getUserName());
 		}
 		newInventorComboBox.setModel(new DefaultComboBoxModel(usernames.toArray()));
@@ -238,7 +237,7 @@ public class InvRegReqInventors extends JFrame {
 			JOptionPane.showMessageDialog(this, "مجموع سهم های مالکیت معنوی بایستی 100 باشد.", "خطا", JOptionPane.ERROR_MESSAGE);
 		} else {
 			for (InventorData inventor : inventorsList) {
-				User user = userCatalog.getUserByUsername((String) inventor.getInventorCombobox().getSelectedItem());
+				AbstractUser user = userCatalog.getUserByUsername((String) inventor.getInventorCombobox().getSelectedItem());
 				int shareValue = Integer.valueOf(inventor.getShareTextField().getText());
 				inventionCatalog.addShare(new Share(user, invention, shareValue));
 			}

@@ -1,11 +1,11 @@
 package invregsystem.ui;
 
 import interfaces.AbstractCompany;
+import interfaces.AbstractUser;
 import invregsystem.logic.invention.InventionCatalog;
 import invregsystem.logic.invention.InventionRegistrationRequest;
 import invregsystem.logic.invention.InventionRegistrationRequestCatalog;
 import invregsystem.logic.member.Company;
-import invregsystem.logic.member.User;
 import invregsystem.ui.models.JTableButtonMouseListener;
 import invregsystem.ui.models.JTableButtonRenderer;
 
@@ -22,7 +22,6 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
-
 import utilities.ListUtilities;
 
 public class ExpertInvRegReqList extends JFrame {
@@ -31,7 +30,7 @@ public class ExpertInvRegReqList extends JFrame {
 	private JTable table;
 
 	private InventionRegistrationRequestCatalog invRegReqCatalog;
-	private User currentUser;
+	private AbstractUser currentUser;
 
 	private class JTableModel extends AbstractTableModel {
 		private static final long serialVersionUID = 1L;
@@ -114,7 +113,7 @@ public class ExpertInvRegReqList extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public ExpertInvRegReqList(User currentUser) {
+	public ExpertInvRegReqList(AbstractUser currentUser) {
 		super();
 		this.currentUser = currentUser;
 		invRegReqCatalog = InventionRegistrationRequestCatalog.getInstance();

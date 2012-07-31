@@ -138,9 +138,9 @@ public class Login extends JFrame {
 			if (member instanceof AbstractManager) {
 				new Management((Manager) member).setVisible(true);
 			} else if (((AbstractUser) member).isExpert()) {
-				new ExpertPage((User) member).setVisible(true);
+				new ExpertPage((AbstractUser) member).setVisible(true);
 			} else {
-				new UserPage((User) member).setVisible(true);
+				new UserPage((AbstractUser) member).setVisible(true);
 			}
 		} else {
 			showError();
