@@ -16,7 +16,7 @@ import db.BaseEntity;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Member extends AbstractMember {
+public class Member extends AbstractMember {
 	@Id
 	@GeneratedValue
 	@Column(name = "memberId")
