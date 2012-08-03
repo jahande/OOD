@@ -147,7 +147,7 @@ public class InvHistory extends JFrame {
 	}
 
 	protected void displayButton_actionPerformed(ActionEvent e, InventionRegistrationRequest request) {
-		new InvPage(request).setVisible(true);
+		new InvPage(request, currentUser).setVisible(true);
 	}
 
 }

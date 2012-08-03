@@ -60,13 +60,13 @@ public class InventionRegistrationRequest extends Request {
 		investigationLogCatalog.addItem(new InvestigationLog(expert, this, false));
 	}
 
-	public User assignExpertToCheck() {
+	public AbstractUser assignExpertToCheck(InventionField field) {
 		UserCatalog userCatalog = UserCatalog.getInstance();
-		List<User> experts = userCatalog.getExperts();
+		List<User> experts = userCatalog.getExpertsByField(field);
 		if (experts.size() > 0) {
 			Random r = new Random();
 			User expert = experts.get(r.nextInt(experts.size()));
-			assignedExpert = expert;
+			this.assignedExpert = expert;
 			return expert;
 		} else {
 			return null;
@@ -101,10 +101,6 @@ public class InventionRegistrationRequest extends Request {
 	public void setAssignedExpert(User assignedExpert) {
 		this.assignedExpert = assignedExpert;
 		this.hasAssignedExpert = true;
-	}
-
-	public boolean hasAssignedExpert() {
-		return hasAssignedExpert;
 	}
 
 	public Date getSendDate() {

@@ -24,8 +24,16 @@ public class Initializer {
 		ShareDao shareDao = ShareDao.getInstance();
 		InventionRegistrationRequestDao invRegReqDao = InventionRegistrationRequestDao.getInstance();
 
+		inventionFieldDao.save(new InventionField("کامپیوتر"));
+		inventionFieldDao.save(new InventionField("مواد"));
+		inventionFieldDao.save(new InventionField("عمران"));
+		inventionFieldDao.save(new InventionField("هوافضا"));
+
 		User expert = new User("کارشناس", "کارشناسی", "expert", "123", "expert@expert.com", new Date());
 		expert.setExpert(true);
+		Set<InventionField> inventionFields = new HashSet<InventionField>();
+		inventionFields.add(inventionFieldDao.findByParameter("name", "هوافضا").get(0));
+		expert.setInventionFields(inventionFields);
 		userDao.save(expert);
 		userDao.save(new User("کاربر", "کاربری", "user", "123", "user@user.com", new Date()));
 		userDao.save(new User("مخترع", "اختراعی", "inventor", "123", "inventor@inventor.com", new Date()));
@@ -44,11 +52,6 @@ public class Initializer {
 		agents = new HashSet<AbstractUser>();
 		agents.add(expert);
 		companyDao.save(new Company("تمیز گستر اندیشان", "1234", "آدرس", "www", "", agents));
-
-		inventionFieldDao.save(new InventionField("کامپیوتر"));
-		inventionFieldDao.save(new InventionField("مواد"));
-		inventionFieldDao.save(new InventionField("عمران"));
-		inventionFieldDao.save(new InventionField("هوافضا"));
 
 		Invention invention = new Invention("عنوان", "مشخصات کلی", "چکیده", "شرح ایده", "سابقه ایده", "ادعانامه", "شرح کامل", new ArrayList<String>());
 		invention.setInventionField(inventionFieldDao.findByParameter("name", "کامپیوتر").get(0));

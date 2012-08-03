@@ -139,6 +139,9 @@ public class InvRegReqInventors extends JFrame {
 	}
 
 	protected void addButton_actionPerformed(ActionEvent e) {
+		if (inventorsList.size() >= 3) {
+			return;
+		}
 		setBounds(increaseHeight(frameRect));
 		nextButton.setBounds(moveDown(nextButtonRect));
 

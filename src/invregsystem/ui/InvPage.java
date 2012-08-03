@@ -1,7 +1,7 @@
 package invregsystem.ui;
 
 import interfaces.AbstractInvention;
-import invregsystem.logic.invention.Invention;
+import interfaces.AbstractUser;
 import invregsystem.logic.invention.InventionCatalog;
 import invregsystem.logic.invention.InventionRegistrationRequest;
 
@@ -20,7 +20,6 @@ import javax.swing.JTextPane;
 import javax.swing.border.EtchedBorder;
 
 import utilities.StringUtilities;
-
 
 public class InvPage extends JFrame {
 
@@ -75,6 +74,7 @@ public class InvPage extends JFrame {
 	private final JTextPane inventorsTextPane = new JTextPane();
 
 	private InventionRegistrationRequest selectedInvRegReq;
+	private AbstractUser currentUser;
 
 	/**
 	 * Launch the application
@@ -83,7 +83,7 @@ public class InvPage extends JFrame {
 	 */
 	public static void main(String args[]) {
 		try {
-			InvPage frame = new InvPage(null);
+			InvPage frame = new InvPage(null, null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -93,9 +93,10 @@ public class InvPage extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public InvPage(InventionRegistrationRequest selectedInvRegReq) {
+	public InvPage(InventionRegistrationRequest selectedInvRegReq, AbstractUser currentUser) {
 		super();
 		this.selectedInvRegReq = selectedInvRegReq;
+		this.currentUser = currentUser;
 		setBounds(100, 100, 569, 642);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -238,6 +239,9 @@ public class InvPage extends JFrame {
 		sendButton.addActionListener(new SendButtonActionListener());
 		sendButton.setBounds(7, 7, 145, 26);
 		sendButton.setText("ارسال درخواست ثبت اختراع");
+		if (selectedInvRegReq.getSendDate() != null && selectedInvRegReq.getState() != InventionRegistrationRequest.REJECTED) {
+			sendButton.setEnabled(false);
+		}
 
 		panel_1.add(approveHistoryButton);
 		approveHistoryButton.addActionListener(new ApproveHistoryButtonActionListener());
@@ -384,7 +388,7 @@ public class InvPage extends JFrame {
 	}
 
 	protected void sendButton_actionPerformed(ActionEvent e) {
-		new SendInvRegReq().setVisible(true);
+		new SendInvRegReq(selectedInvRegReq, currentUser).setVisible(true);
 	}
 
 	protected void editButton_actionPerformed(ActionEvent e) {
@@ -400,7 +404,7 @@ public class InvPage extends JFrame {
 	}
 
 	protected void priceButton_actionPerformed(ActionEvent e) {
-		new SetPrice().setVisible(true);
+		new SetPrice(selectedInvRegReq.getInvention()).setVisible(true);
 	}
 
 }

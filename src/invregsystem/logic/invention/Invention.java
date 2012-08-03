@@ -55,6 +55,9 @@ public class Invention extends AbstractInvention {
 	@Column(name = "file3")
 	private String file3;
 
+	@Column(name = "realPossession")
+	private boolean realPossession;
+
 	@Column(name = "price")
 	private long price;
 
@@ -229,6 +232,14 @@ public class Invention extends AbstractInvention {
 
 	public void setInventionRegistrationRequest(InventionRegistrationRequest inventionRegistrationRequest) {
 		this.inventionRegistrationRequest = inventionRegistrationRequest;
+	}
+
+	public boolean isRealPossession() {
+		return realPossession;
+	}
+
+	public void setRealPossession(boolean realPossession) {
+		this.realPossession = realPossession;
 	}
 
 }

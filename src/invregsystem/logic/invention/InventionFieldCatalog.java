@@ -5,9 +5,6 @@ import invregsystem.logic.Catalog;
 
 import java.util.List;
 
-
-
-
 public class InventionFieldCatalog implements Catalog {
 	private static InventionFieldCatalog instance;
 	private InventionFieldDao inventionFieldDao;
