@@ -1,10 +1,9 @@
 package invregsystem.ui;
 
 import interfaces.AbstractCompany;
+import interfaces.AbstractInvention;
 import interfaces.AbstractUser;
-import invregsystem.logic.invention.Invention;
 import invregsystem.logic.invention.Share;
-import invregsystem.logic.member.Company;
 import invregsystem.logic.member.CompanyCatalog;
 
 import java.awt.ComponentOrientation;
@@ -28,7 +27,7 @@ public class InvRegReqCompany extends JFrame {
 	private final JButton nextButton = new JButton();
 
 	private CompanyCatalog companyCatalog;
-	private Invention invention;
+	private AbstractInvention invention;
 	private Set<Share> shares;
 	private AbstractUser currentUser;
 
@@ -49,7 +48,7 @@ public class InvRegReqCompany extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public InvRegReqCompany(AbstractUser currentUser, Invention invention, Set<Share> shares) {
+	public InvRegReqCompany(AbstractUser currentUser, AbstractInvention invention, Set<Share> shares) {
 		super();
 		companyCatalog = CompanyCatalog.getInstance();
 		this.currentUser = currentUser;

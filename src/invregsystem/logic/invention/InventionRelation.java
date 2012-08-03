@@ -1,5 +1,6 @@
 package invregsystem.logic.invention;
 
+import interfaces.AbstractInvention;
 import invregsystem.db.BaseEntity;
 
 import javax.persistence.Column;
@@ -27,14 +28,19 @@ public class InventionRelation extends BaseEntity<Integer> {
 	@Column(name = "type")
 	private String title;
 
+	public final static String CONTINUE = "ادامه";
+	public final static String RELATED = "مرتبط";
+	public final static String REFORMED = "اصلاح";
+	public final static String SUBSET = "زیرمجموعه";
+
 	public InventionRelation() {
 
 	}
 
-	public InventionRelation(Invention invention1, Invention invention2, String title) {
+	public InventionRelation(AbstractInvention invention1, AbstractInvention invention2, String title) {
 		super();
-		this.invention1 = invention1;
-		this.invention2 = invention2;
+		this.invention1 = (Invention) invention1;
+		this.invention2 = (Invention) invention2;
 		this.title = title;
 	}
 

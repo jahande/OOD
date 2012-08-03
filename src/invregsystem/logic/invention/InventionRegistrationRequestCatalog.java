@@ -7,8 +7,6 @@ import invregsystem.logic.RequestCatalog;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class InventionRegistrationRequestCatalog extends RequestCatalog {
 	private static InventionRegistrationRequestCatalog instance;
 
@@ -19,16 +17,6 @@ public class InventionRegistrationRequestCatalog extends RequestCatalog {
 		super();
 		inventionCatalog = InventionCatalog.getInstance();
 		invRegReqDao = InventionRegistrationRequestDao.getInstance();
-		// inventionCatalog = (InventionCatalog) ApplicationContext
-		// .getCatalog(InventionCatalog.class);
-		// userCatalog = (UserCatalog) ApplicationContext
-		// .getCatalog(UserCatalog.class);
-		// Invention invention = (Invention)
-		// inventionCatalog.getAllItems().get(0);
-		// InventionRegistrationRequest req = new InventionRegistrationRequest(
-		// new Date(), invention);
-		// req.setAssignedExpert(userCatalog.getUserByParamater("expert"));
-		// requestList.add(req);
 	}
 
 	public static InventionRegistrationRequestCatalog getInstance() {

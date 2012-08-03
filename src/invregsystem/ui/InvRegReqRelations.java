@@ -1,9 +1,15 @@
 package invregsystem.ui;
 
+import interfaces.AbstractInvention;
+import invregsystem.logic.invention.Invention;
+import invregsystem.logic.invention.InventionCatalog;
+import invregsystem.logic.invention.InventionRelation;
+
 import java.awt.ComponentOrientation;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -22,8 +28,13 @@ public class InvRegReqRelations extends JFrame {
 	private final JComboBox comboBox_2 = new JComboBox();
 	private final JButton addButton = new JButton();
 	private final JPanel panel = new JPanel();
-	
-	private List<String> inventionNames;
+
+	private InvRegReqApprove baseUI;
+	private AbstractInvention invention;
+	private List<String> inventionNames = new ArrayList<String>();
+	private String[] relationTypes = new String[] { InventionRelation.CONTINUE, InventionRelation.RELATED, InventionRelation.REFORMED, InventionRelation.SUBSET };
+	private List<JComboBox[]> relationInputs = new ArrayList<JComboBox[]>();
+	private InventionCatalog inventionCatalog;
 
 	/**
 	 * Launch the application
@@ -32,7 +43,7 @@ public class InvRegReqRelations extends JFrame {
 	 */
 	public static void main(String args[]) {
 		try {
-			InvRegReqRelations frame = new InvRegReqRelations();
+			InvRegReqRelations frame = new InvRegReqRelations(null, null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -42,8 +53,15 @@ public class InvRegReqRelations extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public InvRegReqRelations() {
+	public InvRegReqRelations(InvRegReqApprove baseUI, AbstractInvention invention) {
 		super();
+		this.baseUI = baseUI;
+		this.invention = invention;
+		inventionCatalog = InventionCatalog.getInstance();
+		List<AbstractInvention> inventions = (List<AbstractInvention>) inventionCatalog.getAllItems();
+		for (AbstractInvention inv : inventions) {
+			inventionNames.add(inv.getTitle());
+		}
 		setBounds(100, 100, 408, 273);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -51,7 +69,6 @@ public class InvRegReqRelations extends JFrame {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-		//
 	}
 
 	private void jbInit() throws Exception {
@@ -74,10 +91,7 @@ public class InvRegReqRelations extends JFrame {
 
 		panel.add(comboBox);
 		comboBox.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		// begin temp
-		comboBox.setModel(new DefaultComboBoxModel(new String[] { "آپولو",
-				"تایر بدون عاج", "تخته نئوپان محکم", "کابل شبکه نازک" }));
-		// end temp
+		comboBox.setModel(new DefaultComboBoxModel(inventionNames.toArray()));
 
 		panel.add(label_2);
 		label_2.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
@@ -85,15 +99,14 @@ public class InvRegReqRelations extends JFrame {
 
 		panel.add(comboBox_2);
 		comboBox_2.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		// begin temp
-		comboBox_2.setModel(new DefaultComboBoxModel(new String[] { "ادامه",
-				"مرتبط", "اصلاح", "زیرمجموعه" }));
-		// end temp
+		comboBox_2.setModel(new DefaultComboBoxModel(relationTypes));
 
 		addButton.setBounds(10, 23, 93, 26);
 		getContentPane().add(addButton);
 		addButton.addActionListener(new AddButtonActionListener());
 		addButton.setText("اضافه کردن ...");
+
+		relationInputs.add(new JComboBox[] { comboBox, comboBox_2 });
 	}
 
 	private class AddButtonActionListener implements ActionListener {
@@ -117,10 +130,7 @@ public class InvRegReqRelations extends JFrame {
 		JComboBox newComboBox = new JComboBox();
 		panel.add(newComboBox);
 		newComboBox.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		// begin temp
-		newComboBox.setModel(new DefaultComboBoxModel(new String[] { "آپولو",
-				"تایر بدون عاج", "تخته نئوپان محکم", "کابل شبکه نازک" }));
-		// end temp
+		newComboBox.setModel(new DefaultComboBoxModel(inventionNames.toArray()));
 
 		JLabel newLabel_2 = new JLabel();
 		panel.add(newLabel_2);
@@ -129,16 +139,21 @@ public class InvRegReqRelations extends JFrame {
 
 		JComboBox newComboBox_2 = new JComboBox();
 		panel.add(newComboBox_2);
-		newComboBox_2
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		// begin temp
-		newComboBox_2.setModel(new DefaultComboBoxModel(new String[] { "ادامه",
-				"مرتبط", "اصلاح", "زیرمجموعه" }));
-		// end temp
+		newComboBox_2.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		newComboBox_2.setModel(new DefaultComboBoxModel(relationTypes));
+
+		relationInputs.add(new JComboBox[] { newComboBox, newComboBox_2 });
 	}
 
 	protected void approveButton_actionPerformed(ActionEvent e) {
+		List<InventionRelation> relations = new ArrayList<InventionRelation>();
+		for (JComboBox[] inputRow : relationInputs) {
+			String inv2Title = inputRow[0].getSelectedItem().toString();
+			AbstractInvention inv2 = inventionCatalog.getInventionByTitle(inv2Title);
+			String type = inputRow[1].getSelectedItem().toString();
+			relations.add(new InventionRelation(invention, inv2, type));
+		}
+		baseUI.setRelations(relations);
 		this.setVisible(false);
 	}
-
 }

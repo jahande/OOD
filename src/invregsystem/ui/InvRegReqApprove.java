@@ -1,9 +1,11 @@
 package invregsystem.ui;
 
-import invregsystem.logic.invention.Invention;
+import interfaces.AbstractInvention;
 import invregsystem.logic.invention.InventionCatalog;
 import invregsystem.logic.invention.InventionRegistrationRequest;
 import invregsystem.logic.invention.InventionRegistrationRequestCatalog;
+import invregsystem.logic.invention.InventionRelation;
+import invregsystem.logic.invention.InventionRelationCatalog;
 import invregsystem.logic.invention.Share;
 
 import java.awt.ComponentOrientation;
@@ -11,7 +13,9 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -19,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -60,10 +65,9 @@ public class InvRegReqApprove extends JFrame {
 	private final JTextField fileTextField2 = new JTextField();
 	private final JTextField fileTextField3 = new JTextField();
 
-	private Invention invention;
-	private Set<Share> shares;
-	private InventionRegistrationRequestCatalog invRegReqCatalog;
-	private InventionCatalog inventionCatalog;
+	private AbstractInvention invention;
+	private Set<Share> shares = new HashSet<Share>();
+	private List<InventionRelation> relations = new ArrayList<InventionRelation>();
 
 	/**
 	 * Launch the application
@@ -82,10 +86,8 @@ public class InvRegReqApprove extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public InvRegReqApprove(Invention invention, Set<Share> shares) {
+	public InvRegReqApprove(AbstractInvention invention, Set<Share> shares) {
 		super();
-		invRegReqCatalog = InventionRegistrationRequestCatalog.getInstance();
-		inventionCatalog = InventionCatalog.getInstance();
 		this.invention = invention;
 		this.shares = shares;
 
@@ -96,6 +98,10 @@ public class InvRegReqApprove extends JFrame {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void setRelations(List<InventionRelation> relations) {
+		this.relations = relations;
 	}
 
 	private void jbInit() throws Exception {
@@ -244,17 +250,25 @@ public class InvRegReqApprove extends JFrame {
 	}
 
 	protected void button_actionPerformed(ActionEvent e) {
+		InventionRegistrationRequestCatalog invRegReqCatalog = InventionRegistrationRequestCatalog.getInstance();
+		InventionCatalog inventionCatalog = InventionCatalog.getInstance();
+		InventionRelationCatalog inventionRelationCatalog = InventionRelationCatalog.getInstance();
+
 		inventionCatalog.addItem(invention);
 		for (Share share : shares) {
 			inventionCatalog.addShare(share);
 		}
+		for (InventionRelation relation : relations) {
+			inventionRelationCatalog.addItem(relation);
+		}
 		InventionRegistrationRequest request = new InventionRegistrationRequest(new Date(), invention);
 		invRegReqCatalog.addItem(request);
+		JOptionPane.showMessageDialog(this, "درخواست ثبت اختراع با موفقیت ایجاد شد. برای ارسال آن به بخش سوابق اختراعات مراجعه نمایید.");
 		this.setVisible(false);
 	}
 
 	protected void button_1_actionPerformed(ActionEvent e) {
-		new InvRegReqRelations().setVisible(true);
+		new InvRegReqRelations(this, invention).setVisible(true);
 	}
 
 }

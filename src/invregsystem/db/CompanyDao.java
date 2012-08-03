@@ -1,7 +1,6 @@
 package invregsystem.db;
 
 import interfaces.AbstractCompany;
-import invregsystem.logic.member.Company;
 
 import java.util.List;
 

@@ -1,5 +1,6 @@
 package invregsystem.logic.invention;
 
+import interfaces.AbstractInvention;
 import interfaces.AbstractUser;
 import invregsystem.logic.Request;
 import invregsystem.logic.invention.operation.InvestigationLog;
@@ -17,7 +18,6 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-
 
 @Entity
 public class InventionRegistrationRequest extends Request {
@@ -38,9 +38,9 @@ public class InventionRegistrationRequest extends Request {
 
 	}
 
-	public InventionRegistrationRequest(Date requestDate, Invention invention) {
+	public InventionRegistrationRequest(Date requestDate, AbstractInvention invention) {
 		super(requestDate);
-		this.invention = invention;
+		this.invention = (Invention) invention;
 		this.hasAssignedExpert = false;
 	}
 

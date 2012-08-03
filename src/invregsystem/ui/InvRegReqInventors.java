@@ -1,5 +1,6 @@
 package invregsystem.ui;
 
+import interfaces.AbstractInvention;
 import interfaces.AbstractUser;
 import invregsystem.logic.invention.Invention;
 import invregsystem.logic.invention.InventionCatalog;
@@ -49,7 +50,7 @@ public class InvRegReqInventors extends JFrame {
 
 	private UserCatalog userCatalog;
 	private InventionCatalog inventionCatalog;
-	private Invention invention;
+	private AbstractInvention invention;
 	private AbstractUser currentUser;
 
 	/**
@@ -70,7 +71,7 @@ public class InvRegReqInventors extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public InvRegReqInventors(AbstractUser currentUser, Invention invention) {
+	public InvRegReqInventors(AbstractUser currentUser, AbstractInvention invention) {
 		super();
 		this.currentUser = currentUser;
 		this.invention = invention;
@@ -191,8 +192,8 @@ public class InvRegReqInventors extends JFrame {
 	protected void nextButton_actionPerformed(ActionEvent e) {
 		if (areRepeatedInventors(inventorsList)) {
 			JOptionPane.showMessageDialog(this, "لطفاً اسامی تکراری وارد نکنید.", "خطا", JOptionPane.ERROR_MESSAGE);
-		} else if (getPercentSum(inventorsList) < 99) { // Float accuracy
-			// error considered.
+		} else if (getPercentSum(inventorsList) < 99) { // Float accuracy error
+														// considered.
 			JOptionPane.showMessageDialog(this, "مجموع سهم های مالکیت معنوی بایستی 100 باشد.", "خطا", JOptionPane.ERROR_MESSAGE);
 		} else {
 			Set<Share> shares = new HashSet<Share>();

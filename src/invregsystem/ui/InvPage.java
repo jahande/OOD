@@ -1,5 +1,6 @@
 package invregsystem.ui;
 
+import interfaces.AbstractInvention;
 import invregsystem.logic.invention.Invention;
 import invregsystem.logic.invention.InventionCatalog;
 import invregsystem.logic.invention.InventionRegistrationRequest;
@@ -106,7 +107,7 @@ public class InvPage extends JFrame {
 	}
 
 	private void jbInit() throws Exception {
-		Invention invention = selectedInvRegReq.getInvention();
+		AbstractInvention invention = selectedInvRegReq.getInvention();
 
 		getContentPane().setLayout(null);
 		setTitle("درخواست ثبت اختراع");

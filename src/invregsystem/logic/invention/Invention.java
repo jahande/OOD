@@ -2,9 +2,7 @@ package invregsystem.logic.invention;
 
 import interfaces.AbstractCompany;
 import interfaces.AbstractInvention;
-import invregsystem.db.BaseEntity;
 import invregsystem.logic.member.Company;
-import invregsystem.logic.member.User;
 
 import java.util.List;
 import java.util.Set;
@@ -16,8 +14,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -73,7 +69,7 @@ public class Invention extends AbstractInvention {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "invention")
 	private Set<Share> shares;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "invention")
 	private InventionRegistrationRequest inventionRegistrationRequest;
 
 	public Invention() {

@@ -1,7 +1,7 @@
 package invregsystem.ui;
 
+import interfaces.AbstractInvention;
 import interfaces.AbstractUser;
-import invregsystem.logic.invention.Invention;
 import invregsystem.logic.invention.InventionRegistrationRequest;
 
 import java.awt.ComponentOrientation;
@@ -83,7 +83,7 @@ public class ExpertInvRegReq extends JFrame {
 	}
 
 	private void jbInit() throws Exception {
-		Invention invention = selectedInvRegReq.getInvention();
+		AbstractInvention invention = selectedInvRegReq.getInvention();
 
 		getContentPane().setLayout(null);
 		setTitle("درخواست ثبت اختراع");

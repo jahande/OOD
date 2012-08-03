@@ -1,5 +1,6 @@
 package invregsystem.ui;
 
+import interfaces.AbstractInvention;
 import interfaces.AbstractUser;
 import invregsystem.logic.invention.Invention;
 
@@ -280,7 +281,7 @@ public class InvRegReq extends JFrame {
 			if (!fileTextField3.getText().equals("")) {
 				files.add(fileTextField3.getText());
 			}
-			Invention invention = new Invention(title, description, invAbstract, ideaDesc, ideaHistory, assertion, fullDesc, files);
+			AbstractInvention invention = new Invention(title, description, invAbstract, ideaDesc, ideaHistory, assertion, fullDesc, files);
 			this.setVisible(false);
 			new InvRegReqInventors(currentUser, invention).setVisible(true);
 		}

@@ -1,5 +1,6 @@
 package invregsystem.logic.invention;
 
+import interfaces.AbstractInvention;
 import interfaces.AbstractUser;
 import invregsystem.db.BaseEntity;
 import invregsystem.logic.member.User;
@@ -33,10 +34,10 @@ public class Share extends BaseEntity<Integer> {
 
 	}
 
-	public Share(AbstractUser user, Invention invention, int shareValue) {
+	public Share(AbstractUser user, AbstractInvention invention, int shareValue) {
 		super();
 		this.user = (User) user;
-		this.invention = invention;
+		this.invention = (Invention) invention;
 		this.shareValue = shareValue;
 	}
 

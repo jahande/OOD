@@ -3,6 +3,7 @@ package invregsystem.db;
 import interfaces.AbstractUser;
 import invregsystem.logic.invention.Invention;
 import invregsystem.logic.invention.InventionField;
+import invregsystem.logic.invention.InventionRegistrationRequest;
 import invregsystem.logic.invention.Share;
 import invregsystem.logic.member.Company;
 import invregsystem.logic.member.Manager;
@@ -21,6 +22,7 @@ public class Initializer {
 		CompanyDao companyDao = CompanyDao.getInstance();
 		InventionDao inventionDao = InventionDao.getInstance();
 		ShareDao shareDao = ShareDao.getInstance();
+		InventionRegistrationRequestDao invRegReqDao = InventionRegistrationRequestDao.getInstance();
 
 		User expert = new User("کارشناس", "کارشناسی", "expert", "123", "expert@expert.com", new Date());
 		expert.setExpert(true);
@@ -58,5 +60,9 @@ public class Initializer {
 
 		invention.setCompany(companyDao.findByParameter("name", "عمید رایانه شریف").get(0));
 		inventionDao.update(invention);
+
+		InventionRegistrationRequest req = new InventionRegistrationRequest(new Date(), invention);
+		req.setAssignedExpert(expert);
+		invRegReqDao.save(req);
 	}
 }
