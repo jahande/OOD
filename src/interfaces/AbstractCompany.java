@@ -5,9 +5,8 @@ import invregsystem.logic.member.User;
 
 import java.util.Set;
 
-
-public abstract class AbstractCompany  extends BaseEntity<Integer>{
-	public abstract String getName() ;
+public abstract class AbstractCompany extends BaseEntity<Integer> {
+	public abstract String getName();
 
 	public abstract void setName(String name);
 

@@ -20,6 +20,7 @@
 		<mapping class="invregsystem.logic.invention.Invention"/>
 		<mapping class="invregsystem.logic.invention.InventionField"/>
 		<mapping class="invregsystem.logic.invention.InventionRegistrationRequest"/>
+		<mapping class="invregsystem.logic.invention.InventionRelation"/>
 		<mapping class="invregsystem.logic.invention.Share"/>
 		<mapping class="invregsystem.logic.invention.operation.Change"/>
 		<mapping class="invregsystem.logic.invention.operation.InventionLog"/>

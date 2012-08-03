@@ -3,10 +3,9 @@ package invregsystem.ui;
 import interfaces.AbstractUser;
 import invregsystem.logic.invention.Invention;
 import invregsystem.logic.invention.InventionCatalog;
-import invregsystem.logic.invention.InventionRegistrationRequest;
 import invregsystem.logic.invention.Share;
-import invregsystem.logic.member.Member;
 import invregsystem.logic.member.UserCatalog;
+import invregsystem.ui.models.InventorData;
 
 import java.awt.ComponentOrientation;
 import java.awt.Rectangle;
@@ -58,42 +57,6 @@ public class InvRegReqInventors extends JFrame {
 	 * 
 	 * @param args
 	 */
-
-	private class InventorData {
-		public InventorData(JComboBox inventorCombobox, JCheckBox defaultCheckBox, JTextField shareTextField) {
-			this.inventorCombobox = inventorCombobox;
-			this.defaultCheckBox = defaultCheckBox;
-			this.shareTextField = shareTextField;
-		}
-
-		private JComboBox inventorCombobox;
-		private JCheckBox defaultCheckBox;
-		private JTextField shareTextField;
-
-		public JComboBox getInventorCombobox() {
-			return inventorCombobox;
-		}
-
-		public void setInventorCombobox(JComboBox inventorCombobox) {
-			this.inventorCombobox = inventorCombobox;
-		}
-
-		public JCheckBox getDefaultCheckBox() {
-			return defaultCheckBox;
-		}
-
-		public void setDefaultCheckBox(JCheckBox defaultCheckBox) {
-			this.defaultCheckBox = defaultCheckBox;
-		}
-
-		public JTextField getShareTextField() {
-			return shareTextField;
-		}
-
-		public void setShareTextField(JTextField shareTextField) {
-			this.shareTextField = shareTextField;
-		}
-	}
 
 	public static void main(String args[]) {
 		try {
@@ -157,10 +120,8 @@ public class InvRegReqInventors extends JFrame {
 		inventorCombobox.setBounds(inventorComboBoxRect);
 		getContentPane().add(inventorCombobox);
 		inventorCombobox.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		// begin temp
 		String username = currentUser.getUserName();
 		inventorCombobox.setModel(new DefaultComboBoxModel(new String[] { username }));
-		// end temp
 		inventorCombobox.setEnabled(false);
 
 		label_3.setBounds(inventorLabelRect);
@@ -184,14 +145,12 @@ public class InvRegReqInventors extends JFrame {
 		getContentPane().add(newInventorComboBox);
 		newInventorComboBox.setBounds(moveDown(inventorComboBoxRect));
 		newInventorComboBox.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		// begin temp
 		List<AbstractUser> userList = (List<AbstractUser>) userCatalog.getAllItems();
 		List<String> usernames = new ArrayList<String>();
 		for (AbstractUser user : userList) {
 			usernames.add(user.getUserName());
 		}
 		newInventorComboBox.setModel(new DefaultComboBoxModel(usernames.toArray()));
-		// end temp
 
 		JLabel newLabel = new JLabel();
 		getContentPane().add(newLabel);
@@ -236,13 +195,14 @@ public class InvRegReqInventors extends JFrame {
 			// error considered.
 			JOptionPane.showMessageDialog(this, "مجموع سهم های مالکیت معنوی بایستی 100 باشد.", "خطا", JOptionPane.ERROR_MESSAGE);
 		} else {
+			Set<Share> shares = new HashSet<Share>();
 			for (InventorData inventor : inventorsList) {
 				AbstractUser user = userCatalog.getUserByUsername((String) inventor.getInventorCombobox().getSelectedItem());
 				int shareValue = Integer.valueOf(inventor.getShareTextField().getText());
-				inventionCatalog.addShare(new Share(user, invention, shareValue));
+				shares.add(new Share(user, invention, shareValue));
 			}
 			this.setVisible(false);
-			new InvRegReqCompany(currentUser, invention).setVisible(true);
+			new InvRegReqCompany(currentUser, invention, shares).setVisible(true);
 		}
 	}
 

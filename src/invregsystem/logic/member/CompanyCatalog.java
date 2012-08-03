@@ -1,15 +1,13 @@
 package invregsystem.logic.member;
 
 import interfaces.AbstractCompany;
+import interfaces.AbstractUser;
 import invregsystem.db.CompanyAgentDao;
 import invregsystem.db.CompanyDao;
 import invregsystem.logic.Catalog;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 
 public class CompanyCatalog implements Catalog {
 	private static CompanyCatalog instance;
@@ -54,9 +52,9 @@ public class CompanyCatalog implements Catalog {
 		}
 	}
 
-	public List<User> getAgents(Company company) {
+	public List<AbstractUser> getAgents(AbstractCompany company) {
 		List<CompanyAgent> companyAgents = companyAgentDao.findByParameter("company", company);
-		List<User> result = new ArrayList<User>();
+		List<AbstractUser> result = new ArrayList<AbstractUser>();
 		for (CompanyAgent companyAgent : companyAgents) {
 			result.add(companyAgent.getAgent());
 		}

@@ -4,6 +4,8 @@ import java.awt.ComponentOrientation;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,6 +22,8 @@ public class InvRegReqRelations extends JFrame {
 	private final JComboBox comboBox_2 = new JComboBox();
 	private final JButton addButton = new JButton();
 	private final JPanel panel = new JPanel();
+	
+	private List<String> inventionNames;
 
 	/**
 	 * Launch the application

@@ -3,6 +3,7 @@ package invregsystem.ui;
 import interfaces.AbstractCompany;
 import interfaces.AbstractUser;
 import invregsystem.logic.invention.Invention;
+import invregsystem.logic.invention.Share;
 import invregsystem.logic.member.Company;
 import invregsystem.logic.member.CompanyCatalog;
 
@@ -11,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -27,6 +29,7 @@ public class InvRegReqCompany extends JFrame {
 
 	private CompanyCatalog companyCatalog;
 	private Invention invention;
+	private Set<Share> shares;
 	private AbstractUser currentUser;
 
 	/**
@@ -36,7 +39,7 @@ public class InvRegReqCompany extends JFrame {
 	 */
 	public static void main(String args[]) {
 		try {
-			InvRegReqCompany frame = new InvRegReqCompany(null, null);
+			InvRegReqCompany frame = new InvRegReqCompany(null, null, null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -46,11 +49,12 @@ public class InvRegReqCompany extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public InvRegReqCompany(AbstractUser currentUser, Invention invention) {
+	public InvRegReqCompany(AbstractUser currentUser, Invention invention, Set<Share> shares) {
 		super();
 		companyCatalog = CompanyCatalog.getInstance();
 		this.currentUser = currentUser;
 		this.invention = invention;
+		this.shares = shares;
 
 		setBounds(100, 100, 328, 195);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -59,7 +63,6 @@ public class InvRegReqCompany extends JFrame {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-		//
 	}
 
 	private void jbInit() throws Exception {
@@ -72,15 +75,19 @@ public class InvRegReqCompany extends JFrame {
 		label.setBounds(212, 62, 55, 16);
 
 		getContentPane().add(comboBox);
-		List<Company> companyList = (List<Company>) companyCatalog.getAllItems();
-		List<String> companyNames = new ArrayList<String>();
-		companyNames.add("---");
-		for (Company company : companyList) {
+		List<AbstractCompany> companyList = (List<AbstractCompany>) companyCatalog.getAllItems();
+		List<String> companyNamesList = new ArrayList<String>();
+		companyNamesList.add("---");
+		for (AbstractCompany company : companyList) {
 			if (companyCatalog.getAgents(company).contains(currentUser)) {
-				companyNames.add(company.getName());
+				companyNamesList.add(company.getName());
 			}
 		}
-		comboBox.setModel(new DefaultComboBoxModel(companyNames.toArray()));
+		String[] companyNames = new String[companyNamesList.size()];
+		for (int i = 0; i < companyNamesList.size(); i++) {
+			companyNames[i] = companyNamesList.get(i);
+		}
+		comboBox.setModel(new DefaultComboBoxModel(companyNames));
 		comboBox.setBounds(62, 58, 144, 25);
 
 		getContentPane().add(label_1);
@@ -107,6 +114,6 @@ public class InvRegReqCompany extends JFrame {
 			invention.setCompany(company);
 		}
 		this.setVisible(false);
-		new InvRegReqApprove(invention).setVisible(true);
+		new InvRegReqApprove(invention, shares).setVisible(true);
 	}
 }

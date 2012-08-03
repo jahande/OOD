@@ -20,7 +20,7 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
-import utilities.ListUtilities;
+import utilities.StringUtilities;
 
 public class InvHistory extends JFrame {
 
@@ -76,7 +76,7 @@ public class InvHistory extends JFrame {
 				return request.getSendDate();
 			} else if (colName.equals("مخترعان")) {
 				InventionCatalog inventionCatalog = InventionCatalog.getInstance();
-				return ListUtilities.getCommaSeparated(inventionCatalog.getInventorNames(request.getInvention()));
+				return StringUtilities.getCommaSeparated(inventionCatalog.getInventorNames(request.getInvention()));
 			} else if (colName.equals("عنوان اختراع")) {
 				return request.getInvention().getTitle();
 			} else {

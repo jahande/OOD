@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.EtchedBorder;
 
-import utilities.ListUtilities;
+import utilities.StringUtilities;
 
 
 public class InvPage extends JFrame {
@@ -311,7 +311,7 @@ public class InvPage extends JFrame {
 		scrollPane_7.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		inventorsTextPane.setEditable(false);
 		InventionCatalog inventionCatalog = InventionCatalog.getInstance();
-		inventorsTextPane.setText(ListUtilities.getCommaSeparated(inventionCatalog.getInventorNames(invention)));
+		inventorsTextPane.setText(StringUtilities.getCommaSeparated(inventionCatalog.getInventorNames(invention)));
 		inventorsTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		panel_2.add(label_16);
