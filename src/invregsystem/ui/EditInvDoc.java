@@ -1,12 +1,25 @@
 package invregsystem.ui;
 
+import interfaces.AbstractInvention;
+import invregsystem.logic.invention.InventionCatalog;
+import invregsystem.logic.invention.operation.Change;
+import invregsystem.logic.invention.operation.InventionLog;
+import invregsystem.logic.invention.operation.InventionLogCatalog;
+
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -48,6 +61,8 @@ public class EditInvDoc extends JFrame {
 	private final JLabel label = new JLabel();
 	private final JScrollPane scrollPane_7 = new JScrollPane();
 
+	private AbstractInvention invention;
+
 	/**
 	 * Launch the application
 	 * 
@@ -55,7 +70,7 @@ public class EditInvDoc extends JFrame {
 	 */
 	public static void main(String args[]) {
 		try {
-			EditInvDoc frame = new EditInvDoc();
+			EditInvDoc frame = new EditInvDoc(null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -65,8 +80,9 @@ public class EditInvDoc extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public EditInvDoc() {
+	public EditInvDoc(AbstractInvention invention) {
 		super();
+		this.invention = invention;
 		setBounds(100, 100, 384, 679);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -123,97 +139,78 @@ public class EditInvDoc extends JFrame {
 
 		scrollPane_1.setBounds(10, 10, 254, 53);
 		panel.add(scrollPane_1);
-		scrollPane_1
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		scrollPane_1.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		scrollPane_1.setViewportView(descTextPane);
-		descTextPane.setText("این اختراع یک آپولوی در ابعاد آزمایشگاهی است.");
-		descTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		descTextPane.setText(invention.getTotalSpec());
+		descTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		scrollPane_2.setBounds(10, 68, 254, 53);
 		panel.add(scrollPane_2);
-		scrollPane_2
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		scrollPane_2.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		scrollPane_2.setViewportView(abstractTextPane);
-		abstractTextPane
-				.setText("پروژه فضایی آپولو (به انگلیسی: Apollo Program) یکی از پروژه‌های فضایی ناسا در زمان مسابقه فضایی میان شوروی و آمریکا بود که کوشش می‌کرد تا اولین انسان را بر روی سطح کره ماه فرود بیاورد. ");
-		abstractTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		abstractTextPane.setText(invention.getSummary());
+		abstractTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		scrollPane_3.setBounds(10, 127, 254, 53);
 		panel.add(scrollPane_3);
-		scrollPane_3
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		scrollPane_3.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		scrollPane_3.setViewportView(ideaDescTextPane);
-		ideaDescTextPane
-				.setText("ایده این است که ما دوباره آپولوی اصلی را در ابعاد کوچک آزمایشگاهی بسازیم که بفهمیم راست بوده است یا دروغ.");
-		ideaDescTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		ideaDescTextPane.setText(invention.getIdeaDescription());
+		ideaDescTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		scrollPane_4.setBounds(10, 186, 254, 53);
 		panel.add(scrollPane_4);
-		scrollPane_4
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		scrollPane_4.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		scrollPane_4.setViewportView(ideaHistoryTextPane);
-		ideaHistoryTextPane
-				.setText("آپولو پس از ریاست جمهوری بعدی آمریکا جان اف. کندی با جدیت ادامه پیدا کرد. جان اف. کندی پشتیبانی خود از طرح فرود انسان بر روی کره ماه را طی یک سخنرانی ویژه خطاب به کنگره در ماه مه ۱۹۶۱ بدین گونه اعلام کرد:...من اعتقاد دارم کشورم می‌بایست برای دستیابی به هدف فرود انسان بر روی کره ماه و به سلامت بازگشتن به زمین قبل از خروج از این دهه متعهد شود.در این دوره هیج برنامه فضایی دیگری نمی‌تواند برای بشر تأثیرگذارتر از اکتشاف مسیرهای با برد طولانی در فضا باشد؛ و انجام هیچ کدام نمی‌تواند تا این حد سخت و گران باشد.");
-		ideaHistoryTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		ideaHistoryTextPane.setText(invention.getIdeaHistory());
+		ideaHistoryTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		scrollPane_5.setBounds(10, 245, 254, 53);
 		panel.add(scrollPane_5);
-		scrollPane_5
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		scrollPane_5.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		scrollPane_5.setViewportView(assertTextPane);
-		assertTextPane
-				.setText("1. ادعا می کنیم این آپولو با آپولوی اصلی هیچ تفاوتی ندارد الا این که در مقیاس 1/5 است.");
-		assertTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		assertTextPane.setText(invention.getClaim());
+		assertTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		scrollPane_6.setBounds(10, 304, 254, 53);
 		panel.add(scrollPane_6);
-		scrollPane_6
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		scrollPane_6.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		scrollPane_6.setViewportView(fullDescTextPane);
-		fullDescTextPane
-				.setText("روژه فضایی آپولو (به انگلیسی: Apollo Program) یکی از پروژه‌های فضایی ناسا در زمان مسابقه فضایی میان شوروی و آمریکا بود که کوشش می‌کرد تا اولین انسان را بر روی سطح کره ماه فرود بیاورد. پروژه در دوره ریاست جمهوری دوایت آیزنهاور شروع به کار کرد، آپولو پس از ریاست جمهوری بعدی آمریکا جان اف. کندی با جدیت ادامه پیدا کرد. جان اف. کندی پشتیبانی خود از طرح فرود انسان بر روی کره ماه را طی یک سخنرانی ویژه خطاب به کنگره در ماه مه ۱۹۶۱ بدین گونه اعلام کرد:...من اعتقاد دارم کشورم می‌بایست برای دستیابی به هدف فرود انسان بر روی کره ماه و به سلامت بازگشتن به زمین قبل از خروج از این دهه متعهد شود.در این دوره هیج برنامه فضایی دیگری نمی‌تواند برای بشر تأثیرگذارتر از اکتشاف مسیرهای با برد طولانی در فضا باشد؛ و انجام هیچ کدام نمی‌تواند تا این حد سخت و گران باشد.");
-		fullDescTextPane
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		fullDescTextPane.setText(invention.getExplanation());
+		fullDescTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		fileChooseButton1.setBounds(179, 374, 85, 26);
 		panel.add(fileChooseButton1);
-		fileChooseButton1
-				.addActionListener(new FileChooseButton1ActionListener());
+		fileChooseButton1.addActionListener(new FileChooseButton1ActionListener());
 		fileChooseButton1.setText("انتخاب ...");
 
 		fileChooseButton2.setBounds(179, 406, 85, 26);
 		panel.add(fileChooseButton2);
-		fileChooseButton2
-				.addActionListener(new FileChooseButton2ActionListener());
+		fileChooseButton2.addActionListener(new FileChooseButton2ActionListener());
 		fileChooseButton2.setText("انتخاب ...");
 
 		fileChooseButton3.setBounds(179, 438, 85, 26);
 		panel.add(fileChooseButton3);
-		fileChooseButton3
-				.addActionListener(new FileChooseButton3ActionListener());
+		fileChooseButton3.addActionListener(new FileChooseButton3ActionListener());
 		fileChooseButton3.setText("انتخاب ...");
 
 		fileTextField1.setBounds(10, 374, 163, 20);
 		panel.add(fileTextField1);
-		fileTextField1
-				.setText("C:University StuffObject Oriented DesignProjectdefinitionDefinition.pdf");
+		fileTextField1.setText(invention.getFile1());
 
 		fileTextField2.setBounds(10, 406, 163, 20);
 		panel.add(fileTextField2);
+		fileTextField2.setText(invention.getFile2());
 
 		fileTextField3.setBounds(10, 438, 163, 20);
 		panel.add(fileTextField3);
+		fileTextField3.setText(invention.getFile3());
 
 		getContentPane().add(saveButton);
 		saveButton.addActionListener(new SaveButtonActionListener());
@@ -287,6 +284,64 @@ public class EditInvDoc extends JFrame {
 	}
 
 	protected void saveButton_actionPerformed(ActionEvent e) {
+		Set<Change> changeSet = new HashSet<Change>();
+		if (!descTextPane.getText().equals(invention.getTotalSpec())) {
+			Change change = new Change("totalSpec", invention.getTotalSpec(), descTextPane.getText());
+			changeSet.add(change);
+			invention.setTotalSpec(descTextPane.getText());
+		}
+		if (!abstractTextPane.getText().equals(invention.getSummary())) {
+			Change change = new Change("summary", invention.getSummary(), abstractTextPane.getText());
+			changeSet.add(change);
+			invention.setSummary(abstractTextPane.getText());
+		}
+		if (!ideaDescTextPane.getText().equals(invention.getIdeaDescription())) {
+			Change change = new Change("ideaDescription", invention.getIdeaDescription(), ideaDescTextPane.getText());
+			changeSet.add(change);
+			invention.setIdeaDescription(ideaDescTextPane.getText());
+		}
+		if (!ideaHistoryTextPane.getText().equals(invention.getIdeaHistory())) {
+			Change change = new Change("ideaHistory", invention.getIdeaHistory(), ideaHistoryTextPane.getText());
+			changeSet.add(change);
+			invention.setIdeaHistory(ideaHistoryTextPane.getText());
+		}
+		if (!assertTextPane.getText().equals(invention.getClaim())) {
+			Change change = new Change("claim", invention.getClaim(), assertTextPane.getText());
+			changeSet.add(change);
+			invention.setClaim(assertTextPane.getText());
+		}
+		if (!fullDescTextPane.getText().equals(invention.getExplanation())) {
+			Change change = new Change("explanation", invention.getExplanation(), fullDescTextPane.getText());
+			changeSet.add(change);
+			invention.setExplanation(fullDescTextPane.getText());
+		}
+		if (!fileTextField1.getText().equals(invention.getFile1()) && !(fileTextField1.getText().equals("") || invention.getFile1() == null)) {
+			Change change = new Change("file1", invention.getFile1(), fileTextField1.getText());
+			changeSet.add(change);
+			invention.setFile1(fileTextField1.getText());
+		}
+		if (!fileTextField2.getText().equals(invention.getFile2()) && !(fileTextField2.getText().equals("") || invention.getFile2() == null)) {
+			Change change = new Change("file2", invention.getFile2(), fileTextField2.getText());
+			changeSet.add(change);
+			invention.setFile2(fileTextField2.getText());
+		}
+		if (!fileTextField3.getText().equals(invention.getFile3()) && !(fileTextField3.getText().equals("") || invention.getFile3() == null)) {
+			Change change = new Change("file3", invention.getFile3(), fileTextField3.getText());
+			changeSet.add(change);
+			invention.setFile3(fileTextField3.getText());
+		}
+
+		if (!changeSet.isEmpty()) {
+			InventionLogCatalog inventionLogCatalog = InventionLogCatalog.getInstance();
+			for (Change change : changeSet) {
+				inventionLogCatalog.addChange(change);
+			}
+			InventionLog inventionLog = new InventionLog(invention, new Date(), textArea.getText());
+			inventionLogCatalog.addItem(inventionLog);
+			InventionCatalog inventionCatalog = InventionCatalog.getInstance();
+			inventionCatalog.updateItem(invention);
+			JOptionPane.showMessageDialog(this, "مشخصات اختراع با موفقیت تغییر یافت.");
+		}
 		this.setVisible(false);
 	}
 

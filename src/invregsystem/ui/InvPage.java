@@ -48,7 +48,6 @@ public class InvPage extends JFrame {
 	private final JPanel panel_1 = new JPanel();
 	private final JButton sendButton = new JButton();
 	private final JButton approveHistoryButton = new JButton();
-	private final JButton button = new JButton();
 	private final JButton priceButton = new JButton();
 	private final JButton versionsButton = new JButton();
 	private final JButton editButton = new JButton();
@@ -392,7 +391,7 @@ public class InvPage extends JFrame {
 	}
 
 	protected void editButton_actionPerformed(ActionEvent e) {
-		new EditInvDoc().setVisible(true);
+		new EditInvDoc(selectedInvRegReq.getInvention()).setVisible(true);
 	}
 
 	protected void versionsButton_actionPerformed(ActionEvent e) {

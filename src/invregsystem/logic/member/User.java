@@ -1,6 +1,5 @@
 package invregsystem.logic.member;
 
-import interfaces.AbstractCompany;
 import interfaces.AbstractUser;
 import invregsystem.logic.invention.InventionField;
 
