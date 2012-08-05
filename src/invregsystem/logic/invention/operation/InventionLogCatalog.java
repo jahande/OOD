@@ -1,10 +1,12 @@
 package invregsystem.logic.invention.operation;
 
+import interfaces.AbstractInvention;
 import invregsystem.db.ChangeDao;
 import invregsystem.db.InventionLogDao;
 import invregsystem.logic.Catalog;
-import invregsystem.logic.invention.InventionRegistrationRequest;
+import invregsystem.logic.invention.Invention;
 
+import java.util.Date;
 import java.util.List;
 
 public class InventionLogCatalog implements Catalog {
@@ -40,11 +42,33 @@ public class InventionLogCatalog implements Catalog {
 		inventionLogDao.update((InventionLog) item);
 	}
 
-	public List<InventionLog> getItemsByRequest(InventionRegistrationRequest request) {
-		return inventionLogDao.findByParameter("request", request);
+	public List<InventionLog> getItemsByInvention(Invention invention) {
+		return inventionLogDao.findByParameter("invention", invention);
 	}
 
 	public void addChange(Change change) {
 		changeDao.save(change);
+	}
+
+	public List<Change> getChangesByInventionLog(InventionLog inventionLog) {
+		return changeDao.findByParameter("inventionLog", inventionLog);
+	}
+
+	public List<InventionLog> getItemsBeforeDate(Date date) {
+		return inventionLogDao.findLessEqualThanParameter("changeDate", date);
+	}
+
+	public void addInitialLog(AbstractInvention invention) {
+		InventionLog log = new InventionLog(invention, null, new Date(), "");
+		inventionLogDao.save(log);
+		changeDao.save(new Change("totalSpec", null, invention.getTotalSpec(), log));
+		changeDao.save(new Change("summary", null, invention.getSummary(), log));
+		changeDao.save(new Change("ideaDescription", null, invention.getIdeaDescription(), log));
+		changeDao.save(new Change("ideaHistory", null, invention.getIdeaHistory(), log));
+		changeDao.save(new Change("claim", null, invention.getClaim(), log));
+		changeDao.save(new Change("explanation", null, invention.getExplanation(), log));
+		changeDao.save(new Change("file1", null, invention.getFile1(), log));
+		changeDao.save(new Change("file2", null, invention.getFile2(), log));
+		changeDao.save(new Change("file3", null, invention.getFile3(), log));
 	}
 }

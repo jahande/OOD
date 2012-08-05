@@ -66,7 +66,7 @@ public class SendInvRegReq extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public SendInvRegReq(InventionRegistrationRequest invRegReq, AbstractUser currentUse) {
+	public SendInvRegReq(InventionRegistrationRequest invRegReq, AbstractUser currentUser) {
 		super();
 		this.invRegReq = invRegReq;
 		this.currentUser = currentUser;
@@ -93,6 +93,11 @@ public class SendInvRegReq extends JFrame {
 		getContentPane().add(fieldComboBox);
 		fieldComboBox.setModel(new DefaultComboBoxModel(fieldNames.toArray()));
 		fieldComboBox.setBounds(37, 32, 138, 25);
+		if (invRegReq.getSendDate() != null) {
+			InventionField field = invRegReq.getInvention().getInventionField();
+			fieldComboBox.setSelectedItem(field.getName());
+			fieldComboBox.setEnabled(false);
+		}
 
 		getContentPane().add(label);
 		label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
@@ -129,6 +134,9 @@ public class SendInvRegReq extends JFrame {
 		getContentPane().add(notExistsCheckBox);
 		notExistsCheckBox.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		notExistsCheckBox.setText("حوزه اختراع مورد نظر در گزینه ها موجود نیست.");
+		if (invRegReq.getSendDate() != null) {
+			notExistsCheckBox.setEnabled(false);
+		}
 
 		getContentPane().add(label_1);
 		label_1.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
@@ -141,12 +149,24 @@ public class SendInvRegReq extends JFrame {
 		realRadioButton.setText("شخصیت حقیقی");
 		realRadioButton.setBounds(178, 206, 101, 24);
 		realRadioButton.setSelected(true);
+		if (invRegReq.getSendDate() != null) {
+			realRadioButton.setEnabled(false);
+			if (invRegReq.getInvention().isRealPossession()) {
+				realRadioButton.setSelected(true);
+			}
+		}
 
 		getContentPane().add(legalRadioButton_2);
 		buttonGroup.add(legalRadioButton_2);
 		legalRadioButton_2.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		legalRadioButton_2.setText("شخصیت حقوقی");
 		legalRadioButton_2.setBounds(71, 206, 101, 24);
+		if (invRegReq.getSendDate() != null) {
+			legalRadioButton_2.setEnabled(false);
+			if (!invRegReq.getInvention().isRealPossession()) {
+				legalRadioButton_2.setSelected(true);
+			}
+		}
 
 		getContentPane().add(button);
 		button.addActionListener(new ButtonActionListener());
@@ -188,7 +208,8 @@ public class SendInvRegReq extends JFrame {
 		if (!notExistsCheckBox.isSelected()) {
 			field = inventionFieldCatalog.getInventionFieldByName(fieldComboBox.getSelectedItem().toString());
 		} else {
-			InventionFieldRegistrationRequest request = new InventionFieldRegistrationRequest(currentUser, newFieldTextField.getText());
+			InventionField nearestField = inventionFieldCatalog.getInventionFieldByName(nearestFieldComboBox.getSelectedItem().toString());
+			InventionFieldRegistrationRequest request = new InventionFieldRegistrationRequest(currentUser, nearestField, newFieldTextField.getText());
 			InventionFieldRegistrationRequestCatalog catalog = InventionFieldRegistrationRequestCatalog.getInstance();
 			catalog.addItem(request);
 			JOptionPane.showMessageDialog(this, "درخواست حوزه اختراع جدید به مدیریت ارسال شد. نتیجه به شما اعلام خواهد شد.");
@@ -199,7 +220,8 @@ public class SendInvRegReq extends JFrame {
 			invRegReq.getInvention().setRealPossession(true);
 		} else {
 			if (invRegReq.getInvention().getCompany() == null) {
-				JOptionPane.showMessageDialog(this, "شرکتی به عنوان مالک اختراع تعیین نشده است. مالکیت تنها می تواند حقیقی باشد.", "خطا", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "شرکتی به عنوان مالک اختراع تعیین نشده است. مالکیت تنها می تواند حقیقی باشد.", "خطا",
+						JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			invRegReq.getInvention().setRealPossession(false);
@@ -208,7 +230,8 @@ public class SendInvRegReq extends JFrame {
 		invRegReq.setState(InventionRegistrationRequest.NOT_INVESTIGATED);
 		AbstractUser expert = invRegReq.assignExpertToCheck(field);
 		if (expert == null) {
-			JOptionPane.showMessageDialog(this, "در حوزه اختراع تعیین شده هیچ کارشناسی وجود ندارد. با مدیر سامانه تماس بگیرید.", "خطا", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "در حوزه اختراع تعیین شده هیچ کارشناسی وجود ندارد. با مدیر سامانه تماس بگیرید.", "خطا",
+					JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		InventionRegistrationRequestCatalog invRegReqCatalog = InventionRegistrationRequestCatalog.getInstance();

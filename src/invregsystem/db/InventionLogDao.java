@@ -4,7 +4,6 @@ import invregsystem.logic.invention.operation.InventionLog;
 
 import java.util.List;
 
-
 public class InventionLogDao extends BaseDao<InventionLog, Integer> {
 	private static InventionLogDao instance;
 
@@ -26,7 +25,12 @@ public class InventionLogDao extends BaseDao<InventionLog, Integer> {
 		return super.findByParameter(InventionLog.class, parameter, value);
 	}
 
+	public List<InventionLog> findLessEqualThanParameter(String parameter, Object value) {
+		return super.findSortedLessEqualThanParameter(InventionLog.class, parameter, value);
+	}
+
 	public List<InventionLog> fetchAll() {
 		return super.fetchAll(InventionLog.class);
 	}
+
 }

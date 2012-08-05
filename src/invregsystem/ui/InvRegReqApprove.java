@@ -1,18 +1,18 @@
 package invregsystem.ui;
 
 import interfaces.AbstractInvention;
+import interfaces.AbstractUser;
 import invregsystem.logic.invention.InventionCatalog;
 import invregsystem.logic.invention.InventionRegistrationRequest;
 import invregsystem.logic.invention.InventionRegistrationRequestCatalog;
 import invregsystem.logic.invention.InventionRelation;
 import invregsystem.logic.invention.InventionRelationCatalog;
 import invregsystem.logic.invention.Share;
+import invregsystem.logic.invention.operation.InventionLogCatalog;
 
 import java.awt.ComponentOrientation;
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -20,18 +20,12 @@ import java.util.List;
 import java.util.Set;
 
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.SwingConstants;
-import javax.swing.border.EtchedBorder;
-
-import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 public class InvRegReqApprove extends JFrame {
 
@@ -252,6 +246,7 @@ public class InvRegReqApprove extends JFrame {
 	protected void button_actionPerformed(ActionEvent e) {
 		InventionRegistrationRequestCatalog invRegReqCatalog = InventionRegistrationRequestCatalog.getInstance();
 		InventionCatalog inventionCatalog = InventionCatalog.getInstance();
+		InventionLogCatalog inventionLogCatalog = InventionLogCatalog.getInstance();
 		InventionRelationCatalog inventionRelationCatalog = InventionRelationCatalog.getInstance();
 
 		inventionCatalog.addItem(invention);
@@ -261,6 +256,7 @@ public class InvRegReqApprove extends JFrame {
 		for (InventionRelation relation : relations) {
 			inventionRelationCatalog.addItem(relation);
 		}
+		inventionLogCatalog.addInitialLog(invention);
 		InventionRegistrationRequest request = new InventionRegistrationRequest(new Date(), invention);
 		invRegReqCatalog.addItem(request);
 		JOptionPane.showMessageDialog(this, "درخواست ثبت اختراع با موفقیت ایجاد شد. برای ارسال آن به بخش سوابق اختراعات مراجعه نمایید.");

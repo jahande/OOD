@@ -15,6 +15,10 @@ public class InventionFieldRegistrationRequest extends Request {
 	@JoinColumn(name = "userId")
 	private User user;
 
+	@ManyToOne
+	@JoinColumn(name = "nearestFieldId")
+	private InventionField nearestField;
+
 	@Column(name = "fieldName")
 	private String fieldName;
 
@@ -22,9 +26,10 @@ public class InventionFieldRegistrationRequest extends Request {
 
 	}
 
-	public InventionFieldRegistrationRequest(AbstractUser user, String fieldName) {
+	public InventionFieldRegistrationRequest(AbstractUser user, InventionField nearestField, String fieldName) {
 		super();
 		this.user = (User) user;
+		this.nearestField = nearestField;
 		this.fieldName = fieldName;
 	}
 
@@ -42,6 +47,14 @@ public class InventionFieldRegistrationRequest extends Request {
 
 	public void setFieldName(String fieldName) {
 		this.fieldName = fieldName;
+	}
+
+	public InventionField getNearestField() {
+		return nearestField;
+	}
+
+	public void setNearestField(InventionField nearestField) {
+		this.nearestField = nearestField;
 	}
 
 }

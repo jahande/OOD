@@ -20,6 +20,7 @@ public class SetPrice extends JFrame {
 	private final JLabel label_1 = new JLabel();
 
 	private AbstractInvention invention;
+	private JFrame invPage;
 
 	/**
 	 * Launch the application
@@ -28,7 +29,7 @@ public class SetPrice extends JFrame {
 	 */
 	public static void main(String args[]) {
 		try {
-			SetPrice frame = new SetPrice(null);
+			SetPrice frame = new SetPrice(null, null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -38,9 +39,10 @@ public class SetPrice extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public SetPrice(AbstractInvention invention) {
+	public SetPrice(AbstractInvention invention, JFrame invPage) {
 		super();
 		this.invention = invention;
+		this.invPage = invPage;
 		setBounds(100, 100, 297, 161);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {

@@ -5,6 +5,7 @@ import invregsystem.logic.invention.Invention;
 import invregsystem.logic.invention.InventionField;
 import invregsystem.logic.invention.InventionRegistrationRequest;
 import invregsystem.logic.invention.Share;
+import invregsystem.logic.invention.operation.InventionLogCatalog;
 import invregsystem.logic.member.Company;
 import invregsystem.logic.member.Manager;
 import invregsystem.logic.member.User;
@@ -56,6 +57,8 @@ public class Initializer {
 		Invention invention = new Invention("عنوان", "مشخصات کلی", "چکیده", "شرح ایده", "سابقه ایده", "ادعانامه", "شرح کامل", new ArrayList<String>());
 		invention.setInventionField(inventionFieldDao.findByParameter("name", "کامپیوتر").get(0));
 		inventionDao.save(invention);
+		InventionLogCatalog inventionLogCatalog = InventionLogCatalog.getInstance();
+		inventionLogCatalog.addInitialLog(invention);
 
 		invention = inventionDao.findByParameter("title", "عنوان").get(0);
 		shareDao.save(new Share(user, invention, 50));

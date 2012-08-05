@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -251,6 +252,9 @@ public class InvPage extends JFrame {
 		editButton.addActionListener(new EditButtonActionListener());
 		editButton.setText("ویرایش مستندات");
 		editButton.setBounds(7, 131, 145, 26);
+		if (selectedInvRegReq.getSendDate() != null && selectedInvRegReq.getState() != InventionRegistrationRequest.REJECTED) {
+			editButton.setEnabled(false);
+		}
 
 		panel_1.add(priceButton);
 		priceButton.addActionListener(new PriceButtonActionListener());
@@ -387,15 +391,25 @@ public class InvPage extends JFrame {
 	}
 
 	protected void sendButton_actionPerformed(ActionEvent e) {
-		new SendInvRegReq(selectedInvRegReq, currentUser).setVisible(true);
+		if (selectedInvRegReq.getSendDate() == null || selectedInvRegReq.getState() == InventionRegistrationRequest.REJECTED) {
+			new SendInvRegReq(selectedInvRegReq, currentUser).setVisible(true);
+		} else {
+			JOptionPane.showMessageDialog(this, "تا زمانی که کارشناس درخواست شما را بررسی نکرده است، نمی توانید دوباره ارسال نمایید.", "خطا",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	protected void editButton_actionPerformed(ActionEvent e) {
-		new EditInvDoc(selectedInvRegReq.getInvention()).setVisible(true);
+		if (selectedInvRegReq.getSendDate() == null || selectedInvRegReq.getState() == InventionRegistrationRequest.REJECTED) {
+			new EditInvDoc(selectedInvRegReq.getInvention(), currentUser).setVisible(true);
+		} else {
+			JOptionPane.showMessageDialog(this, "تا زمانی که کارشناس درخواست شما را بررسی نکرده است، نمی توانید ویرایش نمایید.", "خطا",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	protected void versionsButton_actionPerformed(ActionEvent e) {
-		new DocVersions().setVisible(true);
+		new DocVersions(selectedInvRegReq.getInvention()).setVisible(true);
 	}
 
 	protected void approveHistoryButton_actionPerformed(ActionEvent e) {
@@ -403,7 +417,7 @@ public class InvPage extends JFrame {
 	}
 
 	protected void priceButton_actionPerformed(ActionEvent e) {
-		new SetPrice(selectedInvRegReq.getInvention()).setVisible(true);
+		new SetPrice(selectedInvRegReq.getInvention(), this).setVisible(true);
 	}
 
 }

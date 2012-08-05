@@ -1,6 +1,7 @@
 package invregsystem.ui;
 
 import interfaces.AbstractInvention;
+import interfaces.AbstractUser;
 import invregsystem.logic.invention.InventionCatalog;
 import invregsystem.logic.invention.operation.Change;
 import invregsystem.logic.invention.operation.InventionLog;
@@ -9,10 +10,8 @@ import invregsystem.logic.invention.operation.InventionLogCatalog;
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.swing.JButton;
@@ -62,6 +61,7 @@ public class EditInvDoc extends JFrame {
 	private final JScrollPane scrollPane_7 = new JScrollPane();
 
 	private AbstractInvention invention;
+	private AbstractUser currentUser;
 
 	/**
 	 * Launch the application
@@ -70,7 +70,7 @@ public class EditInvDoc extends JFrame {
 	 */
 	public static void main(String args[]) {
 		try {
-			EditInvDoc frame = new EditInvDoc(null);
+			EditInvDoc frame = new EditInvDoc(null, null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -80,9 +80,10 @@ public class EditInvDoc extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public EditInvDoc(AbstractInvention invention) {
+	public EditInvDoc(AbstractInvention invention, AbstractUser currentUser) {
 		super();
 		this.invention = invention;
+		this.currentUser = currentUser;
 		setBounds(100, 100, 384, 679);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -284,65 +285,78 @@ public class EditInvDoc extends JFrame {
 	}
 
 	protected void saveButton_actionPerformed(ActionEvent e) {
-		Set<Change> changeSet = new HashSet<Change>();
-		if (!descTextPane.getText().equals(invention.getTotalSpec())) {
-			Change change = new Change("totalSpec", invention.getTotalSpec(), descTextPane.getText());
-			changeSet.add(change);
-			invention.setTotalSpec(descTextPane.getText());
-		}
-		if (!abstractTextPane.getText().equals(invention.getSummary())) {
-			Change change = new Change("summary", invention.getSummary(), abstractTextPane.getText());
-			changeSet.add(change);
-			invention.setSummary(abstractTextPane.getText());
-		}
-		if (!ideaDescTextPane.getText().equals(invention.getIdeaDescription())) {
-			Change change = new Change("ideaDescription", invention.getIdeaDescription(), ideaDescTextPane.getText());
-			changeSet.add(change);
-			invention.setIdeaDescription(ideaDescTextPane.getText());
-		}
-		if (!ideaHistoryTextPane.getText().equals(invention.getIdeaHistory())) {
-			Change change = new Change("ideaHistory", invention.getIdeaHistory(), ideaHistoryTextPane.getText());
-			changeSet.add(change);
-			invention.setIdeaHistory(ideaHistoryTextPane.getText());
-		}
-		if (!assertTextPane.getText().equals(invention.getClaim())) {
-			Change change = new Change("claim", invention.getClaim(), assertTextPane.getText());
-			changeSet.add(change);
-			invention.setClaim(assertTextPane.getText());
-		}
-		if (!fullDescTextPane.getText().equals(invention.getExplanation())) {
-			Change change = new Change("explanation", invention.getExplanation(), fullDescTextPane.getText());
-			changeSet.add(change);
-			invention.setExplanation(fullDescTextPane.getText());
-		}
-		if (!fileTextField1.getText().equals(invention.getFile1()) && !(fileTextField1.getText().equals("") || invention.getFile1() == null)) {
-			Change change = new Change("file1", invention.getFile1(), fileTextField1.getText());
-			changeSet.add(change);
-			invention.setFile1(fileTextField1.getText());
-		}
-		if (!fileTextField2.getText().equals(invention.getFile2()) && !(fileTextField2.getText().equals("") || invention.getFile2() == null)) {
-			Change change = new Change("file2", invention.getFile2(), fileTextField2.getText());
-			changeSet.add(change);
-			invention.setFile2(fileTextField2.getText());
-		}
-		if (!fileTextField3.getText().equals(invention.getFile3()) && !(fileTextField3.getText().equals("") || invention.getFile3() == null)) {
-			Change change = new Change("file3", invention.getFile3(), fileTextField3.getText());
-			changeSet.add(change);
-			invention.setFile3(fileTextField3.getText());
-		}
+		String description = descTextPane.getText();
+		String invAbstract = abstractTextPane.getText();
+		String ideaDesc = ideaDescTextPane.getText();
+		String ideaHistory = ideaHistoryTextPane.getText();
+		String assertion = assertTextPane.getText();
+		String fullDesc = fullDescTextPane.getText();
 
-		if (!changeSet.isEmpty()) {
-			InventionLogCatalog inventionLogCatalog = InventionLogCatalog.getInstance();
-			for (Change change : changeSet) {
-				inventionLogCatalog.addChange(change);
+		if (description.equals("") || invAbstract.equals("") || ideaDesc.equals("") || ideaHistory.equals("") || assertion.equals("")
+				|| fullDesc.equals("")) {
+			JOptionPane.showMessageDialog(this, "لطفاً مشخصات اختراع را تکمیل نمایید.", "خطا", JOptionPane.ERROR_MESSAGE);
+		} else {
+			Set<Change> changeSet = new HashSet<Change>();
+			if (!description.equals(invention.getTotalSpec())) {
+				Change change = new Change("totalSpec", invention.getTotalSpec(), description);
+				changeSet.add(change);
+				invention.setTotalSpec(description);
 			}
-			InventionLog inventionLog = new InventionLog(invention, new Date(), textArea.getText());
-			inventionLogCatalog.addItem(inventionLog);
-			InventionCatalog inventionCatalog = InventionCatalog.getInstance();
-			inventionCatalog.updateItem(invention);
-			JOptionPane.showMessageDialog(this, "مشخصات اختراع با موفقیت تغییر یافت.");
+			if (!invAbstract.equals(invention.getSummary())) {
+				Change change = new Change("summary", invention.getSummary(), invAbstract);
+				changeSet.add(change);
+				invention.setSummary(invAbstract);
+			}
+			if (!ideaDesc.equals(invention.getIdeaDescription())) {
+				Change change = new Change("ideaDescription", invention.getIdeaDescription(), ideaDesc);
+				changeSet.add(change);
+				invention.setIdeaDescription(ideaDesc);
+			}
+			if (!ideaHistory.equals(invention.getIdeaHistory())) {
+				Change change = new Change("ideaHistory", invention.getIdeaHistory(), ideaHistory);
+				changeSet.add(change);
+				invention.setIdeaHistory(ideaHistory);
+			}
+			if (!assertion.equals(invention.getClaim())) {
+				Change change = new Change("claim", invention.getClaim(), assertion);
+				changeSet.add(change);
+				invention.setClaim(assertion);
+			}
+			if (!fullDesc.equals(invention.getExplanation())) {
+				Change change = new Change("explanation", invention.getExplanation(), fullDesc);
+				changeSet.add(change);
+				invention.setExplanation(fullDesc);
+			}
+			if (!fileTextField1.getText().equals(invention.getFile1()) && !(fileTextField1.getText().equals("") || invention.getFile1() == null)) {
+				Change change = new Change("file1", invention.getFile1(), fileTextField1.getText());
+				changeSet.add(change);
+				invention.setFile1(fileTextField1.getText());
+			}
+			if (!fileTextField2.getText().equals(invention.getFile2()) && !(fileTextField2.getText().equals("") || invention.getFile2() == null)) {
+				Change change = new Change("file2", invention.getFile2(), fileTextField2.getText());
+				changeSet.add(change);
+				invention.setFile2(fileTextField2.getText());
+			}
+			if (!fileTextField3.getText().equals(invention.getFile3()) && !(fileTextField3.getText().equals("") || invention.getFile3() == null)) {
+				Change change = new Change("file3", invention.getFile3(), fileTextField3.getText());
+				changeSet.add(change);
+				invention.setFile3(fileTextField3.getText());
+			}
+
+			if (!changeSet.isEmpty()) {
+				InventionLogCatalog inventionLogCatalog = InventionLogCatalog.getInstance();
+				InventionLog inventionLog = new InventionLog(invention, currentUser, new Date(), textArea.getText());
+				inventionLogCatalog.addItem(inventionLog);
+				for (Change change : changeSet) {
+					change.setInventionLog(inventionLog);
+					inventionLogCatalog.addChange(change);
+				}
+				InventionCatalog inventionCatalog = InventionCatalog.getInstance();
+				inventionCatalog.updateItem(invention);
+				JOptionPane.showMessageDialog(this, "مشخصات اختراع با موفقیت تغییر یافت.");
+			}
+			this.setVisible(false);
 		}
-		this.setVisible(false);
 	}
 
 }

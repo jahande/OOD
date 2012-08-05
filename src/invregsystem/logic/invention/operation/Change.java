@@ -41,6 +41,14 @@ public class Change extends BaseEntity<Integer> {
 		this.newValue = newValue;
 	}
 
+	public Change(String attributeName, String oldValue, String newValue, InventionLog inventionLog) {
+		super();
+		this.attributeName = attributeName;
+		this.oldValue = oldValue;
+		this.newValue = newValue;
+		this.inventionLog = inventionLog;
+	}
+
 	public Integer getId() {
 		return id;
 	}
