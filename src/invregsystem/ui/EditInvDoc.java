@@ -327,17 +327,17 @@ public class EditInvDoc extends JFrame {
 				changeSet.add(change);
 				invention.setExplanation(fullDesc);
 			}
-			if (!fileTextField1.getText().equals(invention.getFile1()) && !(fileTextField1.getText().equals("") || invention.getFile1() == null)) {
+			if (!fileTextField1.getText().equals(invention.getFile1()) && !(fileTextField1.getText().equals("") && invention.getFile1() == null)) {
 				Change change = new Change("file1", invention.getFile1(), fileTextField1.getText());
 				changeSet.add(change);
 				invention.setFile1(fileTextField1.getText());
 			}
-			if (!fileTextField2.getText().equals(invention.getFile2()) && !(fileTextField2.getText().equals("") || invention.getFile2() == null)) {
+			if (!fileTextField2.getText().equals(invention.getFile2()) && !(fileTextField2.getText().equals("") && invention.getFile2() == null)) {
 				Change change = new Change("file2", invention.getFile2(), fileTextField2.getText());
 				changeSet.add(change);
 				invention.setFile2(fileTextField2.getText());
 			}
-			if (!fileTextField3.getText().equals(invention.getFile3()) && !(fileTextField3.getText().equals("") || invention.getFile3() == null)) {
+			if (!fileTextField3.getText().equals(invention.getFile3()) && !(fileTextField3.getText().equals("") && invention.getFile3() == null)) {
 				Change change = new Change("file3", invention.getFile3(), fileTextField3.getText());
 				changeSet.add(change);
 				invention.setFile3(fileTextField3.getText());

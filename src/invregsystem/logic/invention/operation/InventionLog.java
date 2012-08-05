@@ -7,7 +7,6 @@ import java.util.ListIterator;
 import interfaces.AbstractInvention;
 import interfaces.AbstractUser;
 import invregsystem.db.BaseEntity;
-import invregsystem.db.ChangeDao;
 import invregsystem.logic.invention.Invention;
 import invregsystem.logic.member.User;
 
