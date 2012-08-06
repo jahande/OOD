@@ -1,5 +1,10 @@
 package invregsystem.ui;
 
+import interfaces.AbstractUser;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+
 import javax.swing.JFrame;
 
 /**
@@ -42,6 +47,21 @@ public class DeleteUserAccountSel extends SelectUser {
 	private void jbInit() throws Exception {
 		System.currentTimeMillis();
 		setTitle("حذف حساب کاربری- انتخاب کاربر");
+	}
+
+	@Override
+	protected void nextActionPerform(MouseEvent e, AbstractUser user) {
+		// TODO Auto-generated method stub
+		DeleteUserAccountDel deleteUserAccountDel = new DeleteUserAccountDel(user);
+		deleteUserAccountDel.setVisible(true);
+	}
+
+	@Override
+	protected void returnActionPerform(ActionEvent e) {
+		// TODO Auto-generated method stub
+		this.setVisible(false);
+		this.dispose();
+		
 	}
 
 }

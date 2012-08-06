@@ -37,7 +37,6 @@ public class ViewUserAccountView extends UserAccountViewBase {
 	 */
 	public  ViewUserAccountView(AbstractUser user) {
 		super(user);
-		setBounds(100, 100, 326, 310);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
 			jbInit();

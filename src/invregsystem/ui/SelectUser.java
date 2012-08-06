@@ -35,7 +35,7 @@ import javax.swing.SwingConstants;
  * @usecase 42
  */
 
-public class SelectUser extends JFrame  implements NeedRefreshData,ListMouseListenner{
+public abstract class SelectUser extends JFrame  implements NeedRefreshData,ListMouseListenner{
 
 	/**
 	 * 
@@ -50,19 +50,7 @@ public class SelectUser extends JFrame  implements NeedRefreshData,ListMouseList
 	// private final JLabel label_5 = new JLabel();
 	private final JButton button = new JButton();
 
-	/**
-	 * Launch the application
-	 * 
-	 * @param args
-	 */
-	public static void main(String args[]) {
-		try {
-			SelectUser frame = new SelectUser();
-			frame.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
 
 	/**
 	 * Create the frame
@@ -125,14 +113,14 @@ public class SelectUser extends JFrame  implements NeedRefreshData,ListMouseList
 
 	private class ButtonActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			button_actionPerformed(e);
+			returnActionPerform(e);
 		}
 	}
 
 	@Override
 	public void listMouseListennerActionPerform(MouseEvent e, Object obj) {
-		ViewUserAccountView userAccountView =  new ViewUserAccountView((AbstractUser)obj);
-		userAccountView.setVisible(true);
+		nextActionPerform( e,(AbstractUser)(obj)) ;
+		
 		//JOptionPane.showMessageDialog(this, ((AbstractUser)obj).getId());
 	}
 
@@ -200,8 +188,7 @@ public class SelectUser extends JFrame  implements NeedRefreshData,ListMouseList
 		return p;
 	}
 
-	protected void button_actionPerformed(ActionEvent e) {
-		this.setVisible(false);
-	}
-
+	protected abstract void returnActionPerform(ActionEvent e) ;
+	protected abstract void nextActionPerform(MouseEvent e, AbstractUser user) ;
+	
 }
