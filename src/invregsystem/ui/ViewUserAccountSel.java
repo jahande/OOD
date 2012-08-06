@@ -1,5 +1,10 @@
 package invregsystem.ui;
 
+import interfaces.AbstractUser;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+
 import javax.swing.JFrame;
 
 /**
@@ -39,6 +44,20 @@ public class ViewUserAccountSel extends SelectUser {
 	private void jbInit() throws Exception {
 		System.currentTimeMillis();
 		setTitle("مشاهده‌ی حساب کاربری- انتخاب کاربر");
+	}
+
+	@Override
+	protected void returnActionPerform(ActionEvent e) {
+		this.setVisible(false);
+		this.dispose();
+	}
+
+	@Override
+	protected void nextActionPerform(MouseEvent e, AbstractUser user) {
+		ViewUserAccountView userAccountView =  new ViewUserAccountView(user);
+		userAccountView.setVisible(true);
+		
+		
 	}
 
 }

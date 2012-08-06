@@ -385,7 +385,9 @@ public class Management extends JFrame {
 	}
 
 	protected void button_16_actionPerformed(ActionEvent e) {
-		new DeleteUserAccountSel().setVisible(true);
+		DeleteUserAccountSel deleteUserAccountSel = new DeleteUserAccountSel();
+		deleteUserAccountSel.refreshData();
+		deleteUserAccountSel.setVisible(true);
 	}
 
 	protected void button_17_actionPerformed(ActionEvent e) {
