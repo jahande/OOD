@@ -1,8 +1,3 @@
-package invregsystem.ui;
-
-import invregsystem.logic.invention.InventionField;
-import invregsystem.ui.models.NeedRefreshData;
-import invregsystem.ui.models.SimpleListModel;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -27,7 +22,7 @@ import javax.swing.SwingConstants;
  * @usecase 42
  */
 
-public class ViewInventionFields extends JFrame implements NeedRefreshData {
+public class ViewInventionFields extends BaseFrame implements NeedRefreshData {
 
 	/**
 	 * 
@@ -44,8 +39,8 @@ public class ViewInventionFields extends JFrame implements NeedRefreshData {
 	/**
 	 * Create the frame
 	 */
-	public ViewInventionFields() {
-		super();
+	public ViewInventionFields(Controller c) {
+		super(c);
 		setBounds(100, 100, 393, 410);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -53,6 +48,7 @@ public class ViewInventionFields extends JFrame implements NeedRefreshData {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+		//
 	}
 
 	private void jbInit() throws Exception {
@@ -137,7 +133,7 @@ public class ViewInventionFields extends JFrame implements NeedRefreshData {
 	// private JList resetInventionFieldsNamePanel(){
 	// try {
 	// getContentPane().remove(list);
-	//
+	//			
 	// } catch (Exception e) {
 	// // TODO: handle exception
 	// }
@@ -152,7 +148,7 @@ public class ViewInventionFields extends JFrame implements NeedRefreshData {
 	// }
 
 	protected void button_actionPerformed(ActionEvent e) {
-		this.setVisible(false);
+		this.simpleCommand("Return");
 	}
 
 }
