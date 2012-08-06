@@ -1,5 +1,7 @@
 package invregsystem.ui;
 
+import interfaces.AbstractUser;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JFrame;
@@ -14,6 +16,7 @@ import javax.swing.JPanel;
 
 public class UserAccountViewBase extends JFrame {
 
+	private final AbstractUser user;
 	private final JPanel panel_1 = new JPanel();
 	private final JPanel panel = new JPanel();
 	private final JLabel label = new JLabel();
@@ -34,19 +37,23 @@ public class UserAccountViewBase extends JFrame {
 	 */
 	public static void main(String args[]) {
 		try {
-			UserAccountViewBase frame = new UserAccountViewBase();
+			UserAccountViewBase frame = new UserAccountViewBase(null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	private UserAccountViewBase(){
+		this.user = null;
+	}
 
 	/**
 	 * Create the frame
 	 */
-	public UserAccountViewBase() {
+	public UserAccountViewBase(AbstractUser user) {
 		super();
-		setBounds(100, 100, 326, 310);
+		this.user = user;
+		setBounds(100, 100, 497, 304);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
 			jbInit();
@@ -62,31 +69,31 @@ public class UserAccountViewBase extends JFrame {
 		
 
 		getContentPane().add(panel_1);
-		panel_1.setBounds(11, 24, 133, 151);
+		panel_1.setBounds(11, 24, 267, 151);
 		
 		panel_1.add(label_6);
 		label_6.setPreferredSize(new Dimension(70, 20));
-		label_6.setText("روح الله");
+		label_6.setText(user.getFirstName());
 		
 		panel_1.add(label_7);
 		label_7.setPreferredSize(new Dimension(70, 20));
-		label_7.setText("جهنده");
+		label_7.setText(user.getLastName());
 		
 		panel_1.add(rjahandegmailcomLabel);
 		rjahandegmailcomLabel.setPreferredSize(new Dimension(70, 20));
-		rjahandegmailcomLabel.setText("r.jahande@gmail.com");
+		rjahandegmailcomLabel.setText(user.getEmail());
 		
 		panel_1.add(label_9);
 		label_9.setPreferredSize(new Dimension(90, 20));
-		label_9.setText("۱۳۷۰");
+		label_9.setText(user.getBirthDate().toString());
 		
 		panel_1.add(jahandeLabel);
 		jahandeLabel.setPreferredSize(new Dimension(90, 20));
-		jahandeLabel.setText("jahande");
+		jahandeLabel.setText(user.getUserName());
 
 		getContentPane().add(panel);
 		panel.setLayout(null);
-		panel.setBounds(161, 24, 126, 151);
+		panel.setBounds(284, 24, 149, 151);
 
 		panel.add(label);
 		label.setText("نام");

@@ -1,6 +1,10 @@
 package invregsystem.ui;
 
+import interfaces.AbstractUser;
+
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
@@ -21,7 +25,7 @@ public class ViewUserAccountView extends UserAccountViewBase {
 	 */
 	public static void main(String args[]) {
 		try {
-			ViewUserAccountView frame = new ViewUserAccountView();
+			ViewUserAccountView frame = new ViewUserAccountView(null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -31,8 +35,8 @@ public class ViewUserAccountView extends UserAccountViewBase {
 	/**
 	 * Create the frame
 	 */
-	public  ViewUserAccountView() {
-		super();
+	public  ViewUserAccountView(AbstractUser user) {
+		super(user);
 		setBounds(100, 100, 326, 310);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -49,8 +53,18 @@ public class ViewUserAccountView extends UserAccountViewBase {
 		setTitle("مشاهده حساب کاربری- مشاهده");		
 
 		getContentPane().add(button);
+		button.addActionListener(new ButtonActionListener());
 		button.setText("بازگشت");
 		button.setBounds(79, 222, 106, 26);
+	}
+	private class ButtonActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			button_actionPerformed(arg0);
+		}
+	}
+	protected void button_actionPerformed(ActionEvent arg0) {
+		this.setVisible(false);
+		this.dispose();
 	}
 
 	

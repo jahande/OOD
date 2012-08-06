@@ -5,8 +5,8 @@ import invregsystem.logic.invention.InventionField;
 import invregsystem.logic.invention.InventionFieldCatalog;
 import invregsystem.logic.invention.InventionFieldRegistrationRequest;
 import invregsystem.logic.invention.InventionFieldRegistrationRequestCatalog;
-import invregsystem.ui.models.IdLabel;
 import invregsystem.ui.models.NeedRefreshData;
+import invregsystem.ui.models.ParameterLabel;
 import invregsystem.ui.models.SimpleListModel;
 
 import java.awt.Color;
@@ -165,9 +165,9 @@ public class AcceptOrRejectAddNewFieldRequest extends JFrame implements
 		for (InventionFieldRegistrationRequest inventionFieldRegistrationRequest : inventionFieldRegistrationRequests) {
 			if ( inventionFieldRegistrationRequest.getState() == Request.NOT_INVESTIGATED) {
 				inventionFieldRegistrationRequest.getFieldName();
-				IdLabel lbl = new IdLabel();
+				ParameterLabel<InventionFieldRegistrationRequest> lbl = new ParameterLabel<InventionFieldRegistrationRequest>();
 
-				lbl.setId(inventionFieldRegistrationRequest.getId());
+				lbl.setParameter(inventionFieldRegistrationRequest);
 				lbl.setPreferredSize(new Dimension(40, 10));
 				lbl.setHorizontalTextPosition(SwingConstants.CENTER);
 				lbl.setHorizontalAlignment(SwingConstants.CENTER);

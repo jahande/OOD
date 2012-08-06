@@ -389,7 +389,9 @@ public class Management extends JFrame {
 	}
 
 	protected void button_17_actionPerformed(ActionEvent e) {
-		new ViewUserAccountSel().setVisible(true);
+		ViewUserAccountSel vuas = new ViewUserAccountSel();
+		vuas.refreshData();
+		vuas.setVisible(true);
 	}
 
 	protected void button_actionPerformed(ActionEvent e) {

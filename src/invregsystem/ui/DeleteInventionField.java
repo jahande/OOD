@@ -2,8 +2,8 @@ package invregsystem.ui;
 
 import invregsystem.logic.invention.InventionField;
 import invregsystem.logic.invention.InventionFieldCatalog;
-import invregsystem.ui.models.IdLabel;
 import invregsystem.ui.models.NeedRefreshData;
+import invregsystem.ui.models.ParameterLabel;
 import invregsystem.ui.models.SimpleListModel;
 
 import java.awt.Color;
@@ -170,9 +170,9 @@ public class DeleteInventionField extends JFrame  {
 
 		// this.panel = new JPanel();
 		for (InventionField inventionField : inventionFields) {
-			IdLabel lbl = new IdLabel();
+			ParameterLabel<InventionField> lbl = new ParameterLabel<InventionField>();
 
-			lbl.setId(inventionField.getId());
+			lbl.setParameter(inventionField);
 			lbl.setPreferredSize(new Dimension(40, 10));
 			lbl.setHorizontalTextPosition(SwingConstants.CENTER);
 			lbl.setHorizontalAlignment(SwingConstants.CENTER);
