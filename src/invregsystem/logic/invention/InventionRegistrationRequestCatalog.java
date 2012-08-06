@@ -70,4 +70,16 @@ public class InventionRegistrationRequestCatalog extends RequestCatalog {
 		return requests;
 	}
 
+	public List<InventionRegistrationRequest> getInvRegReqsByInventorAndState(AbstractUser inventor, int state) {
+		List<Invention> inventions = inventionCatalog.getInventionsByInventor(inventor);
+		List<InventionRegistrationRequest> requests = new ArrayList<InventionRegistrationRequest>();
+		for (Invention inv : inventions) {
+			InventionRegistrationRequest request = inv.getInventionRegistrationRequest();
+			if (request.getState() == state) {
+				requests.add(inv.getInventionRegistrationRequest());
+			}
+		}
+		return requests;
+	}
+
 }

@@ -50,14 +50,23 @@ public class InventionRegistrationRequest extends Request {
 
 	public void acceptAndApplyRequest(AbstractUser expert) {
 		super.acceptAndApplyRequest();
+		InventionRegistrationRequestCatalog catalog = InventionRegistrationRequestCatalog.getInstance();
 		InvestigationLogCatalog investigationLogCatalog = InvestigationLogCatalog.getInstance();
-		investigationLogCatalog.addItem(new InvestigationLog(expert, this, true));
+		catalog.updateItem(this);
+		InvestigationLog log = new InvestigationLog(expert, this);
+		log.setApprovals(true, true, true, true, true);
+		investigationLogCatalog.addItem(new InvestigationLog(expert, this));
 	}
 
-	public void rejectRequest(AbstractUser expert) {
+	public void rejectRequest(AbstractUser expert, boolean originalityApprove, boolean totalCompletenessApprove, boolean docCompletenessApprove,
+			boolean claimApprove, boolean agentApprove) {
 		super.rejectRequest();
+		InventionRegistrationRequestCatalog catalog = InventionRegistrationRequestCatalog.getInstance();
 		InvestigationLogCatalog investigationLogCatalog = InvestigationLogCatalog.getInstance();
-		investigationLogCatalog.addItem(new InvestigationLog(expert, this, false));
+		catalog.updateItem(this);
+		InvestigationLog log = new InvestigationLog(expert, this);
+		log.setApprovals(originalityApprove, totalCompletenessApprove, docCompletenessApprove, claimApprove, agentApprove);
+		investigationLogCatalog.addItem(log);
 	}
 
 	public AbstractUser assignExpertToCheck(InventionField field) {

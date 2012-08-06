@@ -1,12 +1,11 @@
 package invregsystem.logic.invention.operation;
 
+import interfaces.AbstractInvention;
 import invregsystem.db.InvestigationLogDao;
 import invregsystem.logic.Catalog;
 import invregsystem.logic.invention.InventionRegistrationRequest;
 
 import java.util.List;
-
-
 
 public class InvestigationLogCatalog implements Catalog {
 	private static InvestigationLogCatalog instance;
@@ -41,5 +40,31 @@ public class InvestigationLogCatalog implements Catalog {
 
 	public List<InvestigationLog> getItemsByRequest(InventionRegistrationRequest request) {
 		return investigationLogDao.findByParameter("request", request);
+	}
+
+	public InvestigationLog getLastInvestigationLogOfInvention(AbstractInvention invention) {
+		List<InvestigationLog> logs = investigationLogDao.fetchAll();
+		if (!logs.isEmpty()) {
+			InvestigationLog lastLog = logs.get(logs.size() - 1);
+			for (InvestigationLog log : logs) {
+				if (log.getDate().after(lastLog.getDate())) {
+					lastLog = log;
+				}
+			}
+			return lastLog;
+		} else {
+			return null;
+		}
+	}
+
+	public int getRejectCountOfInvention(AbstractInvention invention) {
+		List<InvestigationLog> logs = investigationLogDao.fetchAll();
+		int count = 0;
+		for (InvestigationLog log : logs) {
+			if (!log.isAccepted()) {
+				count++;
+			}
+		}
+		return count;
 	}
 }

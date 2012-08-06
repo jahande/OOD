@@ -174,7 +174,7 @@ public class UserPage extends JFrame {
 	}
 
 	protected void invReportButton_actionPerformed(ActionEvent e) {
-		new InvReport().setVisible(true);
+		new InvReport(currentUser).setVisible(true);
 	}
 
 	protected void searchButton_actionPerformed(ActionEvent e) {

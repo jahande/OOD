@@ -2,6 +2,7 @@ package invregsystem.logic.invention;
 
 import interfaces.AbstractCompany;
 import interfaces.AbstractInvention;
+import invregsystem.logic.invention.operation.InvestigationLog;
 import invregsystem.logic.member.Company;
 
 import java.util.List;
@@ -241,5 +242,4 @@ public class Invention extends AbstractInvention {
 	public void setRealPossession(boolean realPossession) {
 		this.realPossession = realPossession;
 	}
-
 }

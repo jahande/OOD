@@ -111,20 +111,19 @@ public class ExpertInvApprove extends JFrame {
 	}
 
 	protected void button_actionPerformed(ActionEvent e) {
-		boolean check1 = checkBox1.isSelected();
-		boolean check2 = checkBox2.isSelected();
-		boolean check3 = checkBox3.isSelected();
-		boolean check4 = checkBox4.isSelected();
-		boolean check5 = checkBox5.isSelected();
+		boolean originalityApprove = checkBox1.isSelected();
+		boolean totalCompletenessApprove = checkBox2.isSelected();
+		boolean docCompletenessApprove = checkBox3.isSelected();
+		boolean claimApprove = checkBox4.isSelected();
+		boolean agentApprove = checkBox5.isSelected();
 
-		if (check1 && check2 && check3 && check4 && check5) {
+		if (originalityApprove && totalCompletenessApprove && docCompletenessApprove && claimApprove && agentApprove) {
 			invRegReq.acceptAndApplyRequest(currentUser);
 			JOptionPane.showMessageDialog(this, "درخواست ثبت اختراع با موفقیت ثبت شد.");
 		} else {
-			invRegReq.rejectRequest(currentUser);
+			invRegReq.rejectRequest(currentUser, originalityApprove, totalCompletenessApprove, docCompletenessApprove, claimApprove, agentApprove);
 			JOptionPane.showMessageDialog(this, "درخواست ثبت اختراع با موفقیت رد شد.");
 		}
 		this.setVisible(false);
 	}
-
 }

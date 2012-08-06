@@ -6,6 +6,7 @@ import invregsystem.logic.invention.InventionRegistrationRequest;
 import invregsystem.logic.member.User;
 
 import java.util.Date;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +23,7 @@ public class InvestigationLog extends BaseEntity<Integer> {
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "memberId")
+	@JoinColumn(name = "expertId")
 	private User expert;
 
 	@ManyToOne
@@ -32,19 +33,30 @@ public class InvestigationLog extends BaseEntity<Integer> {
 	@Column(name = "date")
 	private Date date;
 
-	@Column(name = "accepted")
-	private boolean accepted;
+	@Column(name = "originalityApprove")
+	private boolean originalityApprove;
+
+	@Column(name = "totalCompletenessApprove")
+	private boolean totalCompletenessApprove;
+
+	@Column(name = "docCompletenessApprove")
+	private boolean docCompletenessApprove;
+
+	@Column(name = "claimApprove")
+	private boolean claimApprove;
+
+	@Column(name = "agentApprove")
+	private boolean agentApprove;
 
 	public InvestigationLog() {
 
 	}
 
-	public InvestigationLog(AbstractUser expert, InventionRegistrationRequest request, boolean accepted) {
+	public InvestigationLog(AbstractUser expert, InventionRegistrationRequest request) {
 		super();
 		this.expert = (User) expert;
 		this.request = request;
 		this.date = new Date();
-		this.accepted = accepted;
 	}
 
 	public Integer getId() {
@@ -71,8 +83,13 @@ public class InvestigationLog extends BaseEntity<Integer> {
 		this.date = date;
 	}
 
-	public void setAccepted(boolean accepted) {
-		this.accepted = accepted;
+	public void setApprovals(boolean originalityApprove, boolean totalCompletenessApprove, boolean docCompletenessApprove, boolean claimApprove,
+			boolean agentApprove) {
+		this.originalityApprove = originalityApprove;
+		this.totalCompletenessApprove = totalCompletenessApprove;
+		this.docCompletenessApprove = docCompletenessApprove;
+		this.claimApprove = claimApprove;
+		this.agentApprove = agentApprove;
 	}
 
 	public InventionRegistrationRequest getRequest() {
@@ -84,7 +101,75 @@ public class InvestigationLog extends BaseEntity<Integer> {
 	}
 
 	public boolean isAccepted() {
-		return accepted;
+		return originalityApprove && totalCompletenessApprove && docCompletenessApprove && claimApprove && agentApprove;
+	}
+
+	public boolean isOriginalityApprove() {
+		return originalityApprove;
+	}
+
+	public void setOriginalityApprove(boolean originalityApprove) {
+		this.originalityApprove = originalityApprove;
+	}
+
+	public boolean isTotalCompletenessApprove() {
+		return totalCompletenessApprove;
+	}
+
+	public void setTotalCompletenessApprove(boolean totalCompletenessApprove) {
+		this.totalCompletenessApprove = totalCompletenessApprove;
+	}
+
+	public boolean isDocCompletenessApprove() {
+		return docCompletenessApprove;
+	}
+
+	public void setDocCompletenessApprove(boolean docCompletenessApprove) {
+		this.docCompletenessApprove = docCompletenessApprove;
+	}
+
+	public boolean isClaimApprove() {
+		return claimApprove;
+	}
+
+	public void setClaimApprove(boolean claimApprove) {
+		this.claimApprove = claimApprove;
+	}
+
+	public boolean isAgentApprove() {
+		return agentApprove;
+	}
+
+	public void setAgentApprove(boolean agentApprove) {
+		this.agentApprove = agentApprove;
+	}
+
+	public String getRejectReason() {
+		String reasons = "";
+		if (!originalityApprove) {
+			reasons += "اصالت و نوآوری اختراع";
+		}
+		if (!totalCompletenessApprove) {
+			if (!reasons.equals(""))
+				reasons += "، و ";
+			reasons += "تکمیل بودن مشخصات کلی اختراع";
+		}
+		if (!docCompletenessApprove) {
+			if (!reasons.equals(""))
+				reasons += "، و ";
+			reasons += "تکمیل بودن مستندات و کافی بودن شرح های اختراع";
+		}
+		if (!claimApprove) {
+			if (!reasons.equals(""))
+				reasons += "، و ";
+			reasons += "مفاد ادعا نامه از نظر انطباق کلی با مستندات و شرح داده شده";
+		}
+		if (!agentApprove) {
+			if (!reasons.equals(""))
+				reasons += "، و ";
+			reasons += "صحت انتساب نماینده به شرکت";
+		}
+		return "عدم کسب تأیید " + reasons;
 	}
 
 }
