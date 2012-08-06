@@ -334,15 +334,22 @@ public class Management extends JFrame {
 	}
 
 	protected void button_8_actionPerformed(ActionEvent e) {
-		new DeleteInventionField().setVisible(true);
+		DeleteInventionField dafs = new DeleteInventionField();
+		dafs.refreshData();
+		dafs.setVisible(true);
 	}
 
 	protected void button_9_actionPerformed(ActionEvent e) {
-		new ViewInventionFields().setVisible(true);
+		ViewInventionFields vif = new ViewInventionFields();
+		vif.refreshData();
+		vif.setVisible(true);
+		
 	}
 
 	protected void button_10_actionPerformed(ActionEvent e) {
-		new AcceptOrRejectAddNewFieldRequest().setVisible(true);
+		AcceptOrRejectAddNewFieldRequest acceptOrRejectAddNewFieldRequest =new AcceptOrRejectAddNewFieldRequest();
+		acceptOrRejectAddNewFieldRequest.refreshData();
+		acceptOrRejectAddNewFieldRequest.setVisible(true);
 	}
 
 	protected void button_11_actionPerformed(ActionEvent e) {

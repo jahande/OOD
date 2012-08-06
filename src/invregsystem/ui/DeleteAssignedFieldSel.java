@@ -1,9 +1,18 @@
 package invregsystem.ui;
 
+import invregsystem.logic.invention.InventionField;
+import invregsystem.logic.invention.InventionFieldCatalog;
+import invregsystem.ui.models.SimpleListModel;
+
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -16,12 +25,15 @@ import javax.swing.table.AbstractTableModel;
  * @usecase 37(1)
  */
 
+@Deprecated
 public class DeleteAssignedFieldSel extends SelectUser {
 
 	private final JPanel panel = new JPanel();
 	private final JLabel label_1 = new JLabel();
 	private final JLabel label_3 = new JLabel();
 	private final JLabel label_4 = new JLabel();
+	private JList list = null;
+	
 
 	class TableTableModel extends AbstractTableModel {
 		private final String[] COLUMNS = new String[] { "نام انوادگی", "نام", "نام کاربری" };
@@ -117,6 +129,46 @@ public class DeleteAssignedFieldSel extends SelectUser {
 		label_4.setHorizontalAlignment(SwingConstants.CENTER);
 		label_4.setForeground(Color.BLUE);
 		label_4.setText("انتخاب");
+	}
+
+	public void refreshData() {
+		// TODO Auto-generated method stub
+		
+		
+		
+		
+		
+		
+		List<InventionField> inventionFields = null;
+		try {
+			inventionFields = (List<InventionField>)(InventionFieldCatalog.getInstance().getAllItems());
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "خطای شماره ی ۱۰۳۳");
+			return;
+		}
+
+		// /////////////////////////
+		try {
+			if (this.list != null) {
+				getContentPane().remove(this.list);
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			// JOptionPane.showMessageDialog(this, "خطای شماره ی ۱۰۳۴");
+			// return;
+		}
+		ArrayList<String> invFields = new ArrayList<String>();
+		for (InventionField inventionField2 : inventionFields) {
+			invFields.add(inventionField2.getName());
+
+		}
+		list = new JList();//invFields.toArray());
+		
+		getContentPane().add(list);
+		list.setModel(new SimpleListModel(invFields));
+		list.setBounds(83, 75, 237, 244);
+
 	}
 
 }

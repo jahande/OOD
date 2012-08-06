@@ -21,6 +21,7 @@ import javax.swing.table.AbstractTableModel;
  * @author rj
  * @usecase 37(2)
  */
+@Deprecated
 public class DeleteAssignedFieldDel extends JFrame {
 
 	private final JLabel label = new JLabel();

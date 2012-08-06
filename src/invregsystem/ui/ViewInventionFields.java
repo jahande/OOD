@@ -1,6 +1,7 @@
 package invregsystem.ui;
 
 import invregsystem.logic.invention.InventionField;
+import invregsystem.logic.invention.InventionFieldCatalog;
 import invregsystem.ui.models.NeedRefreshData;
 import invregsystem.ui.models.SimpleListModel;
 
@@ -27,7 +28,7 @@ import javax.swing.SwingConstants;
  * @usecase 42
  */
 
-public class ViewInventionFields extends JFrame implements NeedRefreshData {
+public class ViewInventionFields extends JFrame  {
 
 	/**
 	 * 
@@ -101,11 +102,17 @@ public class ViewInventionFields extends JFrame implements NeedRefreshData {
 		}
 	}
 
-	public void refreshData(Object obj) {
+	public void refreshData() {
 		// TODO Auto-generated method stub
+		
+		
+		
+		
+		
+		
 		List<InventionField> inventionFields = null;
 		try {
-			inventionFields = (List<InventionField>) ((Object[]) obj)[0];
+			inventionFields = (List<InventionField>)(InventionFieldCatalog.getInstance().getAllItems());
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "خطای شماره ی ۱۰۳۳");
 			return;
@@ -127,7 +134,8 @@ public class ViewInventionFields extends JFrame implements NeedRefreshData {
 			invFields.add(inventionField2.getName());
 
 		}
-		list = new JList();
+		list = new JList();//invFields.toArray());
+		
 		getContentPane().add(list);
 		list.setModel(new SimpleListModel(invFields));
 		list.setBounds(83, 75, 237, 244);

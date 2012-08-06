@@ -31,7 +31,7 @@ import javax.swing.SwingConstants;
  * @usecase 42
  */
 
-public class DeleteInventionField extends JFrame implements NeedRefreshData {
+public class DeleteInventionField extends JFrame  {
 
 	/**
 	 * 
@@ -148,7 +148,7 @@ public class DeleteInventionField extends JFrame implements NeedRefreshData {
 			try {
 				catalog = InventionFieldCatalog.getInstance();
 				catalog.removeItem(inf);
-				this.refreshData(new Object[] { catalog.getAllItems() });
+				this.refreshData();
 			} catch (Exception e2) {
 				// TODO: handle exception
 				JOptionPane.showMessageDialog(this, "خطای شماره ی ۱۰۲۵");
@@ -157,12 +157,12 @@ public class DeleteInventionField extends JFrame implements NeedRefreshData {
 		}
 	}
 
-	public void refreshData(Object obj) {
+	public void refreshData() {
 		// TODO Auto-generated method stub
 		resetInventionFieldsPanel();
 		List<InventionField> inventionFields = null;
 		try {
-			inventionFields = (List<InventionField>) ((Object[]) obj)[0];
+			inventionFields = (List<InventionField>) (InventionFieldCatalog.getInstance().getAllItems());
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "خطای شماره ی ۱۰۲۱");
 			return;
