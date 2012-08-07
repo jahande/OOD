@@ -2,27 +2,22 @@ package invregsystem.ui;
 
 import invregsystem.logic.invention.InventionField;
 import invregsystem.logic.invention.InventionFieldCatalog;
-import invregsystem.ui.models.ListMouseAdapter;
-import invregsystem.ui.models.ListMouseListenner;
 import invregsystem.ui.models.NeedRefreshData;
-import invregsystem.ui.models.ParameterLabel;
 import invregsystem.ui.models.SimpleListModel;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 
@@ -33,35 +28,26 @@ import javax.swing.SwingConstants;
  * @usecase 42
  */
 
-public class DeleteInventionField extends SelectInventionFieldBase{
+public class ViewInventionFieldBase extends JFrame  {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -2571937414591360868L;
-	private JList list = new JList();
+	private static final long serialVersionUID = 5082707021067791884L;
+	private JList list = null;
 	private final JLabel label = new JLabel();
+	// private final JLabel label_1 = new JLabel();
+	// private final JLabel label_3 = new JLabel();
+	// private final JLabel label_4 = new JLabel();
+	// private final JLabel label_5 = new JLabel();
 	private final JButton button = new JButton();
-
-	/**
-	 * Launch the application
-	 * 
-	 * @param args
-	 */
-	public static void main(String args[]) {
-		try {
-			DeleteInventionField frame = new DeleteInventionField();
-			frame.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	protected List<InventionField> inventionFields;
 
 	/**
 	 * Create the frame
 	 */
-	public DeleteInventionField() {
-		super(Color.RED,"حذف");
+	public ViewInventionFieldBase() {
+		super();
 		setBounds(100, 100, 393, 410);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -69,13 +55,6 @@ public class DeleteInventionField extends SelectInventionFieldBase{
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-		try {
-			inventionFields = (List<InventionField>) (InventionFieldCatalog.getInstance().getAllItems());
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "خطای شماره ی ۱۰۲۱");
-			return;
-		}
-		//
 	}
 
 	private void jbInit() throws Exception {
@@ -87,8 +66,6 @@ public class DeleteInventionField extends SelectInventionFieldBase{
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setText("حوزه‌های اختراع:");
 		label.setBounds(80, 27, 240, 31);
-
-		resetInventionFieldsPanel();
 
 		getContentPane().add(button);
 		button.addActionListener(new ButtonActionListener());
@@ -120,44 +97,57 @@ public class DeleteInventionField extends SelectInventionFieldBase{
 		 */
 	}
 
-	
-
 	private class ButtonActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			button_actionPerformed(e);
 		}
 	}
 
+	public void refreshData() {
 
-	
-	
+		// /////////////////////////
+		try {
+			if (this.list != null) {
+				getContentPane().remove(this.list);
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			// JOptionPane.showMessageDialog(this, "خطای شماره ی ۱۰۳۴");
+			// return;
+		}
+		ArrayList<String> invFields = new ArrayList<String>();
+		for (InventionField inventionField2 : this.inventionFields) {
+			invFields.add(inventionField2.getName());
+
+		}
+		list = new JList();//invFields.toArray());
+		
+		getContentPane().add(list);
+		list.setModel(new SimpleListModel(invFields));
+		list.setBounds(83, 75, 237, 244);
+
+	}
+
+	// private JList resetInventionFieldsNamePanel(){
+	// try {
+	// getContentPane().remove(list);
+	//
+	// } catch (Exception e) {
+	// // TODO: handle exception
+	// }
+	// //ArrayList<String> invFields = new ArrayList<String>();
+	// /*invFields.add(inven);
+	// invFields.add("کامپیوتر");
+	// invFields.add("فیزیک");
+	// invFields.add("اقتصاد");*/
+	// list.setModel(new SimpleListModel(invFields));
+	// //list.setModel(null);
+	// list.setBounds(83, 75, 237, 244);
+	// }
 
 	protected void button_actionPerformed(ActionEvent e) {
 		this.setVisible(false);
 	}
-
-	@Override
-	protected void nextActionPerform(MouseEvent e, InventionField inf) {
-		// TODO Auto-generated method stub
-		JLabel mes = new JLabel("آیا شما به حذف حوزه‌ی اختراع مطمئن هستید؟ این عمل برگشت پذیر نیست!");
-		int n = JOptionPane.showOptionDialog(this, mes, "اخطار", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
-		// pane.set
-		if (n == JOptionPane.YES_OPTION) {
-			InventionFieldCatalog catalog = null;
-			try {
-				catalog = InventionFieldCatalog.getInstance();
-				catalog.removeItem(inf);
-				this.setVisible(false);
-				this.dispose();
-				//this.refreshData();
-			} catch (Exception e2) {
-				// TODO: handle exception
-				JOptionPane.showMessageDialog(this, "خطای شماره ی ۱۰۲۵");
-				return;
-			}
-		}
-		
-	}
-
 
 }

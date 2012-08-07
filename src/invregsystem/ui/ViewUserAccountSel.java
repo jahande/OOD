@@ -42,7 +42,6 @@ public class ViewUserAccountSel extends SelectUser {
 		}
 	}
 	private void jbInit() throws Exception {
-		System.currentTimeMillis();
 		setTitle("مشاهده‌ی حساب کاربری- انتخاب کاربر");
 	}
 

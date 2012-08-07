@@ -369,7 +369,9 @@ public class Management extends JFrame {
 	}
 
 	protected void button_5_actionPerformed(ActionEvent e) {
-		new ViewAssignmentedFieldsSel().setVisible(true);
+		ViewAssignmentedFieldsSel v =new ViewAssignmentedFieldsSel();
+		v.refreshData();
+		v.setVisible(true);
 	}
 
 	protected void button_13_actionPerformed(ActionEvent e) {
