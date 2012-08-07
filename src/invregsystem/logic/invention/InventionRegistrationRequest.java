@@ -119,4 +119,14 @@ public class InventionRegistrationRequest extends Request {
 	public void setSendDate(Date sendDate) {
 		this.sendDate = sendDate;
 	}
+
+	public Date getAcceptDate() {
+		InvestigationLogCatalog investigationLogCatalog = InvestigationLogCatalog.getInstance();
+		InvestigationLog log = investigationLogCatalog.getLastInvestigationLogOfInvRegReq(this);
+		if (log != null && log.isAccepted()) {
+			return log.getDate();
+		} else {
+			return null;
+		}
+	}
 }

@@ -1,31 +1,92 @@
 package invregsystem.ui;
 
+import invregsystem.logic.invention.Invention;
+import invregsystem.logic.invention.InventionCatalog;
+import invregsystem.logic.invention.InventionRegistrationRequest;
+import invregsystem.logic.invention.InventionRegistrationRequestCatalog;
+import invregsystem.logic.invention.operation.InvestigationLogCatalog;
+import invregsystem.ui.InvReport.TableTableModel;
+
 import java.awt.ComponentOrientation;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+
+import sun.misc.Compare;
+import sun.misc.Sort;
+import utilities.StringUtilities;
 
 public class InvList extends JFrame {
 
 	private final JLabel label = new JLabel();
 	private final JComboBox comboBox = new JComboBox();
 
-	private String[] COLUMNS = new String[] { "عنوان اختراع", "مخترعان",
-			"تعداد مخترعان", "تاریخ ثبت", "قیمت", };
-	private String[][] CELLS = new String[][] {
-			{ "آپولو", "حسین فرقانی", "1", "1390/8/23", "50000000" },
-			{ "تایر بدون عاج", "حسین فرقانی, روح الله جهنده", "2",
-					"1390/12/27", "5000000" },
-			{ "تخته نئوپان محکم", "مراد قفقازی", "1", "1391/2/12", "10000000" }, };
 	private final JScrollPane scrollPane_1 = new JScrollPane();
-	private final JTable table_1 = new JTable(new DefaultTableModel(CELLS,
-			COLUMNS));
+	private final JTable table_1 = new JTable();
+	private InventionCatalog inventionCatalog;
+	private List<InventionRegistrationRequest> requests;
+
+	class TableModel extends AbstractTableModel {
+		private final String[] COLUMNS = new String[] { "عنوان اختراع", "مخترعان", "تعداد مخترعان", "تاریخ ثبت", "قیمت", };
+		private List<InventionRegistrationRequest> requests;
+
+		public TableModel(List<InventionRegistrationRequest> requests) {
+			this.requests = requests;
+		}
+
+		public int getRowCount() {
+			return requests.size();
+		}
+
+		public int getColumnCount() {
+			return COLUMNS.length;
+		}
+
+		public String getColumnName(int column) {
+			return COLUMNS[column];
+		}
+
+		public Object getValueAt(int row, int column) {
+			InvestigationLogCatalog investigationLogCatalog = InvestigationLogCatalog.getInstance();
+			String colName = COLUMNS[column];
+			InventionRegistrationRequest request = null;
+			try {
+				request = requests.get(row);
+			} catch (IndexOutOfBoundsException e) {
+				return "Error";
+			}
+			if (colName.equals("عنوان اختراع")) {
+				return request.getInvention().getTitle();
+			} else if (colName.equals("مخترعان")) {
+				return StringUtilities.getCommaSeparated(inventionCatalog.getInventorNames(request.getInvention()));
+			} else if (colName.equals("تعداد مخترعان")) {
+				return inventionCatalog.getInventorsByInvention(request.getInvention()).size();
+			} else if (colName.equals("تاریخ ثبت")) {
+				Date acceptDate = request.getAcceptDate();
+				if (acceptDate != null) {
+					return request.getAcceptDate();
+				} else {
+					return "---";
+				}
+			} else if (colName.equals("قیمت")) {
+				return request.getInvention().getPrice();
+			} else {
+				return "Error";
+			}
+		}
+	}
 
 	/**
 	 * Launch the application
@@ -46,6 +107,10 @@ public class InvList extends JFrame {
 	 */
 	public InvList() {
 		super();
+		inventionCatalog = InventionCatalog.getInstance();
+		InventionRegistrationRequestCatalog invRegReqCatalog = InventionRegistrationRequestCatalog.getInstance();
+		requests = (List<InventionRegistrationRequest>) invRegReqCatalog.getAllItems();
+
 		setBounds(100, 100, 440, 193);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -65,6 +130,7 @@ public class InvList extends JFrame {
 
 		scrollPane_1.setViewportView(table_1);
 		table_1.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		table_1.setModel(new TableModel(requests));
 
 		getContentPane().add(label);
 		label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
@@ -73,8 +139,7 @@ public class InvList extends JFrame {
 
 		getContentPane().add(comboBox);
 		comboBox.addItemListener(new ComboBoxItemListener());
-		comboBox.setModel(new DefaultComboBoxModel(new String[] { "---",
-				"تعداد مخترعان", "قیمت اختراع", "تاریخ ثبت" }));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { "---", "تعداد مخترعان", "قیمت اختراع", "تاریخ ثبت" }));
 		comboBox.setBounds(116, 10, 118, 25);
 	}
 
@@ -88,40 +153,63 @@ public class InvList extends JFrame {
 		if (e.getStateChange() == 1) {
 			String selected = comboBox.getSelectedItem().toString();
 			if (!selected.equals("---")) {
-				String[][] cells = new String[0][0];
-				if (selected.equals("تعداد مخترعان")) {
-					cells = new String[][] {
-							{ "آپولو", "حسین فرقانی", "1", "1390/8/23",
-									"50000000" },
-							{ "تخته نئوپان محکم", "مراد قفقازی", "1",
-									"1391/2/12", "10000000" },
-							{ "تایر بدون عاج", "حسین فرقانی, روح الله جهنده",
-									"2", "1390/12/27", "5000000" }, };
-				} else if (selected.equals("قیمت اختراع")) {
-					cells = new String[][] {
-							{ "تایر بدون عاج", "حسین فرقانی, روح الله جهنده",
-									"2", "1390/12/27", "5000000" },
-							{ "تخته نئوپان محکم", "مراد قفقازی", "1",
-									"1391/2/12", "10000000" },
-							{ "آپولو", "حسین فرقانی", "1", "1390/8/23",
-									"50000000" }, };
-				} else if (selected.equals("تاریخ ثبت")) {
-					cells = new String[][] {
-							{ "آپولو", "حسین فرقانی", "1", "1390/8/23",
-									"50000000" },
-							{ "تایر بدون عاج", "حسین فرقانی, روح الله جهنده",
-									"2", "1390/12/27", "5000000" },
-							{ "تخته نئوپان محکم", "مراد قفقازی", "1",
-									"1391/2/12", "10000000" }, };
-				}
-
-				for (int row = 0; row < cells.length; row++) {
-					for (int col = 0; col < cells[row].length; col++) {
-						table_1.getModel()
-								.setValueAt(cells[row][col], row, col);
-					}
-				}
+				InventionRegistrationRequest[] sortedArray = getArray(requests);
+				Sort.quicksort(sortedArray, new InvRegReqCompare(selected));
+				table_1.setModel(new TableModel(Arrays.asList(sortedArray)));
+			} else {
+				table_1.setModel(new TableModel(requests));
 			}
 		}
+	}
+
+	private class InvRegReqCompare implements Compare {
+		private String sortParameter;
+
+		public InvRegReqCompare(String sortParameter) {
+			this.sortParameter = sortParameter;
+		}
+
+		@Override
+		public int doCompare(Object arg0, Object arg1) {
+			if (sortParameter.equals("تعداد مخترعان")) {
+				int count0 = inventionCatalog.getInventorsByInvention(((InventionRegistrationRequest) arg0).getInvention()).size();
+				int count1 = inventionCatalog.getInventorsByInvention(((InventionRegistrationRequest) arg1).getInvention()).size();
+				if (count0 < count1)
+					return -1;
+				else if (count0 > count1)
+					return 1;
+				else
+					return 0;
+			} else if (sortParameter.equals("تاریخ ثبت")) {
+				Date date0 = ((InventionRegistrationRequest) arg0).getAcceptDate();
+				Date date1 = ((InventionRegistrationRequest) arg1).getAcceptDate();
+				if ((date0 == null && date1 == null) || date0.equals(date1))
+					return 0;
+				else if ((date0 == null && date1 != null) || date0.after(date1))
+					return 1;
+				else
+					return -1;
+			} else if (sortParameter.equals("قیمت")) {
+				long price0 = ((InventionRegistrationRequest) arg0).getInvention().getPrice();
+				long price1 = ((InventionRegistrationRequest) arg1).getInvention().getPrice();
+				if (price0 < price1) {
+					return -1;
+				} else if (price0 > price1) {
+					return 1;
+				} else {
+					return 0;
+				}
+			} else {
+				return 0;
+			}
+		}
+	}
+
+	private InventionRegistrationRequest[] getArray(List<InventionRegistrationRequest> requests) {
+		InventionRegistrationRequest[] array = new InventionRegistrationRequest[requests.size()];
+		for (int i = 0; i < requests.size(); i++) {
+			array[i] = requests.get(i);
+		}
+		return array;
 	}
 }

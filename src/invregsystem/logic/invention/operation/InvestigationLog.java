@@ -169,7 +169,11 @@ public class InvestigationLog extends BaseEntity<Integer> {
 				reasons += "، و ";
 			reasons += "صحت انتساب نماینده به شرکت";
 		}
-		return "عدم کسب تأیید " + reasons;
+		if (!reasons.equals("")) {
+			return "عدم کسب تأیید " + reasons;
+		} else {
+			return "";
+		}
 	}
 
 }

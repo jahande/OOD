@@ -42,8 +42,8 @@ public class InvestigationLogCatalog implements Catalog {
 		return investigationLogDao.findByParameter("request", request);
 	}
 
-	public InvestigationLog getLastInvestigationLogOfInvention(AbstractInvention invention) {
-		List<InvestigationLog> logs = investigationLogDao.fetchAll();
+	public InvestigationLog getLastInvestigationLogOfInvRegReq(InventionRegistrationRequest request) {
+		List<InvestigationLog> logs = investigationLogDao.findByParameter("request", request);
 		if (!logs.isEmpty()) {
 			InvestigationLog lastLog = logs.get(logs.size() - 1);
 			for (InvestigationLog log : logs) {
@@ -57,8 +57,8 @@ public class InvestigationLogCatalog implements Catalog {
 		}
 	}
 
-	public int getRejectCountOfInvention(AbstractInvention invention) {
-		List<InvestigationLog> logs = investigationLogDao.fetchAll();
+	public int getRejectCountOfInvRegReq(InventionRegistrationRequest request) {
+		List<InvestigationLog> logs = investigationLogDao.findByParameter("request", request);
 		int count = 0;
 		for (InvestigationLog log : logs) {
 			if (!log.isAccepted()) {

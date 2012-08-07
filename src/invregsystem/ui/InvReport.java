@@ -3,6 +3,7 @@ package invregsystem.ui;
 import interfaces.AbstractUser;
 import invregsystem.logic.invention.InventionRegistrationRequest;
 import invregsystem.logic.invention.InventionRegistrationRequestCatalog;
+import invregsystem.logic.invention.operation.InvestigationLog;
 import invregsystem.logic.invention.operation.InvestigationLogCatalog;
 
 import java.awt.Component;
@@ -55,13 +56,22 @@ public class InvReport extends JFrame {
 			if (colName.equals("عنوان اختراع")) {
 				return request.getInvention().getTitle();
 			} else if (colName.equals("حوزه اختراع")) {
-				return request.getInvention().getInventionField().getName();
+				if (request.getInvention().getInventionField() != null) {
+					return request.getInvention().getInventionField().getName();
+				} else {
+					return "---";
+				}
 			} else if (colName.equals("وضعیت ثبت")) {
 				return request.getStateName();
 			} else if (colName.equals("تعداد دفعات رد شدن")) {
-				return investigationLogCatalog.getRejectCountOfInvention(request.getInvention());
+				return investigationLogCatalog.getRejectCountOfInvRegReq(request);
 			} else if (colName.equals("علت رد شدن")) {
-				return investigationLogCatalog.getLastInvestigationLogOfInvention(request.getInvention()).getRejectReason();
+				InvestigationLog lastLog = investigationLogCatalog.getLastInvestigationLogOfInvRegReq(request);
+				if (lastLog != null) {
+					return investigationLogCatalog.getLastInvestigationLogOfInvRegReq(request).getRejectReason();
+				} else {
+					return "";
+				}
 			} else {
 				return "Error";
 			}
@@ -155,20 +165,6 @@ public class InvReport extends JFrame {
 			table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 			TableColumn col = table.getColumnModel().getColumn(table.getColumnCount() - 1);
 			col.setPreferredWidth(400);
-		}
-	}
-
-	private void updateRowHeights(JTable table) {
-		try {
-			for (int row = 0; row < table.getRowCount(); row++) {
-				int rowHeight = table.getRowHeight();
-				for (int column = 0; column < table.getColumnCount(); column++) {
-					Component comp = table.prepareRenderer(table.getCellRenderer(row, column), row, column);
-					rowHeight = Math.max(rowHeight, comp.getPreferredSize().height);
-				}
-				table.setRowHeight(row, rowHeight);
-			}
-		} catch (ClassCastException e) {
 		}
 	}
 
