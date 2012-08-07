@@ -103,6 +103,9 @@ public class Login extends JFrame {
 	}
 
 	public AbstractMember authenticate(String un, String pa) {
+		for (Object user1 : userCatalog.getAllItems() ) {
+			System.out.println( ((AbstractUser)(user1)).getPassword());
+		}
 		AbstractUser user = userCatalog.getUserByUsername(un);
 		if (user != null) {
 			if (user.getPassword().equals(pa)) {

@@ -1,5 +1,6 @@
 package invregsystem.logic;
 
-public abstract class RequestCatalog implements Catalog {
+import java.util.List;
 
+public abstract class RequestCatalog implements Catalog {
 }
