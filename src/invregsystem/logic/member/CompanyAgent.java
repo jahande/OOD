@@ -22,7 +22,7 @@ public class CompanyAgent extends BaseEntity<Integer> {
 	private Company company;
 
 	@ManyToOne
-	@JoinColumn(name = "memberId")
+	@JoinColumn(name = "agentId")
 	private User agent;
 
 	public CompanyAgent() {

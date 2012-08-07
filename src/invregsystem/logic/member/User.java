@@ -45,11 +45,11 @@ public class User extends AbstractUser {
 	private boolean expert;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "expertinventionfield", joinColumns = { @JoinColumn(name = "memberId") }, inverseJoinColumns = { @JoinColumn(name = "inventionFieldId") })
+	@JoinTable(name = "expertinventionfield", joinColumns = { @JoinColumn(name = "expertId") }, inverseJoinColumns = { @JoinColumn(name = "inventionFieldId") })
 	private Set<InventionField> inventionFields;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "companyagent", joinColumns = { @JoinColumn(name = "memberId") }, inverseJoinColumns = { @JoinColumn(name = "companyId") })
+	@JoinTable(name = "companyagent", joinColumns = { @JoinColumn(name = "agentId") }, inverseJoinColumns = { @JoinColumn(name = "companyId") })
 	private Set<Company> companies;
 
 	public User() {

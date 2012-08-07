@@ -1,11 +1,14 @@
 package invregsystem.logic.invention.operation;
 
 import interfaces.AbstractInvention;
+import interfaces.AbstractUser;
 import invregsystem.db.InvestigationLogDao;
 import invregsystem.logic.Catalog;
 import invregsystem.logic.invention.InventionRegistrationRequest;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InvestigationLogCatalog implements Catalog {
 	private static InvestigationLogCatalog instance;
@@ -59,6 +62,20 @@ public class InvestigationLogCatalog implements Catalog {
 
 	public int getRejectCountOfInvRegReq(InventionRegistrationRequest request) {
 		List<InvestigationLog> logs = investigationLogDao.findByParameter("request", request);
+		int count = 0;
+		for (InvestigationLog log : logs) {
+			if (!log.isAccepted()) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+	public int getRejectCountOfInvRegReqByExpert(InventionRegistrationRequest request, AbstractUser expert) {
+		Map<String, Object> parametersMap = new HashMap<String, Object>();
+		parametersMap.put("request", request);
+		parametersMap.put("expert", expert);
+		List<InvestigationLog> logs = investigationLogDao.findByParametersMap(parametersMap);
 		int count = 0;
 		for (InvestigationLog log : logs) {
 			if (!log.isAccepted()) {

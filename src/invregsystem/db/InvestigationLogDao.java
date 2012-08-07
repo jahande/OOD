@@ -3,6 +3,7 @@ package invregsystem.db;
 import invregsystem.logic.invention.operation.InvestigationLog;
 
 import java.util.List;
+import java.util.Map;
 
 
 public class InvestigationLogDao extends BaseDao<InvestigationLog, Integer> {
@@ -24,6 +25,10 @@ public class InvestigationLogDao extends BaseDao<InvestigationLog, Integer> {
 
 	public List<InvestigationLog> findByParameter(String parameter, Object value) {
 		return super.findByParameter(InvestigationLog.class, parameter, value);
+	}
+
+	public List<InvestigationLog> findByParametersMap(Map<String, Object> parametersMap) {
+		return super.findByParametersMap(InvestigationLog.class, parametersMap);
 	}
 
 	public List<InvestigationLog> fetchAll() {

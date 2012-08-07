@@ -17,6 +17,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
@@ -35,7 +36,8 @@ public class ExpertInvRegReqList extends JFrame {
 	private class JTableModel extends AbstractTableModel {
 		private static final long serialVersionUID = 1L;
 		private final String[] COLUMN_NAMES = new String[] { "مشاهده", "وضعیت", "حوزه اختراع", "تاریخ ارسال", "شرکت", "مخترعان", "عنوان اختراع" };
-		private final Class<?>[] COLUMN_TYPES = new Class<?>[] { JButton.class, String.class, String.class, String.class, String.class, String.class, String.class };
+		private final Class<?>[] COLUMN_TYPES = new Class<?>[] { JButton.class, String.class, String.class, String.class, String.class, String.class,
+				String.class };
 		private List<InventionRegistrationRequest> requests;
 
 		public JTableModel(List<InventionRegistrationRequest> requests) {
@@ -156,7 +158,11 @@ public class ExpertInvRegReqList extends JFrame {
 	}
 
 	protected void displayButton_actionPerformed(ActionEvent e, InventionRegistrationRequest request) {
-		new ExpertInvRegReq(currentUser, request).setVisible(true);
+		if (request.getAssignedExpert().equals(currentUser)) {
+			new ExpertInvRegReq(currentUser, request).setVisible(true);
+		} else {
+			JOptionPane.showMessageDialog(this, "شما دیگر کارشناس این اختراع نیستید.", "خطا", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 }

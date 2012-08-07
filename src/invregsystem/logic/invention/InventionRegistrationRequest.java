@@ -67,19 +67,27 @@ public class InventionRegistrationRequest extends Request {
 		InvestigationLog log = new InvestigationLog(expert, this);
 		log.setApprovals(originalityApprove, totalCompletenessApprove, docCompletenessApprove, claimApprove, agentApprove);
 		investigationLogCatalog.addItem(log);
+
+		if (investigationLogCatalog.getRejectCountOfInvRegReqByExpert(this, expert) >= 3) {
+			System.out.println("more than 3 times rejected.");
+			this.referToAnotherExpert(expert);
+		}
 	}
 
 	public AbstractUser assignExpertToCheck(InventionField field) {
 		UserCatalog userCatalog = UserCatalog.getInstance();
 		List<User> experts = userCatalog.getExpertsByField(field);
+		User expert;
 		if (experts.size() > 0) {
 			Random r = new Random();
-			User expert = experts.get(r.nextInt(experts.size()));
+			expert = experts.get(r.nextInt(experts.size()));
 			this.assignedExpert = expert;
-			return expert;
 		} else {
-			return null;
+			expert = null;
 		}
+		InventionRegistrationRequestCatalog invRegReqCatalog = InventionRegistrationRequestCatalog.getInstance();
+		invRegReqCatalog.updateItem(this);
+		return expert;
 	}
 
 	public boolean isHasAssignedExpert() {
@@ -94,8 +102,19 @@ public class InventionRegistrationRequest extends Request {
 		this.invention = invention;
 	}
 
-	public void referToAnotherExpert() {
-		// TODO
+	public void referToAnotherExpert(AbstractUser currentExpert) {
+		UserCatalog userCatalog = UserCatalog.getInstance();
+		List<User> experts = userCatalog.getExpertsByField(this.getInvention().getInventionField());
+		if (experts.size() > 1) {
+			User expert = null;
+			do {
+				Random r = new Random();
+				expert = experts.get(r.nextInt(experts.size()));
+			} while (currentExpert.equals(expert));
+			this.assignedExpert = expert;
+		}
+		InventionRegistrationRequestCatalog invRegReqCatalog = InventionRegistrationRequestCatalog.getInstance();
+		invRegReqCatalog.updateItem(this);
 	}
 
 	public List<InvestigationLog> getInvestigationHistory() {

@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -241,11 +242,19 @@ public class ExpertInvRegReq extends JFrame {
 	}
 
 	protected void approveHistoryButton_actionPerformed(ActionEvent e) {
-		new ApproveRejectHistory(selectedInvRegReq).setVisible(true);
+		if (selectedInvRegReq.getAssignedExpert().equals(currentUser)) {
+			new ApproveRejectHistory(selectedInvRegReq).setVisible(true);
+		} else {
+			JOptionPane.showMessageDialog(this, "شما دیگر کارشناس این اختراع نیستید.", "خطا", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	protected void approveButton_actionPerformed(ActionEvent e) {
-		new ExpertInvApprove(currentUser, selectedInvRegReq).setVisible(true);
+		if (selectedInvRegReq.getAssignedExpert().equals(currentUser)) {
+			new ExpertInvApprove(currentUser, selectedInvRegReq).setVisible(true);
+		} else {
+			JOptionPane.showMessageDialog(this, "شما دیگر کارشناس این اختراع نیستید.", "خطا", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 }

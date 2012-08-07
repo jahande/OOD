@@ -226,14 +226,14 @@ public class SendInvRegReq extends JFrame {
 			}
 			invRegReq.getInvention().setRealPossession(false);
 		}
-		invRegReq.setSendDate(new Date());
-		invRegReq.setState(InventionRegistrationRequest.NOT_INVESTIGATED);
 		AbstractUser expert = invRegReq.assignExpertToCheck(field);
 		if (expert == null) {
 			JOptionPane.showMessageDialog(this, "در حوزه اختراع تعیین شده هیچ کارشناسی وجود ندارد. با مدیر سامانه تماس بگیرید.", "خطا",
 					JOptionPane.ERROR_MESSAGE);
 			return;
 		}
+		invRegReq.setSendDate(new Date());
+		invRegReq.setState(InventionRegistrationRequest.NOT_INVESTIGATED);
 		InventionRegistrationRequestCatalog invRegReqCatalog = InventionRegistrationRequestCatalog.getInstance();
 		invRegReqCatalog.updateItem(invRegReq);
 
