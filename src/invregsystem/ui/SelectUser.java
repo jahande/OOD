@@ -188,7 +188,10 @@ public abstract class SelectUser extends JFrame  implements NeedRefreshData,List
 		return p;
 	}
 
-	protected abstract void returnActionPerform(ActionEvent e) ;
+	protected  void returnActionPerform(ActionEvent e) {
+		this.setVisible(false);
+		this.dispose();
+	}
 	protected abstract void nextActionPerform(MouseEvent e, AbstractUser user) ;
 	
 }

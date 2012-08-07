@@ -8,7 +8,9 @@ import invregsystem.logic.member.ExpertInventionField;
 import invregsystem.logic.member.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InventionFieldCatalog implements Catalog {
 	private static InventionFieldCatalog instance;
@@ -45,7 +47,8 @@ public class InventionFieldCatalog implements Catalog {
 	}
 
 	public InventionField getInventionFieldByName(String name) {
-		List<InventionField> result = inventionFieldDao.findByParameter("name", name);
+		List<InventionField> result = inventionFieldDao.findByParameter("name",
+				name);
 		if (!result.isEmpty()) {
 			return result.get(0);
 		} else {
@@ -54,7 +57,8 @@ public class InventionFieldCatalog implements Catalog {
 	}
 
 	public List<InventionField> getInventionFieldsOfExpert(AbstractUser expert) {
-		List<ExpertInventionField> expertInventionFields = expertInventionFieldDao.findByParameter("expert", expert);
+		List<ExpertInventionField> expertInventionFields = expertInventionFieldDao
+				.findByParameter("expert", expert);
 		List<InventionField> fields = new ArrayList<InventionField>();
 		for (ExpertInventionField expInvField : expertInventionFields) {
 			fields.add(expInvField.getInventionField());
@@ -62,7 +66,18 @@ public class InventionFieldCatalog implements Catalog {
 		return fields;
 	}
 
-	public void addInventionFieldToExpert(AbstractUser expert, InventionField field) {
-		expertInventionFieldDao.save(new ExpertInventionField((User) expert, field));
+	public void addInventionFieldToExpert(AbstractUser expert,
+			InventionField field) {
+		expertInventionFieldDao.save(new ExpertInventionField((User) expert,
+				field));
+	}
+
+	public void removeInventionFieldFromExpert(AbstractUser expert,
+			InventionField field) {
+		Map<String, Object> parametersMap = new HashMap<String, Object>();
+		parametersMap.put("expert", expert);
+		parametersMap.put("inventionField", field);
+		expertInventionFieldDao.delete(expertInventionFieldDao
+				.findByParametersMap(parametersMap).get(0));
 	}
 }

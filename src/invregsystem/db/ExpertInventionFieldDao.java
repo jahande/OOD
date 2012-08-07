@@ -1,8 +1,10 @@
 package invregsystem.db;
 
+import invregsystem.logic.invention.InventionField;
 import invregsystem.logic.member.ExpertInventionField;
 
 import java.util.List;
+import java.util.Map;
 
 
 public class ExpertInventionFieldDao extends BaseDao<ExpertInventionField, Integer> {
@@ -24,6 +26,10 @@ public class ExpertInventionFieldDao extends BaseDao<ExpertInventionField, Integ
 
 	public List<ExpertInventionField> findByParameter(String parameter, Object value) {
 		return super.findByParameter(ExpertInventionField.class, parameter, value);
+	}
+
+	public List<ExpertInventionField> findByParametersMap(Map<String, Object> parametersMap) {
+		return super.findByParametersMap(ExpertInventionField.class, parametersMap);
 	}
 
 	public List<ExpertInventionField> fetchAll() {
