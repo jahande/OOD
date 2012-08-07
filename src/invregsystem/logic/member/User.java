@@ -180,5 +180,8 @@ public class User extends AbstractUser {
 		// TODO Auto-generated method stub
 
 	}
+	public String toString() {
+		return this.getFullName();
+	}
 
 }

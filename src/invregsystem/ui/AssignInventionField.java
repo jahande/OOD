@@ -1,5 +1,11 @@
 package invregsystem.ui;
 
+import interfaces.AbstractInvention;
+import interfaces.AbstractUser;
+import invregsystem.logic.invention.InventionField;
+import invregsystem.logic.invention.InventionFieldCatalog;
+import invregsystem.logic.member.UserCatalog;
+
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,8 +29,11 @@ import javax.swing.SwingConstants;
 
 public class AssignInventionField extends JFrame {
 
-	private final JComboBox comboBox = new JComboBox();
-	private final JComboBox comboBox_1 = new JComboBox();
+//	private final JComboBox<String> users = new JComboBox<String>();
+//	private final JComboBox<String> inventionFields = new JComboBox<String>();
+	private final JComboBox<AbstractUser> users = new JComboBox<AbstractUser>();
+	private final JComboBox<InventionField> inventionFields = new JComboBox<InventionField>();
+	
 	private final JButton button = new JButton();
 	private final JLabel label = new JLabel();
 	private final JLabel label_1 = new JLabel();
@@ -53,19 +62,20 @@ public class AssignInventionField extends JFrame {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+		refreshData();
 		//
 	}
 	private void jbInit() throws Exception {
 		getContentPane().setLayout(null);
 		setTitle("اختصاص حوزه‌ی کارشناسی ");
 		
-		getContentPane().add(comboBox);
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"احسان کارشناس زاده", "احسان کارشناس پور"}));
-		comboBox.setBounds(89, 102, 132, 31);
+		getContentPane().add(users);
+		//comboBox.setModel(new DefaultComboBoxModel(new String[] {"احسان کارشناس زاده", "احسان کارشناس پور"}));
+		users.setBounds(89, 102, 132, 31);
 		
-		getContentPane().add(comboBox_1);
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"ریاضی", "کامپیوتر", "نجوم", "فیزیک"}));
-		comboBox_1.setBounds(268, 101, 142, 31);
+		getContentPane().add(inventionFields);
+		//comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"ریاضی", "کامپیوتر", "نجوم", "فیزیک"}));
+		inventionFields.setBounds(268, 101, 142, 31);
 		
 		getContentPane().add(button);
 		button.addActionListener(new ButtonActionListener());
@@ -111,8 +121,41 @@ public class AssignInventionField extends JFrame {
 		}
 	}
 	protected void button_actionPerformed(ActionEvent e) {
+		AbstractUser u = (AbstractUser)this.users.getSelectedItem();
+		InventionField i = (InventionField)this.inventionFields.getSelectedItem();
+		for (InventionField inv : u.getInventionFields()) {
+			
+		}
 		if(Math.random()<0.5)
 		JOptionPane.showMessageDialog(this, "کارشناس قبلا در این حوزه کارشناسی می‌کرده.");
 	}
-	
+	protected void refreshData() {
+		int invFieldsSize= InventionFieldCatalog.getInstance().getAllItems().size();
+		String[] invFields  = new String[invFieldsSize];
+		int i = 0;
+		for (Object obj : InventionFieldCatalog.getInstance().getAllItems()) {
+			InventionField invention = (InventionField)obj;
+			invFields[i] = invention.getName();
+			i++;
+		}
+		////////////////////////////////////
+		int userSize= UserCatalog.getInstance().getAllItems().size();
+		String[] userFullNames  = new String[userSize];
+		int j = 0;
+		for (Object obj : UserCatalog.getInstance().getAllItems()) {
+			AbstractUser user = (AbstractUser)obj;
+			userFullNames[j] = user.getFullName();
+			j++;
+		}
+		//////////////////////////////////////
+		
+		//inventionFields.setModel(new DefaultComboBoxModel<String>(invFields));
+		//users.setModel(new DefaultComboBoxModel<String>(userFullNames));
+		
+		inventionFields.setModel(new DefaultComboBoxModel<InventionField>(InventionFieldCatalog.getInstance().getAllItems().toArray(new InventionField[InventionFieldCatalog.getInstance().getAllItems().size()])));
+		users.setModel(new DefaultComboBoxModel<AbstractUser>(UserCatalog.getInstance().getAllItems().toArray(new AbstractUser[UserCatalog.getInstance().getAllItems().size()])));
+		
+		
+		
+	}
 }

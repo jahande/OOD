@@ -41,4 +41,11 @@ public class InventionField extends BaseEntity<Integer> {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String toString() {
+		return this.getName();
+	}
+	@Override
+	public boolean equals(Object obj){
+		return this.getName().equals(((InventionField)obj).getName());
+	}
 }
