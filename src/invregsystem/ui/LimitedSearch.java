@@ -1,8 +1,19 @@
 package invregsystem.ui;
 
+import interfaces.AbstractInvention;
+import invregsystem.logic.invention.InventionCatalog;
+import invregsystem.logic.invention.InventionRegistrationRequest;
+import invregsystem.logic.invention.InventionRegistrationRequestCatalog;
+import invregsystem.logic.invention.operation.InvestigationLogCatalog;
+
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,7 +22,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+
+import utilities.StringUtilities;
 
 public class LimitedSearch extends JFrame {
 
@@ -32,9 +46,63 @@ public class LimitedSearch extends JFrame {
 	private final JPanel panel = new JPanel();
 	private final JButton searchButton = new JButton();
 
-	private String[] COLUMNS = new String[] { "عنوان اختراع", "مخترعان", "تعداد مخترعان", "تاریخ ثبت", "قیمت", };
 	private final JScrollPane scrollPane_1 = new JScrollPane();
-	private JTable table = new JTable(new DefaultTableModel(new String[0][0], COLUMNS));
+	private final JTable table = new JTable();
+	private InventionCatalog inventionCatalog;
+
+	class TableModel extends AbstractTableModel {
+		private final String[] COLUMNS = new String[] { "عنوان اختراع", "مخترعان", "شرکت", "تاریخ ثبت", "قیمت", };
+		private List<AbstractInvention> inventions;
+
+		public TableModel(List<AbstractInvention> inventions) {
+			this.inventions = inventions;
+		}
+
+		public int getRowCount() {
+			return inventions.size();
+		}
+
+		public int getColumnCount() {
+			return COLUMNS.length;
+		}
+
+		public String getColumnName(int column) {
+			return COLUMNS[column];
+		}
+
+		public Object getValueAt(int row, int column) {
+			InvestigationLogCatalog investigationLogCatalog = InvestigationLogCatalog.getInstance();
+			String colName = COLUMNS[column];
+			AbstractInvention invention = null;
+			try {
+				invention = inventions.get(row);
+			} catch (IndexOutOfBoundsException e) {
+				return "Error";
+			}
+			if (colName.equals("عنوان اختراع")) {
+				return invention.getTitle();
+			} else if (colName.equals("مخترعان")) {
+				return StringUtilities.getCommaSeparated(inventionCatalog.getInventorNames(invention));
+			} else if (colName.equals("شرکت")) {
+				if (invention.getCompany() != null) {
+					return invention.getCompany().getName();
+				} else {
+					return "---";
+				}
+			} else if (colName.equals("تاریخ ثبت")) {
+				Date acceptDate = invention.getInventionRegistrationRequest().getAcceptDate();
+				if (acceptDate != null) {
+					return invention.getInventionRegistrationRequest().getAcceptDate();
+				} else {
+					return "---";
+				}
+			} else if (colName.equals("قیمت")) {
+				return invention.getPrice();
+			} else {
+				return "Error";
+			}
+		}
+	}
 
 	/**
 	 * Launch the application
@@ -55,6 +123,8 @@ public class LimitedSearch extends JFrame {
 	 */
 	public LimitedSearch() {
 		super();
+		inventionCatalog = InventionCatalog.getInstance();
+
 		setBounds(100, 100, 420, 336);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -156,13 +226,43 @@ public class LimitedSearch extends JFrame {
 	}
 
 	protected void searchButton_actionPerformed(ActionEvent e) {
-		// begin temp
-		String[][] cells = new String[][] { { "آپولو", "حسین فرقانی", "1", "1390/8/23", "50000000" }, { "تایر بدون عاج", "حسین فرقانی, روح الله جهنده", "2", "1390/12/27", "5000000" },
-				{ "تخته نئوپان محکم", "مراد قفقازی", "1", "1391/2/12", "10000000" }, };
-		// end temp
-		table = new JTable(new DefaultTableModel(cells, COLUMNS));
+		List<AbstractInvention> inventions = (List<AbstractInvention>) inventionCatalog.getAllItems();
+
+		String inventor = inventorTextField.getText();
+		String title = invTitleTextField.getText();
+		String totalSpec = descTextField.getText();
+		String ideaDescription = ideaDescTextField.getText();
+		String ideaHistory = ideaHistoryTextField.getText();
+		String claim = assertTextField.getText();
+		String summary = absTextField.getText();
+
+		Map<String, Object> parametersMap = new HashMap<String, Object>();
+		if (!inventor.equals("")) {
+			parametersMap.put("inventor", inventor);
+		}
+		if (!title.equals("")) {
+			parametersMap.put("title", title);
+		}
+		if (!totalSpec.equals("")) {
+			parametersMap.put("totalSpec", totalSpec);
+		}
+		if (!ideaDescription.equals("")) {
+			parametersMap.put("ideaDescription", ideaDescription);
+		}
+		if (!ideaHistory.equals("")) {
+			parametersMap.put("ideaHistory", ideaHistory);
+		}
+		if (!claim.equals("")) {
+			parametersMap.put("claim", claim);
+		}
+		if (!summary.equals("")) {
+			parametersMap.put("summary", summary);
+		}
+		List<AbstractInvention> searchResult = inventionCatalog.getInventionsByParameters(parametersMap);
+
 		scrollPane_1.setViewportView(table);
 		table.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		table.setModel(new TableModel(searchResult));
 	}
 
 }

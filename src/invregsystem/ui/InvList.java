@@ -139,7 +139,7 @@ public class InvList extends JFrame {
 
 		getContentPane().add(comboBox);
 		comboBox.addItemListener(new ComboBoxItemListener());
-		comboBox.setModel(new DefaultComboBoxModel(new String[] { "---", "تعداد مخترعان", "قیمت اختراع", "تاریخ ثبت" }));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { "---", "تعداد مخترعان", "قیمت", "تاریخ ثبت" }));
 		comboBox.setBounds(116, 10, 118, 25);
 	}
 
@@ -183,12 +183,19 @@ public class InvList extends JFrame {
 			} else if (sortParameter.equals("تاریخ ثبت")) {
 				Date date0 = ((InventionRegistrationRequest) arg0).getAcceptDate();
 				Date date1 = ((InventionRegistrationRequest) arg1).getAcceptDate();
-				if ((date0 == null && date1 == null) || date0.equals(date1))
+				if (date0 != null && date1 == null)
+					return -1;
+				else if (date0 == null && date1 != null)
+					return 1;
+				else if (date0 == null && date1 == null)
 					return 0;
-				else if ((date0 == null && date1 != null) || date0.after(date1))
+
+				if (date0.before(date1))
+					return -1;
+				else if (date0.after(date1))
 					return 1;
 				else
-					return -1;
+					return 0;
 			} else if (sortParameter.equals("قیمت")) {
 				long price0 = ((InventionRegistrationRequest) arg0).getInvention().getPrice();
 				long price1 = ((InventionRegistrationRequest) arg1).getInvention().getPrice();

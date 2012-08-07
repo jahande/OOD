@@ -55,7 +55,7 @@ public class InventionRegistrationRequest extends Request {
 		catalog.updateItem(this);
 		InvestigationLog log = new InvestigationLog(expert, this);
 		log.setApprovals(true, true, true, true, true);
-		investigationLogCatalog.addItem(new InvestigationLog(expert, this));
+		investigationLogCatalog.addItem(log);
 	}
 
 	public void rejectRequest(AbstractUser expert, boolean originalityApprove, boolean totalCompletenessApprove, boolean docCompletenessApprove,

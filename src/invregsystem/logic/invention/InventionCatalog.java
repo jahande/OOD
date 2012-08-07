@@ -8,7 +8,10 @@ import invregsystem.logic.Catalog;
 import invregsystem.logic.member.User;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InventionCatalog implements Catalog {
 	private static InventionCatalog instance;
@@ -98,4 +101,51 @@ public class InventionCatalog implements Catalog {
 		return inventions;
 	}
 
+	public List<AbstractInvention> getInventionsByParameters(Map<String, Object> parametersMap) {
+		List<Invention> inventions = inventionDao.fetchAll();
+		List<AbstractInvention> absInventions = new ArrayList<AbstractInvention>();
+		for (Invention inv : inventions) {
+			if (matchesParameters(inv, parametersMap)) {
+				absInventions.add(inv);
+			}
+		}
+		return absInventions;
+	}
+
+	private boolean matchesParameters(AbstractInvention invention, Map<String, Object> parametersMap) {
+		for (String param : parametersMap.keySet()) {
+			String value = parametersMap.get(param).toString();
+			if (param.equals("inventor") && !matchesInventorName(invention, value)) {
+				return false;
+			}
+			if (param.equals("title") && !invention.getTitle().contains(value)) {
+				return false;
+			}
+			if (param.equals("totalSpec") && !invention.getTotalSpec().contains(value)) {
+				return false;
+			}
+			if (param.equals("ideaDescription") && !invention.getIdeaDescription().contains(value)) {
+				return false;
+			}
+			if (param.equals("ideaHistory") && !invention.getIdeaHistory().contains(value)) {
+				return false;
+			}
+			if (param.equals("claim") && !invention.getClaim().contains(value)) {
+				return false;
+			}
+			if (param.equals("summary") && !invention.getSummary().contains(value)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean matchesInventorName(AbstractInvention invention, String name) {
+		for (String inventorName : getInventorNames(invention)) {
+			if (inventorName.contains(name)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

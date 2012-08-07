@@ -5,6 +5,7 @@ import invregsystem.logic.invention.operation.InventionLog;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -57,6 +58,32 @@ public abstract class BaseDao<T extends BaseEntity<PKType>, PKType extends Seria
 			tx = session.beginTransaction();
 			Criteria crit = session.createCriteria(clazz);
 			crit.add(Restrictions.eq(parameter, value)); // Like condition
+			result = (List<T>) crit.list();
+			tx.commit();
+		} catch (HibernateException e) {
+			System.out.println("Hibernate exception" + e);
+			e.printStackTrace();
+			if (tx != null && !tx.wasCommitted())
+				tx.rollback();
+		} finally {
+			if (session.isOpen())
+				session.flush();
+		}
+		return result;
+	}
+
+	protected List<T> findByParametersMap(Class<T> clazz, Map<String, Object> parametersMap) {
+		Session session = null;
+		List<T> result = null;
+		Transaction tx = null;
+		try {
+			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+			session = sessionFactory.getCurrentSession();
+			tx = session.beginTransaction();
+			Criteria crit = session.createCriteria(clazz);
+			for (String parameter : parametersMap.keySet()) {
+				crit.add(Restrictions.eq(parameter, parametersMap.get(parameter))); // Like
+			}
 			result = (List<T>) crit.list();
 			tx.commit();
 		} catch (HibernateException e) {
