@@ -1,16 +1,12 @@
 package invregsystem.ui;
 
-import invregsystem.logic.invention.Invention;
 import invregsystem.logic.invention.InventionCatalog;
 import invregsystem.logic.invention.InventionRegistrationRequest;
 import invregsystem.logic.invention.InventionRegistrationRequestCatalog;
-import invregsystem.logic.invention.operation.InvestigationLogCatalog;
-import invregsystem.ui.InvReport.TableTableModel;
 
 import java.awt.ComponentOrientation;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +18,6 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 
 import sun.misc.Compare;
 import sun.misc.Sort;
@@ -59,7 +54,6 @@ public class InvList extends JFrame {
 		}
 
 		public Object getValueAt(int row, int column) {
-			InvestigationLogCatalog investigationLogCatalog = InvestigationLogCatalog.getInstance();
 			String colName = COLUMNS[column];
 			InventionRegistrationRequest request = null;
 			try {

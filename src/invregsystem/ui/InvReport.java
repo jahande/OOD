@@ -140,7 +140,6 @@ public class InvReport extends JFrame {
 		table.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		table.setModel(new TableTableModel(requests));
 
-		// updateRowHeights(table);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		TableColumn col = table.getColumnModel().getColumn(table.getColumnCount() - 1);
 		col.setPreferredWidth(400);

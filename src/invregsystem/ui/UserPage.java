@@ -186,7 +186,7 @@ public class UserPage extends JFrame {
 	}
 
 	protected void messagesButton_actionPerformed(ActionEvent e) {
-		new Messages().setVisible(true);
+		new Messages(currentUser).setVisible(true);
 	}
 
 	protected void exitButton_actionPerformed(ActionEvent e) {
