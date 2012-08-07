@@ -124,10 +124,15 @@ public class AssignInventionField extends JFrame {
 		AbstractUser u = (AbstractUser)this.users.getSelectedItem();
 		InventionField i = (InventionField)this.inventionFields.getSelectedItem();
 		for (InventionField inv : u.getInventionFields()) {
-			
+			if(inv.equals(i)){
+				JOptionPane.showMessageDialog(this, "کارشناس قبلا در این حوزه کارشناسی می‌کرده.");
+				return;
+			}
 		}
-		if(Math.random()<0.5)
-		JOptionPane.showMessageDialog(this, "کارشناس قبلا در این حوزه کارشناسی می‌کرده.");
+		//u.setInventionFields( u.getInventionFields().add(i));
+		u.getInventionFields().add(i);
+		UserCatalog.getInstance().updateItem(u);
+		JOptionPane.showMessageDialog(this, "حوزه‌ی کارشناسی به کارشناس اضافه شد..");
 	}
 	protected void refreshData() {
 		int invFieldsSize= InventionFieldCatalog.getInstance().getAllItems().size();

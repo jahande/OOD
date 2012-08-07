@@ -56,5 +56,8 @@ public class InventionFieldRegistrationRequest extends Request {
 	public void setNearestField(InventionField nearestField) {
 		this.nearestField = nearestField;
 	}
+	public String toString() {
+		return this.fieldName;
+	}
 
 }

@@ -1,3 +1,6 @@
+package invregsystem.ui;
+
+import invregsystem.logic.invention.InventionField;
 import invregsystem.logic.invention.InventionFieldCatalog;
 import java.util.List;
 import javax.swing.JButton;
@@ -32,8 +35,8 @@ public class ViewInventionFields extends ViewInventionFieldBase {
 	/**
 	 * Create the frame
 	 */
-	public ViewInventionFields(Controller c) {
-		super(c);
+	public ViewInventionFields() {
+		super();
 		setBounds(100, 100, 393, 410);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
