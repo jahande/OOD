@@ -1,17 +1,24 @@
 package invregsystem.logic.invention;
 
+import interfaces.AbstractUser;
+import invregsystem.db.ExpertInventionFieldDao;
 import invregsystem.db.InventionFieldDao;
 import invregsystem.logic.Catalog;
+import invregsystem.logic.member.ExpertInventionField;
+import invregsystem.logic.member.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InventionFieldCatalog implements Catalog {
 	private static InventionFieldCatalog instance;
 	private InventionFieldDao inventionFieldDao;
+	private ExpertInventionFieldDao expertInventionFieldDao;
 
 	private InventionFieldCatalog() {
 		super();
 		inventionFieldDao = InventionFieldDao.getInstance();
+		expertInventionFieldDao = ExpertInventionFieldDao.getInstance();
 	}
 
 	public static InventionFieldCatalog getInstance() {
@@ -44,6 +51,15 @@ public class InventionFieldCatalog implements Catalog {
 		} else {
 			return null;
 		}
+	}
+
+	public List<InventionField> getInventionFieldsOfExpert(AbstractUser expert) {
+		List<ExpertInventionField> expertInventionFields = expertInventionFieldDao.findByParameter("expert", expert);
+		List<InventionField> fields = new ArrayList<InventionField>();
+		for (ExpertInventionField expInvField : expertInventionFields) {
+			fields.add(expInvField.getInventionField());
+		}
+		return fields;
 	}
 
 }
