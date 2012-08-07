@@ -32,4 +32,7 @@ public class CompanyRegistrationRequest extends Request {
 		this.company = company;
 	}
 
+	public String toString() {
+		return this.getCompany().getName()+" "+this.getCompany().getPhone();
+	}
 }
