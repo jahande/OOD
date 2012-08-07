@@ -123,15 +123,14 @@ public class AssignInventionField extends JFrame {
 	protected void button_actionPerformed(ActionEvent e) {
 		AbstractUser u = (AbstractUser)this.users.getSelectedItem();
 		InventionField i = (InventionField)this.inventionFields.getSelectedItem();
-		for (InventionField inv : u.getInventionFields()) {
+		for (InventionField inv : InventionFieldCatalog.getInstance().getInventionFieldsOfExpert(u)) {
 			if(inv.equals(i)){
 				JOptionPane.showMessageDialog(this, "کارشناس قبلا در این حوزه کارشناسی می‌کرده.");
 				return;
 			}
 		}
 		//u.setInventionFields( u.getInventionFields().add(i));
-		u.getInventionFields().add(i);
-		UserCatalog.getInstance().updateItem(u);
+		InventionFieldCatalog.getInstance().addInventionFieldToExpert(u, i);
 		JOptionPane.showMessageDialog(this, "حوزه‌ی کارشناسی به کارشناس اضافه شد..");
 	}
 	protected void refreshData() {

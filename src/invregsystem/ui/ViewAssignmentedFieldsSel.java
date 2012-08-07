@@ -41,8 +41,9 @@ public class ViewAssignmentedFieldsSel extends SelectUser {
 	}
 	@Override
 	protected void nextActionPerform(MouseEvent e, AbstractUser user) {
-		// TODO Auto-generated method stub
-		
+		ViewAssignmentedFieldsView assignmentedFieldsView = new ViewAssignmentedFieldsView(user);
+		assignmentedFieldsView.refreshData();
+		assignmentedFieldsView.setVisible(true);
 	}
 	@Override
 	protected void returnActionPerform(ActionEvent e) {

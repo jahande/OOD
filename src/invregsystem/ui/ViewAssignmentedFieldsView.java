@@ -4,6 +4,7 @@ import interfaces.AbstractUser;
 import java.util.List;
 
 import invregsystem.logic.invention.InventionField;
+import invregsystem.logic.invention.InventionFieldCatalog;
 import invregsystem.logic.member.User;
 import invregsystem.logic.member.UserCatalog;
 import invregsystem.ui.models.SimpleListModel;
@@ -39,12 +40,7 @@ public class ViewAssignmentedFieldsView extends ViewInventionFieldBase {
 		super();
 		// setBounds(100, 100, 393, 379);
 		// setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		try {
-			this.inventionFields = ((List<InventionField>) (new ArrayList(user
-					.getInventionFields())));
-		} catch (Exception e) {
-
-		}
+		this.inventionFields = InventionFieldCatalog.getInstance().getInventionFieldsOfExpert(user);
 		try {
 			jbInit();
 		} catch (Throwable e) {
