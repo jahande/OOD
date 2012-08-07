@@ -1,8 +1,16 @@
 package invregsystem.ui;
 
+import interfaces.AbstractInvention;
+import invregsystem.logic.invention.InventionCatalog;
+
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,7 +19,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.AbstractTableModel;
+
+import utilities.StringUtilities;
 
 public class NonlimitedSearch extends JFrame {
 
@@ -34,10 +44,64 @@ public class NonlimitedSearch extends JFrame {
 	private final JTextField invDescTextField = new JTextField();
 	private final JButton searchButton = new JButton();
 
-	private String[] COLUMNS = new String[] { "عنوان اختراع", "مخترعان",
-			"تعداد مخترعان", "تاریخ ثبت", "قیمت", };
+	private String[] COLUMNS = new String[] { "عنوان اختراع", "مخترعان", "تعداد مخترعان", "تاریخ ثبت", "قیمت", };
 	private final JScrollPane scrollPane_1 = new JScrollPane();
-	private JTable table = new JTable();
+	private final JTable table = new JTable();
+
+	private InventionCatalog inventionCatalog;
+
+	class TableModel extends AbstractTableModel {
+		private final String[] COLUMNS = new String[] { "عنوان اختراع", "مخترعان", "شرکت", "تاریخ ثبت", "قیمت", };
+		private List<AbstractInvention> inventions;
+
+		public TableModel(List<AbstractInvention> inventions) {
+			this.inventions = inventions;
+		}
+
+		public int getRowCount() {
+			return inventions.size();
+		}
+
+		public int getColumnCount() {
+			return COLUMNS.length;
+		}
+
+		public String getColumnName(int column) {
+			return COLUMNS[column];
+		}
+
+		public Object getValueAt(int row, int column) {
+			String colName = COLUMNS[column];
+			AbstractInvention invention = null;
+			try {
+				invention = inventions.get(row);
+			} catch (IndexOutOfBoundsException e) {
+				return "Error";
+			}
+			if (colName.equals("عنوان اختراع")) {
+				return invention.getTitle();
+			} else if (colName.equals("مخترعان")) {
+				return StringUtilities.getCommaSeparated(inventionCatalog.getInventorNames(invention));
+			} else if (colName.equals("شرکت")) {
+				if (invention.getCompany() != null) {
+					return invention.getCompany().getName();
+				} else {
+					return "---";
+				}
+			} else if (colName.equals("تاریخ ثبت")) {
+				Date acceptDate = invention.getInventionRegistrationRequest().getAcceptDate();
+				if (acceptDate != null) {
+					return invention.getInventionRegistrationRequest().getAcceptDate();
+				} else {
+					return "---";
+				}
+			} else if (colName.equals("قیمت")) {
+				return invention.getPrice();
+			} else {
+				return "Error";
+			}
+		}
+	}
 
 	/**
 	 * Launch the application
@@ -58,6 +122,7 @@ public class NonlimitedSearch extends JFrame {
 	 */
 	public NonlimitedSearch() {
 		super();
+		inventionCatalog = InventionCatalog.getInstance();
 		setBounds(100, 100, 420, 333);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
@@ -113,38 +178,31 @@ public class NonlimitedSearch extends JFrame {
 		label_7.setBounds(119, 56, 66, 16);
 
 		panel_1.add(inventorTextField);
-		inventorTextField
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		inventorTextField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		inventorTextField.setBounds(204, 12, 117, 20);
 
 		panel_1.add(invTitleTextField);
-		invTitleTextField
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		invTitleTextField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		invTitleTextField.setBounds(204, 34, 117, 20);
 
 		panel_1.add(descTextField);
-		descTextField
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		descTextField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		descTextField.setBounds(204, 56, 117, 20);
 
 		panel_1.add(ideaDescTextField);
-		ideaDescTextField
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		ideaDescTextField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		ideaDescTextField.setBounds(204, 78, 117, 20);
 
 		panel_1.add(ideaHistoryTextField);
-		ideaHistoryTextField
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		ideaHistoryTextField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		ideaHistoryTextField.setBounds(10, 10, 117, 20);
 
 		panel_1.add(assertTextField);
-		assertTextField
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		assertTextField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		assertTextField.setBounds(10, 32, 117, 20);
 
 		panel_1.add(absTextField);
-		absTextField
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		absTextField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		absTextField.setBounds(10, 54, 117, 20);
 
 		panel_1.add(searchButton);
@@ -158,8 +216,7 @@ public class NonlimitedSearch extends JFrame {
 		label_8.setBounds(119, 80, 66, 16);
 
 		panel_1.add(invDescTextField);
-		invDescTextField
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		invDescTextField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		invDescTextField.setBounds(10, 78, 117, 20);
 
 		getContentPane().add(scrollPane_1);
@@ -176,17 +233,45 @@ public class NonlimitedSearch extends JFrame {
 	}
 
 	protected void searchButton_actionPerformed(ActionEvent e) {
-		// begin temp
-		String[][] cells = new String[][] {
-				{ "آپولو", "حسین فرقانی", "1", "1390/8/23", "50000000" },
-				{ "تایر بدون عاج", "حسین فرقانی, روح الله جهنده", "2",
-						"1390/12/27", "5000000" },
-				{ "تخته نئوپان محکم", "مراد قفقازی", "1", "1391/2/12",
-						"10000000" }, };
-		// end temp
-		table = new JTable(new DefaultTableModel(cells, COLUMNS));
+		String inventor = inventorTextField.getText();
+		String title = invTitleTextField.getText();
+		String totalSpec = descTextField.getText();
+		String ideaDescription = ideaDescTextField.getText();
+		String ideaHistory = ideaHistoryTextField.getText();
+		String claim = assertTextField.getText();
+		String summary = absTextField.getText();
+		String explanation = invDescTextField.getText();
+
+		Map<String, Object> parametersMap = new HashMap<String, Object>();
+		if (!inventor.equals("")) {
+			parametersMap.put("inventor", inventor);
+		}
+		if (!title.equals("")) {
+			parametersMap.put("title", title);
+		}
+		if (!totalSpec.equals("")) {
+			parametersMap.put("totalSpec", totalSpec);
+		}
+		if (!ideaDescription.equals("")) {
+			parametersMap.put("ideaDescription", ideaDescription);
+		}
+		if (!ideaHistory.equals("")) {
+			parametersMap.put("ideaHistory", ideaHistory);
+		}
+		if (!claim.equals("")) {
+			parametersMap.put("claim", claim);
+		}
+		if (!summary.equals("")) {
+			parametersMap.put("summary", summary);
+		}
+		if (!explanation.equals("")) {
+			parametersMap.put("explanation", explanation);
+		}
+		List<AbstractInvention> searchResult = inventionCatalog.getInventionsByParameters(parametersMap);
+
 		scrollPane_1.setViewportView(table);
 		table.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		table.setModel(new TableModel(searchResult));
 	}
 
 }

@@ -2,9 +2,6 @@ package invregsystem.ui;
 
 import interfaces.AbstractInvention;
 import invregsystem.logic.invention.InventionCatalog;
-import invregsystem.logic.invention.InventionRegistrationRequest;
-import invregsystem.logic.invention.InventionRegistrationRequestCatalog;
-import invregsystem.logic.invention.operation.InvestigationLogCatalog;
 
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
@@ -23,7 +20,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 
 import utilities.StringUtilities;
 
@@ -71,7 +67,6 @@ public class LimitedSearch extends JFrame {
 		}
 
 		public Object getValueAt(int row, int column) {
-			InvestigationLogCatalog investigationLogCatalog = InvestigationLogCatalog.getInstance();
 			String colName = COLUMNS[column];
 			AbstractInvention invention = null;
 			try {
@@ -226,8 +221,6 @@ public class LimitedSearch extends JFrame {
 	}
 
 	protected void searchButton_actionPerformed(ActionEvent e) {
-		List<AbstractInvention> inventions = (List<AbstractInvention>) inventionCatalog.getAllItems();
-
 		String inventor = inventorTextField.getText();
 		String title = invTitleTextField.getText();
 		String totalSpec = descTextField.getText();

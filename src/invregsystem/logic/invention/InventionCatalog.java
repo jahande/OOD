@@ -8,8 +8,6 @@ import invregsystem.logic.Catalog;
 import invregsystem.logic.member.User;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -134,6 +132,9 @@ public class InventionCatalog implements Catalog {
 				return false;
 			}
 			if (param.equals("summary") && !invention.getSummary().contains(value)) {
+				return false;
+			}
+			if (param.equals("explanation") && !invention.getExplanation().contains(value)) {
 				return false;
 			}
 		}

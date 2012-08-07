@@ -20,7 +20,7 @@ public class ExpertInventionField extends BaseEntity<Integer> {
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "memberId")
+	@JoinColumn(name = "expertId")
 	private User expert;
 
 	@ManyToOne
