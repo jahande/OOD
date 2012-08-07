@@ -62,4 +62,7 @@ public class InventionFieldCatalog implements Catalog {
 		return fields;
 	}
 
+	public void addInventionFieldToExpert(AbstractUser expert, InventionField field) {
+		expertInventionFieldDao.save(new ExpertInventionField((User) expert, field));
+	}
 }
