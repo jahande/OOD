@@ -27,15 +27,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-
-
 /**
  * 
  * @author rj
  * @usecase 42
  */
 
-public abstract class SelectUser extends JFrame  implements NeedRefreshData,ListMouseListenner{
+public abstract class SelectUser extends JFrame implements NeedRefreshData,
+		ListMouseListenner {
 
 	/**
 	 * 
@@ -49,22 +48,35 @@ public abstract class SelectUser extends JFrame  implements NeedRefreshData,List
 	// private final JLabel label_4 = new JLabel();
 	// private final JLabel label_5 = new JLabel();
 	private final JButton button = new JButton();
+	protected List<AbstractUser> users;
 
-	
-
-	/**
-	 * Create the frame
-	 */
-	public SelectUser() {
-		super();
+	public SelectUser(List<AbstractUser> users) {
+		if(users==null){
+			try {
+				users = (List<AbstractUser>) (UserCatalog.getInstance()
+						.getAllItems());
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(this, "خطای شماره ی ۱۰۲۱");
+				return;
+			}
+		}else{
+			this.users = users;
+		}
 		setBounds(100, 100, 393, 410);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
 		try {
 			jbInit();
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-		//
+	}
+
+	/**
+	 * Create the frame
+	 */
+	public SelectUser() {
+		this(null);
 	}
 
 	private void jbInit() throws Exception {
@@ -109,8 +121,6 @@ public abstract class SelectUser extends JFrame  implements NeedRefreshData,List
 		 */
 	}
 
-	
-
 	private class ButtonActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			returnActionPerform(e);
@@ -119,24 +129,17 @@ public abstract class SelectUser extends JFrame  implements NeedRefreshData,List
 
 	@Override
 	public void listMouseListennerActionPerform(MouseEvent e, Object obj) {
-		nextActionPerform( e,(AbstractUser)(obj)) ;
-		
-		//JOptionPane.showMessageDialog(this, ((AbstractUser)obj).getId());
+		nextActionPerform(e, (AbstractUser) (obj));
+
+		// JOptionPane.showMessageDialog(this, ((AbstractUser)obj).getId());
 	}
 
 	public void refreshData() {
 		// TODO Auto-generated method stub
 		resetInventionFieldsPanel();
-		List<AbstractUser> users = null;
-		try {
-			users = (List<AbstractUser>) (UserCatalog.getInstance().getAllItems());
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "خطای شماره ی ۱۰۲۱");
-			return;
-		}
 
 		// this.panel = new JPanel();
-		for (AbstractUser user : users) {
+		for (AbstractUser user : this.users) {
 			ParameterLabel<AbstractUser> lbl = new ParameterLabel<AbstractUser>();
 
 			lbl.setParameter(user);
@@ -144,7 +147,9 @@ public abstract class SelectUser extends JFrame  implements NeedRefreshData,List
 			lbl.setHorizontalTextPosition(SwingConstants.CENTER);
 			lbl.setHorizontalAlignment(SwingConstants.CENTER);
 			lbl.setForeground(Color.BLUE);
-			lbl.addMouseListener(new ListMouseAdapter<AbstractUser>(user,this));
+			lbl
+					.addMouseListener(new ListMouseAdapter<AbstractUser>(user,
+							this));
 			lbl.setText("انتخاب");
 
 			panel.add(lbl);
@@ -160,7 +165,7 @@ public abstract class SelectUser extends JFrame  implements NeedRefreshData,List
 			return;
 		}
 		ArrayList<String> names = new ArrayList<String>();
-		for (AbstractUser user2 : users) {
+		for (AbstractUser user2 : this.users) {
 			names.add(user2.getFullName());
 
 		}
@@ -188,10 +193,11 @@ public abstract class SelectUser extends JFrame  implements NeedRefreshData,List
 		return p;
 	}
 
-	protected  void returnActionPerform(ActionEvent e) {
+	protected void returnActionPerform(ActionEvent e) {
 		this.setVisible(false);
 		this.dispose();
 	}
-	protected abstract void nextActionPerform(MouseEvent e, AbstractUser user) ;
-	
+
+	protected abstract void nextActionPerform(MouseEvent e, AbstractUser user);
+
 }

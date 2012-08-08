@@ -6,8 +6,10 @@ import invregsystem.logic.Request;
 import invregsystem.logic.invention.Invention;
 import invregsystem.logic.invention.InventionCatalog;
 import invregsystem.logic.invention.InventionRegistrationRequest;
+import invregsystem.logic.invention.InventionRegistrationRequestCatalog;
 import invregsystem.logic.invention.Share;
 import invregsystem.logic.invention.operation.InvestigationLogCatalog;
+import invregsystem.logic.member.UserCatalog;
 import invregsystem.ui.models.NeedRefreshData;
 
 import java.awt.event.ActionEvent;
@@ -37,7 +39,7 @@ import javax.swing.table.AbstractTableModel;
  * @usecase 45
  */
 
-public class RequestReportOfUserInventionsView extends JFrame implements NeedRefreshData {
+public class RequestInCheckByExertsReportView extends JFrame implements NeedRefreshData {
 
 	private AbstractUser user;
 
@@ -74,7 +76,7 @@ public class RequestReportOfUserInventionsView extends JFrame implements NeedRef
 	/**
 	 * Create the frame
 	 */
-	public RequestReportOfUserInventionsView(AbstractUser user) {
+	public RequestInCheckByExertsReportView(AbstractUser user) {
 		super();
 		this.user=user;
 		setBounds(100, 100, 393, 410);
@@ -99,18 +101,19 @@ public class RequestReportOfUserInventionsView extends JFrame implements NeedRef
 
 	@Override
 	public void refreshData() {
-		List<AbstractInvention> invs = InventionCatalog.getInstance().getInventionsByInventor(this.user);
+		List<InventionRegistrationRequest> invRegReqs = InventionRegistrationRequestCatalog.getInstance().getInvRegReqsByExpert(this.user);
 		int printItems = 6;
 		String[][] invTableStrs = new String[invs.size()][printItems];
 		int j = 0;
-		for (AbstractInvention inv : invs) {
+		for (InventionRegistrationRequest invRegReq : invRegReqs) {
+			
+			AbstractInvention inv = invRegReq.getInvention();
 			invTableStrs[j] = new String[printItems];
 			invTableStrs[j][0] = inv.getTitle();
 			invTableStrs[j][1] = inv.getInventionField().getName();
 			invTableStrs[j][2] =inv.getInventionRegistrationRequest().getStateName();
 			invTableStrs[j][3] =inv.getIdeaDescription();
 			invTableStrs[j][4] = inv.getSummary();
-			invTableStrs[j][5] = Long.toString(inv.getPrice());
 			j++;
 		}
 		this.table.setModel(new TableTableModel(invTableStrs));

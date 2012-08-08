@@ -1,12 +1,28 @@
 package invregsystem.ui;
 
+import interfaces.AbstractInvention;
+import interfaces.AbstractUser;
+import invregsystem.logic.invention.Invention;
+import invregsystem.logic.invention.InventionCatalog;
+import invregsystem.logic.invention.Share;
+import invregsystem.logic.member.UserCatalog;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
@@ -19,35 +35,43 @@ import javax.swing.table.AbstractTableModel;
 
 public class RequestPeronsInventions extends JFrame {
 
+	private final static String[] COLS = new String[] { "وضعیت مخترع بودن", "نام",
+			 "تعداد اختراع",
+	 };
+	//private final static int COLUMS_NUMBER = 3;
 	class TableTableModel extends AbstractTableModel {
-		private final String[] COLUMNS = new String[] {
-			"نام", "نام کاربری", "مخترع", "تعداد اختراع"
-		};
-		private final String[][] CELLS = new String[][] {
-			{"روح الله", "جهنده", "هست", "۰.۵"},
-			{"حسین", "فرقانی", "هست", "۱"},
-			{"علی", "علوی", "نیست", "۰"},
-			{"احسان", "کارشناس زاده", "نیست", "۰"},
-		};
+		private final String[] COLUMNS = RequestPeronsInventions.COLS;
+		private final String[][] CELLS;
+
+		public TableTableModel(String[][] cells) {
+			this.CELLS = cells;
+		}
+
 		public int getRowCount() {
 			return CELLS.length;
 		}
+
 		public int getColumnCount() {
 			return COLUMNS.length;
 		}
+
 		public String getColumnName(int column) {
 			return COLUMNS[column];
 		}
+
 		public Object getValueAt(int row, int column) {
-			return CELLS[row].length > column ? CELLS[row][column] : (column + " - " + row);
+			return CELLS[row].length > column ? CELLS[row][column] : (column
+					+ " - " + row);
 		}
 	}
 
 	private final JButton button = new JButton();
 	private final JScrollPane scrollPane = new JScrollPane();
 	private final JTable table = new JTable();
+
 	/**
 	 * Launch the application
+	 * 
 	 * @param args
 	 */
 	public static void main(String args[]) {
@@ -73,40 +97,99 @@ public class RequestPeronsInventions extends JFrame {
 		}
 		//
 	}
+
 	private void jbInit() throws Exception {
 		getContentPane().setLayout(null);
 		setTitle("استعلام اطلاعات پرسنل شرکت یا سازمان");
-		
+
 		getContentPane().add(button);
 		button.addActionListener(new ButtonActionListener());
 		button.setText("انتخاب فایل حاوی لیست افراد سازمان");
 		button.setBounds(65, 44, 197, 26);
-		
+
 		getContentPane().add(scrollPane);
 		scrollPane.setBounds(34, 162, 411, 151);
-		
+
 		scrollPane.setViewportView(table);
-		table.setModel(new TableTableModel());
 	}
+
 	private class ButtonActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			button_actionPerformed(e);
 		}
 	}
+
 	protected void button_actionPerformed(ActionEvent e) {
-		final JFileChooser fc = new JFileChooser();
-		int returnVal2 = fc.showOpenDialog(this);
-//		if (e.getSource() == this.button) {
-//	        int returnVal = fc.showOpenDialog(RequestPeronsInventions.this);
-//
-//	        if (returnVal == JFileChooser.APPROVE_OPTION) {
-//	            File file = fc.getSelectedFile();
-//	            //This is where a real application would open the file.
-//	            //log.append("Opening: " + file.getName() + "." + newline);
-//	        } else {
-//	            //log.append("Open command cancelled by user." + newline);
-//	        }
-//	   }
+		JFileChooser fc = new JFileChooser();
+
+		// Show open dialog; this method does not return until the dialog is
+		// closed
+		fc.showOpenDialog(this);
+		File selFile = fc.getSelectedFile();
+		FileInputStream fstream = null;
+		ArrayList<String> fullNames = new ArrayList<String>();
+		try {
+			fstream = new FileInputStream(selFile);
+			// Get the object of DataInputStream
+			DataInputStream in = new DataInputStream(fstream);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			String strLine;
+			// Read File Line By Line
+			while ((strLine = br.readLine()) != null) {
+				if (!strLine.equals("")) {
+					fullNames.add(strLine);
+				}
+			}
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e2) {
+
+		}
+
+		ArrayList<String[]> tableStrs = new ArrayList<String[]>();
+		// List<AbstractUser> users =
+		int i = 0;
+		for (Object obj : UserCatalog.getInstance().getAllItems()) {
+			AbstractUser user = (AbstractUser) obj;
+			int indexOf = fullNames.lastIndexOf(user.getFullName());
+			if (indexOf>=0) {
+				fullNames.remove(indexOf);
+				tableStrs.add(new String[RequestPeronsInventions.COLS.length]);
+
+				tableStrs.get(i)[0] = user.getFullName();
+
+				int shares = 0;
+				// //compute sum of shares
+				for (AbstractInvention inv : InventionCatalog.getInstance()
+						.getInventionsByInventor(user)) {
+					for (Share share : inv.getShares()) {
+						if (share.getUser().getFullName().equals(
+								user.getFullName())) {
+							shares += share.getShareValue();
+						}
+					}
+				}
+				// /end of compute sum of shares
+				if (shares > 0) {
+					tableStrs.get(i)[1] = "هست";
+				} else {
+					tableStrs.get(i)[1] = "نیست";
+				}
+				tableStrs.get(i)[2] = Integer.toString(shares);
+				i++;
+			}
+			
+		}
+		int j = 0;
+		for (String fullname : fullNames) {
+			tableStrs.add( new String[RequestPeronsInventions.COLS.length]);
+			tableStrs.get(j)[0] = fullname;
+			tableStrs.get(j)[1] = "نیست";
+			tableStrs.get(j)[2] = "۰";
+			j++;
+		}
+		this.table.setModel(new TableTableModel(tableStrs.toArray(new String[tableStrs.size()][])));
 	}
 
 }
