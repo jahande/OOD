@@ -1,5 +1,6 @@
 package invregsystem.logic.member;
 
+import interfaces.AbstractUser;
 import invregsystem.db.ExpertInventionFieldDao;
 import invregsystem.db.UserDao;
 import invregsystem.logic.Catalog;
@@ -51,13 +52,13 @@ public class UserCatalog implements Catalog {
 		}
 	}
 
-	public List<User> getExperts() {
-		List<User> result = userDao.findByParameter("expert", true);
-		if (!result.isEmpty()) {
-			return new ArrayList<User>();
-		} else {
-			return result;
+	public List<AbstractUser> getExperts() {
+		List<User> experts = userDao.findByParameter("expert", true);
+		List<AbstractUser> result = new ArrayList<AbstractUser>();
+		for (User expert : experts) {
+			result.add(expert);
 		}
+		return result;
 	}
 
 	public List<User> getExpertsByField(InventionField field) {

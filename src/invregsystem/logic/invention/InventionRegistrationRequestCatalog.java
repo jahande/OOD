@@ -1,5 +1,6 @@
 package invregsystem.logic.invention;
 
+import interfaces.AbstractInvention;
 import interfaces.AbstractUser;
 import invregsystem.db.InventionRegistrationRequestDao;
 import invregsystem.logic.RequestCatalog;
@@ -62,18 +63,18 @@ public class InventionRegistrationRequestCatalog extends RequestCatalog {
 	}
 
 	public List<InventionRegistrationRequest> getInvRegReqsByInventor(AbstractUser inventor) {
-		List<Invention> inventions = inventionCatalog.getInventionsByInventor(inventor);
+		List<AbstractInvention> inventions = inventionCatalog.getInventionsByInventor(inventor);
 		List<InventionRegistrationRequest> requests = new ArrayList<InventionRegistrationRequest>();
-		for (Invention inv : inventions) {
+		for (AbstractInvention inv : inventions) {
 			requests.add(inv.getInventionRegistrationRequest());
 		}
 		return requests;
 	}
 
 	public List<InventionRegistrationRequest> getInvRegReqsByInventorAndState(AbstractUser inventor, int state) {
-		List<Invention> inventions = inventionCatalog.getInventionsByInventor(inventor);
+		List<AbstractInvention> inventions = inventionCatalog.getInventionsByInventor(inventor);
 		List<InventionRegistrationRequest> requests = new ArrayList<InventionRegistrationRequest>();
-		for (Invention inv : inventions) {
+		for (AbstractInvention inv : inventions) {
 			InventionRegistrationRequest request = inv.getInventionRegistrationRequest();
 			if (request.getState() == state) {
 				requests.add(inv.getInventionRegistrationRequest());
