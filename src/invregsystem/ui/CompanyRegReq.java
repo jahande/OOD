@@ -228,8 +228,8 @@ public class CompanyRegReq extends JFrame {
 			companyRegReqCatalog.addItem(companyRegReq);
 
 			JOptionPane.showMessageDialog(this, "درخواست ثبت شرکت با موفقیت صادر شد.");
+			this.setVisible(false);
 		}
-		this.setVisible(false);
 	}
 
 	protected void fileChooseButton_actionPerformed(ActionEvent e) {

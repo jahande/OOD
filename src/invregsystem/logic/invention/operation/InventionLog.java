@@ -92,7 +92,7 @@ public class InventionLog extends BaseEntity<Integer> {
 	public AbstractInvention getInventionVersion() {
 		AbstractInvention versionInstance = new Invention();
 		InventionLogCatalog inventionLogCatalog = InventionLogCatalog.getInstance();
-		List<InventionLog> previousLogs = inventionLogCatalog.getItemsBeforeDate(this.changeDate);
+		List<InventionLog> previousLogs = inventionLogCatalog.getlogsOfInventionBeforeDate(this.invention, this.changeDate);
 		ListIterator<InventionLog> li = previousLogs.listIterator(previousLogs.size());
 		while (li.hasPrevious()) { // Iterate reversely.
 			InventionLog log = li.previous();

@@ -6,6 +6,7 @@ import invregsystem.db.InventionLogDao;
 import invregsystem.logic.Catalog;
 import invregsystem.logic.invention.Invention;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -54,8 +55,15 @@ public class InventionLogCatalog implements Catalog {
 		return changeDao.findByParameter("inventionLog", inventionLog);
 	}
 
-	public List<InventionLog> getItemsBeforeDate(Date date) {
-		return inventionLogDao.findLessEqualThanParameter("changeDate", date);
+	public List<InventionLog> getlogsOfInventionBeforeDate(AbstractInvention invention, Date date) {
+		List<InventionLog> logs = inventionLogDao.findLessEqualThanParameter("changeDate", date);
+		List<InventionLog> result = new ArrayList<InventionLog>();
+		for (InventionLog log : logs) {
+			if (log.getInvention().equals(invention)) {
+				result.add(log);
+			}
+		}
+		return result;
 	}
 
 	public void addInitialLog(AbstractInvention invention) {
