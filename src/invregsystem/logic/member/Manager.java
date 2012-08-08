@@ -18,16 +18,16 @@ public class Manager extends AbstractManager {
 	@Column(name = "managerId")
 	private Integer id;
 
-	@Column(name = "firstName")
+	@Column(name = "firstName", nullable = false)
 	private String firstName;
 
-	@Column(name = "lastName")
+	@Column(name = "lastName", nullable = false)
 	private String lastName;
 
-	@Column(name = "userName")
+	@Column(name = "userName", nullable = false)
 	private String userName;
 
-	@Column(name = "password")
+	@Column(name = "password", nullable = false)
 	private String password;
 
 	@Column(name = "email")

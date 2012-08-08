@@ -18,14 +18,14 @@ public class InventionRelation extends BaseEntity<Integer> {
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "invention1")
+	@JoinColumn(name = "invention1", nullable = false)
 	private Invention invention1;
 
 	@ManyToOne
-	@JoinColumn(name = "invention2")
+	@JoinColumn(name = "invention2", nullable = false)
 	private Invention invention2;
 
-	@Column(name = "type")
+	@Column(name = "type", nullable = false)
 	private String title;
 
 	public final static String CONTINUE = "ادامه";

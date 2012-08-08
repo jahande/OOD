@@ -25,25 +25,25 @@ public class Invention extends AbstractInvention {
 	@Column(name = "inventionId")
 	private Integer id;
 
-	@Column(name = "title")
+	@Column(name = "title", nullable = false)
 	private String title;
 
-	@Column(name = "totalSpec")
+	@Column(name = "totalSpec", nullable = false)
 	private String totalSpec;
 
-	@Column(name = "summary")
+	@Column(name = "summary", nullable = false)
 	private String summary;
 
-	@Column(name = "ideaDescription")
+	@Column(name = "ideaDescription", nullable = false)
 	private String ideaDescription;
 
-	@Column(name = "ideaHistory")
+	@Column(name = "ideaHistory", nullable = false)
 	private String ideaHistory;
 
-	@Column(name = "claim")
+	@Column(name = "claim", nullable = false)
 	private String claim;
 
-	@Column(name = "explanation")
+	@Column(name = "explanation", nullable = false)
 	private String explanation;
 
 	@Column(name = "file1")
@@ -79,7 +79,8 @@ public class Invention extends AbstractInvention {
 
 	}
 
-	public Invention(String title, String totalSpec, String summary, String ideaDescription, String ideaHistory, String claim, String explanation, List<String> attachedFiles) {
+	public Invention(String title, String totalSpec, String summary, String ideaDescription, String ideaHistory, String claim, String explanation,
+			List<String> attachedFiles) {
 		super();
 		this.title = title;
 		this.totalSpec = totalSpec;

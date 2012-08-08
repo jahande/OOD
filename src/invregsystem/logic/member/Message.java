@@ -20,17 +20,17 @@ public class Message extends BaseEntity<Integer> {
 	@Column(name = "messageId")
 	private Integer id;
 
-	@Column(name = "title")
+	@Column(name = "title", nullable = false)
 	private String title;
 
 	@Column(name = "content")
 	private String content;
 
-	@Column(name = "sendDate")
+	@Column(name = "sendDate", nullable = false)
 	private Date sendDate;
 
 	@ManyToOne
-	@JoinColumn(name = "toId")
+	@JoinColumn(name = "toId", nullable = false)
 	private User to;
 
 	public Message() {

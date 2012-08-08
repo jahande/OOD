@@ -15,7 +15,7 @@ public class InventionField extends BaseEntity<Integer> {
 	@Column(name = "inventionFieldId")
 	private Integer id;
 
-	@Column(name = "name")
+	@Column(name = "name", nullable = false)
 	private String name;
 
 	public InventionField() {

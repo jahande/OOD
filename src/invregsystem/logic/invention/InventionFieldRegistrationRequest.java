@@ -12,14 +12,14 @@ import javax.persistence.ManyToOne;
 @Entity
 public class InventionFieldRegistrationRequest extends Request {
 	@ManyToOne
-	@JoinColumn(name = "userId")
+	@JoinColumn(name = "userId", nullable = false)
 	private User user;
 
 	@ManyToOne
-	@JoinColumn(name = "nearestFieldId")
+	@JoinColumn(name = "nearestFieldId", nullable = false)
 	private InventionField nearestField;
 
-	@Column(name = "fieldName")
+	@Column(name = "fieldName", nullable = false)
 	private String fieldName;
 
 	public InventionFieldRegistrationRequest() {

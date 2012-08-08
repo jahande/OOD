@@ -33,7 +33,7 @@ public class InventionRegistrationRequest extends Request {
 	@JoinColumn(name = "expertId")
 	private User assignedExpert;
 
-	@Column(name = "hasAssignedExpert")
+	@Column(name = "hasAssignedExpert", nullable = false)
 	private boolean hasAssignedExpert;
 
 	@Column(name = "sendDate")

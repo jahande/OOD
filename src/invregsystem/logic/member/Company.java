@@ -22,7 +22,7 @@ public class Company extends AbstractCompany {
 	@Column(name = "companyId")
 	private Integer id;
 
-	@Column(name = "name")
+	@Column(name = "name", nullable = false)
 	private String name;
 
 	@Column(name = "phone")
@@ -34,7 +34,7 @@ public class Company extends AbstractCompany {
 	@Column(name = "website")
 	private String website;
 
-	@Column(name = "introDocFile")
+	@Column(name = "introDocFile", nullable = false)
 	private String introDocFile;
 
 	@ManyToMany(cascade = CascadeType.ALL)

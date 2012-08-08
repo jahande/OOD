@@ -1,6 +1,5 @@
 package invregsystem.logic.invention.operation;
 
-import interfaces.AbstractInvention;
 import interfaces.AbstractUser;
 import invregsystem.db.InvestigationLogDao;
 import invregsystem.logic.Catalog;

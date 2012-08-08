@@ -4,7 +4,6 @@ import interfaces.AbstractManager;
 import interfaces.AbstractMember;
 import interfaces.AbstractUser;
 import invregsystem.logic.member.Manager;
-import invregsystem.logic.member.Member;
 import invregsystem.logic.member.User;
 import invregsystem.logic.member.UserCatalog;
 

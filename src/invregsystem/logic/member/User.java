@@ -23,16 +23,16 @@ public class User extends AbstractUser {
 	@Column(name = "userId")
 	private Integer id;
 
-	@Column(name = "firstName")
+	@Column(name = "firstName", nullable = false)
 	private String firstName;
 
-	@Column(name = "lastName")
+	@Column(name = "lastName", nullable = false)
 	private String lastName;
 
-	@Column(name = "userName")
+	@Column(name = "userName", nullable = false)
 	private String userName;
 
-	@Column(name = "password")
+	@Column(name = "password", nullable = false)
 	private String password;
 
 	@Column(name = "email")
@@ -41,7 +41,7 @@ public class User extends AbstractUser {
 	@Column(name = "birthDate")
 	private Date birthDate;
 
-	@Column(name = "expert")
+	@Column(name = "expert", nullable = false)
 	private boolean expert;
 
 	@ManyToMany(cascade = CascadeType.ALL)
@@ -180,6 +180,7 @@ public class User extends AbstractUser {
 		// TODO Auto-generated method stub
 
 	}
+
 	public String toString() {
 		return this.getFullName();
 	}

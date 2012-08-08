@@ -61,8 +61,8 @@ public class Initializer {
 		inventionLogCatalog.addInitialLog(invention);
 
 		invention = inventionDao.findByParameter("title", "عنوان").get(0);
-		shareDao.save(new Share(user, invention, 50));
-		shareDao.save(new Share(inventor, invention, 50));
+		shareDao.save(new Share(user, invention, 50, true));
+		shareDao.save(new Share(inventor, invention, 50, false));
 
 		invention.setCompany(companyDao.findByParameter("name", "عمید رایانه شریف").get(0));
 		inventionDao.update(invention);

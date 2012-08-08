@@ -25,14 +25,14 @@ public class InventionLog extends BaseEntity<Integer> {
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "inventionId")
+	@JoinColumn(name = "inventionId", nullable = false)
 	private Invention invention;
 
 	@ManyToOne
 	@JoinColumn(name = "editorUser")
 	private User editorUser;
 
-	@Column(name = "changeDate")
+	@Column(name = "changeDate", nullable = false)
 	private Date changeDate;
 
 	@Column(name = "comment")

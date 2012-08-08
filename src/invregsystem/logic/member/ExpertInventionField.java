@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-
-
 @Entity
 public class ExpertInventionField extends BaseEntity<Integer> {
 	@Id
@@ -20,11 +18,11 @@ public class ExpertInventionField extends BaseEntity<Integer> {
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "expertId")
+	@JoinColumn(name = "expertId", nullable = false)
 	private User expert;
 
 	@ManyToOne
-	@JoinColumn(name = "inventionFieldId")
+	@JoinColumn(name = "inventionFieldId", nullable = false)
 	private InventionField inventionField;
 
 	public ExpertInventionField() {

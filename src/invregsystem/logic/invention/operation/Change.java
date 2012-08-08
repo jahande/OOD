@@ -19,10 +19,10 @@ public class Change extends BaseEntity<Integer> {
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "inventionLogId")
+	@JoinColumn(name = "inventionLogId", nullable = false)
 	private InventionLog inventionLog;
 
-	@Column(name = "attributeName")
+	@Column(name = "attributeName", nullable = false)
 	private String attributeName;
 
 	@Column(name = "oldValue")

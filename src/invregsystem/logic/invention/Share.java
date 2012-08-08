@@ -20,17 +20,17 @@ public class Share extends BaseEntity<Integer> {
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "userId")
+	@JoinColumn(name = "userId", nullable = false)
 	private User user;
 
 	@ManyToOne
-	@JoinColumn(name = "inventionId")
+	@JoinColumn(name = "inventionId", nullable = false)
 	private Invention invention;
 
-	@Column(name = "shareValue")
+	@Column(name = "shareValue", nullable = false)
 	private int shareValue;
 
-	@Column(name = "isRequester")
+	@Column(name = "isRequester", nullable = false)
 	private boolean isRequester;
 
 	public Share() {

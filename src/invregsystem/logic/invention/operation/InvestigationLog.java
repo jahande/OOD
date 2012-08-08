@@ -6,7 +6,6 @@ import invregsystem.logic.invention.InventionRegistrationRequest;
 import invregsystem.logic.member.User;
 
 import java.util.Date;
-import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,29 +22,29 @@ public class InvestigationLog extends BaseEntity<Integer> {
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "expertId")
+	@JoinColumn(name = "expertId", nullable = false)
 	private User expert;
 
 	@ManyToOne
-	@JoinColumn(name = "requestId")
+	@JoinColumn(name = "requestId", nullable = false)
 	private InventionRegistrationRequest request;
 
-	@Column(name = "date")
+	@Column(name = "date", nullable = false)
 	private Date date;
 
-	@Column(name = "originalityApprove")
+	@Column(name = "originalityApprove", nullable = false)
 	private boolean originalityApprove;
 
-	@Column(name = "totalCompletenessApprove")
+	@Column(name = "totalCompletenessApprove", nullable = false)
 	private boolean totalCompletenessApprove;
 
-	@Column(name = "docCompletenessApprove")
+	@Column(name = "docCompletenessApprove", nullable = false)
 	private boolean docCompletenessApprove;
 
-	@Column(name = "claimApprove")
+	@Column(name = "claimApprove", nullable = false)
 	private boolean claimApprove;
 
-	@Column(name = "agentApprove")
+	@Column(name = "agentApprove", nullable = false)
 	private boolean agentApprove;
 
 	public InvestigationLog() {

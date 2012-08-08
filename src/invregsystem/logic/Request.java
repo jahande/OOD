@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
-
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Request extends BaseEntity<Integer> {
@@ -20,10 +19,10 @@ public abstract class Request extends BaseEntity<Integer> {
 	@Column(name = "requestId")
 	private Integer id;
 
-	@Column(name = "requestDate")
+	@Column(name = "requestDate", nullable = false)
 	private Date requestDate;
 
-	@Column(name = "state")
+	@Column(name = "state", nullable = false)
 	private int state;
 
 	public static final int NOT_INVESTIGATED = 0;
