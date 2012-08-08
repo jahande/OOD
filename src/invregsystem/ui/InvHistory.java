@@ -20,6 +20,7 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import utilities.ShamsiUtilites;
 import utilities.StringUtilities;
 
 public class InvHistory extends JFrame {
@@ -71,9 +72,13 @@ public class InvHistory extends JFrame {
 				button.addActionListener(new DisplayButtonActionListener(request));
 				return button;
 			} else if (colName.equals("تاریخ ثبت")) {
-				return request.getRequestDate();
+				return ShamsiUtilites.gregorian_to_jalali(request.getRequestDate());
 			} else if (colName.equals("تاریخ ارسال درخواست")) {
-				return request.getSendDate();
+				if (request.getSendDate() != null) {
+					return ShamsiUtilites.gregorian_to_jalali(request.getSendDate());
+				} else {
+					return "---";
+				}
 			} else if (colName.equals("مخترعان")) {
 				InventionCatalog inventionCatalog = InventionCatalog.getInstance();
 				return StringUtilities.getCommaSeparated(inventionCatalog.getInventorNames(request.getInvention()));

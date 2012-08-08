@@ -23,6 +23,7 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import utilities.ShamsiUtilites;
 import utilities.StringUtilities;
 
 public class ExpertInvRegReqList extends JFrame {
@@ -79,7 +80,7 @@ public class ExpertInvRegReqList extends JFrame {
 			} else if (colName.equals("حوزه اختراع")) {
 				return request.getInvention().getInventionField().getName();
 			} else if (colName.equals("تاریخ ارسال")) {
-				return request.getRequestDate().toString();
+				return ShamsiUtilites.gregorian_to_jalali(request.getRequestDate());
 			} else if (colName.equals("شرکت")) {
 				AbstractCompany company = request.getInvention().getCompany();
 				if (company != null) {

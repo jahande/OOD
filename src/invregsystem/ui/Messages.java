@@ -13,6 +13,8 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
 
+import utilities.ShamsiUtilites;
+
 public class Messages extends JFrame {
 
 	class TableTableModel extends AbstractTableModel {
@@ -44,7 +46,7 @@ public class Messages extends JFrame {
 				return "Error";
 			}
 			if (colName.equals("تاریخ")) {
-				return message.getSendDate();
+				return ShamsiUtilites.gregorian_to_jalali(message.getSendDate());
 			} else if (colName.equals("عنوان")) {
 				return message.getTitle();
 			} else if (colName.equals("متن")) {
@@ -80,7 +82,7 @@ public class Messages extends JFrame {
 	public Messages(AbstractUser currentUser) {
 		super();
 		this.currentUser = currentUser;
-		
+
 		setBounds(100, 100, 700, 191);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {

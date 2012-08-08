@@ -21,6 +21,7 @@ import javax.swing.table.AbstractTableModel;
 
 import sun.misc.Compare;
 import sun.misc.Sort;
+import utilities.ShamsiUtilites;
 import utilities.StringUtilities;
 
 public class InvList extends JFrame {
@@ -70,7 +71,7 @@ public class InvList extends JFrame {
 			} else if (colName.equals("تاریخ ثبت")) {
 				Date acceptDate = request.getAcceptDate();
 				if (acceptDate != null) {
-					return request.getAcceptDate();
+					return ShamsiUtilites.gregorian_to_jalali(request.getAcceptDate());
 				} else {
 					return "---";
 				}

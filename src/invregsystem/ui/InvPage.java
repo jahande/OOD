@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.EtchedBorder;
 
+import utilities.ShamsiUtilites;
 import utilities.StringUtilities;
 
 public class InvPage extends JFrame {
@@ -334,7 +335,7 @@ public class InvPage extends JFrame {
 		sendDateLabel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		String sendDate = "---";
 		if (selectedInvRegReq.getSendDate() != null) {
-			sendDate = selectedInvRegReq.getSendDate().toString();
+			sendDate = ShamsiUtilites.gregorian_to_jalali(selectedInvRegReq.getSendDate());
 		}
 		sendDateLabel.setText(sendDate);
 		sendDateLabel.setBounds(0, 112, 93, 16);
@@ -348,7 +349,7 @@ public class InvPage extends JFrame {
 		requestDateLabel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		String requestDate = "---";
 		if (selectedInvRegReq.getRequestDate() != null) {
-			requestDate = selectedInvRegReq.getRequestDate().toString();
+			requestDate = ShamsiUtilites.gregorian_to_jalali(selectedInvRegReq.getRequestDate());
 		}
 		requestDateLabel.setText(requestDate);
 		requestDateLabel.setBounds(0, 134, 109, 16);

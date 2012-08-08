@@ -18,6 +18,8 @@ import javax.swing.JTextPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.AbstractTableModel;
 
+import utilities.ShamsiUtilites;
+
 public class DocVersionPage extends JFrame {
 
 	private final JButton retrieveButton = new JButton();
@@ -77,7 +79,7 @@ public class DocVersionPage extends JFrame {
 		public Object getValueAt(int row, int column) {
 			if (row == 0) {
 				if (column == 0) {
-					return invLog.getChangeDate().toString();
+					return ShamsiUtilites.gregorian_to_jalali(invLog.getChangeDate());
 				} else if (column == 1) {
 					if (invLog.getEditorUser() != null) {
 						return invLog.getEditorUser().getFullName();

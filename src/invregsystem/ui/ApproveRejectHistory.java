@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import utilities.ShamsiUtilites;
 
 public class ApproveRejectHistory extends JFrame {
 
@@ -43,7 +44,7 @@ public class ApproveRejectHistory extends JFrame {
 			InvestigationLog log = logList.get(row);
 			switch (column) {
 			case 0:
-				return log.getDate().toString();
+				return ShamsiUtilites.gregorian_to_jalali(log.getDate());
 			case 1:
 				return log.getExpert().getFullName();
 			case 2:

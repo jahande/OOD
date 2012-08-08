@@ -18,6 +18,8 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import utilities.ShamsiUtilites;
+
 public class DocVersions extends JFrame {
 
 	private final JScrollPane scrollPane = new JScrollPane();
@@ -66,7 +68,7 @@ public class DocVersions extends JFrame {
 				button.addActionListener(new DisplayButtonActionListener(invLog));
 				return button;
 			} else if (colName.equals("تاریخ")) {
-				return invLog.getChangeDate().toString();
+				return ShamsiUtilites.gregorian_to_jalali(invLog.getChangeDate());
 			} else if (colName.equals("شخص ویرایش کننده")) {
 				if (invLog.getEditorUser() != null) {
 					return invLog.getEditorUser().getFullName();
