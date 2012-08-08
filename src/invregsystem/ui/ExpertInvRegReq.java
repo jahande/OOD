@@ -226,6 +226,9 @@ public class ExpertInvRegReq extends JFrame {
 		approveButton.addActionListener(new ApproveButtonActionListener());
 		approveButton.setText("تأیید یا رد درخواست");
 		approveButton.setBounds(202, 667, 112, 26);
+		if (selectedInvRegReq.getState() != InventionRegistrationRequest.NOT_INVESTIGATED) {
+			approveButton.setEnabled(false);
+		}
 
 	}
 
@@ -242,18 +245,20 @@ public class ExpertInvRegReq extends JFrame {
 	}
 
 	protected void approveHistoryButton_actionPerformed(ActionEvent e) {
-		if (selectedInvRegReq.getAssignedExpert().equals(currentUser)) {
-			new ApproveRejectHistory(selectedInvRegReq).setVisible(true);
-		} else {
+		if (!selectedInvRegReq.getAssignedExpert().equals(currentUser)) {
 			JOptionPane.showMessageDialog(this, "شما دیگر کارشناس این اختراع نیستید.", "خطا", JOptionPane.ERROR_MESSAGE);
+		} else {
+			new ApproveRejectHistory(selectedInvRegReq).setVisible(true);
 		}
 	}
 
 	protected void approveButton_actionPerformed(ActionEvent e) {
-		if (selectedInvRegReq.getAssignedExpert().equals(currentUser)) {
-			new ExpertInvApprove(currentUser, selectedInvRegReq).setVisible(true);
-		} else {
+		if (!selectedInvRegReq.getAssignedExpert().equals(currentUser)) {
 			JOptionPane.showMessageDialog(this, "شما دیگر کارشناس این اختراع نیستید.", "خطا", JOptionPane.ERROR_MESSAGE);
+		} else if (selectedInvRegReq.getState() != InventionRegistrationRequest.NOT_INVESTIGATED) {
+			JOptionPane.showMessageDialog(this, "درخواست قبلاً بررسی شده است.", "خطا", JOptionPane.ERROR_MESSAGE);
+		} else {
+			new ExpertInvApprove(currentUser, selectedInvRegReq).setVisible(true);
 		}
 	}
 

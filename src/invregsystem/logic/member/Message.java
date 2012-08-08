@@ -2,6 +2,7 @@ package invregsystem.logic.member;
 
 import java.util.Date;
 
+import interfaces.AbstractUser;
 import invregsystem.db.BaseEntity;
 
 import javax.persistence.Column;
@@ -36,12 +37,12 @@ public class Message extends BaseEntity<Integer> {
 
 	}
 
-	public Message(String title, String content, Date sendDate, User to) {
+	public Message(String title, String content, AbstractUser to) {
 		super();
 		this.title = title;
 		this.content = content;
-		this.sendDate = sendDate;
-		this.to = to;
+		this.sendDate = new Date();
+		this.to = (User) to;
 	}
 
 	public Integer getId() {

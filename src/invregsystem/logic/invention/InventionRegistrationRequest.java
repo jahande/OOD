@@ -2,14 +2,19 @@ package invregsystem.logic.invention;
 
 import interfaces.AbstractInvention;
 import interfaces.AbstractUser;
+import invregsystem.db.ShareDao;
 import invregsystem.logic.Request;
 import invregsystem.logic.invention.operation.InvestigationLog;
 import invregsystem.logic.invention.operation.InvestigationLogCatalog;
+import invregsystem.logic.member.Message;
+import invregsystem.logic.member.MessageCatalog;
 import invregsystem.logic.member.User;
 import invregsystem.logic.member.UserCatalog;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.persistence.CascadeType;
@@ -48,6 +53,40 @@ public class InventionRegistrationRequest extends Request {
 		return invention;
 	}
 
+	public boolean isHasAssignedExpert() {
+		return hasAssignedExpert;
+	}
+
+	public void setHasAssignedExpert(boolean hasAssignedExpert) {
+		this.hasAssignedExpert = hasAssignedExpert;
+	}
+
+	public void setInvention(Invention invention) {
+		this.invention = invention;
+	}
+
+	public User getAssignedExpert() {
+		return assignedExpert;
+	}
+
+	public void setAssignedExpert(User assignedExpert) {
+		this.assignedExpert = assignedExpert;
+		this.hasAssignedExpert = true;
+	}
+
+	public Date getSendDate() {
+		return sendDate;
+	}
+
+	public void setSendDate(Date sendDate) {
+		this.sendDate = sendDate;
+	}
+
+	public List<InvestigationLog> getInvestigationHistory() {
+		InvestigationLogCatalog investigationLogCatalog = InvestigationLogCatalog.getInstance();
+		return investigationLogCatalog.getItemsByRequest(this);
+	}
+
 	public void acceptAndApplyRequest(AbstractUser expert) {
 		super.acceptAndApplyRequest();
 		InventionRegistrationRequestCatalog catalog = InventionRegistrationRequestCatalog.getInstance();
@@ -69,9 +108,13 @@ public class InventionRegistrationRequest extends Request {
 		investigationLogCatalog.addItem(log);
 
 		if (investigationLogCatalog.getRejectCountOfInvRegReqByExpert(this, expert) >= 3) {
-			System.out.println("more than 3 times rejected.");
 			this.referToAnotherExpert(expert);
 		}
+
+		String content = "درخواست ثبت اختراع شما با عنوان " + this.invention.getTitle()
+				+ " توسط کارشناس رد شد. لطفا درخواست را اصلاح و مجددا ارسال نمایید.";
+		MessageCatalog messageCatalog = MessageCatalog.getInstance();
+		messageCatalog.addItem(new Message("رد درخواست", content, this.getRequester()));
 	}
 
 	public AbstractUser assignExpertToCheck(InventionField field) {
@@ -90,18 +133,6 @@ public class InventionRegistrationRequest extends Request {
 		return expert;
 	}
 
-	public boolean isHasAssignedExpert() {
-		return hasAssignedExpert;
-	}
-
-	public void setHasAssignedExpert(boolean hasAssignedExpert) {
-		this.hasAssignedExpert = hasAssignedExpert;
-	}
-
-	public void setInvention(Invention invention) {
-		this.invention = invention;
-	}
-
 	public void referToAnotherExpert(AbstractUser currentExpert) {
 		UserCatalog userCatalog = UserCatalog.getInstance();
 		List<User> experts = userCatalog.getExpertsByField(this.getInvention().getInventionField());
@@ -117,28 +148,6 @@ public class InventionRegistrationRequest extends Request {
 		invRegReqCatalog.updateItem(this);
 	}
 
-	public List<InvestigationLog> getInvestigationHistory() {
-		InvestigationLogCatalog investigationLogCatalog = InvestigationLogCatalog.getInstance();
-		return investigationLogCatalog.getItemsByRequest(this);
-	}
-
-	public User getAssignedExpert() {
-		return assignedExpert;
-	}
-
-	public void setAssignedExpert(User assignedExpert) {
-		this.assignedExpert = assignedExpert;
-		this.hasAssignedExpert = true;
-	}
-
-	public Date getSendDate() {
-		return sendDate;
-	}
-
-	public void setSendDate(Date sendDate) {
-		this.sendDate = sendDate;
-	}
-
 	public Date getAcceptDate() {
 		InvestigationLogCatalog investigationLogCatalog = InvestigationLogCatalog.getInstance();
 		InvestigationLog log = investigationLogCatalog.getLastInvestigationLogOfInvRegReq(this);
@@ -147,5 +156,14 @@ public class InventionRegistrationRequest extends Request {
 		} else {
 			return null;
 		}
+	}
+
+	public AbstractUser getRequester() {
+		ShareDao shareDao = ShareDao.getInstance();
+		Map<String, Object> parametersMap = new HashMap<String, Object>();
+		parametersMap.put("invention", invention);
+		parametersMap.put("isRequester", true);
+		List<Share> shares = shareDao.findByParametersMap(parametersMap);
+		return shares.get(0).getUser();
 	}
 }

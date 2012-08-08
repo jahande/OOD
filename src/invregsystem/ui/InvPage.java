@@ -239,7 +239,10 @@ public class InvPage extends JFrame {
 		sendButton.addActionListener(new SendButtonActionListener());
 		sendButton.setBounds(7, 7, 145, 26);
 		sendButton.setText("ارسال درخواست ثبت اختراع");
-		if (selectedInvRegReq.getSendDate() != null && selectedInvRegReq.getState() != InventionRegistrationRequest.REJECTED) {
+		boolean isSent = selectedInvRegReq.getSendDate() != null;
+		boolean isRejected = selectedInvRegReq.getState() == InventionRegistrationRequest.REJECTED;
+		boolean isRequester = selectedInvRegReq.getRequester().equals(currentUser);
+		if (!isRequester || (isSent && !isRejected)) {
 			sendButton.setEnabled(false);
 		}
 

@@ -203,7 +203,8 @@ public class InvRegReqInventors extends JFrame {
 			for (InventorData inventor : inventorsList) {
 				AbstractUser user = userCatalog.getUserByUsername((String) inventor.getInventorCombobox().getSelectedItem());
 				int shareValue = Integer.valueOf(inventor.getShareTextField().getText());
-				shares.add(new Share(user, invention, shareValue));
+				boolean isRequester = user.equals(currentUser);
+				shares.add(new Share(user, invention, shareValue, isRequester));
 			}
 			this.setVisible(false);
 			new InvRegReqCompany(currentUser, invention, shares).setVisible(true);

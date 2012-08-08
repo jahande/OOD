@@ -31,6 +31,7 @@
 		<mapping class="invregsystem.logic.member.CompanyRegistrationRequest"/>
 		<mapping class="invregsystem.logic.member.ExpertInventionField"/>
 		<mapping class="invregsystem.logic.member.Manager"/>
+		<mapping class="invregsystem.logic.member.Message"/>
 		<mapping class="invregsystem.logic.member.User"/>
 		<mapping class="invregsystem.logic.member.UserRegistrationRequest"/>
  		 

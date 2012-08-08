@@ -30,15 +30,19 @@ public class Share extends BaseEntity<Integer> {
 	@Column(name = "shareValue")
 	private int shareValue;
 
+	@Column(name = "isRequester")
+	private boolean isRequester;
+
 	public Share() {
 
 	}
 
-	public Share(AbstractUser user, AbstractInvention invention, int shareValue) {
+	public Share(AbstractUser user, AbstractInvention invention, int shareValue, boolean isRequester) {
 		super();
 		this.user = (User) user;
 		this.invention = (Invention) invention;
 		this.shareValue = shareValue;
+		this.isRequester = isRequester;
 	}
 
 	public Integer getId() {
@@ -71,6 +75,14 @@ public class Share extends BaseEntity<Integer> {
 
 	public int getShareValue() {
 		return shareValue;
+	}
+
+	public boolean isRequester() {
+		return isRequester;
+	}
+
+	public void setRequester(boolean isRequester) {
+		this.isRequester = isRequester;
 	}
 
 }
