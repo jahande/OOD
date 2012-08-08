@@ -8,6 +8,7 @@ import invregsystem.logic.Catalog;
 import invregsystem.logic.member.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,14 +63,20 @@ public class InventionCatalog implements Catalog {
 		return shareDao.fetchAll();
 	}
 
-	public Share getShareByParameter(User user, Invention invention) {
-		List<Share> result = shareDao.findByParameter("invention", invention);
-		for (Share share : result) {
-			if (share.getUser().equals(user)) {
-				return share;
-			}
+	public Share getShareByParameters(User user, Invention invention) {
+		Map<String, Object> parametersMap = new HashMap<String, Object>();
+		parametersMap.put("invention", invention);
+		parametersMap.put("user", user);
+		List<Share> result = shareDao.findByParametersMap(parametersMap);
+		if (!result.isEmpty()) {
+			return result.get(0);
+		} else {
+			return null;
 		}
-		return null;
+	}
+
+	public List<Share> getSharesByInvention(AbstractInvention invention) {
+		return shareDao.findByParameter("invention", invention);
 	}
 
 	public List<User> getInventorsByInvention(AbstractInvention invention) {
