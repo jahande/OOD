@@ -97,9 +97,9 @@ public class InventionCatalog implements Catalog {
 		return namesList;
 	}
 
-	public List<Invention> getInventionsByInventor(AbstractUser inventor) {
+	public List<AbstractInvention> getInventionsByInventor(AbstractUser inventor) {
 		List<Share> shares = shareDao.findByParameter("user", inventor);
-		List<Invention> inventions = new ArrayList<Invention>();
+		List<AbstractInvention> inventions = new ArrayList<AbstractInvention>();
 		for (Share share : shares) {
 			inventions.add(share.getInvention());
 		}

@@ -1,5 +1,9 @@
 package invregsystem.ui;
 
+import interfaces.AbstractUser;
+
+import java.awt.event.MouseEvent;
+
 import javax.swing.JFrame;
 
 /***
@@ -9,37 +13,21 @@ import javax.swing.JFrame;
  */
 public class RequestReportOfUserInventionsSel extends SelectUser {
 
-	/**
-	 * Launch the application
-	 * 
-	 * @param args
-	 */
-	public static void main(String args[]) {
-		try {
-			RequestReportOfUserInventionsSel frame = new RequestReportOfUserInventionsSel();
-			frame.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
+	
 	/**
 	 * Create the frame
 	 */
 	public RequestReportOfUserInventionsSel() {
 		super();
-		setBounds(100, 100, 500, 375);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		try {
-			jbInit();
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
 	}
 
-	private void jbInit() throws Exception {
-		System.currentTimeMillis();
-		setTitle("اخذ گزارش اختراعات کاربر- انتخاب کاربر");
+	@Override
+	protected void nextActionPerform(MouseEvent e, AbstractUser user) {
+		RequestReportOfUserInventionsView requestReportOfUserInventionsView = new RequestReportOfUserInventionsView(user);
+		requestReportOfUserInventionsView.refreshData();
+		requestReportOfUserInventionsView.setVisible(true);
 	}
+
+	
 
 }
