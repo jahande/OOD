@@ -98,7 +98,7 @@ public abstract class BaseDao<T extends BaseEntity<PKType>, PKType extends Seria
 		return result;
 	}
 
-	protected List<T> findSortedLessEqualThanParameter(Class<T> clazz, String parameter, Object value) {
+	protected List<T> findSortedLessThanParameter(Class<T> clazz, String parameter, Object value) {
 		Session session = null;
 		List<T> result = null;
 		Transaction tx = null;
@@ -107,7 +107,7 @@ public abstract class BaseDao<T extends BaseEntity<PKType>, PKType extends Seria
 			session = sessionFactory.getCurrentSession();
 			tx = session.beginTransaction();
 			Criteria crit = session.createCriteria(clazz);
-			crit.add(Restrictions.le(parameter, value));
+			crit.add(Restrictions.lt(parameter, value));
 			crit.addOrder(Order.asc(parameter));
 			result = (List<T>) crit.list();
 			tx.commit();
@@ -123,7 +123,7 @@ public abstract class BaseDao<T extends BaseEntity<PKType>, PKType extends Seria
 		return result;
 	}
 
-	protected List<T> findSortedGreaterEqualThanParameter(Class<T> clazz, String parameter, Object value) {
+	protected List<T> findSortedGreaterThanParameter(Class<T> clazz, String parameter, Object value) {
 		Session session = null;
 		List<T> result = null;
 		Transaction tx = null;
@@ -132,7 +132,7 @@ public abstract class BaseDao<T extends BaseEntity<PKType>, PKType extends Seria
 			session = sessionFactory.getCurrentSession();
 			tx = session.beginTransaction();
 			Criteria crit = session.createCriteria(clazz);
-			crit.add(Restrictions.ge(parameter, value));
+			crit.add(Restrictions.gt(parameter, value));
 			crit.addOrder(Order.asc(parameter));
 			result = (List<T>) crit.list();
 			tx.commit();

@@ -1,14 +1,20 @@
 package invregsystem.ui;
 
 import interfaces.AbstractInvention;
+import invregsystem.logic.invention.InventionCatalog;
+import invregsystem.logic.invention.InventionRegistrationRequest;
 import invregsystem.logic.invention.operation.InventionLog;
+import invregsystem.logic.invention.operation.InventionLogCatalog;
 
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -55,6 +61,7 @@ public class DocVersionPage extends JFrame {
 	private final JTable table_1 = new JTable();
 
 	private InventionLog invLog;
+	private AbstractInvention inventionVersion;
 
 	class TableTableModel extends AbstractTableModel {
 		private final String[] COLUMNS = new String[] { "تاریخ", "شخص ویرایش کننده", };
@@ -126,7 +133,7 @@ public class DocVersionPage extends JFrame {
 		getContentPane().setLayout(null);
 		setTitle("نسخه مستندات");
 
-		AbstractInvention invention = invLog.getInventionVersion();
+		inventionVersion = invLog.getInventionVersion();
 
 		getContentPane().add(scrollPane_1);
 		scrollPane_1.setBounds(389, 23, 219, 43);
@@ -140,6 +147,12 @@ public class DocVersionPage extends JFrame {
 		retrieveButton.addActionListener(new RetrieveButtonActionListener());
 		retrieveButton.setText("بازیابی نسخه");
 		retrieveButton.setBounds(439, 271, 106, 26);
+		InventionRegistrationRequest request = invLog.getInvention().getInventionRegistrationRequest();
+		boolean isSent = request.getSendDate() != null;
+		boolean isRejected = request.getState() == InventionRegistrationRequest.REJECTED;
+		if (isSent && !isRejected) {
+			retrieveButton.setEnabled(false);
+		}
 
 		getContentPane().add(panel);
 		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
@@ -187,7 +200,7 @@ public class DocVersionPage extends JFrame {
 
 		scrollPane_2.setViewportView(descTextPane);
 		descTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		descTextPane.setText(invention.getTotalSpec());
+		descTextPane.setText(inventionVersion.getTotalSpec());
 		descTextPane.setEditable(false);
 
 		panel.add(scrollPane_3);
@@ -196,7 +209,7 @@ public class DocVersionPage extends JFrame {
 
 		scrollPane_3.setViewportView(abstractTextPane);
 		abstractTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		abstractTextPane.setText(invention.getSummary());
+		abstractTextPane.setText(inventionVersion.getSummary());
 		abstractTextPane.setEditable(false);
 
 		panel.add(scrollPane_4);
@@ -205,7 +218,7 @@ public class DocVersionPage extends JFrame {
 
 		scrollPane_4.setViewportView(ideaDescTextPane);
 		ideaDescTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		ideaDescTextPane.setText(invention.getIdeaDescription());
+		ideaDescTextPane.setText(inventionVersion.getIdeaDescription());
 		ideaDescTextPane.setEditable(false);
 
 		panel.add(scrollPane_5);
@@ -214,7 +227,7 @@ public class DocVersionPage extends JFrame {
 
 		scrollPane_5.setViewportView(ideaHistoryTextPane);
 		ideaHistoryTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		ideaHistoryTextPane.setText(invention.getIdeaHistory());
+		ideaHistoryTextPane.setText(inventionVersion.getIdeaHistory());
 		ideaHistoryTextPane.setEditable(false);
 
 		panel.add(scrollPane_6);
@@ -223,7 +236,7 @@ public class DocVersionPage extends JFrame {
 
 		scrollPane_6.setViewportView(assertTextPane);
 		assertTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		assertTextPane.setText(invention.getClaim());
+		assertTextPane.setText(inventionVersion.getClaim());
 		assertTextPane.setEditable(false);
 
 		panel.add(label_8);
@@ -237,26 +250,26 @@ public class DocVersionPage extends JFrame {
 
 		scrollPane_7.setViewportView(fullDescTextPane);
 		fullDescTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		fullDescTextPane.setText(invention.getExplanation());
+		fullDescTextPane.setText(inventionVersion.getExplanation());
 		fullDescTextPane.setEditable(false);
 
 		panel.add(fileTextField1);
-		if (invention.getFile1() != null) {
-			fileTextField1.setText(invention.getFile1());
+		if (inventionVersion.getFile1() != null) {
+			fileTextField1.setText(inventionVersion.getFile1());
 		}
 		fileTextField1.setEditable(false);
 		fileTextField1.setBounds(10, 497, 353, 20);
 
 		panel.add(fileTextField2);
-		if (invention.getFile2() != null) {
-			fileTextField2.setText(invention.getFile2());
+		if (inventionVersion.getFile2() != null) {
+			fileTextField2.setText(inventionVersion.getFile2());
 		}
 		fileTextField2.setEditable(false);
 		fileTextField2.setBounds(10, 527, 353, 20);
 
 		panel.add(fileTextField3);
-		if (invention.getFile3() != null) {
-			fileTextField3.setText(invention.getFile3());
+		if (inventionVersion.getFile3() != null) {
+			fileTextField3.setText(inventionVersion.getFile3());
 		}
 		fileTextField3.setEditable(false);
 		fileTextField3.setBounds(10, 557, 353, 20);
@@ -286,7 +299,28 @@ public class DocVersionPage extends JFrame {
 	}
 
 	protected void retrieveButton_actionPerformed(ActionEvent e) {
-		this.setVisible(false);
+		int answer = JOptionPane.showConfirmDialog(this, "در صورت بازیابی، نسخه های بعد از نسخه مورد نظر حذف خواهند شد. آیا مطمئن هستید؟", "عنوان",
+				JOptionPane.YES_NO_OPTION);
+		if (answer == 0) { // if the answer is YES
+			AbstractInvention invention = invLog.getInvention();
+			invention.setTotalSpec(inventionVersion.getTotalSpec());
+			invention.setSummary(inventionVersion.getSummary());
+			invention.setIdeaDescription(inventionVersion.getIdeaDescription());
+			invention.setIdeaHistory(inventionVersion.getIdeaHistory());
+			invention.setClaim(inventionVersion.getClaim());
+			invention.setExplanation(inventionVersion.getExplanation());
+
+			InventionCatalog inventionCatalog = InventionCatalog.getInstance();
+			inventionCatalog.updateItem(invention);
+
+			InventionLogCatalog inventionLogCatalog = InventionLogCatalog.getInstance();
+			List<InventionLog> logs = inventionLogCatalog.getlogsOfInventionAfterDate(invention, invLog.getChangeDate());
+			for (InventionLog log : logs) {
+				inventionLogCatalog.removeItem(log);
+			}
+
+			this.setVisible(false);
+		}
 	}
 
 }

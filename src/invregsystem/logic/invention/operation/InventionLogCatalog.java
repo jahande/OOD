@@ -56,7 +56,18 @@ public class InventionLogCatalog implements Catalog {
 	}
 
 	public List<InventionLog> getlogsOfInventionBeforeDate(AbstractInvention invention, Date date) {
-		List<InventionLog> logs = inventionLogDao.findLessEqualThanParameter("changeDate", date);
+		List<InventionLog> logs = inventionLogDao.findLessThanParameter("changeDate", date);
+		List<InventionLog> result = new ArrayList<InventionLog>();
+		for (InventionLog log : logs) {
+			if (log.getInvention().equals(invention)) {
+				result.add(log);
+			}
+		}
+		return result;
+	}
+
+	public List<InventionLog> getlogsOfInventionAfterDate(AbstractInvention invention, Date date) {
+		List<InventionLog> logs = inventionLogDao.findGreaterThanParameter("changeDate", date);
 		List<InventionLog> result = new ArrayList<InventionLog>();
 		for (InventionLog log : logs) {
 			if (log.getInvention().equals(invention)) {

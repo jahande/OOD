@@ -25,8 +25,12 @@ public class InventionLogDao extends BaseDao<InventionLog, Integer> {
 		return super.findByParameter(InventionLog.class, parameter, value);
 	}
 
-	public List<InventionLog> findLessEqualThanParameter(String parameter, Object value) {
-		return super.findSortedLessEqualThanParameter(InventionLog.class, parameter, value);
+	public List<InventionLog> findLessThanParameter(String parameter, Object value) {
+		return super.findSortedLessThanParameter(InventionLog.class, parameter, value);
+	}
+
+	public List<InventionLog> findGreaterThanParameter(String parameter, Object value) {
+		return super.findSortedGreaterThanParameter(InventionLog.class, parameter, value);
 	}
 
 	public List<InventionLog> fetchAll() {
