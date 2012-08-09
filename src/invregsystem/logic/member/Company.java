@@ -38,7 +38,7 @@ public class Company extends AbstractCompany {
 	private String introDocFile;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "companyagent", joinColumns = { @JoinColumn(name = "companyId") }, inverseJoinColumns = { @JoinColumn(name = "memberId") })
+	@JoinTable(name = "companyagent", joinColumns = { @JoinColumn(name = "companyId") }, inverseJoinColumns = { @JoinColumn(name = "agentId") })
 	private Set<User> agents;
 
 	public Company() {

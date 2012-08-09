@@ -40,22 +40,30 @@ public class InvestigationLogCatalog implements Catalog {
 		investigationLogDao.update((InvestigationLog) item);
 	}
 
-	public List<InvestigationLog> getItemsByRequest(InventionRegistrationRequest request) {
-		return investigationLogDao.findByParameter("request", request);
-	}
-
-	public InvestigationLog getAcceptedInvestigationLogOfInvRegReq(InventionRegistrationRequest request) {
+	public List<InvestigationLog> getNonexpiredLogsByRequest(InventionRegistrationRequest request) {
 		Map<String, Object> parametersMap = new HashMap<String, Object>();
 		parametersMap.put("request", request);
 		parametersMap.put("expired", false);
-		parametersMap.put("originalityApprove", true);
-		parametersMap.put("totalCompletenessApprove", true);
-		parametersMap.put("docCompletenessApprove", true);
-		parametersMap.put("claimApprove", true);
-		parametersMap.put("agentApprove", true);
+		return investigationLogDao.findByParametersMap(parametersMap);
+	}
+
+	public List<InvestigationLog> getExpiredInvestigationLogs() {
+		return investigationLogDao.findByParameter("expired", true);
+	}
+
+	public InvestigationLog getLastInvestigationLogOfInvRegReq(InventionRegistrationRequest request) {
+		Map<String, Object> parametersMap = new HashMap<String, Object>();
+		parametersMap.put("request", request);
+		parametersMap.put("expired", false);
 		List<InvestigationLog> logs = investigationLogDao.findByParametersMap(parametersMap);
 		if (!logs.isEmpty()) {
-			return logs.get(0);
+			InvestigationLog lastLog = logs.get(logs.size() - 1);
+			for (InvestigationLog log : logs) {
+				if (log.getDate().after(lastLog.getDate())) {
+					lastLog = log;
+				}
+			}
+			return lastLog;
 		} else {
 			return null;
 		}
@@ -90,7 +98,4 @@ public class InvestigationLogCatalog implements Catalog {
 		return count;
 	}
 
-	public List<InvestigationLog> getExpiredInvestigationLogs() {
-		return investigationLogDao.findByParameter("expired", true);
-	}
 }

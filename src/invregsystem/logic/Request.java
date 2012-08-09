@@ -23,7 +23,7 @@ public abstract class Request extends BaseEntity<Integer> {
 	private Date requestDate;
 
 	@Column(name = "state", nullable = false)
-	private int state;
+	private int state = NOT_INVESTIGATED;
 
 	public static final int NOT_INVESTIGATED = 0;
 	public static final int ACCEPTED = 1;
@@ -55,11 +55,11 @@ public abstract class Request extends BaseEntity<Integer> {
 		return state;
 	}
 
-	public void acceptAndApplyRequest() {
+	protected void acceptAndApplyRequest() {
 		state = ACCEPTED;
 	}
 
-	public void rejectRequest() {
+	protected void rejectRequest() {
 		state = REJECTED;
 	}
 

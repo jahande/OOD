@@ -86,9 +86,17 @@ public class InventionRegistrationRequest extends Request {
 		this.sendDate = sendDate;
 	}
 
+	public boolean isPermitted() {
+		return permitted;
+	}
+
+	public void setPermitted(boolean permitted) {
+		this.permitted = permitted;
+	}
+
 	public List<InvestigationLog> getInvestigationHistory() {
 		InvestigationLogCatalog investigationLogCatalog = InvestigationLogCatalog.getInstance();
-		return investigationLogCatalog.getItemsByRequest(this);
+		return investigationLogCatalog.getNonexpiredLogsByRequest(this);
 	}
 
 	public void acceptAndApplyRequest(AbstractUser expert) {
@@ -96,7 +104,7 @@ public class InventionRegistrationRequest extends Request {
 		InventionRegistrationRequestCatalog catalog = InventionRegistrationRequestCatalog.getInstance();
 		InvestigationLogCatalog investigationLogCatalog = InvestigationLogCatalog.getInstance();
 		catalog.updateItem(this);
-		InvestigationLog log = new InvestigationLog(expert, this);
+		InvestigationLog log = new InvestigationLog(expert, this, false);
 		log.setApprovals(true, true, true, true, true);
 		investigationLogCatalog.addItem(log);
 	}
@@ -107,7 +115,7 @@ public class InventionRegistrationRequest extends Request {
 		InventionRegistrationRequestCatalog catalog = InventionRegistrationRequestCatalog.getInstance();
 		InvestigationLogCatalog investigationLogCatalog = InvestigationLogCatalog.getInstance();
 		catalog.updateItem(this);
-		InvestigationLog log = new InvestigationLog(expert, this);
+		InvestigationLog log = new InvestigationLog(expert, this, false);
 		log.setApprovals(originalityApprove, totalCompletenessApprove, docCompletenessApprove, claimApprove, agentApprove);
 		investigationLogCatalog.addItem(log);
 
@@ -154,8 +162,8 @@ public class InventionRegistrationRequest extends Request {
 
 	public Date getAcceptDate() {
 		InvestigationLogCatalog investigationLogCatalog = InvestigationLogCatalog.getInstance();
-		InvestigationLog log = investigationLogCatalog.getAcceptedInvestigationLogOfInvRegReq(this);
-		if (log != null) {
+		InvestigationLog log = investigationLogCatalog.getLastInvestigationLogOfInvRegReq(this);
+		if (log != null && log.isAccepted()) {
 			return log.getDate();
 		} else {
 			return null;
@@ -171,11 +179,11 @@ public class InventionRegistrationRequest extends Request {
 		return shares.get(0).getUser();
 	}
 
-	public boolean isPermitted() {
-		return permitted;
-	}
-
-	public void setPermitted(boolean permitted) {
-		this.permitted = permitted;
+	public void setAsExpired() {
+		InvestigationLogCatalog investigationLogCatalog = InvestigationLogCatalog.getInstance();
+		investigationLogCatalog.addItem(new InvestigationLog(this.assignedExpert, this, true));
+		this.sendDate = new Date();
+		InventionRegistrationRequestCatalog invRegReqCatalog = InventionRegistrationRequestCatalog.getInstance();
+		invRegReqCatalog.updateItem(this);
 	}
 }

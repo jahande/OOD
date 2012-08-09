@@ -30,17 +30,22 @@ public class Initializer {
 		inventionFieldDao.save(new InventionField("عمران"));
 		inventionFieldDao.save(new InventionField("هوافضا"));
 
-		User expert = new User("کارشناس", "کارشناسی", "expert", "123", "expert@expert.com", new Date());
-		expert.setExpert(true);
+		User expert1 = new User("پرویز", "کارشناسی", "expert1", "123", "expert1@expert.com", new Date());
+		expert1.setExpert(true);
 		Set<InventionField> inventionFields = new HashSet<InventionField>();
 		inventionFields.add(inventionFieldDao.findByParameter("name", "هوافضا").get(0));
-		expert.setInventionFields(inventionFields);
-		userDao.save(expert);
-		userDao.save(new User("کاربر", "کاربری", "user", "123", "user@user.com", new Date()));
-		userDao.save(new User("مخترع", "اختراعی", "inventor", "123", "inventor@inventor.com", new Date()));
-		expert = userDao.findByParameter("userName", "expert").get(0);
-		User user = userDao.findByParameter("userName", "user").get(0);
-		User inventor = userDao.findByParameter("userName", "inventor").get(0);
+		expert1.setInventionFields(inventionFields);
+		userDao.save(expert1);
+
+		User expert2 = new User("لهراسب", "کارشناسی", "expert2", "123", "expert2@expert.com", new Date());
+		expert2.setExpert(true);
+		expert2.setInventionFields(inventionFields);
+		userDao.save(expert2);
+
+		User user = new User("کاربر", "کاربری", "user", "123", "user@user.com", new Date());
+		userDao.save(user);
+		User inventor = new User("مخترع", "اختراعی", "inventor", "123", "inventor@inventor.com", new Date());
+		userDao.save(inventor);
 		Manager manager = new Manager("مدیر", "مدیری", "manager", "123", "manager@manage.com", new Date());
 		managerDao.save(manager);
 
@@ -51,7 +56,7 @@ public class Initializer {
 		agents.add(inventor);
 		companyDao.save(new Company("پوران صنعت ایران", "1234", "آدرس", "www", "", agents));
 		agents = new HashSet<AbstractUser>();
-		agents.add(expert);
+		agents.add(expert1);
 		companyDao.save(new Company("تمیز گستر اندیشان", "1234", "آدرس", "www", "", agents));
 
 		Invention invention = new Invention("عنوان", "مشخصات کلی", "چکیده", "شرح ایده", "سابقه ایده", "ادعانامه", "شرح کامل", new ArrayList<String>());
@@ -68,7 +73,7 @@ public class Initializer {
 		inventionDao.update(invention);
 
 		InventionRegistrationRequest req = new InventionRegistrationRequest(new Date(), invention);
-		req.setAssignedExpert(expert);
+		req.setAssignedExpert(expert1);
 		invRegReqDao.save(req);
 	}
 }

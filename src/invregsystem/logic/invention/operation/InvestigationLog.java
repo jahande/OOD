@@ -54,11 +54,12 @@ public class InvestigationLog extends BaseEntity<Integer> {
 
 	}
 
-	public InvestigationLog(AbstractUser expert, InventionRegistrationRequest request) {
+	public InvestigationLog(AbstractUser expert, InventionRegistrationRequest request, boolean expired) {
 		super();
 		this.expert = (User) expert;
 		this.request = request;
 		this.date = new Date();
+		this.expired = expired;
 	}
 
 	public Integer getId() {
