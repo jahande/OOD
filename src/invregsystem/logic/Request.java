@@ -63,10 +63,6 @@ public abstract class Request extends BaseEntity<Integer> {
 		state = REJECTED;
 	}
 
-	public void sendRequestToManager() {
-
-	}
-
 	public String getStateName() {
 		switch (state) {
 		case NOT_INVESTIGATED:

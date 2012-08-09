@@ -1,11 +1,9 @@
 package interfaces;
 
 import invregsystem.db.BaseEntity;
-import invregsystem.logic.invention.Invention;
 import invregsystem.logic.invention.InventionField;
 import invregsystem.logic.invention.InventionRegistrationRequest;
 import invregsystem.logic.invention.Share;
-import invregsystem.logic.member.Company;
 
 import java.util.List;
 import java.util.Set;
@@ -40,8 +38,6 @@ public abstract class AbstractInvention extends BaseEntity<Integer> {
 	public abstract String getClaim();
 
 	public abstract InventionField getInventionField();
-
-	public abstract void resendForObjection();
 
 	public abstract List<AbstractInvention> getRelativeInventions();
 

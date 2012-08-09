@@ -31,14 +31,4 @@ public abstract class AbstractMember extends BaseEntity<Integer> {
 	public abstract Date getBirthDate();
 
 	public abstract String getFullName();
-
-	public abstract void sigin();
-
-	public abstract void signout();
-
-	public abstract void getMessages();
-
-	public abstract void signup();
-
-	public abstract void deleteMessages();
 }

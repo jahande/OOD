@@ -164,38 +164,4 @@ public class User extends AbstractUser {
 		return firstName + " " + lastName;
 	}
 
-	@Override
-	public void sigin() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void signout() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void getMessages() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void signup() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void deleteMessages() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public String toString() {
-		return this.getFullName();
-	}
-
 }

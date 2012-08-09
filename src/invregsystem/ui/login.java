@@ -110,7 +110,7 @@ public class Login extends JFrame {
 				return null;
 			}
 		} else {
-			Manager manager = Manager.getManager();
+			AbstractManager manager = Manager.getManager();
 			if (manager != null && manager.getUserName().equals(un) && manager.getPassword().equals(pa)) {
 				return manager;
 			} else {
