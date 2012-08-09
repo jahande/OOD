@@ -154,8 +154,8 @@ public class InventionRegistrationRequest extends Request {
 
 	public Date getAcceptDate() {
 		InvestigationLogCatalog investigationLogCatalog = InvestigationLogCatalog.getInstance();
-		InvestigationLog log = investigationLogCatalog.getLastInvestigationLogOfInvRegReq(this);
-		if (log != null && log.isAccepted()) {
+		InvestigationLog log = investigationLogCatalog.getAcceptedInvestigationLogOfInvRegReq(this);
+		if (log != null) {
 			return log.getDate();
 		} else {
 			return null;

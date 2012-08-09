@@ -44,23 +44,28 @@ public class InvestigationLogCatalog implements Catalog {
 		return investigationLogDao.findByParameter("request", request);
 	}
 
-	public InvestigationLog getLastInvestigationLogOfInvRegReq(InventionRegistrationRequest request) {
-		List<InvestigationLog> logs = investigationLogDao.findByParameter("request", request);
+	public InvestigationLog getAcceptedInvestigationLogOfInvRegReq(InventionRegistrationRequest request) {
+		Map<String, Object> parametersMap = new HashMap<String, Object>();
+		parametersMap.put("request", request);
+		parametersMap.put("expired", false);
+		parametersMap.put("originalityApprove", true);
+		parametersMap.put("totalCompletenessApprove", true);
+		parametersMap.put("docCompletenessApprove", true);
+		parametersMap.put("claimApprove", true);
+		parametersMap.put("agentApprove", true);
+		List<InvestigationLog> logs = investigationLogDao.findByParametersMap(parametersMap);
 		if (!logs.isEmpty()) {
-			InvestigationLog lastLog = logs.get(logs.size() - 1);
-			for (InvestigationLog log : logs) {
-				if (log.getDate().after(lastLog.getDate())) {
-					lastLog = log;
-				}
-			}
-			return lastLog;
+			return logs.get(0);
 		} else {
 			return null;
 		}
 	}
 
 	public int getRejectCountOfInvRegReq(InventionRegistrationRequest request) {
-		List<InvestigationLog> logs = investigationLogDao.findByParameter("request", request);
+		Map<String, Object> parametersMap = new HashMap<String, Object>();
+		parametersMap.put("request", request);
+		parametersMap.put("expired", false);
+		List<InvestigationLog> logs = investigationLogDao.findByParametersMap(parametersMap);
 		int count = 0;
 		for (InvestigationLog log : logs) {
 			if (!log.isAccepted()) {
@@ -74,6 +79,7 @@ public class InvestigationLogCatalog implements Catalog {
 		Map<String, Object> parametersMap = new HashMap<String, Object>();
 		parametersMap.put("request", request);
 		parametersMap.put("expert", expert);
+		parametersMap.put("expired", false);
 		List<InvestigationLog> logs = investigationLogDao.findByParametersMap(parametersMap);
 		int count = 0;
 		for (InvestigationLog log : logs) {
@@ -82,5 +88,9 @@ public class InvestigationLogCatalog implements Catalog {
 			}
 		}
 		return count;
+	}
+
+	public List<InvestigationLog> getExpiredInvestigationLogs() {
+		return investigationLogDao.findByParameter("expired", true);
 	}
 }

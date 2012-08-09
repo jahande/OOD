@@ -47,6 +47,9 @@ public class InvestigationLog extends BaseEntity<Integer> {
 	@Column(name = "agentApprove", nullable = false)
 	private boolean agentApprove;
 
+	@Column(name = "expired", nullable = false)
+	private boolean expired;
+
 	public InvestigationLog() {
 
 	}
@@ -173,6 +176,14 @@ public class InvestigationLog extends BaseEntity<Integer> {
 		} else {
 			return "";
 		}
+	}
+
+	public boolean isExpired() {
+		return expired;
+	}
+
+	public void setExpired(boolean expired) {
+		this.expired = expired;
 	}
 
 }
