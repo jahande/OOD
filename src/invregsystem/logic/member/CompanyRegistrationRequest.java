@@ -7,12 +7,14 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
 public class CompanyRegistrationRequest extends Request {
 
 	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "companyId", nullable = false)
 	private Company company;
 
 	public CompanyRegistrationRequest() {
@@ -33,6 +35,6 @@ public class CompanyRegistrationRequest extends Request {
 	}
 
 	public String toString() {
-		return this.getCompany().getName()+" "+this.getCompany().getPhone();
+		return this.getCompany().getName() + " " + this.getCompany().getPhone();
 	}
 }

@@ -27,6 +27,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class InventionRegistrationRequest extends Request {
 	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "inventionId", nullable = false)
 	private Invention invention;
 
 	@ManyToOne
@@ -38,6 +39,9 @@ public class InventionRegistrationRequest extends Request {
 
 	@Column(name = "sendDate")
 	private Date sendDate;
+
+	@Column(name = "permitted", nullable = false)
+	private boolean permitted = true;
 
 	public InventionRegistrationRequest() {
 
@@ -165,5 +169,13 @@ public class InventionRegistrationRequest extends Request {
 		parametersMap.put("isRequester", true);
 		List<Share> shares = shareDao.findByParametersMap(parametersMap);
 		return shares.get(0).getUser();
+	}
+
+	public boolean isPermitted() {
+		return permitted;
+	}
+
+	public void setPermitted(boolean permitted) {
+		this.permitted = permitted;
 	}
 }

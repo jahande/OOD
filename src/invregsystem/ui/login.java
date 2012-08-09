@@ -4,7 +4,6 @@ import interfaces.AbstractManager;
 import interfaces.AbstractMember;
 import interfaces.AbstractUser;
 import invregsystem.logic.member.Manager;
-import invregsystem.logic.member.User;
 import invregsystem.logic.member.UserCatalog;
 
 import java.awt.Color;
@@ -112,7 +111,7 @@ public class Login extends JFrame {
 			}
 		} else {
 			Manager manager = Manager.getManager();
-			if (manager.getUserName().equals(un) && manager.getPassword().equals(pa)) {
+			if (manager != null && manager.getUserName().equals(un) && manager.getPassword().equals(pa)) {
 				return manager;
 			} else {
 				return null;
