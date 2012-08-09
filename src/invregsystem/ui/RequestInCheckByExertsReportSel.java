@@ -29,7 +29,7 @@ public class RequestInCheckByExertsReportSel extends SelectUser {
 	}
 	@Override
 	public void refreshData() {
-		this.users = (List<AbstractUser>)UserCatalog.getInstance().getExperts();
+		this.users = UserCatalog.getInstance().getExperts();
 		super.refreshData();
 	}
 
