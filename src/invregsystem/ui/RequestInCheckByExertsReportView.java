@@ -42,6 +42,7 @@ import javax.swing.table.AbstractTableModel;
 public class RequestInCheckByExertsReportView extends JFrame implements NeedRefreshData {
 
 	private AbstractUser user;
+	private final static String[] COLS = new String[] { "نوان اختراع","حوزه‌ی اختراع","وضعیت","شرح ایده","خلاصه"};
 
 	class TableTableModel extends AbstractTableModel {
 		private final String[] COLUMNS = new String[] { "نام کاربری", "نام",
@@ -102,13 +103,12 @@ public class RequestInCheckByExertsReportView extends JFrame implements NeedRefr
 	@Override
 	public void refreshData() {
 		List<InventionRegistrationRequest> invRegReqs = InventionRegistrationRequestCatalog.getInstance().getInvRegReqsByExpert(this.user);
-		int printItems = 6;
-		String[][] invTableStrs = new String[invs.size()][printItems];
+		String[][] invTableStrs = new String[invRegReqs.size()][RequestInCheckByExertsReportView.COLS.length];
 		int j = 0;
 		for (InventionRegistrationRequest invRegReq : invRegReqs) {
 			
 			AbstractInvention inv = invRegReq.getInvention();
-			invTableStrs[j] = new String[printItems];
+			invTableStrs[j] = new String[RequestInCheckByExertsReportView.COLS.length];
 			invTableStrs[j][0] = inv.getTitle();
 			invTableStrs[j][1] = inv.getInventionField().getName();
 			invTableStrs[j][2] =inv.getInventionRegistrationRequest().getStateName();

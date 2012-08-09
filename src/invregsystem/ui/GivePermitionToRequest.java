@@ -6,6 +6,8 @@ import invregsystem.logic.invention.InventionField;
 import invregsystem.logic.invention.InventionFieldCatalog;
 import invregsystem.logic.invention.InventionFieldRegistrationRequest;
 import invregsystem.logic.invention.InventionFieldRegistrationRequestCatalog;
+import invregsystem.logic.invention.InventionRegistrationRequest;
+import invregsystem.logic.invention.InventionRegistrationRequestCatalog;
 import interfaces.AbstractUser;
 import invregsystem.logic.member.UserCatalog;
 import invregsystem.ui.models.ListMouseAdapter;
@@ -53,15 +55,14 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 	private JPanel rejectPanel;// s= new JPanel();
 	private JPanel acceptPanel;
 	private final JButton button = new JButton();
-	protected List<InventionFieldRegistrationRequest> requests;
-	protected InventionFieldRegistrationRequestCatalog catalogInstance;
+	protected List<InventionRegistrationRequest> requests;
+	protected InventionRegistrationRequestCatalog catalogInstance;
 	protected boolean removeRequest = false;
 
 	private final JTable table = new JTable();
 	private final JScrollPane scrollPane = new JScrollPane();
 
-	private final static String[] COLS = new String[] { "وضعیت مخترع بودن",
-			"نام", "تعداد اختراع", };
+	private final static String[] COLS = new String[] { "نام","عنوان اختراع"};
 
 	/**
 	 * Create the frame
@@ -136,37 +137,41 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 
 	@Override
 	public void listMouseListennerActionPerform(MouseEvent e, Object obj) {
-		rejectActionPerform(e, (Request) (obj));
+		rejectActionPerform(e, (InventionRegistrationRequest) (obj));
 
 		// JOptionPane.showMessageDialog(this, ((AbstractUser)obj).getId());
 	}
 
 	public void refreshData() {
 		// TODO Auto-generated method stub
+		this.catalogInstance = InventionRegistrationRequestCatalog
+				.getInstance();
+		this.requests = this.catalogInstance.getNotPermitted();
 		resetPanels();
 
 		// this.panel = new JPanel();
-		for (Object obj : this.requests) {
-			Request request = (Request) obj;
-			ParameterLabel<Request> rejectLbl = new ParameterLabel<Request>();
+		for (InventionRegistrationRequest request : this.requests) {
+			ParameterLabel<InventionRegistrationRequest> rejectLbl = new ParameterLabel<InventionRegistrationRequest>();
 
 			rejectLbl.setParameter(request);
 			rejectLbl.setPreferredSize(new Dimension(40, 10));
 			rejectLbl.setHorizontalTextPosition(SwingConstants.CENTER);
 			rejectLbl.setHorizontalAlignment(SwingConstants.CENTER);
 			rejectLbl.setForeground(Color.RED);
-			rejectLbl.addMouseListener(new ListMouseAdapter<Request>(request,
-					this));
+			rejectLbl
+					.addMouseListener(new ListMouseAdapter<InventionRegistrationRequest>(
+							request, this));
 			rejectLbl.setText("رد");
 
-			ParameterLabel<Request> acceptLbl = new ParameterLabel<Request>();
+			ParameterLabel<InventionRegistrationRequest> acceptLbl = new ParameterLabel<InventionRegistrationRequest>();
 			acceptLbl.setParameter(request);
 			acceptLbl.setPreferredSize(new Dimension(40, 10));
 			acceptLbl.setHorizontalTextPosition(SwingConstants.CENTER);
 			acceptLbl.setHorizontalAlignment(SwingConstants.CENTER);
 			acceptLbl.setForeground(Color.GREEN);
-			acceptLbl.addMouseListener(new ListMouseAdapter<Request>(request,
-					this));
+			acceptLbl
+					.addMouseListener(new ListMouseAdapter<InventionRegistrationRequest>(
+							request, this));
 			acceptLbl.setText("تایید");
 
 			this.acceptPanel.add(acceptLbl);
@@ -174,9 +179,15 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 
 		}
 		// /////////////////////////
-		for ( Object obj: InventionFieldRegistrationRequestCatalog.getInstance().getAllItems()) {
-			InventionFieldRegistrationRequest invReq = (InventionFieldRegistrationRequest)obj;
-			
+		// ArrayList<String[]> tableStrs = new ArrayList<String[]>();
+		String[][] tableStrs = new String[this.requests.size()][GivePermitionToRequest.COLS.length];
+
+		int i = 0;
+		for (InventionRegistrationRequest invReq : this.requests) {
+			tableStrs[i][0] = invReq.getRequester().getFullName();
+			tableStrs[i][1] = invReq.getInvention().getTitle();
+
+			i++;
 		}
 
 	}
@@ -210,15 +221,15 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 		this.dispose();
 	}
 
-	protected void acceptActionPerform(MouseEvent e, Request request) {
+	protected void acceptActionPerform(MouseEvent e, InventionRegistrationRequest request) {
 
-		JLabel mes = new JLabel("آیا شما به تایید درخواست مطمئن هستید؟ !");
+		JLabel mes = new JLabel("آیا شما به صدور اجازه مطمئن هستید؟ !");
 		int n = JOptionPane.showOptionDialog(this, mes, "تایید",
 				JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
 				null, null, null);
 		// pane.set
 		if (n == JOptionPane.YES_OPTION) {
-			request.setState(Request.ACCEPTED);
+			request.setPermitted(true);
 			this.catalogInstance.updateItem(request);
 			if (this.removeRequest) {
 				this.catalogInstance.removeItem(request);
@@ -227,20 +238,22 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 		}
 	}
 
-	protected void rejectActionPerform(MouseEvent e, Request request) {
-		JLabel mes = new JLabel(
-				"آیا شما به رد درخواست مطمئن هستید؟ این عمل برگشت پذیر نیست!");
-		int n = JOptionPane.showOptionDialog(this, mes, "اخطار",
-				JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE,
-				null, null, null);
-		// pane.set
-		if (n == JOptionPane.YES_OPTION) {
-			request.setState(Request.REJECTED);
-			this.catalogInstance.updateItem(request);
-			if (this.removeRequest) {
-				this.catalogInstance.removeItem(request);
+	protected void rejectActionPerform(MouseEvent e, InventionRegistrationRequest request) {
+		if (false) {
+			JLabel mes = new JLabel(
+					"آیا شما به رد درخواست مطمئن هستید؟ این عمل برگشت پذیر نیست!");
+			int n = JOptionPane.showOptionDialog(this, mes, "اخطار",
+					JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE,
+					null, null, null);
+			// pane.set
+			if (n == JOptionPane.YES_OPTION) {
+				request.setState(Request.REJECTED);
+				this.catalogInstance.updateItem(request);
+				if (this.removeRequest) {
+					this.catalogInstance.removeItem(request);
+				}
+				this.refreshData();
 			}
-			this.refreshData();
 		}
 	}
 

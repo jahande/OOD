@@ -25,6 +25,9 @@ public class RequestInCheckByExertsReportSel extends SelectUser {
 	}
 	@Override
 	protected void nextActionPerform(MouseEvent e, AbstractUser user) {
+		RequestInCheckByExertsReportView byExertsReportView = new RequestInCheckByExertsReportView(user);
+		byExertsReportView.refreshData();
+		byExertsReportView.setVisible(true);
 		
 	}
 	@Override
