@@ -243,7 +243,8 @@ public class InvPage extends JFrame {
 		boolean isSent = selectedInvRegReq.getSendDate() != null;
 		boolean isRejected = selectedInvRegReq.getState() == InventionRegistrationRequest.REJECTED;
 		boolean isRequester = selectedInvRegReq.getRequester().equals(currentUser);
-		if (!isRequester || (isSent && !isRejected)) {
+		boolean isPermitted = selectedInvRegReq.isPermitted();
+		if (!isRequester || (isSent && !isRejected) || !isPermitted) {
 			sendButton.setEnabled(false);
 		}
 

@@ -1,6 +1,7 @@
 package invregsystem.ui;
 
 import interfaces.AbstractInvention;
+import interfaces.AbstractUser;
 import invregsystem.logic.invention.InventionCatalog;
 import invregsystem.logic.invention.InventionRegistrationRequest;
 import invregsystem.logic.invention.InventionRegistrationRequestCatalog;
@@ -61,6 +62,7 @@ public class InvRegReqApprove extends JFrame {
 	private AbstractInvention invention;
 	private Set<Share> shares = new HashSet<Share>();
 	private List<InventionRelation> relations = new ArrayList<InventionRelation>();
+	private AbstractUser currentUser;
 
 	/**
 	 * Launch the application
@@ -69,7 +71,7 @@ public class InvRegReqApprove extends JFrame {
 	 */
 	public static void main(String args[]) {
 		try {
-			InvRegReqApprove frame = new InvRegReqApprove(null, null);
+			InvRegReqApprove frame = new InvRegReqApprove(null, null, null);
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -79,10 +81,11 @@ public class InvRegReqApprove extends JFrame {
 	/**
 	 * Create the frame
 	 */
-	public InvRegReqApprove(AbstractInvention invention, Set<Share> shares) {
+	public InvRegReqApprove(AbstractInvention invention, Set<Share> shares, AbstractUser currentUser) {
 		super();
 		this.invention = invention;
 		this.shares = shares;
+		this.currentUser = currentUser;
 
 		setBounds(100, 100, 387, 744);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -248,6 +251,11 @@ public class InvRegReqApprove extends JFrame {
 		InventionLogCatalog inventionLogCatalog = InventionLogCatalog.getInstance();
 		InventionRelationCatalog inventionRelationCatalog = InventionRelationCatalog.getInstance();
 
+		boolean hasMoreThan3Reqs = false;
+		if (invRegReqCatalog.getNotInvestigatedInvRegReqsByInventor(currentUser).size() >= 3) {
+			hasMoreThan3Reqs = true;
+		}
+
 		inventionCatalog.addItem(invention);
 		for (Share share : shares) {
 			inventionCatalog.addShare(share);
@@ -257,8 +265,17 @@ public class InvRegReqApprove extends JFrame {
 		}
 		inventionLogCatalog.addInitialLog(invention);
 		InventionRegistrationRequest request = new InventionRegistrationRequest(new Date(), invention);
+		// Require manager permission if has more or equal 3.
+		if (hasMoreThan3Reqs) {
+			request.setPermitted(false);
+		}
 		invRegReqCatalog.addItem(request);
-		JOptionPane.showMessageDialog(this, "درخواست ثبت اختراع با موفقیت ایجاد شد. برای ارسال آن به بخش سوابق اختراعات مراجعه نمایید.");
+		if (request.isPermitted()) {
+			JOptionPane.showMessageDialog(this, "درخواست ثبت اختراع با موفقیت ایجاد شد. برای ارسال آن به بخش سوابق اختراعات مراجعه نمایید.");
+		} else {
+			JOptionPane.showMessageDialog(this,
+					"درخواست ثبت اختراع با موفقیت ایجاد شد. از آنجا که بیش از 3 درخواست در حال بررسی دارید، برای کسب اجازه به مدیر ارسال شد.");
+		}
 		this.setVisible(false);
 	}
 

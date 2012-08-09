@@ -113,6 +113,6 @@ public class InvRegReqCompany extends JFrame {
 			invention.setCompany(company);
 		}
 		this.setVisible(false);
-		new InvRegReqApprove(invention, shares).setVisible(true);
+		new InvRegReqApprove(invention, shares, currentUser).setVisible(true);
 	}
 }
