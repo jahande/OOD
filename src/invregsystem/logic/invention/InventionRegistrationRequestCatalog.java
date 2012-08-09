@@ -83,4 +83,9 @@ public class InventionRegistrationRequestCatalog extends RequestCatalog {
 		return requests;
 	}
 
+	public List<InventionRegistrationRequest> getInvRegReqsByPermitted(boolean permitted) {
+		List<InventionRegistrationRequest> list = invRegReqDao.findByParameter("permitted", permitted);
+		return list;
+	}
+
 }
