@@ -1,6 +1,6 @@
 package invregsystem.logic.member;
 
-import interfaces.AbstractUser;
+import invregsystem.AbstractUser;
 import invregsystem.logic.Request;
 
 import java.util.Date;

@@ -1,6 +1,6 @@
 package invregsystem.ui;
 
-import interfaces.AbstractUser;
+import invregsystem.AbstractUser;
 import invregsystem.logic.member.UserCatalog;
 
 import java.awt.event.MouseEvent;

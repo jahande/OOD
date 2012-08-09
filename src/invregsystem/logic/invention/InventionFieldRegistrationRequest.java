@@ -1,6 +1,6 @@
 package invregsystem.logic.invention;
 
-import interfaces.AbstractUser;
+import invregsystem.AbstractUser;
 import invregsystem.logic.Request;
 import invregsystem.logic.member.User;
 

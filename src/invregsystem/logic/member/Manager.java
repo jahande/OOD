@@ -1,6 +1,6 @@
 package invregsystem.logic.member;
 
-import interfaces.AbstractManager;
+import invregsystem.AbstractManager;
 import invregsystem.db.ManagerDao;
 
 import java.util.Date;

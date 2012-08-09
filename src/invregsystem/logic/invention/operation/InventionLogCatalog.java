@@ -1,6 +1,6 @@
 package invregsystem.logic.invention.operation;
 
-import interfaces.AbstractInvention;
+import invregsystem.AbstractInvention;
 import invregsystem.db.ChangeDao;
 import invregsystem.db.InventionLogDao;
 import invregsystem.logic.Catalog;

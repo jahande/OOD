@@ -1,7 +1,7 @@
 package invregsystem.ui;
 
-import interfaces.AbstractCompany;
-import interfaces.AbstractUser;
+import invregsystem.AbstractCompany;
+import invregsystem.AbstractUser;
 import invregsystem.logic.member.Company;
 import invregsystem.logic.member.CompanyCatalog;
 import invregsystem.logic.member.CompanyRegistrationRequest;

@@ -3,7 +3,7 @@ package invregsystem.ui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import interfaces.AbstractUser;
+import invregsystem.AbstractUser;
 import invregsystem.logic.member.UserCatalog;
 
 import javax.swing.JButton;

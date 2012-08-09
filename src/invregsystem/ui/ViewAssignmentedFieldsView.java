@@ -1,8 +1,8 @@
 package invregsystem.ui;
 
-import interfaces.AbstractUser;
 import java.util.List;
 
+import invregsystem.AbstractUser;
 import invregsystem.logic.invention.InventionField;
 import invregsystem.logic.invention.InventionFieldCatalog;
 import invregsystem.logic.member.User;

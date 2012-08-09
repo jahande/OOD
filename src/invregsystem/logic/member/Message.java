@@ -2,7 +2,7 @@ package invregsystem.logic.member;
 
 import java.util.Date;
 
-import interfaces.AbstractUser;
+import invregsystem.AbstractUser;
 import invregsystem.db.BaseEntity;
 
 import javax.persistence.Column;

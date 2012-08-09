@@ -1,6 +1,6 @@
 package invregsystem.ui;
 
-import interfaces.AbstractUser;
+import invregsystem.AbstractUser;
 import invregsystem.logic.member.User;
 import invregsystem.logic.member.UserCatalog;
 import invregsystem.logic.member.UserRegistrationRequest;

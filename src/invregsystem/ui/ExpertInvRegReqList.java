@@ -1,7 +1,7 @@
 package invregsystem.ui;
 
-import interfaces.AbstractCompany;
-import interfaces.AbstractUser;
+import invregsystem.AbstractCompany;
+import invregsystem.AbstractUser;
 import invregsystem.logic.invention.InventionCatalog;
 import invregsystem.logic.invention.InventionRegistrationRequest;
 import invregsystem.logic.invention.InventionRegistrationRequestCatalog;

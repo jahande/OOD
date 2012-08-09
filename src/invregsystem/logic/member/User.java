@@ -1,6 +1,6 @@
 package invregsystem.logic.member;
 
-import interfaces.AbstractUser;
+import invregsystem.AbstractUser;
 import invregsystem.logic.invention.InventionField;
 
 import java.util.Date;

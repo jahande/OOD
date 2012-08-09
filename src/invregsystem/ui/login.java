@@ -1,8 +1,8 @@
 package invregsystem.ui;
 
-import interfaces.AbstractManager;
-import interfaces.AbstractMember;
-import interfaces.AbstractUser;
+import invregsystem.AbstractManager;
+import invregsystem.AbstractMember;
+import invregsystem.AbstractUser;
 import invregsystem.logic.member.Manager;
 import invregsystem.logic.member.UserCatalog;
 

@@ -1,5 +1,6 @@
 package invregsystem.ui;
 
+import invregsystem.AbstractUser;
 import invregsystem.logic.Request;
 import invregsystem.logic.RequestCatalog;
 import invregsystem.logic.invention.InventionField;
@@ -8,7 +9,6 @@ import invregsystem.logic.invention.InventionFieldRegistrationRequest;
 import invregsystem.logic.invention.InventionFieldRegistrationRequestCatalog;
 import invregsystem.logic.invention.InventionRegistrationRequest;
 import invregsystem.logic.invention.InventionRegistrationRequestCatalog;
-import interfaces.AbstractUser;
 import invregsystem.logic.member.Message;
 import invregsystem.logic.member.MessageCatalog;
 import invregsystem.logic.member.UserCatalog;

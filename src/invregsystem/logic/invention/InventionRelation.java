@@ -1,6 +1,6 @@
 package invregsystem.logic.invention;
 
-import interfaces.AbstractInvention;
+import invregsystem.AbstractInvention;
 import invregsystem.db.BaseEntity;
 
 import javax.persistence.Column;

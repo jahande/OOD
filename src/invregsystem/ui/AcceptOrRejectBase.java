@@ -1,11 +1,11 @@
 package invregsystem.ui;
 
+import invregsystem.AbstractUser;
 import invregsystem.logic.Request;
 import invregsystem.logic.RequestCatalog;
 import invregsystem.logic.invention.InventionField;
 import invregsystem.logic.invention.InventionFieldCatalog;
 import invregsystem.logic.invention.InventionFieldRegistrationRequestCatalog;
-import interfaces.AbstractUser;
 import invregsystem.logic.member.UserCatalog;
 import invregsystem.ui.models.ListMouseAdapter;
 import invregsystem.ui.models.ListMouseListenner;

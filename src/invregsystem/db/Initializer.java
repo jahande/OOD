@@ -1,6 +1,6 @@
 package invregsystem.db;
 
-import interfaces.AbstractUser;
+import invregsystem.AbstractUser;
 import invregsystem.logic.invention.Invention;
 import invregsystem.logic.invention.InventionField;
 import invregsystem.logic.invention.InventionRegistrationRequest;

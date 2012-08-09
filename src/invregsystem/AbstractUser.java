@@ -1,4 +1,4 @@
-package interfaces;
+package invregsystem;
 
 import invregsystem.logic.invention.InventionField;
 

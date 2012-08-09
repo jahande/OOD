@@ -1,6 +1,6 @@
 package invregsystem.ui;
 
-import interfaces.AbstractUser;
+import invregsystem.AbstractUser;
 
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;

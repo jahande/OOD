@@ -1,7 +1,7 @@
 package invregsystem.logic.invention;
 
-import interfaces.AbstractCompany;
-import interfaces.AbstractInvention;
+import invregsystem.AbstractCompany;
+import invregsystem.AbstractInvention;
 import invregsystem.logic.member.Company;
 
 import java.util.List;
@@ -165,14 +165,6 @@ public class Invention extends AbstractInvention {
 
 	public InventionField getInventionField() {
 		return inventionField;
-	}
-
-	public void resendForObjection() {
-		// TODO
-	}
-
-	public List<AbstractInvention> getRelativeInventions() {
-		return null;
 	}
 
 	public String getTotalSpec() {

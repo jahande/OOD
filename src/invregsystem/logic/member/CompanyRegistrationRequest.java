@@ -1,6 +1,6 @@
 package invregsystem.logic.member;
 
-import interfaces.AbstractCompany;
+import invregsystem.AbstractCompany;
 import invregsystem.logic.Request;
 
 import java.util.Date;

@@ -1,8 +1,8 @@
 package invregsystem.ui;
 
+import invregsystem.AbstractUser;
 import invregsystem.logic.invention.InventionField;
 import invregsystem.logic.invention.InventionFieldCatalog;
-import interfaces.AbstractUser;
 import invregsystem.logic.member.UserCatalog;
 import invregsystem.ui.models.ListMouseAdapter;
 import invregsystem.ui.models.ListMouseListenner;

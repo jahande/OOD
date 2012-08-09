@@ -1,7 +1,7 @@
 package invregsystem.logic.member;
 
-import interfaces.AbstractCompany;
-import interfaces.AbstractUser;
+import invregsystem.AbstractCompany;
+import invregsystem.AbstractUser;
 import invregsystem.db.CompanyAgentDao;
 import invregsystem.db.CompanyDao;
 import invregsystem.logic.Catalog;

@@ -1,4 +1,4 @@
-package interfaces;
+package invregsystem;
 
 import invregsystem.db.BaseEntity;
 import invregsystem.logic.invention.InventionField;
@@ -38,8 +38,6 @@ public abstract class AbstractInvention extends BaseEntity<Integer> {
 	public abstract String getClaim();
 
 	public abstract InventionField getInventionField();
-
-	public abstract List<AbstractInvention> getRelativeInventions();
 
 	public abstract String getTotalSpec();
 

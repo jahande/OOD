@@ -1,7 +1,7 @@
 package invregsystem.logic.invention;
 
-import interfaces.AbstractInvention;
-import interfaces.AbstractUser;
+import invregsystem.AbstractInvention;
+import invregsystem.AbstractUser;
 import invregsystem.db.InventionDao;
 import invregsystem.db.ShareDao;
 import invregsystem.logic.Catalog;

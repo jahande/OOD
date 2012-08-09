@@ -1,4 +1,4 @@
-package interfaces;
+package invregsystem;
 
 import invregsystem.db.BaseEntity;
 import invregsystem.logic.member.User;

@@ -1,6 +1,6 @@
 package invregsystem.db;
 
-import interfaces.AbstractCompany;
+import invregsystem.AbstractCompany;
 
 import java.util.List;
 

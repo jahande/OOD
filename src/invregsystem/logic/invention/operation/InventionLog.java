@@ -4,8 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 
-import interfaces.AbstractInvention;
-import interfaces.AbstractUser;
+import invregsystem.AbstractInvention;
+import invregsystem.AbstractUser;
 import invregsystem.db.BaseEntity;
 import invregsystem.logic.invention.Invention;
 import invregsystem.logic.member.User;

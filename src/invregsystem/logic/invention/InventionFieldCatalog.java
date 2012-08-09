@@ -1,6 +1,6 @@
 package invregsystem.logic.invention;
 
-import interfaces.AbstractUser;
+import invregsystem.AbstractUser;
 import invregsystem.db.ExpertInventionFieldDao;
 import invregsystem.db.InventionFieldDao;
 import invregsystem.logic.Catalog;

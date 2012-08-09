@@ -2,8 +2,9 @@ package invregsystem.logic.member;
 
 import java.util.HashSet;
 import java.util.Set;
-import interfaces.AbstractCompany;
-import interfaces.AbstractUser;
+
+import invregsystem.AbstractCompany;
+import invregsystem.AbstractUser;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

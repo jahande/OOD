@@ -1,6 +1,6 @@
 package invregsystem.ui;
 
-import interfaces.AbstractInvention;
+import invregsystem.AbstractInvention;
 import invregsystem.logic.invention.Invention;
 import invregsystem.logic.invention.InventionCatalog;
 import invregsystem.logic.invention.InventionRelation;

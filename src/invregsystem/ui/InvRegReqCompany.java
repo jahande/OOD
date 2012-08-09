@@ -1,8 +1,8 @@
 package invregsystem.ui;
 
-import interfaces.AbstractCompany;
-import interfaces.AbstractInvention;
-import interfaces.AbstractUser;
+import invregsystem.AbstractCompany;
+import invregsystem.AbstractInvention;
+import invregsystem.AbstractUser;
 import invregsystem.logic.invention.Share;
 import invregsystem.logic.member.CompanyCatalog;
 
