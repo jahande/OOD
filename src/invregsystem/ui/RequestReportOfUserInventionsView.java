@@ -68,6 +68,9 @@ public class RequestReportOfUserInventionsView extends JFrame implements NeedRef
 		}
 	}
 
+	private RequestReportOfUserInventionsView(){
+		
+	}
 	private final JScrollPane scrollPane = new JScrollPane();
 	private final JTable table = new JTable();
 
@@ -79,6 +82,12 @@ public class RequestReportOfUserInventionsView extends JFrame implements NeedRef
 		this.user=user;
 		setBounds(100, 100, 393, 410);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		try {
+			jbInit();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

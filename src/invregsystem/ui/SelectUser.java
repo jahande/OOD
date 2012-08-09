@@ -53,7 +53,7 @@ public abstract class SelectUser extends JFrame implements NeedRefreshData,
 	public SelectUser(List<AbstractUser> users) {
 		if(users==null){
 			try {
-				users = (List<AbstractUser>) (UserCatalog.getInstance()
+				this.users = (List<AbstractUser>) (UserCatalog.getInstance()
 						.getAllItems());
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(this, "خطای شماره ی ۱۰۲۱");

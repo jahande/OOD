@@ -9,6 +9,8 @@ import invregsystem.logic.invention.InventionFieldRegistrationRequestCatalog;
 import invregsystem.logic.invention.InventionRegistrationRequest;
 import invregsystem.logic.invention.InventionRegistrationRequestCatalog;
 import interfaces.AbstractUser;
+import invregsystem.logic.member.Message;
+import invregsystem.logic.member.MessageCatalog;
 import invregsystem.logic.member.UserCatalog;
 import invregsystem.ui.models.ListMouseAdapter;
 import invregsystem.ui.models.ListMouseListenner;
@@ -146,7 +148,7 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 		// TODO Auto-generated method stub
 		this.catalogInstance = InventionRegistrationRequestCatalog
 				.getInstance();
-		this.requests = this.catalogInstance.getNotPermitted();
+		this.requests = this.catalogInstance.getInvRegReqsByPermitted(false);
 		resetPanels();
 
 		// this.panel = new JPanel();
@@ -234,6 +236,9 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 			if (this.removeRequest) {
 				this.catalogInstance.removeItem(request);
 			}
+			MessageCatalog.getInstance().addItem(new Message("تایید درخواست"
+					,"با موافقت مدیر سامانه، شما اکنون می‌توانید درخواست اختراع خود را ارسال کنید.",
+					request.getRequester()));
 			this.refreshData();
 		}
 	}
