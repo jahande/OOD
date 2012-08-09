@@ -83,6 +83,7 @@ public class Login extends JFrame {
 		passwordField.setBounds(10, 51, 138, 22);
 
 		getContentPane().add(button_1);
+		button_1.addActionListener(new Button1ActionListener());
 		button_1.setText("ثبت نام");
 		button_1.setBounds(57, 142, 106, 26);
 
@@ -102,9 +103,6 @@ public class Login extends JFrame {
 	}
 
 	public AbstractMember authenticate(String un, String pa) {
-		for (Object user1 : userCatalog.getAllItems() ) {
-			System.out.println( ((AbstractUser)(user1)).getPassword());
-		}
 		AbstractUser user = userCatalog.getUserByUsername(un);
 		if (user != null) {
 			if (user.getPassword().equals(pa)) {
@@ -129,10 +127,14 @@ public class Login extends JFrame {
 		}
 	}
 
-	protected void button_actionPerformed(ActionEvent e) {
-		// System.out.println(this.usernameField.getText());
-		// System.out.println(new String(this.passwordField.getPassword()));
+	private class Button1ActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			button1_actionPerformed(e);
 
+		}
+	}
+
+	protected void button_actionPerformed(ActionEvent e) {
 		AbstractMember member = authenticate(this.usernameField.getText(), new String(this.passwordField.getPassword()));
 		if (member != null) {
 			hideError();
@@ -147,6 +149,11 @@ public class Login extends JFrame {
 		} else {
 			showError();
 		}
+	}
+
+	protected void button1_actionPerformed(ActionEvent e) {
+		this.setVisible(false);
+		new Signup(this).setVisible(true);
 	}
 
 	public void resetLogin() {
