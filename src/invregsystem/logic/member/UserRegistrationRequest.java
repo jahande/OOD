@@ -1,5 +1,6 @@
 package invregsystem.logic.member;
 
+import interfaces.AbstractUser;
 import invregsystem.logic.Request;
 
 import java.util.Date;
@@ -20,9 +21,9 @@ public class UserRegistrationRequest extends Request {
 
 	}
 
-	public UserRegistrationRequest(Date requestDate, User user) {
+	public UserRegistrationRequest(Date requestDate, AbstractUser user) {
 		super(requestDate);
-		this.user = user;
+		this.user = (User) user;
 	}
 
 	public User getUser() {

@@ -104,7 +104,7 @@ public class Login extends JFrame {
 	public AbstractMember authenticate(String un, String pa) {
 		AbstractUser user = userCatalog.getUserByUsername(un);
 		if (user != null) {
-			if (user.getPassword().equals(pa)) {
+			if (user.getPassword().equals(pa) && user.isActive()) {
 				return user;
 			} else {
 				return null;

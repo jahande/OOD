@@ -44,6 +44,9 @@ public class User extends AbstractUser {
 	@Column(name = "expert", nullable = false)
 	private boolean expert;
 
+	@Column(name = "active", nullable = false)
+	private boolean active;
+
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "expertinventionfield", joinColumns = { @JoinColumn(name = "expertId") }, inverseJoinColumns = { @JoinColumn(name = "inventionFieldId") })
 	private Set<InventionField> inventionFields;
@@ -56,7 +59,7 @@ public class User extends AbstractUser {
 
 	}
 
-	public User(String firstName, String lastName, String userName, String password, String email, Date birthDate) {
+	public User(String firstName, String lastName, String userName, String password, String email, Date birthDate, boolean expert, boolean active) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -64,6 +67,8 @@ public class User extends AbstractUser {
 		this.password = password;
 		this.email = email;
 		this.birthDate = birthDate;
+		this.expert = expert;
+		this.active = active;
 	}
 
 	public boolean isExpert() {
@@ -144,6 +149,14 @@ public class User extends AbstractUser {
 
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	@Override

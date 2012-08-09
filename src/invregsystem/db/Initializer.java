@@ -30,21 +30,19 @@ public class Initializer {
 		inventionFieldDao.save(new InventionField("عمران"));
 		inventionFieldDao.save(new InventionField("هوافضا"));
 
-		User expert1 = new User("پرویز", "کارشناسی", "expert1", "123", "expert1@expert.com", new Date());
-		expert1.setExpert(true);
+		User expert1 = new User("پرویز", "کارشناسی", "expert1", "123", "expert1@expert.com", new Date(), true, true);
 		Set<InventionField> inventionFields = new HashSet<InventionField>();
 		inventionFields.add(inventionFieldDao.findByParameter("name", "هوافضا").get(0));
 		expert1.setInventionFields(inventionFields);
 		userDao.save(expert1);
 
-		User expert2 = new User("لهراسب", "کارشناسی", "expert2", "123", "expert2@expert.com", new Date());
-		expert2.setExpert(true);
+		User expert2 = new User("لهراسب", "کارشناسی", "expert2", "123", "expert2@expert.com", new Date(), true, true);
 		expert2.setInventionFields(inventionFields);
 		userDao.save(expert2);
 
-		User user = new User("کاربر", "کاربری", "user", "123", "user@user.com", new Date());
+		User user = new User("کاربر", "کاربری", "user", "123", "user@user.com", new Date(), false, true);
 		userDao.save(user);
-		User inventor = new User("مخترع", "اختراعی", "inventor", "123", "inventor@inventor.com", new Date());
+		User inventor = new User("مخترع", "اختراعی", "inventor", "123", "inventor@inventor.com", new Date(), false, true);
 		userDao.save(inventor);
 		Manager manager = new Manager("مدیر", "مدیری", "manager", "123", "manager@manage.com", new Date());
 		managerDao.save(manager);
