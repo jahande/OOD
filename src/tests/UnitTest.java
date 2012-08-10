@@ -20,7 +20,7 @@ public class UnitTest {
 
 	}
 	public void testUserCatalog(){
-		System.out.println(UserCatalog.getInstance().getAllItems());
+		System.out.println(UserCatalog.getInstance().getAllItems().size());
 	}
 
 }

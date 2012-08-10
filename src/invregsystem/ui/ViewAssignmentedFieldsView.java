@@ -41,19 +41,10 @@ public class ViewAssignmentedFieldsView extends ViewInventionFieldBase {
 		// setBounds(100, 100, 393, 379);
 		// setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.inventionFields = InventionFieldCatalog.getInstance().getInventionFieldsOfExpert(user);
-		try {
-			jbInit();
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-		//
+		
 	}
 
-	private void jbInit() throws Exception {
-		getContentPane().setLayout(null);
-		setTitle("مشاهده‌ی حوزه‌های اختصاص داده شده");
-
-	}
+	
 
 	
 }
