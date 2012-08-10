@@ -26,7 +26,7 @@ public class InventionRelation extends BaseEntity<Integer> {
 	private Invention invention2;
 
 	@Column(name = "type", nullable = false)
-	private String title;
+	private String type;
 
 	public final static String CONTINUE = "ادامه";
 	public final static String RELATED = "مرتبط";
@@ -37,11 +37,11 @@ public class InventionRelation extends BaseEntity<Integer> {
 
 	}
 
-	public InventionRelation(AbstractInvention invention1, AbstractInvention invention2, String title) {
+	public InventionRelation(AbstractInvention invention1, AbstractInvention invention2, String type) {
 		super();
 		this.invention1 = (Invention) invention1;
 		this.invention2 = (Invention) invention2;
-		this.title = title;
+		this.type = type;
 	}
 
 	public Integer getId() {
@@ -68,12 +68,12 @@ public class InventionRelation extends BaseEntity<Integer> {
 		this.invention2 = invention2;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getType() {
+		return type;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }

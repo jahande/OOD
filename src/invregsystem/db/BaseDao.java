@@ -1,9 +1,6 @@
 package invregsystem.db;
 
-import invregsystem.logic.invention.operation.InventionLog;
-
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
