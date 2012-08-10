@@ -1,6 +1,7 @@
 package invregsystem.db;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +48,7 @@ public abstract class BaseDao<T extends BaseEntity<PKType>, PKType extends Seria
 
 	protected List<T> findByParameter(Class<T> clazz, String parameter, Object value) {
 		Session session = null;
-		List<T> result = null;
+		List<T> result = new ArrayList<T>();
 		Transaction tx = null;
 		try {
 			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -71,7 +72,7 @@ public abstract class BaseDao<T extends BaseEntity<PKType>, PKType extends Seria
 
 	protected List<T> findByParametersMap(Class<T> clazz, Map<String, Object> parametersMap) {
 		Session session = null;
-		List<T> result = null;
+		List<T> result = new ArrayList<T>();
 		Transaction tx = null;
 		try {
 			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -97,7 +98,7 @@ public abstract class BaseDao<T extends BaseEntity<PKType>, PKType extends Seria
 
 	protected List<T> findSortedLessThanParameter(Class<T> clazz, String parameter, Object value) {
 		Session session = null;
-		List<T> result = null;
+		List<T> result = new ArrayList<T>();
 		Transaction tx = null;
 		try {
 			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -122,7 +123,7 @@ public abstract class BaseDao<T extends BaseEntity<PKType>, PKType extends Seria
 
 	protected List<T> findSortedGreaterThanParameter(Class<T> clazz, String parameter, Object value) {
 		Session session = null;
-		List<T> result = null;
+		List<T> result = new ArrayList<T>();
 		Transaction tx = null;
 		try {
 			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -147,7 +148,7 @@ public abstract class BaseDao<T extends BaseEntity<PKType>, PKType extends Seria
 
 	protected List<T> fetchAll(Class<T> clazz) {
 		Session session = null;
-		List<T> result = null;
+		List<T> result = new ArrayList<T>();
 		Transaction tx = null;
 		try {
 			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
