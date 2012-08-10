@@ -51,6 +51,7 @@ public abstract class SelectUser extends JFrame implements NeedRefreshData,
 	protected List<AbstractUser> users;
 
 	public SelectUser(List<AbstractUser> users) {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		if(users==null){
 			try {
 				this.users = (List<AbstractUser>) (UserCatalog.getInstance()
