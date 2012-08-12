@@ -2,6 +2,7 @@ package tests;
 
 import java.util.List;
 
+import invregsystem.AbstractUser;
 import invregsystem.db.Initializer;
 import invregsystem.logic.member.UserCatalog;
 import invregsystem.logic.member.UserRegistrationRequestCatalog;
@@ -9,10 +10,7 @@ import invregsystem.ui.RequestReportOfUserInventionsView;
 
 public class UnitTest {
 
-	{
-		Initializer i  = new Initializer();
-		Initializer.main(null);
-	}
+	
 	/**
 	 * @param args
 	 */
@@ -21,7 +19,8 @@ public class UnitTest {
 		UnitTest test = new UnitTest();
 		
 		//test.testUserCatalog();
-		test.testUserRegReqCat();
+		//test.testUserRegReqCat();
+		test.testNumOfInVentionField();
 
 	}
 	public void testUserCatalog(){
@@ -34,6 +33,15 @@ public class UnitTest {
 			System.out.println(object.toString());
 			requests.size();
 		}
+	}
+	public void init() {
+		Initializer i = new Initializer();
+		i.main(null);
+	}
+	public void testNumOfInVentionField() {
+		//bug
+		AbstractUser u  = (AbstractUser) UserCatalog.getInstance().getAllItems().get(3);
+		System.out.println(u.getInventionFields());
 	}
 
 }

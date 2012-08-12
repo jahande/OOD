@@ -144,7 +144,7 @@ public class AssignInventionField extends JFrame {
 			}
 		}
 		// u.setInventionFields( u.getInventionFields().add(i));
-		if (u.getInventionFields().size() == 0) {
+		if (true || u.getInventionFields()==null || u.getInventionFields().size() == 0) {
 			u.setExpert(true);
 			UserCatalog.getInstance().updateItem(u);
 		}
