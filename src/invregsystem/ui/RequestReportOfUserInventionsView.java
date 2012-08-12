@@ -40,6 +40,9 @@ import javax.swing.table.AbstractTableModel;
 public class RequestReportOfUserInventionsView extends JFrame implements NeedRefreshData {
 
 	private AbstractUser user;
+	private final String[] COLS = new String[] { "نام کاربری", "نام",
+			"نام خانوادگی", "حوزه اختراع", "وضعیت", "علل ردشدن درخواست",
+	"تعداد دفعات ردشدن درخواست" };
 
 	class TableTableModel extends AbstractTableModel {
 		private final String[] COLUMNS = new String[] { "نام کاربری", "نام",

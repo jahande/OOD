@@ -20,6 +20,7 @@ import javax.swing.table.AbstractTableModel;
 import invregsystem.AbstractUser;
 import invregsystem.logic.invention.InventionField;
 import invregsystem.logic.invention.InventionFieldCatalog;
+import invregsystem.logic.member.UserCatalog;
 import invregsystem.ui.models.ListMouseAdapter;
 import invregsystem.ui.models.ListMouseListenner;
 import invregsystem.ui.models.NeedRefreshData;
@@ -91,6 +92,10 @@ public class DeleteAssignedFieldDel extends SelectInventionFieldBase{
 			try {
 				catalog = InventionFieldCatalog.getInstance();
 				catalog.removeInventionFieldFromExpert(this.user, inf);
+				if(this.user.getInventionFields().size()<=0){
+					this.user.setExpert(false);
+					UserCatalog.getInstance().updateItem(this.user);
+				}
 				this.setVisible(false);
 				this.dispose();
 				//this.refreshData();

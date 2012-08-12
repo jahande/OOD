@@ -45,7 +45,7 @@ public abstract class AcceptOrRejectBase extends JFrame implements
 	 * 
 	 */
 	private static final long serialVersionUID = -2571937414591360868L;
-	private JList list = new JList();
+	private JList<String> list = new JList<String>();
 	private final JLabel label = new JLabel();
 	private JPanel rejectPanel;// s= new JPanel();
 	private JPanel acceptPanel;
@@ -89,30 +89,6 @@ public abstract class AcceptOrRejectBase extends JFrame implements
 		button.addActionListener(new ButtonActionListener());
 		button.setText("بازگشت");
 		button.setBounds(156, 340, 106, 26);
-
-		/*
-		 * panel.add(label_1); label_1.addMouseListener(new
-		 * Label_1MouseListener());
-		 * label_1.setHorizontalTextPosition(SwingConstants.CENTER);
-		 * label_1.setHorizontalAlignment(SwingConstants.CENTER);
-		 * label_1.setForeground(Color.RED); label_1.setPreferredSize(new
-		 * Dimension(40, 10)); label_1.setText("حذف");
-		 * 
-		 * panel.add(label_3); label_3.setPreferredSize(new Dimension(40, 10));
-		 * label_3.setHorizontalTextPosition(SwingConstants.CENTER);
-		 * label_3.setHorizontalAlignment(SwingConstants.CENTER);
-		 * label_3.setForeground(Color.RED); label_3.setText("حذف");
-		 * 
-		 * panel.add(label_4); label_4.setPreferredSize(new Dimension(40, 10));
-		 * label_4.setHorizontalTextPosition(SwingConstants.CENTER);
-		 * label_4.setHorizontalAlignment(SwingConstants.CENTER);
-		 * label_4.setForeground(Color.RED); label_4.setText("حذف");
-		 * 
-		 * panel.add(label_5); label_5.setPreferredSize(new Dimension(40, 10));
-		 * label_5.setHorizontalTextPosition(SwingConstants.CENTER);
-		 * label_5.setHorizontalAlignment(SwingConstants.CENTER);
-		 * label_5.setForeground(Color.RED); label_5.setText("حذف");
-		 */
 	}
 
 	private class ButtonActionListener implements ActionListener {
@@ -122,9 +98,13 @@ public abstract class AcceptOrRejectBase extends JFrame implements
 	}
 
 	@Override
-	public void listMouseListennerActionPerform(MouseEvent e, Object obj) {
-		rejectActionPerform(e, (Request) (obj));
-
+	public void listMouseListennerActionPerform(MouseEvent e, Object obj,
+			String type) {
+		if (type.equals("reject")) {
+			this.rejectActionPerform(e, (Request) (obj));
+		} else if(type.equals("accept")){
+			this.acceptActionPerform(e, (Request) (obj));
+		}
 		// JOptionPane.showMessageDialog(this, ((AbstractUser)obj).getId());
 	}
 
@@ -134,7 +114,7 @@ public abstract class AcceptOrRejectBase extends JFrame implements
 
 		// this.panel = new JPanel();
 		for (Object obj : this.requests) {
-			Request request = (Request)obj;
+			Request request = (Request) obj;
 			ParameterLabel<Request> rejectLbl = new ParameterLabel<Request>();
 
 			rejectLbl.setParameter(request);
@@ -143,7 +123,7 @@ public abstract class AcceptOrRejectBase extends JFrame implements
 			rejectLbl.setHorizontalAlignment(SwingConstants.CENTER);
 			rejectLbl.setForeground(Color.RED);
 			rejectLbl.addMouseListener(new ListMouseAdapter<Request>(request,
-					this));
+					this, "reject"));
 			rejectLbl.setText("رد");
 
 			ParameterLabel<Request> acceptLbl = new ParameterLabel<Request>();
@@ -153,7 +133,7 @@ public abstract class AcceptOrRejectBase extends JFrame implements
 			acceptLbl.setHorizontalAlignment(SwingConstants.CENTER);
 			acceptLbl.setForeground(Color.GREEN);
 			acceptLbl.addMouseListener(new ListMouseAdapter<Request>(request,
-					this));
+					this, "accept"));
 			acceptLbl.setText("تایید");
 
 			this.acceptPanel.add(acceptLbl);
@@ -171,11 +151,11 @@ public abstract class AcceptOrRejectBase extends JFrame implements
 		}
 		ArrayList<String> names = new ArrayList<String>();
 		for (Object obj : this.requests) {
-			Request req=(Request)obj;
+			Request req = (Request) obj;
 			names.add(req.toString());
 
 		}
-		list = new JList();
+		list = new JList<String>();
 		getContentPane().add(list);
 		list.setModel(new SimpleListModel(names));
 		list.setBounds(189, 76, 237, 244);

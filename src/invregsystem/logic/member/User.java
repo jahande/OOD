@@ -154,6 +154,10 @@ public class User extends AbstractUser {
 	public boolean isActive() {
 		return active;
 	}
+	
+	public String toString() {
+		return this.getFullName();
+	}
 
 	public void setActive(boolean active) {
 		this.active = active;

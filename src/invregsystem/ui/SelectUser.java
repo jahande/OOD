@@ -129,7 +129,7 @@ public abstract class SelectUser extends JFrame implements NeedRefreshData,
 	}
 
 	@Override
-	public void listMouseListennerActionPerform(MouseEvent e, Object obj) {
+	public void listMouseListennerActionPerform(MouseEvent e, Object obj, String type) {
 		nextActionPerform(e, (AbstractUser) (obj));
 
 		// JOptionPane.showMessageDialog(this, ((AbstractUser)obj).getId());

@@ -138,7 +138,7 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 	}
 
 	@Override
-	public void listMouseListennerActionPerform(MouseEvent e, Object obj) {
+	public void listMouseListennerActionPerform(MouseEvent e, Object obj,String type) {
 		rejectActionPerform(e, (InventionRegistrationRequest) (obj));
 
 		// JOptionPane.showMessageDialog(this, ((AbstractUser)obj).getId());

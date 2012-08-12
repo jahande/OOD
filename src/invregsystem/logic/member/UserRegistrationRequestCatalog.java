@@ -41,4 +41,5 @@ public class UserRegistrationRequestCatalog extends RequestCatalog {
 	public void updateItem(Object item) {
 		userRegistrationRequestDao.update((UserRegistrationRequest) item);
 	}
+	
 }
