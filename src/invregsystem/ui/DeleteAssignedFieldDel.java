@@ -11,7 +11,6 @@ import invregsystem.logic.invention.InventionField;
 import invregsystem.logic.invention.InventionFieldCatalog;
 import invregsystem.logic.member.UserCatalog;
 
-
 /**
  * 
  * @author rj
@@ -54,11 +53,11 @@ public class DeleteAssignedFieldDel extends SelectInventionFieldBase {
 
 			catalog = InventionFieldCatalog.getInstance();
 			catalog.removeInventionFieldFromExpert(this.user, inf);
-			if (this.user.getInventionFields()==null){
+			if (this.user.getInventionFields() == null) {
 				System.out.println("sassasssasssa");
 			}
-			if (this.user.getInventionFields() == null
-					|| this.user.getInventionFields().size() <= 0) {
+			if (catalog.getInventionFieldsOfExpert(this.user) == null
+					|| catalog.getInventionFieldsOfExpert(this.user).size() <= 0) {
 				this.user.setExpert(false);
 				UserCatalog.getInstance().updateItem(this.user);
 			}

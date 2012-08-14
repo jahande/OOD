@@ -63,7 +63,7 @@ public class InventionCatalog implements Catalog {
 		return shareDao.fetchAll();
 	}
 
-	public Share getShareByParameters(User user, Invention invention) {
+	public Share getShareByParameters(AbstractUser user, AbstractInvention invention) {
 		Map<String, Object> parametersMap = new HashMap<String, Object>();
 		parametersMap.put("invention", invention);
 		parametersMap.put("user", user);

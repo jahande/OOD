@@ -18,6 +18,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -35,10 +36,10 @@ import javax.swing.table.AbstractTableModel;
 
 public class RequestPeronsInventions extends JFrame {
 
-	private final static String[] COLS = new String[] { "وضعیت مخترع بودن", "نام",
-			 "تعداد اختراع",
-	 };
-	//private final static int COLUMS_NUMBER = 3;
+	private final static String[] COLS = new String[] { "نام",
+			"وضعیت مخترع بودن", "تعداد اختراع", };
+
+	// private final static int COLUMS_NUMBER = 3;
 	class TableTableModel extends AbstractTableModel {
 		private final String[] COLUMNS = RequestPeronsInventions.COLS;
 		private final String[][] CELLS;
@@ -126,19 +127,13 @@ public class RequestPeronsInventions extends JFrame {
 		// closed
 		fc.showOpenDialog(this);
 		File selFile = fc.getSelectedFile();
-		FileInputStream fstream = null;
 		ArrayList<String> fullNames = new ArrayList<String>();
 		try {
-			fstream = new FileInputStream(selFile);
-			// Get the object of DataInputStream
-			DataInputStream in = new DataInputStream(fstream);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-			String strLine;
-			// Read File Line By Line
-			while ((strLine = br.readLine()) != null) {
-				if (!strLine.equals("")) {
-					fullNames.add(strLine);
-				}
+			Scanner sc = new Scanner ( new InputStreamReader(new FileInputStream(selFile),"unicode"));
+			while (sc.hasNext())
+			{
+				fullNames.add(sc.nextLine());
+				System.out.println(fullNames.get(fullNames.size()-1));
 			}
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
@@ -153,7 +148,7 @@ public class RequestPeronsInventions extends JFrame {
 		for (Object obj : UserCatalog.getInstance().getAllItems()) {
 			AbstractUser user = (AbstractUser) obj;
 			int indexOf = fullNames.lastIndexOf(user.getFullName());
-			if (indexOf>=0) {
+			if (indexOf >= 0) {
 				fullNames.remove(indexOf);
 				tableStrs.add(new String[RequestPeronsInventions.COLS.length]);
 
@@ -163,12 +158,9 @@ public class RequestPeronsInventions extends JFrame {
 				// //compute sum of shares
 				for (AbstractInvention inv : InventionCatalog.getInstance()
 						.getInventionsByInventor(user)) {
-					for (Share share : inv.getShares()) {
-						if (share.getUser().getFullName().equals(
-								user.getFullName())) {
-							shares += share.getShareValue();
-						}
-					}
+					shares += InventionCatalog.getInstance()
+							.getShareByParameters(user, inv).getShareValue();
+
 				}
 				// /end of compute sum of shares
 				if (shares > 0) {
@@ -179,17 +171,19 @@ public class RequestPeronsInventions extends JFrame {
 				tableStrs.get(i)[2] = Integer.toString(shares);
 				i++;
 			}
-			
+
 		}
-		int j = 0;
+		int j = i;
 		for (String fullname : fullNames) {
-			tableStrs.add( new String[RequestPeronsInventions.COLS.length]);
+			tableStrs.add(new String[RequestPeronsInventions.COLS.length]);
 			tableStrs.get(j)[0] = fullname;
 			tableStrs.get(j)[1] = "نیست";
 			tableStrs.get(j)[2] = "۰";
+			System.out.println(fullname);
 			j++;
 		}
-		this.table.setModel(new TableTableModel(tableStrs.toArray(new String[tableStrs.size()][])));
+		this.table.setModel(new TableTableModel(tableStrs
+				.toArray(new String[tableStrs.size()][])));
 	}
 
 }

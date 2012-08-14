@@ -46,6 +46,7 @@ public class UnitTest {
 
 	public void testNumOfInVentionField() {
 		// bug
+		//InventionFieldCatalog.getInventionFieldsOfExpert(expert)
 		List users = UserCatalog.getInstance().getAllItems();
 		for (Object object : users) {
 			User u = (User) object;

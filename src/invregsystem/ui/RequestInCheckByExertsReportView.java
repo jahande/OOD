@@ -39,20 +39,29 @@ import javax.swing.table.AbstractTableModel;
  * @usecase 45
  */
 
-public class RequestInCheckByExertsReportView extends JFrame implements NeedRefreshData {
+public class RequestInCheckByExertsReportView extends JFrame implements
+		NeedRefreshData {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7551113218426395314L;
 	private AbstractUser user;
-	private final static String[] COLS = new String[] { "نوان اختراع","حوزه‌ی اختراع","وضعیت","شرح ایده","خلاصه"};
+	private final static String[] COLS = new String[] { "عنوان اختراع",
+			"حوزه‌ی اختراع", "وضعیت", "شرح ایده", "خلاصه" };
 
-	class TableTableModel extends AbstractTableModel {
-		private final String[] COLUMNS = new String[] { "نام کاربری", "نام",
-				"نام خانوادگی", "حوزه اختراع", "وضعیت", "علل ردشدن درخواست",
-				"تعداد دفعات ردشدن درخواست" };
-		private final String[][] CELLS ;
+	private class TableTableModel extends AbstractTableModel {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -5848695399576020769L;
+		private final String[] COLUMNS = RequestInCheckByExertsReportView.COLS;
+		private final String[][] CELLS;
 
-		public TableTableModel(String[][] cells){
+		public TableTableModel(String[][] cells) {
 			this.CELLS = cells;
 		}
+
 		public int getRowCount() {
 			return CELLS.length;
 		}
@@ -79,13 +88,15 @@ public class RequestInCheckByExertsReportView extends JFrame implements NeedRefr
 	 */
 	public RequestInCheckByExertsReportView(AbstractUser user) {
 		super();
-		this.user=user;
+		this.user = user;
 		setBounds(100, 100, 393, 410);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
+
+		jbInit();
+
 	}
 
-	private void jbInit() throws Exception {
+	private void jbInit()  {
 		getContentPane().setLayout(null);
 		setTitle("اخذ گزارش کل کاربران");
 
@@ -95,29 +106,34 @@ public class RequestInCheckByExertsReportView extends JFrame implements NeedRefr
 
 		scrollPane.setViewportView(table);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				
-	}
 
-	
+	}
 
 	@Override
 	public void refreshData() {
-		List<InventionRegistrationRequest> invRegReqs = InventionRegistrationRequestCatalog.getInstance().getInvRegReqsByExpert(this.user);
+		List<InventionRegistrationRequest> invRegReqs = InventionRegistrationRequestCatalog
+				.getInstance().getInvRegReqsByExpert(this.user);
 		String[][] invTableStrs = new String[invRegReqs.size()][RequestInCheckByExertsReportView.COLS.length];
 		int j = 0;
 		for (InventionRegistrationRequest invRegReq : invRegReqs) {
-			
+
 			AbstractInvention inv = invRegReq.getInvention();
 			invTableStrs[j] = new String[RequestInCheckByExertsReportView.COLS.length];
 			invTableStrs[j][0] = inv.getTitle();
 			invTableStrs[j][1] = inv.getInventionField().getName();
-			invTableStrs[j][2] =inv.getInventionRegistrationRequest().getStateName();
-			invTableStrs[j][3] =inv.getIdeaDescription();
+			invTableStrs[j][2] = inv.getInventionRegistrationRequest()
+					.getStateName();
+			invTableStrs[j][3] = inv.getIdeaDescription();
 			invTableStrs[j][4] = inv.getSummary();
+			for (String string : invTableStrs[j]) {
+				System.out.println(">>>>>>>>>>>>>>>>>>" + string);
+			}
+			System.out.println("###########################");
 			j++;
+
 		}
 		this.table.setModel(new TableTableModel(invTableStrs));
-		
+
 	}
 
 }

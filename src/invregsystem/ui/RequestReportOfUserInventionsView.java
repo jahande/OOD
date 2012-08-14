@@ -37,22 +37,21 @@ import javax.swing.table.AbstractTableModel;
  * @usecase 45
  */
 
-public class RequestReportOfUserInventionsView extends JFrame implements NeedRefreshData {
+public class RequestReportOfUserInventionsView extends JFrame implements
+		NeedRefreshData {
 
 	private AbstractUser user;
-	private final String[] COLS = new String[] { "نام کاربری", "نام",
-			"نام خانوادگی", "حوزه اختراع", "وضعیت", "علل ردشدن درخواست",
-	"تعداد دفعات ردشدن درخواست" };
+	private final static String[] COLS = new String[] { "عنوان", "حوزه اختراع",
+			"وضعیت", "شرح ایده", "چکیده", "قیمت", };
 
-	class TableTableModel extends AbstractTableModel {
-		private final String[] COLUMNS = new String[] { "نام کاربری", "نام",
-				"نام خانوادگی", "حوزه اختراع", "وضعیت", "علل ردشدن درخواست",
-				"تعداد دفعات ردشدن درخواست" };
-		private final String[][] CELLS ;
+	private class TableTableModel extends AbstractTableModel {
+		private final String[] COLUMNS = RequestReportOfUserInventionsView.COLS;
+		private final String[][] CELLS;
 
-		public TableTableModel(String[][] cells){
+		public TableTableModel(String[][] cells) {
 			this.CELLS = cells;
 		}
+
 		public int getRowCount() {
 			return CELLS.length;
 		}
@@ -71,9 +70,10 @@ public class RequestReportOfUserInventionsView extends JFrame implements NeedRef
 		}
 	}
 
-	private RequestReportOfUserInventionsView(){
-		
+	private RequestReportOfUserInventionsView() {
+
 	}
+
 	private final JScrollPane scrollPane = new JScrollPane();
 	private final JTable table = new JTable();
 
@@ -82,21 +82,15 @@ public class RequestReportOfUserInventionsView extends JFrame implements NeedRef
 	 */
 	public RequestReportOfUserInventionsView(AbstractUser user) {
 		super();
-		this.user=user;
+		this.user = user;
 		setBounds(100, 100, 393, 410);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		try {
-			jbInit();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		jbInit();
 	}
 
-	private void jbInit() throws Exception {
+	private void jbInit()  {
 		getContentPane().setLayout(null);
-		setTitle("اخذ گزارش کل کاربران");
+		setTitle("اخذ گزارش اختراعات یک کاربران");
 
 		getContentPane().add(scrollPane);
 		scrollPane.setActionMap(null);
@@ -104,29 +98,31 @@ public class RequestReportOfUserInventionsView extends JFrame implements NeedRef
 
 		scrollPane.setViewportView(table);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				
-	}
 
-	
+	}
 
 	@Override
 	public void refreshData() {
-		List<AbstractInvention> invs = InventionCatalog.getInstance().getInventionsByInventor(this.user);
-		int printItems = 6;
-		String[][] invTableStrs = new String[invs.size()][printItems];
+		List<AbstractInvention> invs = InventionCatalog.getInstance()
+				.getInventionsByInventor(this.user);
+
+		String[][] invTableStrs = new String[invs.size()][RequestReportOfUserInventionsView.COLS.length];
 		int j = 0;
 		for (AbstractInvention inv : invs) {
-			invTableStrs[j] = new String[printItems];
+			invTableStrs[j] = new String[RequestReportOfUserInventionsView.COLS.length];
 			invTableStrs[j][0] = inv.getTitle();
-			invTableStrs[j][1] = inv.getInventionField().getName();
-			invTableStrs[j][2] =inv.getInventionRegistrationRequest().getStateName();
-			invTableStrs[j][3] =inv.getIdeaDescription();
+			if (inv.getInventionField() != null) {
+				invTableStrs[j][1] = inv.getInventionField().getName();
+			}
+			invTableStrs[j][2] = inv.getInventionRegistrationRequest()
+					.getStateName();
+			invTableStrs[j][3] = inv.getIdeaDescription();
 			invTableStrs[j][4] = inv.getSummary();
 			invTableStrs[j][5] = Long.toString(inv.getPrice());
 			j++;
 		}
 		this.table.setModel(new TableTableModel(invTableStrs));
-		
+
 	}
 
 }

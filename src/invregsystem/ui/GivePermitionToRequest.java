@@ -155,6 +155,7 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 		for (InventionRegistrationRequest request : this.requests) {
 			ParameterLabel<InventionRegistrationRequest> rejectLbl = new ParameterLabel<InventionRegistrationRequest>();
 
+			System.out.println(request);
 			rejectLbl.setParameter(request);
 			rejectLbl.setPreferredSize(new Dimension(40, 10));
 			rejectLbl.setHorizontalTextPosition(SwingConstants.CENTER);

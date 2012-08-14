@@ -21,7 +21,7 @@ import javax.swing.table.AbstractTableModel;
 public class RequestInCheckByExertsReportSel extends SelectUser {
 
 	public RequestInCheckByExertsReportSel() {
-		
+		this.users = UserCatalog.getInstance().getExperts();
 	}
 	@Override
 	protected void nextActionPerform(MouseEvent e, AbstractUser user) {

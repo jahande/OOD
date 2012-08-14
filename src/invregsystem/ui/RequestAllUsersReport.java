@@ -44,12 +44,13 @@ public class RequestAllUsersReport extends JFrame {
 	private final JPanel panel = new JPanel();
 	private final JComboBox<String> stateCbx = new JComboBox<String>();
 	private final JComboBox<String> numCbx = new JComboBox<String>();
+	private final static String[] COLS = new String[] { "نام کاربری", "نام", "عنوان", "حوزه اختراع", "وضعیت", "تعداد دفعات رد شدن",
+	"سهم" };
 	private final JLabel label_1 = new JLabel();
 	private final JLabel label_2 = new JLabel();
 
 	class TableTableModel extends AbstractTableModel {
-		private final String[] COLUMNS = new String[] { "نام کاربری", "نام", "نام خانوادگی", "حوزه اختراع", "وضعیت", "علل ردشدن درخواست",
-				"تعداد دفعات ردشدن درخواست" };
+		private final String[] COLUMNS = RequestAllUsersReport.COLS;
 		private final String[][] CELLS;
 
 		public TableTableModel(String[][] cells) {
@@ -115,109 +116,7 @@ public class RequestAllUsersReport extends JFrame {
 
 		scrollPane.setViewportView(table);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setSelectionModel(new ListSelectionModel() {
-
-			public void addListSelectionListener(ListSelectionListener x) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void addSelectionInterval(int index0, int index1) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void clearSelection() {
-				// TODO Auto-generated method stub
-
-			}
-
-			public int getAnchorSelectionIndex() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-
-			public int getLeadSelectionIndex() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-
-			public int getMaxSelectionIndex() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-
-			public int getMinSelectionIndex() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-
-			public int getSelectionMode() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-
-			public boolean getValueIsAdjusting() {
-				// TODO Auto-generated method stub
-				return false;
-			}
-
-			public void insertIndexInterval(int index, int length, boolean before) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public boolean isSelectedIndex(int index) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-
-			public boolean isSelectionEmpty() {
-				// TODO Auto-generated method stub
-				return false;
-			}
-
-			public void removeIndexInterval(int index0, int index1) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void removeListSelectionListener(ListSelectionListener x) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void removeSelectionInterval(int index0, int index1) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void setAnchorSelectionIndex(int index) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void setLeadSelectionIndex(int index) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void setSelectionInterval(int index0, int index1) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void setSelectionMode(int selectionMode) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void setValueIsAdjusting(boolean valueIsAdjusting) {
-				// TODO Auto-generated method stub
-
-			}
-
-		});
+		
 
 		getContentPane().add(button);
 		button.addActionListener(new ButtonActionListener());
@@ -295,7 +194,7 @@ public class RequestAllUsersReport extends JFrame {
 		int i = 0;
 		for (AbstractInvention inv2 : finalInvs) {
 			for (Share share : inventionCatalog.getSharesByInvention(inv2)) {
-				tableStringsArraylist.add(new String[7]);
+				tableStringsArraylist.add(new String[RequestAllUsersReport.COLS.length]);
 				AbstractUser user = share.getUser();
 				tableStringsArraylist.get(i)[0] = user.getUserName();
 				tableStringsArraylist.get(i)[1] = user.getFullName();
@@ -304,12 +203,13 @@ public class RequestAllUsersReport extends JFrame {
 				tableStringsArraylist.get(i)[4] = inv2.getInventionRegistrationRequest().getStateName();
 				tableStringsArraylist.get(i)[5] = Integer.toString(InvestigationLogCatalog.getInstance().getRejectCountOfInvRegReq(
 						inv2.getInventionRegistrationRequest()));
-				tableStringsArraylist.get(i)[6] = Integer.toString(share.getShareValue());
+				tableStringsArraylist.get(i)[6] = Integer.toString(share.getShareValue())+"٪";
 				i++;
 			}
 
 		}
-		this.table.setModel(new TableTableModel((String[][]) tableStringsArraylist.toArray()));
+		String[][] strss = new String[tableStringsArraylist.size()][RequestAllUsersReport.COLS.length];
+		this.table.setModel(new TableTableModel(tableStringsArraylist.toArray(strss)));
 
 	}
 
