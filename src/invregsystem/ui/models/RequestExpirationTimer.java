@@ -2,7 +2,6 @@ package invregsystem.ui.models;
 
 import invregsystem.logic.invention.InventionRegistrationRequest;
 import invregsystem.logic.invention.InventionRegistrationRequestCatalog;
-import invregsystem.logic.invention.operation.InvestigationLogCatalog;
 
 import java.util.List;
 import java.util.Timer;

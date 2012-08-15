@@ -7,6 +7,7 @@ import invregsystem.logic.member.CompanyCatalog;
 import invregsystem.logic.member.CompanyRegistrationRequest;
 import invregsystem.logic.member.CompanyRegistrationRequestCatalog;
 import invregsystem.logic.member.UserCatalog;
+import invregsystem.ui.models.FileUpload;
 
 import java.awt.ComponentOrientation;
 import java.awt.FlowLayout;
@@ -161,12 +162,12 @@ public class CompanyRegReq extends JFrame {
 		getContentPane().add(submitButton);
 		submitButton.addActionListener(new SubmitButtonActionListener());
 		submitButton.setText("ثبت");
-		submitButton.setBounds(170, 225, 66, 26);
+		submitButton.setBounds(249, 225, 73, 26);
 
 		getContentPane().add(cancelButton);
 		cancelButton.addActionListener(new CancelButtonActionListener());
 		cancelButton.setText("انصراف");
-		cancelButton.setBounds(249, 225, 73, 26);
+		cancelButton.setBounds(170, 225, 66, 26);
 
 		addButton.setBounds(140, 170, 93, 26);
 		getContentPane().add(addButton);
@@ -220,7 +221,8 @@ public class CompanyRegReq extends JFrame {
 			for (JComboBox<String> inventorCombo : inventorsList) {
 				agents.add(userCatalog.getUserByUsername(inventorCombo.getSelectedItem().toString()));
 			}
-			AbstractCompany company = new Company(name, phone, address, website, introDocFile.getPath(), agents);
+			String file = FileUpload.getInstance().copyToFilesDirectory(introDocFile.getPath());
+			AbstractCompany company = new Company(name, phone, address, website, file, agents);
 			CompanyCatalog companyCatalog = CompanyCatalog.getInstance();
 			companyCatalog.addItem(company);
 			CompanyRegistrationRequest companyRegReq = new CompanyRegistrationRequest(new Date(), company);

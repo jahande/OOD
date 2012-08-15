@@ -92,9 +92,9 @@ public class Invention extends AbstractInvention {
 		if (attachedFiles.size() > 0)
 			this.file1 = attachedFiles.get(0);
 		if (attachedFiles.size() > 1)
-			this.file1 = attachedFiles.get(1);
+			this.file2 = attachedFiles.get(1);
 		if (attachedFiles.size() > 2)
-			this.file1 = attachedFiles.get(2);
+			this.file3 = attachedFiles.get(2);
 	}
 
 	@Override

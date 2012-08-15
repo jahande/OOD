@@ -9,6 +9,7 @@ import invregsystem.logic.invention.InventionRelation;
 import invregsystem.logic.invention.InventionRelationCatalog;
 import invregsystem.logic.invention.Share;
 import invregsystem.logic.invention.operation.InventionLogCatalog;
+import invregsystem.ui.models.FileUpload;
 
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
@@ -26,6 +27,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+
+import utilities.FileUtil;
 
 public class InvRegReqApprove extends JFrame {
 
@@ -256,6 +259,7 @@ public class InvRegReqApprove extends JFrame {
 			hasMoreThan3Reqs = true;
 		}
 
+		copyAttachedFiles(invention);
 		inventionCatalog.addItem(invention);
 		for (Share share : shares) {
 			inventionCatalog.addShare(share);
@@ -281,6 +285,26 @@ public class InvRegReqApprove extends JFrame {
 
 	protected void button_1_actionPerformed(ActionEvent e) {
 		new InvRegReqRelations(this, invention).setVisible(true);
+	}
+
+	private void copyAttachedFiles(AbstractInvention invention) {
+		String[] files = new String[] { invention.getFile1(), invention.getFile2(), invention.getFile3() };
+		for (int i = 0; i < 3; i++) {
+			if (files[i] != null && !files[i].equals("")) {
+				String destFile = FileUpload.getInstance().copyToFilesDirectory(files[i]);
+				switch (i) {
+				case 0:
+					invention.setFile1(destFile);
+					break;
+				case 1:
+					invention.setFile2(destFile);
+					break;
+				case 2:
+					invention.setFile3(destFile);
+					break;
+				}
+			}
+		}
 	}
 
 }
