@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Company extends AbstractCompany {
@@ -41,6 +42,9 @@ public class Company extends AbstractCompany {
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "companyagent", joinColumns = { @JoinColumn(name = "companyId") }, inverseJoinColumns = { @JoinColumn(name = "agentId") })
 	private Set<User> agents;
+
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "company")
+	private CompanyRegistrationRequest companyRegistrationRequest;
 
 	public Company() {
 
@@ -114,6 +118,14 @@ public class Company extends AbstractCompany {
 
 	public void setIntroDocFile(String introDocFile) {
 		this.introDocFile = introDocFile;
+	}
+
+	public CompanyRegistrationRequest getCompanyRegistrationRequest() {
+		return companyRegistrationRequest;
+	}
+
+	public void setCompanyRegistrationRequest(CompanyRegistrationRequest companyRegistrationRequest) {
+		this.companyRegistrationRequest = companyRegistrationRequest;
 	}
 
 }

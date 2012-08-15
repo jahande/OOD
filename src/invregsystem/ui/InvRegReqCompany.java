@@ -3,8 +3,10 @@ package invregsystem.ui;
 import invregsystem.AbstractCompany;
 import invregsystem.AbstractInvention;
 import invregsystem.AbstractUser;
+import invregsystem.logic.Request;
 import invregsystem.logic.invention.Share;
 import invregsystem.logic.member.CompanyCatalog;
+import invregsystem.logic.member.CompanyRegistrationRequest;
 
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
@@ -78,7 +80,7 @@ public class InvRegReqCompany extends JFrame {
 		List<String> companyNamesList = new ArrayList<String>();
 		companyNamesList.add("---");
 		for (AbstractCompany company : companyList) {
-			if (companyCatalog.getAgents(company).contains(currentUser)) {
+			if (company.getCompanyRegistrationRequest().getState() == Request.ACCEPTED && companyCatalog.getAgents(company).contains(currentUser)) {
 				companyNamesList.add(company.getName());
 			}
 		}
