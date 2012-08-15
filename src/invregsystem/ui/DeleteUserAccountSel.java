@@ -22,7 +22,7 @@ public class DeleteUserAccountSel extends SelectUser {
 	 */
 	public DeleteUserAccountSel() {
 		super();
-		
+		this.setTitle("حذف حساب کاربری - انتخاب کاربر");
 		
 	}
 

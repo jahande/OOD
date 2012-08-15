@@ -28,17 +28,9 @@ public class ViewAssignmentedFieldsSel extends SelectUser {
 	public ViewAssignmentedFieldsSel() {
 		super();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		try {
-			jbInit();
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-		//
+		this.setTitle("مشاهده‌ی حوزه‌های کارشناسی کارشناسان");
 	}
-	private void jbInit() throws Exception {
-		getContentPane().setLayout(null);
-		
-	}
+	
 	@Override
 	protected void nextActionPerform(MouseEvent e, AbstractUser user) {
 		ViewAssignmentedFieldsView assignmentedFieldsView = new ViewAssignmentedFieldsView(user);

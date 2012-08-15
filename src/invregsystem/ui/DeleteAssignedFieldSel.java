@@ -30,6 +30,17 @@ import javax.swing.table.AbstractTableModel;
 
 public class DeleteAssignedFieldSel extends SelectUser {
 
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2316546092488565792L;
+
+	public DeleteAssignedFieldSel() {
+		super();
+		this.setTitle("حذف حوزه‌ی کارشناسی اختصاص داده شده");
+	}
+
 	@Override
 	protected void nextActionPerform(MouseEvent e, AbstractUser user) {
 		DeleteAssignedFieldDel assignedFieldDel = new DeleteAssignedFieldDel(user);

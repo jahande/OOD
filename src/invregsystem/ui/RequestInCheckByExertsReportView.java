@@ -89,16 +89,17 @@ public class RequestInCheckByExertsReportView extends JFrame implements
 	public RequestInCheckByExertsReportView(AbstractUser user) {
 		super();
 		this.user = user;
-		setBounds(100, 100, 393, 410);
+		setBounds(100, 100, 700, 410);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		jbInit();
 
 	}
 
-	private void jbInit()  {
+	private void jbInit() {
 		getContentPane().setLayout(null);
-		setTitle("اخذ گزارش کل کاربران");
+		setTitle("اخذ گزارش وضعیت بررسی اختراعات توسط "
+				+ this.user.getFullName());
 
 		getContentPane().add(scrollPane);
 		scrollPane.setActionMap(null);

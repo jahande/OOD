@@ -19,6 +19,7 @@ public class RequestReportOfUserInventionsSel extends SelectUser {
 	 */
 	public RequestReportOfUserInventionsSel() {
 		super();
+		this.setTitle("اخذ گزارش اختراعات یک کاربر");
 	}
 
 	@Override

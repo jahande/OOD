@@ -28,18 +28,15 @@ import javax.swing.event.ListDataListener;
 
 public class ViewAssignmentedFieldsView extends ViewInventionFieldBase {
 
-	private final JList list = new JList();
-	private final JLabel label = new JLabel();
-
-	
-
 	/**
-	 * Create the frame
+	 * 
 	 */
+	private static final long serialVersionUID = -5913029577889271684L;
+
 	public ViewAssignmentedFieldsView(AbstractUser user) {
 		super();
-		// setBounds(100, 100, 393, 379);
-		// setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setTitle(" مشاهده‌ی حوزه‌های کارشناسی "
+				+user.getFullName());
 		this.inventionFields = InventionFieldCatalog.getInstance().getInventionFieldsOfExpert(user);
 		
 	}

@@ -27,8 +27,8 @@ public class DeleteAssignedFieldDel extends SelectInventionFieldBase {
 	public DeleteAssignedFieldDel(AbstractUser user) {
 		super(Color.RED, "حذف");
 		this.user = user;
-		setBounds(100, 100, 393, 410);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setTitle("حذف حوزه‌ی کارشناسی از "
+				+this.user.getFullName());
 		try {
 			inventionFields = (InventionFieldCatalog.getInstance()
 					.getInventionFieldsOfExpert(this.user));
@@ -36,7 +36,6 @@ public class DeleteAssignedFieldDel extends SelectInventionFieldBase {
 			JOptionPane.showMessageDialog(this, "خطای شماره ی ۱۰۲۱");
 			return;
 		}
-		//
 	}
 
 	@Override

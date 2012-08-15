@@ -83,14 +83,15 @@ public class RequestReportOfUserInventionsView extends JFrame implements
 	public RequestReportOfUserInventionsView(AbstractUser user) {
 		super();
 		this.user = user;
-		setBounds(100, 100, 393, 410);
+		setBounds(100, 100, 700, 410);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		jbInit();
 	}
 
 	private void jbInit()  {
 		getContentPane().setLayout(null);
-		setTitle("اخذ گزارش اختراعات یک کاربران");
+		setTitle("اخذ گزارش اختراعات "
+				+this.user.getFullName());
 
 		getContentPane().add(scrollPane);
 		scrollPane.setActionMap(null);

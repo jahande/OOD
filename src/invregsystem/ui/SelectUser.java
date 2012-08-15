@@ -87,7 +87,7 @@ public abstract class SelectUser extends JFrame implements NeedRefreshData,
 		getContentPane().add(label);
 		label.setHorizontalTextPosition(SwingConstants.CENTER);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setText("حوزه‌های اختراع:");
+		label.setText("کاربران:");
 		label.setBounds(80, 27, 240, 31);
 
 		resetInventionFieldsPanel();
@@ -144,7 +144,7 @@ public abstract class SelectUser extends JFrame implements NeedRefreshData,
 			ParameterLabel<AbstractUser> lbl = new ParameterLabel<AbstractUser>();
 
 			lbl.setParameter(user);
-			lbl.setPreferredSize(new Dimension(40, 10));
+			lbl.setPreferredSize(new Dimension(40, 12));
 			lbl.setHorizontalTextPosition(SwingConstants.CENTER);
 			lbl.setHorizontalAlignment(SwingConstants.CENTER);
 			lbl.setForeground(Color.BLUE);

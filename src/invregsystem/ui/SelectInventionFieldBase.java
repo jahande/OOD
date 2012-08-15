@@ -145,7 +145,7 @@ public abstract class SelectInventionFieldBase extends JFrame  {
 			ParameterLabel<InventionField> lbl = new ParameterLabel<InventionField>();
 
 			lbl.setParameter(inventionField);
-			lbl.setPreferredSize(new Dimension(40, 10));
+			lbl.setPreferredSize(new Dimension(40, 12));
 			lbl.setHorizontalTextPosition(SwingConstants.CENTER);
 			lbl.setHorizontalAlignment(SwingConstants.CENTER);
 			lbl.setForeground(this.actionListColor);

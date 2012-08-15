@@ -1,32 +1,22 @@
 package invregsystem.ui;
 
-import invregsystem.AbstractUser;
 import invregsystem.logic.Request;
-import invregsystem.logic.RequestCatalog;
-import invregsystem.logic.invention.InventionField;
-import invregsystem.logic.invention.InventionFieldCatalog;
-import invregsystem.logic.invention.InventionFieldRegistrationRequest;
-import invregsystem.logic.invention.InventionFieldRegistrationRequestCatalog;
 import invregsystem.logic.invention.InventionRegistrationRequest;
 import invregsystem.logic.invention.InventionRegistrationRequestCatalog;
 import invregsystem.logic.member.Message;
 import invregsystem.logic.member.MessageCatalog;
-import invregsystem.logic.member.UserCatalog;
 import invregsystem.ui.models.ListMouseAdapter;
 import invregsystem.ui.models.ListMouseListenner;
 import invregsystem.ui.models.NeedRefreshData;
 import invregsystem.ui.models.ParameterLabel;
-import invregsystem.ui.models.SimpleListModel;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.Set;
 
 import javax.swing.JButton;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
@@ -53,7 +43,6 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 	 * 
 	 */
 	private static final long serialVersionUID = -2571937414591360868L;
-	private final JLabel label = new JLabel();
 	private JPanel rejectPanel;// s= new JPanel();
 	private JPanel acceptPanel;
 	private final JButton button = new JButton();
@@ -64,14 +53,14 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 	private final JTable table = new JTable();
 	private final JScrollPane scrollPane = new JScrollPane();
 
-	private final static String[] COLS = new String[] { "نام","عنوان اختراع"};
+	private final static String[] COLS = new String[] { "نام", "عنوان اختراع" };
 
 	/**
 	 * Create the frame
 	 */
 	public GivePermitionToRequest() {
 		super();
-		setBounds(100, 100, 511, 410);
+		setBounds(100, 100, 653, 410);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
 			jbInit();
@@ -83,13 +72,7 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 
 	private void jbInit() throws Exception {
 		getContentPane().setLayout(null);
-		setTitle("مشاهده‌ی حوزه‌های اختراع");
-
-		getContentPane().add(label);
-		label.setHorizontalTextPosition(SwingConstants.CENTER);
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setText("حوزه‌های اختراع:");
-		label.setBounds(106, 10, 240, 31);
+		setTitle("صدور اجازه‌ی بررسی درخواست ثبت اختراع");
 
 		resetPanels();
 
@@ -99,13 +82,13 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 		button.setBounds(156, 340, 106, 26);
 
 		getContentPane().add(scrollPane);
-		scrollPane.setBounds(34, 162, 411, 151);
+		scrollPane.setBounds(185, 76, 411, 244);
 
 		scrollPane.setViewportView(table);
 
 	}
 
-	class TableTableModel extends AbstractTableModel {
+	private class TableTableModel extends AbstractTableModel {
 		private final String[] COLUMNS = GivePermitionToRequest.COLS;
 		private final String[][] CELLS;
 
@@ -138,9 +121,13 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 	}
 
 	@Override
-	public void listMouseListennerActionPerform(MouseEvent e, Object obj,String type) {
-		rejectActionPerform(e, (InventionRegistrationRequest) (obj));
-
+	public void listMouseListennerActionPerform(MouseEvent e, Object obj,
+			String type) {
+		if (type.equals("reject")) {
+			this.rejectActionPerform(e, (InventionRegistrationRequest) (obj));
+		} else if (type.equals("accept")) {
+			this.acceptActionPerform(e, (InventionRegistrationRequest) (obj));
+		}
 		// JOptionPane.showMessageDialog(this, ((AbstractUser)obj).getId());
 	}
 
@@ -163,7 +150,7 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 			rejectLbl.setForeground(Color.RED);
 			rejectLbl
 					.addMouseListener(new ListMouseAdapter<InventionRegistrationRequest>(
-							request, this));
+							request, this, "reject"));
 			rejectLbl.setText("رد");
 
 			ParameterLabel<InventionRegistrationRequest> acceptLbl = new ParameterLabel<InventionRegistrationRequest>();
@@ -174,7 +161,7 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 			acceptLbl.setForeground(Color.GREEN);
 			acceptLbl
 					.addMouseListener(new ListMouseAdapter<InventionRegistrationRequest>(
-							request, this));
+							request, this, "accept"));
 			acceptLbl.setText("تایید");
 
 			this.acceptPanel.add(acceptLbl);
@@ -193,6 +180,7 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 			i++;
 		}
 
+		this.table.setModel(new TableTableModel(tableStrs));
 	}
 
 	private JPanel[] resetPanels() {
@@ -206,12 +194,12 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 
 		JPanel p = new JPanel();
 		getContentPane().add(p);
-		p.setBounds(99, 76, 70, 244);
+		p.setBounds(98, 90, 70, 244);
 		this.rejectPanel = p;
 
 		JPanel p2 = new JPanel();
 		getContentPane().add(p2);
-		p2.setBounds(10, 76, 64, 244);
+		p2.setBounds(10, 90, 64, 244);
 		this.acceptPanel = p2;
 
 		// /////////////////////////////////////
@@ -224,7 +212,8 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 		this.dispose();
 	}
 
-	protected void acceptActionPerform(MouseEvent e, InventionRegistrationRequest request) {
+	protected void acceptActionPerform(MouseEvent e,
+			InventionRegistrationRequest request) {
 
 		JLabel mes = new JLabel("آیا شما به صدور اجازه مطمئن هستید؟ !");
 		int n = JOptionPane.showOptionDialog(this, mes, "تایید",
@@ -237,14 +226,20 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 			if (this.removeRequest) {
 				this.catalogInstance.removeItem(request);
 			}
-			MessageCatalog.getInstance().addItem(new Message("تایید درخواست"
-					,"با موافقت مدیر سامانه، شما اکنون می‌توانید درخواست اختراع خود را ارسال کنید.",
-					request.getRequester()));
-			this.refreshData();
+			MessageCatalog
+					.getInstance()
+					.addItem(
+							new Message(
+									"تایید درخواست",
+									"با موافقت مدیر سامانه، شما اکنون می‌توانید درخواست اختراع خود را ارسال کنید.",
+									request.getRequester()));
+			this.setVisible(false);
+			this.dispose();
 		}
 	}
 
-	protected void rejectActionPerform(MouseEvent e, InventionRegistrationRequest request) {
+	protected void rejectActionPerform(MouseEvent e,
+			InventionRegistrationRequest request) {
 		if (false) {
 			JLabel mes = new JLabel(
 					"آیا شما به رد درخواست مطمئن هستید؟ این عمل برگشت پذیر نیست!");

@@ -44,8 +44,8 @@ public class RequestAllUsersReport extends JFrame {
 	private final JPanel panel = new JPanel();
 	private final JComboBox<String> stateCbx = new JComboBox<String>();
 	private final JComboBox<String> numCbx = new JComboBox<String>();
-	private final static String[] COLS = new String[] { "نام کاربری", "نام", "عنوان", "حوزه اختراع", "وضعیت", "تعداد دفعات رد شدن",
-	"سهم" };
+	private final static String[] COLS = new String[] { "نام کاربری", "نام",
+			"عنوان", "حوزه اختراع", "وضعیت", "تعداد دفعات رد شدن", "سهم" };
 	private final JLabel label_1 = new JLabel();
 	private final JLabel label_2 = new JLabel();
 
@@ -70,7 +70,8 @@ public class RequestAllUsersReport extends JFrame {
 		}
 
 		public Object getValueAt(int row, int column) {
-			return CELLS[row].length > column ? CELLS[row][column] : (column + " - " + row);
+			return CELLS[row].length > column ? CELLS[row][column] : (column
+					+ " - " + row);
 		}
 	}
 
@@ -116,7 +117,6 @@ public class RequestAllUsersReport extends JFrame {
 
 		scrollPane.setViewportView(table);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
 
 		getContentPane().add(button);
 		button.addActionListener(new ButtonActionListener());
@@ -145,8 +145,10 @@ public class RequestAllUsersReport extends JFrame {
 		label_2.setText("تعداد بار رد شدن");
 		label_2.setBounds(103, 14, 66, 16);
 
-		this.stateCbx.setModel(new DefaultComboBoxModel<String>(new String[] { "تایید شده", "رد شده", "در حال بررسی", "همه" }));
-		this.numCbx.setModel(new DefaultComboBoxModel<String>(new String[] { "۳", "۲", "۱", "همه" }));
+		this.stateCbx.setModel(new DefaultComboBoxModel<String>(new String[] {
+				"تایید شده", "رد شده", "در حال بررسی", "همه" }));
+		this.numCbx.setModel(new DefaultComboBoxModel<String>(new String[] {
+				"۳", "۲", "۱", "همه" }));
 	}
 
 	private class ButtonActionListener implements ActionListener {
@@ -157,7 +159,8 @@ public class RequestAllUsersReport extends JFrame {
 
 	protected void button_actionPerformed(ActionEvent arg0) {
 
-		List<AbstractInvention> inventions = (List<AbstractInvention>) InventionCatalog.getInstance().getAllItems();
+		List<AbstractInvention> inventions = (List<AbstractInvention>) InventionCatalog
+				.getInstance().getAllItems();
 		// String[][] tableStrings = new String[inventions.size()][7];
 		int numOfrejects = -1;
 		if (!this.numCbx.getSelectedItem().equals("همه")) {
@@ -165,7 +168,7 @@ public class RequestAllUsersReport extends JFrame {
 		}
 
 		int state = 2;
-		switch (this.numCbx.getSelectedIndex()) {
+		switch (this.stateCbx.getSelectedIndex()) {
 		case 0:
 			state = Request.ACCEPTED;
 			break;
@@ -179,37 +182,52 @@ public class RequestAllUsersReport extends JFrame {
 		default:
 			state = 2;
 		}
-		ArrayList<AbstractInvention> finalInvs = new ArrayList<AbstractInvention>(inventions.size());
+		ArrayList<AbstractInvention> finalInvs = new ArrayList<AbstractInvention>(
+				inventions.size());
 		for (AbstractInvention inv : inventions) {
-			InventionRegistrationRequest invReq = inv.getInventionRegistrationRequest();
+			InventionRegistrationRequest invReq = inv
+					.getInventionRegistrationRequest();
 			if ((state == 2 || state == invReq.getState())
-					&& (numOfrejects == -1 || numOfrejects == InvestigationLogCatalog.getInstance().getRejectCountOfInvRegReq(invReq))) {
+					&& (numOfrejects == -1 || numOfrejects == InvestigationLogCatalog
+							.getInstance().getRejectCountOfInvRegReq(invReq))) {
 
 				finalInvs.add(inv);
 			}
 		}
 		// //end of initialize inventions
-		ArrayList<String[]> tableStringsArraylist = new ArrayList<String[]>(inventions.size() * 2);
+		ArrayList<String[]> tableStringsArraylist = new ArrayList<String[]>(
+				inventions.size() * 2);
 		InventionCatalog inventionCatalog = InventionCatalog.getInstance();
 		int i = 0;
 		for (AbstractInvention inv2 : finalInvs) {
 			for (Share share : inventionCatalog.getSharesByInvention(inv2)) {
-				tableStringsArraylist.add(new String[RequestAllUsersReport.COLS.length]);
+				tableStringsArraylist
+						.add(new String[RequestAllUsersReport.COLS.length]);
 				AbstractUser user = share.getUser();
 				tableStringsArraylist.get(i)[0] = user.getUserName();
 				tableStringsArraylist.get(i)[1] = user.getFullName();
 				tableStringsArraylist.get(i)[2] = inv2.getTitle();
-				tableStringsArraylist.get(i)[3] = inv2.getInventionField().getName();
-				tableStringsArraylist.get(i)[4] = inv2.getInventionRegistrationRequest().getStateName();
-				tableStringsArraylist.get(i)[5] = Integer.toString(InvestigationLogCatalog.getInstance().getRejectCountOfInvRegReq(
-						inv2.getInventionRegistrationRequest()));
-				tableStringsArraylist.get(i)[6] = Integer.toString(share.getShareValue())+"٪";
+				try {
+					tableStringsArraylist.get(i)[3] = inv2.getInventionField()
+							.getName();
+				} catch (Exception e) {
+				}
+				tableStringsArraylist.get(i)[4] = inv2
+						.getInventionRegistrationRequest().getStateName();
+				tableStringsArraylist.get(i)[5] = Integer
+						.toString(InvestigationLogCatalog.getInstance()
+								.getRejectCountOfInvRegReq(
+										inv2.getInventionRegistrationRequest()));
+				tableStringsArraylist.get(i)[6] = Integer.toString(share
+						.getShareValue())
+						+ "٪";
 				i++;
 			}
 
 		}
 		String[][] strss = new String[tableStringsArraylist.size()][RequestAllUsersReport.COLS.length];
-		this.table.setModel(new TableTableModel(tableStringsArraylist.toArray(strss)));
+		this.table.setModel(new TableTableModel(tableStringsArraylist
+				.toArray(strss)));
 
 	}
 

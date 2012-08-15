@@ -80,7 +80,7 @@ public class DeleteInventionField extends SelectInventionFieldBase{
 
 	private void jbInit() throws Exception {
 		getContentPane().setLayout(null);
-		setTitle("مشاهده‌ی حوزه‌های اختراع");
+		setTitle("حذف حوزه‌های اختراع");
 
 		getContentPane().add(label);
 		label.setHorizontalTextPosition(SwingConstants.CENTER);

@@ -19,18 +19,7 @@ public class DeleteUserAccountDel extends UserAccountViewBase {
 
 	private final JButton button = new JButton();
 	private final JButton button_1 = new JButton();
-	/**
-	 * Launch the application
-	 * @param args
-	 */
-	public static void main(String args[]) {
-		try {
-			DeleteUserAccountDel frame = new DeleteUserAccountDel();
-			frame.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
 	private DeleteUserAccountDel(){
 		super(null);
 	}
@@ -41,6 +30,7 @@ public class DeleteUserAccountDel extends UserAccountViewBase {
 	public DeleteUserAccountDel(AbstractUser user) {
 		super(user);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setTitle("حذف حساب کاربری - حذف");
 		try {
 			jbInit();
 		} catch (Throwable e) {
