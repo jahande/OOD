@@ -25,7 +25,6 @@ public class RequestReportOfUserInventionsSel extends SelectUser {
 	@Override
 	protected void nextActionPerform(MouseEvent e, AbstractUser user) {
 		RequestReportOfUserInventionsView requestReportOfUserInventionsView = new RequestReportOfUserInventionsView(user);
-		requestReportOfUserInventionsView.refreshData();
 		requestReportOfUserInventionsView.setVisible(true);
 	}
 
