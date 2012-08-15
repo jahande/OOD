@@ -197,7 +197,9 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 		}
 
 		JPanel p = new JPanel();
-		getContentPane().add(p);
+		if (false) {
+			getContentPane().add(p);
+		}
 		p.setBounds(98, 90, 70, 244);
 		this.rejectPanel = p;
 
@@ -230,15 +232,13 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 			if (this.removeRequest) {
 				this.catalogInstance.removeItem(request);
 			}
-			MessageCatalog
-					.getInstance()
+			MessageCatalog.getInstance()
 					.addItem(
-							new Message(
-									"تایید درخواست",
+							new Message("تایید درخواست",
 									"با موافقت مدیر سامانه، شما اکنون می‌توانید درخواست ثبت اختراع "
-									+request.getInvention().getTitle()+
-									" را ارسال کنید.",
-									request.getRequester()));
+											+ request.getInvention().getTitle()
+											+ " را ارسال کنید.", request
+											.getRequester()));
 			this.refreshData();
 		}
 	}
@@ -252,20 +252,20 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 				null, null, null);
 		// pane.set
 		if (n == JOptionPane.YES_OPTION) {
-			request.setState(Request.REJECTED);
+			request.setPermitted(false);
 			this.catalogInstance.updateItem(request);
 			if (this.removeRequest) {
 				this.catalogInstance.removeItem(request);
 			}
 			MessageCatalog
-			.getInstance()
-			.addItem(
-					new Message(
-							"رد درخواست",
-							"با مخالفت مدیر سامانه، شما نمی‌توانید درخواست ثبت اختراع "+
-							request.getInvention().getTitle()+
-							" را تا زمانی که حداقل یکی دیگر از اختراعاتتان تایید یا رد شود، ارسال کنید.",
-							request.getRequester()));
+					.getInstance()
+					.addItem(
+							new Message(
+									"رد درخواست",
+									"با مخالفت مدیر سامانه، شما نمی‌توانید درخواست ثبت اختراع "
+											+ request.getInvention().getTitle()
+											+ " را تا زمانی که حداقل یکی دیگر از اختراعاتتان تایید یا رد شود، ارسال کنید.",
+									request.getRequester()));
 
 			this.refreshData();
 		}
