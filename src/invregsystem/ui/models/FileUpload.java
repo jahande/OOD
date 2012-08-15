@@ -22,6 +22,9 @@ public class FileUpload {
 		 * Copy srcFile files directory of application. If there exists a file
 		 * with the same name, rename the new File.
 		 */
+		if (!new File("files").exists()) {
+			new File("files").mkdir();
+		}
 		String destFile = "files\\" + FileUtil.getFileNameByPath(srcFile);
 		String newDestFile = getNewDestFile(destFile);
 		System.out.println("newDtFile = " + newDestFile);
