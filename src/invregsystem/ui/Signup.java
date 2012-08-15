@@ -185,7 +185,7 @@ public class Signup extends JFrame {
 		} else if (userCatalog.getUserByUsername(username) != null) {
 			JOptionPane.showMessageDialog(this, "نام کاربری تکراری است!", "خطا", JOptionPane.ERROR_MESSAGE);
 		} else {
-			AbstractUser newUser = new User(firstName, lastName, username, password, email, birthDate, false);
+			AbstractUser newUser = new User(firstName, lastName, username, password, email, birthDate, false, false);
 			userCatalog.addItem(newUser);
 			UserRegistrationRequest request = new UserRegistrationRequest(new Date(), newUser);
 			UserRegistrationRequestCatalog userRegistrationRequestCatalog = UserRegistrationRequestCatalog.getInstance();

@@ -17,4 +17,8 @@ public abstract class AbstractUser extends AbstractMember {
 	public abstract UserRegistrationRequest getUserRegistrationRequest();
 
 	public abstract void setUserRegistrationRequest(UserRegistrationRequest userRegistrationRequest);
+
+	public abstract boolean isActive();
+
+	public abstract void setActive(boolean active);
 }
