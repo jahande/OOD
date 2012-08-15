@@ -218,8 +218,13 @@ public class CompanyRegReq extends JFrame {
 			JOptionPane.showMessageDialog(this, "لطفاً شماره تلفن را به درستی وارد نمایید.", "خطا", JOptionPane.ERROR_MESSAGE);
 		} else {
 			Set<AbstractUser> agents = new HashSet<AbstractUser>();
+			Set<String> usernames = new HashSet<String>();
 			for (JComboBox<String> inventorCombo : inventorsList) {
-				agents.add(userCatalog.getUserByUsername(inventorCombo.getSelectedItem().toString()));
+				String username = inventorCombo.getSelectedItem().toString();
+				if (!usernames.contains(username)) {
+					agents.add(userCatalog.getUserByUsername(username));
+					usernames.add(username);
+				}
 			}
 			String file = FileUpload.getInstance().copyToFilesDirectory(introDocFile.getPath());
 			AbstractCompany company = new Company(name, phone, address, website, file, agents);
