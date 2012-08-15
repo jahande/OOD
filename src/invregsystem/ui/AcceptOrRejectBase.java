@@ -6,6 +6,8 @@ import invregsystem.logic.RequestCatalog;
 import invregsystem.logic.invention.InventionField;
 import invregsystem.logic.invention.InventionFieldCatalog;
 import invregsystem.logic.invention.InventionFieldRegistrationRequestCatalog;
+import invregsystem.logic.member.Message;
+import invregsystem.logic.member.MessageCatalog;
 import invregsystem.logic.member.UserCatalog;
 import invregsystem.ui.models.ListMouseAdapter;
 import invregsystem.ui.models.ListMouseListenner;
@@ -102,7 +104,7 @@ public abstract class AcceptOrRejectBase extends JFrame implements
 			String type) {
 		if (type.equals("reject")) {
 			this.rejectActionPerform(e, (Request) (obj));
-		} else if(type.equals("accept")){
+		} else if (type.equals("accept")) {
 			this.acceptActionPerform(e, (Request) (obj));
 		}
 		// JOptionPane.showMessageDialog(this, ((AbstractUser)obj).getId());
@@ -115,29 +117,31 @@ public abstract class AcceptOrRejectBase extends JFrame implements
 		// this.panel = new JPanel();
 		for (Object obj : this.requests) {
 			Request request = (Request) obj;
-			ParameterLabel<Request> rejectLbl = new ParameterLabel<Request>();
+			if (request.getState() == Request.NOT_INVESTIGATED) {
+				ParameterLabel<Request> rejectLbl = new ParameterLabel<Request>();
 
-			rejectLbl.setParameter(request);
-			rejectLbl.setPreferredSize(new Dimension(40, 10));
-			rejectLbl.setHorizontalTextPosition(SwingConstants.CENTER);
-			rejectLbl.setHorizontalAlignment(SwingConstants.CENTER);
-			rejectLbl.setForeground(Color.RED);
-			rejectLbl.addMouseListener(new ListMouseAdapter<Request>(request,
-					this, "reject"));
-			rejectLbl.setText("رد");
+				rejectLbl.setParameter(request);
+				rejectLbl.setPreferredSize(new Dimension(40, 10));
+				rejectLbl.setHorizontalTextPosition(SwingConstants.CENTER);
+				rejectLbl.setHorizontalAlignment(SwingConstants.CENTER);
+				rejectLbl.setForeground(Color.RED);
+				rejectLbl.addMouseListener(new ListMouseAdapter<Request>(
+						request, this, "reject"));
+				rejectLbl.setText("رد");
 
-			ParameterLabel<Request> acceptLbl = new ParameterLabel<Request>();
-			acceptLbl.setParameter(request);
-			acceptLbl.setPreferredSize(new Dimension(40, 10));
-			acceptLbl.setHorizontalTextPosition(SwingConstants.CENTER);
-			acceptLbl.setHorizontalAlignment(SwingConstants.CENTER);
-			acceptLbl.setForeground(Color.GREEN);
-			acceptLbl.addMouseListener(new ListMouseAdapter<Request>(request,
-					this, "accept"));
-			acceptLbl.setText("تایید");
+				ParameterLabel<Request> acceptLbl = new ParameterLabel<Request>();
+				acceptLbl.setParameter(request);
+				acceptLbl.setPreferredSize(new Dimension(40, 10));
+				acceptLbl.setHorizontalTextPosition(SwingConstants.CENTER);
+				acceptLbl.setHorizontalAlignment(SwingConstants.CENTER);
+				acceptLbl.setForeground(Color.GREEN);
+				acceptLbl.addMouseListener(new ListMouseAdapter<Request>(
+						request, this, "accept"));
+				acceptLbl.setText("تایید");
 
-			this.acceptPanel.add(acceptLbl);
-			this.rejectPanel.add(rejectLbl);
+				this.acceptPanel.add(acceptLbl);
+				this.rejectPanel.add(rejectLbl);
+			}
 
 		}
 		// /////////////////////////
@@ -152,7 +156,9 @@ public abstract class AcceptOrRejectBase extends JFrame implements
 		ArrayList<String> names = new ArrayList<String>();
 		for (Object obj : this.requests) {
 			Request req = (Request) obj;
-			names.add(req.toString());
+			if (req.getState() == Request.NOT_INVESTIGATED) {
+				names.add(req.toString());
+			}
 
 		}
 		list = new JList<String>();
@@ -204,6 +210,11 @@ public abstract class AcceptOrRejectBase extends JFrame implements
 			if (this.removeRequest) {
 				this.catalogInstance.removeItem(request);
 			}
+			Message m = this.getAcceptMessage(request);
+			if (m != null) {
+				MessageCatalog.getInstance().addItem(
+						this.getAcceptMessage(request));
+			}
 			this.refreshData();
 		}
 	}
@@ -221,8 +232,21 @@ public abstract class AcceptOrRejectBase extends JFrame implements
 			if (this.removeRequest) {
 				this.catalogInstance.removeItem(request);
 			}
+			Message m = this.getRejectMessage(request);
+			if (m != null) {
+				MessageCatalog.getInstance().addItem(
+						this.getRejectMessage(request));
+			}
 			this.refreshData();
 		}
+	}
+
+	protected  Message getAcceptMessage(Request request){
+		return null;
+	}
+
+	protected  Message getRejectMessage(Request request){
+		return null;
 	}
 
 }

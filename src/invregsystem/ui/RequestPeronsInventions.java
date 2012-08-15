@@ -2,6 +2,7 @@ package invregsystem.ui;
 
 import invregsystem.AbstractInvention;
 import invregsystem.AbstractUser;
+import invregsystem.logic.Request;
 import invregsystem.logic.invention.Invention;
 import invregsystem.logic.invention.InventionCatalog;
 import invregsystem.logic.invention.Share;
@@ -129,11 +130,11 @@ public class RequestPeronsInventions extends JFrame {
 		File selFile = fc.getSelectedFile();
 		ArrayList<String> fullNames = new ArrayList<String>();
 		try {
-			Scanner sc = new Scanner ( new InputStreamReader(new FileInputStream(selFile),"unicode"));
-			while (sc.hasNext())
-			{
+			Scanner sc = new Scanner(new InputStreamReader(new FileInputStream(
+					selFile), "unicode"));
+			while (sc.hasNext()) {
 				fullNames.add(sc.nextLine());
-				System.out.println(fullNames.get(fullNames.size()-1));
+				System.out.println(fullNames.get(fullNames.size() - 1));
 			}
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
@@ -158,8 +159,11 @@ public class RequestPeronsInventions extends JFrame {
 				// //compute sum of shares
 				for (AbstractInvention inv : InventionCatalog.getInstance()
 						.getInventionsByInventor(user)) {
-					shares += InventionCatalog.getInstance()
-							.getShareByParameters(user, inv).getShareValue();
+					if (inv.getInventionRegistrationRequest().getState() == Request.ACCEPTED) {
+						shares += InventionCatalog.getInstance()
+								.getShareByParameters(user, inv)
+								.getShareValue();
+					}
 
 				}
 				// /end of compute sum of shares
@@ -178,7 +182,7 @@ public class RequestPeronsInventions extends JFrame {
 			tableStrs.add(new String[RequestPeronsInventions.COLS.length]);
 			tableStrs.get(j)[0] = fullname;
 			tableStrs.get(j)[1] = "نیست";
-			tableStrs.get(j)[2] = "۰";
+			tableStrs.get(j)[2] = "0";
 			System.out.println(fullname);
 			j++;
 		}

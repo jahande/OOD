@@ -36,7 +36,7 @@ public class RequestInCheckByExertsReportSel extends SelectUser {
 	@Override
 	public void refreshData() {
 		this.setTitle("اخذ گزارش وضعیت بررسی ختراعاتی توسط یک کارشناس");
-		
+		this.label.setText("کارشناسان:");
 		this.users = UserCatalog.getInstance().getExperts();
 		super.refreshData();
 	}

@@ -5,6 +5,7 @@ import invregsystem.logic.invention.InventionField;
 import invregsystem.logic.invention.InventionFieldCatalog;
 import invregsystem.logic.invention.InventionFieldRegistrationRequest;
 import invregsystem.logic.invention.InventionFieldRegistrationRequestCatalog;
+import invregsystem.logic.member.Message;
 import invregsystem.ui.models.NeedRefreshData;
 import invregsystem.ui.models.ParameterLabel;
 import invregsystem.ui.models.SimpleListModel;
@@ -39,5 +40,21 @@ public class AcceptOrRejectAddNewFieldRequest extends AcceptOrRejectBase
 		this.catalogInstance = InventionFieldRegistrationRequestCatalog
 				.getInstance();
 		this.requests = this.catalogInstance.getAllItems();
+	}
+
+	@Override
+	protected Message getAcceptMessage(Request request) {
+		InventionFieldRegistrationRequest i = (InventionFieldRegistrationRequest) request;
+		return new Message("رد درخواست ثبت حوزه‌ی اختراع",
+				"درخواست شما مبنی بر ثبت حوزه‌ی " + i.getFieldName()
+						+ " توسط مدیر سایت رد شده است", i.getUser());
+	}
+
+	@Override
+	protected Message getRejectMessage(Request request) {
+		InventionFieldRegistrationRequest i = (InventionFieldRegistrationRequest) request;
+		return new Message("تایید درخواست ثبت حوزه‌ی اختراع",
+				"درخواست شما مبنی بر ثبت حوزه‌ی " + i.getFieldName()
+						+ "توسط مدیر سایت تایید شده است ", i.getUser());
 	}
 }

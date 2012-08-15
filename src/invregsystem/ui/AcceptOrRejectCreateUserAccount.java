@@ -1,6 +1,8 @@
 package invregsystem.ui;
 
+import invregsystem.logic.Request;
 import invregsystem.logic.invention.InventionFieldRegistrationRequestCatalog;
+import invregsystem.logic.member.Message;
 import invregsystem.logic.member.UserRegistrationRequestCatalog;
 
 import java.awt.Color;
@@ -28,4 +30,6 @@ public class AcceptOrRejectCreateUserAccount extends AcceptOrRejectBase {
 				.getInstance();
 		this.requests = this.catalogInstance.getAllItems();
 	}
+
+	
 }

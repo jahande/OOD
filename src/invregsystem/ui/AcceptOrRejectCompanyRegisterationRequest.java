@@ -1,7 +1,11 @@
 package invregsystem.ui;
 
+import invregsystem.logic.Request;
+import invregsystem.logic.invention.InventionFieldRegistrationRequest;
 import invregsystem.logic.invention.InventionFieldRegistrationRequestCatalog;
+import invregsystem.logic.member.CompanyRegistrationRequest;
 import invregsystem.logic.member.CompanyRegistrationRequestCatalog;
+import invregsystem.logic.member.Message;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -30,4 +34,6 @@ public class AcceptOrRejectCompanyRegisterationRequest extends
 				.getInstance();
 		this.requests = this.catalogInstance.getAllItems();
 	}
+
+	
 }

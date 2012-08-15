@@ -2,32 +2,16 @@ package invregsystem.ui;
 
 import invregsystem.AbstractInvention;
 import invregsystem.AbstractUser;
-import invregsystem.logic.Request;
-import invregsystem.logic.invention.Invention;
 import invregsystem.logic.invention.InventionCatalog;
-import invregsystem.logic.invention.InventionRegistrationRequest;
-import invregsystem.logic.invention.Share;
-import invregsystem.logic.invention.operation.InvestigationLogCatalog;
+import invregsystem.logic.invention.operation.InvestigationLog;
 import invregsystem.ui.models.NeedRefreshData;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -42,7 +26,8 @@ public class RequestReportOfUserInventionsView extends JFrame implements
 
 	private AbstractUser user;
 	private final static String[] COLS = new String[] { "عنوان", "حوزه اختراع",
-			"وضعیت", "شرح ایده", "چکیده", "قیمت", };
+			"وضعیت", "شرح ایده", "چکیده", "قیمت", 
+			"آخرین دلیل رد درخواست",};
 
 	private class TableTableModel extends AbstractTableModel {
 		private final String[] COLUMNS = RequestReportOfUserInventionsView.COLS;
@@ -88,10 +73,9 @@ public class RequestReportOfUserInventionsView extends JFrame implements
 		jbInit();
 	}
 
-	private void jbInit()  {
+	private void jbInit() {
 		getContentPane().setLayout(null);
-		setTitle("اخذ گزارش اختراعات "
-				+this.user.getFullName());
+		setTitle("اخذ گزارش اختراعات " + this.user.getFullName());
 
 		getContentPane().add(scrollPane);
 		scrollPane.setActionMap(null);
@@ -120,6 +104,14 @@ public class RequestReportOfUserInventionsView extends JFrame implements
 			invTableStrs[j][3] = inv.getIdeaDescription();
 			invTableStrs[j][4] = inv.getSummary();
 			invTableStrs[j][5] = Long.toString(inv.getPrice());
+			List<InvestigationLog> list = inv.getInventionRegistrationRequest()
+					.getInvestigationHistory();
+			if (list != null&& list.size()>0) {
+				invTableStrs[j][6] = list.get(list.size() - 1)
+						.getRejectReason();
+			} else {
+				invTableStrs[j][6] = "";
+			}
 			j++;
 		}
 		this.table.setModel(new TableTableModel(invTableStrs));

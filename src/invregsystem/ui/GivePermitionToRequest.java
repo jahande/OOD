@@ -140,32 +140,34 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 
 		// this.panel = new JPanel();
 		for (InventionRegistrationRequest request : this.requests) {
-			ParameterLabel<InventionRegistrationRequest> rejectLbl = new ParameterLabel<InventionRegistrationRequest>();
+			if (request.getState() == Request.NOT_INVESTIGATED) {
+				ParameterLabel<InventionRegistrationRequest> rejectLbl = new ParameterLabel<InventionRegistrationRequest>();
 
-			System.out.println(request);
-			rejectLbl.setParameter(request);
-			rejectLbl.setPreferredSize(new Dimension(40, 10));
-			rejectLbl.setHorizontalTextPosition(SwingConstants.CENTER);
-			rejectLbl.setHorizontalAlignment(SwingConstants.CENTER);
-			rejectLbl.setForeground(Color.RED);
-			rejectLbl
-					.addMouseListener(new ListMouseAdapter<InventionRegistrationRequest>(
-							request, this, "reject"));
-			rejectLbl.setText("رد");
+				System.out.println(request);
+				rejectLbl.setParameter(request);
+				rejectLbl.setPreferredSize(new Dimension(40, 10));
+				rejectLbl.setHorizontalTextPosition(SwingConstants.CENTER);
+				rejectLbl.setHorizontalAlignment(SwingConstants.CENTER);
+				rejectLbl.setForeground(Color.RED);
+				rejectLbl
+						.addMouseListener(new ListMouseAdapter<InventionRegistrationRequest>(
+								request, this, "reject"));
+				rejectLbl.setText("رد");
 
-			ParameterLabel<InventionRegistrationRequest> acceptLbl = new ParameterLabel<InventionRegistrationRequest>();
-			acceptLbl.setParameter(request);
-			acceptLbl.setPreferredSize(new Dimension(40, 10));
-			acceptLbl.setHorizontalTextPosition(SwingConstants.CENTER);
-			acceptLbl.setHorizontalAlignment(SwingConstants.CENTER);
-			acceptLbl.setForeground(Color.GREEN);
-			acceptLbl
-					.addMouseListener(new ListMouseAdapter<InventionRegistrationRequest>(
-							request, this, "accept"));
-			acceptLbl.setText("تایید");
+				ParameterLabel<InventionRegistrationRequest> acceptLbl = new ParameterLabel<InventionRegistrationRequest>();
+				acceptLbl.setParameter(request);
+				acceptLbl.setPreferredSize(new Dimension(40, 10));
+				acceptLbl.setHorizontalTextPosition(SwingConstants.CENTER);
+				acceptLbl.setHorizontalAlignment(SwingConstants.CENTER);
+				acceptLbl.setForeground(Color.GREEN);
+				acceptLbl
+						.addMouseListener(new ListMouseAdapter<InventionRegistrationRequest>(
+								request, this, "accept"));
+				acceptLbl.setText("تایید");
 
-			this.acceptPanel.add(acceptLbl);
-			this.rejectPanel.add(rejectLbl);
+				this.acceptPanel.add(acceptLbl);
+				this.rejectPanel.add(rejectLbl);
+			}
 
 		}
 		// /////////////////////////
@@ -174,10 +176,12 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 
 		int i = 0;
 		for (InventionRegistrationRequest invReq : this.requests) {
-			tableStrs[i][0] = invReq.getRequester().getFullName();
-			tableStrs[i][1] = invReq.getInvention().getTitle();
+			if (invReq.getState() == Request.NOT_INVESTIGATED) {
+				tableStrs[i][0] = invReq.getRequester().getFullName();
+				tableStrs[i][1] = invReq.getInvention().getTitle();
 
-			i++;
+				i++;
+			}
 		}
 
 		this.table.setModel(new TableTableModel(tableStrs));
@@ -231,30 +235,39 @@ public class GivePermitionToRequest extends JFrame implements NeedRefreshData,
 					.addItem(
 							new Message(
 									"تایید درخواست",
-									"با موافقت مدیر سامانه، شما اکنون می‌توانید درخواست اختراع خود را ارسال کنید.",
+									"با موافقت مدیر سامانه، شما اکنون می‌توانید درخواست ثبت اختراع "
+									+request.getInvention().getTitle()+
+									" را ارسال کنید.",
 									request.getRequester()));
-			this.setVisible(false);
-			this.dispose();
+			this.refreshData();
 		}
 	}
 
 	protected void rejectActionPerform(MouseEvent e,
 			InventionRegistrationRequest request) {
-		if (false) {
-			JLabel mes = new JLabel(
-					"آیا شما به رد درخواست مطمئن هستید؟ این عمل برگشت پذیر نیست!");
-			int n = JOptionPane.showOptionDialog(this, mes, "اخطار",
-					JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE,
-					null, null, null);
-			// pane.set
-			if (n == JOptionPane.YES_OPTION) {
-				request.setState(Request.REJECTED);
-				this.catalogInstance.updateItem(request);
-				if (this.removeRequest) {
-					this.catalogInstance.removeItem(request);
-				}
-				this.refreshData();
+		JLabel mes = new JLabel(
+				"آیا شما به رد درخواست مطمئن هستید؟ این عمل برگشت پذیر نیست!");
+		int n = JOptionPane.showOptionDialog(this, mes, "اخطار",
+				JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE,
+				null, null, null);
+		// pane.set
+		if (n == JOptionPane.YES_OPTION) {
+			request.setState(Request.REJECTED);
+			this.catalogInstance.updateItem(request);
+			if (this.removeRequest) {
+				this.catalogInstance.removeItem(request);
 			}
+			MessageCatalog
+			.getInstance()
+			.addItem(
+					new Message(
+							"رد درخواست",
+							"با مخالفت مدیر سامانه، شما نمی‌توانید درخواست ثبت اختراع "+
+							request.getInvention().getTitle()+
+							" را تا زمانی که حداقل یکی دیگر از اختراعاتتان تایید یا رد شود، ارسال کنید.",
+							request.getRequester()));
+
+			this.refreshData();
 		}
 	}
 

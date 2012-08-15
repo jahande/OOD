@@ -7,6 +7,7 @@ import invregsystem.logic.invention.Invention;
 import invregsystem.logic.invention.InventionCatalog;
 import invregsystem.logic.invention.InventionRegistrationRequest;
 import invregsystem.logic.invention.Share;
+import invregsystem.logic.invention.operation.InvestigationLog;
 import invregsystem.logic.invention.operation.InvestigationLogCatalog;
 
 import java.awt.event.ActionEvent;
@@ -45,7 +46,8 @@ public class RequestAllUsersReport extends JFrame {
 	private final JComboBox<String> stateCbx = new JComboBox<String>();
 	private final JComboBox<String> numCbx = new JComboBox<String>();
 	private final static String[] COLS = new String[] { "نام کاربری", "نام",
-			"عنوان", "حوزه اختراع", "وضعیت", "تعداد دفعات رد شدن", "سهم" };
+			"عنوان", "حوزه اختراع", "وضعیت", "تعداد دفعات رد شدن", "سهم",
+			"دلیل رد شدن" };
 	private final JLabel label_1 = new JLabel();
 	private final JLabel label_2 = new JLabel();
 
@@ -221,6 +223,15 @@ public class RequestAllUsersReport extends JFrame {
 				tableStringsArraylist.get(i)[6] = Integer.toString(share
 						.getShareValue())
 						+ "٪";
+				List<InvestigationLog> list = inv2
+						.getInventionRegistrationRequest()
+						.getInvestigationHistory();
+				if (list != null && list.size()>0) {
+					tableStringsArraylist.get(i)[7] = list.get(list.size() - 1)
+							.getRejectReason();
+				}else{
+					tableStringsArraylist.get(i)[7] = "";
+				}
 				i++;
 			}
 

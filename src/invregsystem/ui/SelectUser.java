@@ -41,7 +41,7 @@ public abstract class SelectUser extends JFrame implements NeedRefreshData,
 	 */
 	private static final long serialVersionUID = -2571937414591360868L;
 	private JList list = new JList();
-	private final JLabel label = new JLabel();
+	protected final JLabel label = new JLabel();
 	private JPanel panel;// s= new JPanel();
 	// private final JLabel label_1 = new JLabel();
 	// private final JLabel label_3 = new JLabel();
