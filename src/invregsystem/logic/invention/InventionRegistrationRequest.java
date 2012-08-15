@@ -107,6 +107,8 @@ public class InventionRegistrationRequest extends Request {
 		InvestigationLog log = new InvestigationLog(expert, this, false);
 		log.setApprovals(true, true, true, true, true);
 		investigationLogCatalog.addItem(log);
+
+		permitOneNonPermitedRequest();
 	}
 
 	public void rejectRequest(AbstractUser expert, boolean originalityApprove, boolean totalCompletenessApprove, boolean docCompletenessApprove,
@@ -127,6 +129,8 @@ public class InventionRegistrationRequest extends Request {
 				+ " توسط کارشناس رد شد. لطفا درخواست را اصلاح و مجددا ارسال نمایید.";
 		MessageCatalog messageCatalog = MessageCatalog.getInstance();
 		messageCatalog.addItem(new Message("رد درخواست", content, this.getRequester()));
+
+		permitOneNonPermitedRequest();
 	}
 
 	public AbstractUser assignExpertToCheck(InventionField field) {
@@ -185,5 +189,15 @@ public class InventionRegistrationRequest extends Request {
 		this.sendDate = new Date();
 		InventionRegistrationRequestCatalog invRegReqCatalog = InventionRegistrationRequestCatalog.getInstance();
 		invRegReqCatalog.updateItem(this);
+	}
+
+	private void permitOneNonPermitedRequest() {
+		InventionRegistrationRequestCatalog catalog = InventionRegistrationRequestCatalog.getInstance();
+		if (catalog.getNotInvestigatedInvRegReqsByInventor(this.getRequester()).size() < 3) {
+			List<InventionRegistrationRequest> requests = catalog.getInvRegReqsByPermitted(false);
+			InventionRegistrationRequest request = requests.get(0);
+			request.setPermitted(true);
+			catalog.updateItem(request);
+		}
 	}
 }
