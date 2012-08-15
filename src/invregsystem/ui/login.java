@@ -3,6 +3,7 @@ package invregsystem.ui;
 import invregsystem.AbstractManager;
 import invregsystem.AbstractMember;
 import invregsystem.AbstractUser;
+import invregsystem.logic.Request;
 import invregsystem.logic.member.Manager;
 import invregsystem.logic.member.UserCatalog;
 
@@ -104,7 +105,7 @@ public class Login extends JFrame {
 	public AbstractMember authenticate(String un, String pa) {
 		AbstractUser user = userCatalog.getUserByUsername(un);
 		if (user != null) {
-			if (user.getPassword().equals(pa) && user.isActive()) {
+			if (user.getPassword().equals(pa) && user.getUserRegistrationRequest().getState() == Request.ACCEPTED) {
 				return user;
 			} else {
 				return null;

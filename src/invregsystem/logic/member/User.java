@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class User extends AbstractUser {
@@ -44,9 +45,6 @@ public class User extends AbstractUser {
 	@Column(name = "expert", nullable = false)
 	private boolean expert;
 
-	@Column(name = "active", nullable = false)
-	private boolean active;
-
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "expertinventionfield", joinColumns = { @JoinColumn(name = "expertId") }, inverseJoinColumns = { @JoinColumn(name = "inventionFieldId") })
 	private Set<InventionField> inventionFields;
@@ -55,11 +53,14 @@ public class User extends AbstractUser {
 	@JoinTable(name = "companyagent", joinColumns = { @JoinColumn(name = "agentId") }, inverseJoinColumns = { @JoinColumn(name = "companyId") })
 	private Set<Company> companies;
 
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+	private UserRegistrationRequest userRegistrationRequest;
+
 	public User() {
 
 	}
 
-	public User(String firstName, String lastName, String userName, String password, String email, Date birthDate, boolean expert, boolean active) {
+	public User(String firstName, String lastName, String userName, String password, String email, Date birthDate, boolean expert) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -68,7 +69,6 @@ public class User extends AbstractUser {
 		this.email = email;
 		this.birthDate = birthDate;
 		this.expert = expert;
-		this.active = active;
 	}
 
 	public boolean isExpert() {
@@ -151,21 +151,21 @@ public class User extends AbstractUser {
 		this.birthDate = birthDate;
 	}
 
-	public boolean isActive() {
-		return active;
-	}
-	
 	public String toString() {
 		return this.getFullName();
-	}
-
-	public void setActive(boolean active) {
-		this.active = active;
 	}
 
 	@Override
 	public String getFullName() {
 		return firstName + " " + lastName;
+	}
+
+	public UserRegistrationRequest getUserRegistrationRequest() {
+		return userRegistrationRequest;
+	}
+
+	public void setUserRegistrationRequest(UserRegistrationRequest userRegistrationRequest) {
+		this.userRegistrationRequest = userRegistrationRequest;
 	}
 
 }
