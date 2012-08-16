@@ -43,7 +43,7 @@ public class AcceptOrRejectAddNewFieldRequest extends AcceptOrRejectBase
 	}
 
 	@Override
-	protected Message getAcceptMessage(Request request) {
+	protected Message getRejectMessage(Request request) {
 		InventionFieldRegistrationRequest i = (InventionFieldRegistrationRequest) request;
 		return new Message("رد درخواست ثبت حوزه‌ی اختراع",
 				"درخواست شما مبنی بر ثبت حوزه‌ی " + i.getFieldName()
@@ -51,10 +51,16 @@ public class AcceptOrRejectAddNewFieldRequest extends AcceptOrRejectBase
 	}
 
 	@Override
-	protected Message getRejectMessage(Request request) {
+	protected Message getAcceptMessage(Request request) {
 		InventionFieldRegistrationRequest i = (InventionFieldRegistrationRequest) request;
 		return new Message("تایید درخواست ثبت حوزه‌ی اختراع",
 				"درخواست شما مبنی بر ثبت حوزه‌ی " + i.getFieldName()
 						+ "توسط مدیر سایت تایید شده است ", i.getUser());
+	}
+
+	@Override
+	protected void acceptActionSpecial(Request request) {
+		InventionFieldRegistrationRequest i = (InventionFieldRegistrationRequest)request;
+		InventionFieldCatalog.getInstance().addItem(new InventionField(i.getFieldName()));
 	}
 }

@@ -207,6 +207,7 @@ public abstract class AcceptOrRejectBase extends JFrame implements
 		if (n == JOptionPane.YES_OPTION) {
 			request.setState(Request.ACCEPTED);
 			this.catalogInstance.updateItem(request);
+			acceptActionSpecial(request);
 			if (this.removeRequest) {
 				this.catalogInstance.removeItem(request);
 			}
@@ -217,6 +218,10 @@ public abstract class AcceptOrRejectBase extends JFrame implements
 			}
 			this.refreshData();
 		}
+	}
+
+	protected void acceptActionSpecial(Request request) {
+		
 	}
 
 	protected void rejectActionPerform(MouseEvent e, Request request) {
