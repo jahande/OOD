@@ -1,5 +1,7 @@
 package invregsystem.logic.invention;
 
+import java.util.Date;
+
 import invregsystem.AbstractUser;
 import invregsystem.logic.Request;
 import invregsystem.logic.member.User;
@@ -27,7 +29,7 @@ public class InventionFieldRegistrationRequest extends Request {
 	}
 
 	public InventionFieldRegistrationRequest(AbstractUser user, InventionField nearestField, String fieldName) {
-		super();
+		super(new Date());
 		this.user = (User) user;
 		this.nearestField = nearestField;
 		this.fieldName = fieldName;
