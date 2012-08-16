@@ -1,12 +1,10 @@
 package invregsystem.db;
 
-import invregsystem.AbstractUser;
 import invregsystem.logic.invention.Invention;
 import invregsystem.logic.invention.InventionField;
 import invregsystem.logic.invention.InventionRegistrationRequest;
 import invregsystem.logic.invention.Share;
 import invregsystem.logic.invention.operation.InventionLogCatalog;
-import invregsystem.logic.member.Company;
 import invregsystem.logic.member.Manager;
 import invregsystem.logic.member.User;
 
@@ -46,16 +44,6 @@ public class Initializer {
 		userDao.save(inventor);
 		Manager manager = new Manager("مدیر", "مدیری", "manager", "123", "manager@manage.com", new Date());
 		managerDao.save(manager);
-
-		Set<AbstractUser> agents = new HashSet<AbstractUser>();
-		agents.add(user);
-		companyDao.save(new Company("عمید رایانه شریف", "1234", "آدرس", "arsh.co.ir", "", agents));
-		agents = new HashSet<AbstractUser>();
-		agents.add(inventor);
-		companyDao.save(new Company("پوران صنعت ایران", "1234", "آدرس", "www", "", agents));
-		agents = new HashSet<AbstractUser>();
-		agents.add(expert1);
-		companyDao.save(new Company("تمیز گستر اندیشان", "1234", "آدرس", "www", "", agents));
 
 		Invention invention = new Invention("عنوان", "مشخصات کلی", "چکیده", "شرح ایده", "سابقه ایده", "ادعانامه", "شرح کامل", new ArrayList<String>());
 		invention.setInventionField(inventionFieldDao.findByParameter("name", "کامپیوتر").get(0));
