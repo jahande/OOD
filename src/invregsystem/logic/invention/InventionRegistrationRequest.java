@@ -195,9 +195,11 @@ public class InventionRegistrationRequest extends Request {
 		InventionRegistrationRequestCatalog catalog = InventionRegistrationRequestCatalog.getInstance();
 		if (catalog.getNotInvestigatedInvRegReqsByInventor(this.getRequester()).size() < 3) {
 			List<InventionRegistrationRequest> requests = catalog.getInvRegReqsByPermitted(false);
-			InventionRegistrationRequest request = requests.get(0);
-			request.setPermitted(true);
-			catalog.updateItem(request);
+			if (!requests.isEmpty()) {
+				InventionRegistrationRequest request = requests.get(0);
+				request.setPermitted(true);
+				catalog.updateItem(request);
+			}
 		}
 	}
 }
