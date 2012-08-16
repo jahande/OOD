@@ -71,7 +71,7 @@ public class AddAccount extends JFrame {
 	private void jbInit() throws Exception {
 		getContentPane().setLayout(null);
 		setForeground(Color.RED);
-		setTitle("یجاد حساب کاربری");
+		setTitle("ایجاد حساب کاربری");
 
 		getContentPane().add(panel_1);
 		panel_1.setBounds(11, 24, 133, 151);

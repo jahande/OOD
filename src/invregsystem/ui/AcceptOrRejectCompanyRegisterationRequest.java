@@ -33,6 +33,7 @@ public class AcceptOrRejectCompanyRegisterationRequest extends
 		this.catalogInstance = CompanyRegistrationRequestCatalog
 				.getInstance();
 		this.requests = this.catalogInstance.getAllItems();
+		this.setTitle("تایید یا رد درخواست ثبت شرکت");
 	}
 
 	

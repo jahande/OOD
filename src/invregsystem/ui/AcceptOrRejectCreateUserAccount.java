@@ -32,6 +32,7 @@ public class AcceptOrRejectCreateUserAccount extends AcceptOrRejectBase {
 	public AcceptOrRejectCreateUserAccount() {
 		this.catalogInstance = UserRegistrationRequestCatalog.getInstance();
 		this.requests = this.catalogInstance.getAllItems();
+		this.setTitle("تایید یا رد درخواست ایجاد حساب کاربری");
 	}
 
 	@Override

@@ -40,6 +40,7 @@ public class AcceptOrRejectAddNewFieldRequest extends AcceptOrRejectBase
 		this.catalogInstance = InventionFieldRegistrationRequestCatalog
 				.getInstance();
 		this.requests = this.catalogInstance.getAllItems();
+		this.setTitle("تایید یا رد درخواست افزودن حوزه اختراع جدید");
 	}
 
 	@Override
