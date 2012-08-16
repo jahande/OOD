@@ -6,6 +6,7 @@ import invregsystem.logic.invention.InventionCatalog;
 import invregsystem.logic.invention.operation.Change;
 import invregsystem.logic.invention.operation.InventionLog;
 import invregsystem.logic.invention.operation.InventionLogCatalog;
+import invregsystem.ui.models.FileUpload;
 
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
@@ -327,20 +328,28 @@ public class EditInvDoc extends JFrame {
 				changeSet.add(change);
 				invention.setExplanation(fullDesc);
 			}
-			if (!fileTextField1.getText().equals(invention.getFile1()) && !(fileTextField1.getText().equals("") && invention.getFile1() == null)) {
-				Change change = new Change("file1", invention.getFile1(), fileTextField1.getText());
-				changeSet.add(change);
-				invention.setFile1(fileTextField1.getText());
-			}
-			if (!fileTextField2.getText().equals(invention.getFile2()) && !(fileTextField2.getText().equals("") && invention.getFile2() == null)) {
-				Change change = new Change("file2", invention.getFile2(), fileTextField2.getText());
-				changeSet.add(change);
-				invention.setFile2(fileTextField2.getText());
-			}
-			if (!fileTextField3.getText().equals(invention.getFile3()) && !(fileTextField3.getText().equals("") && invention.getFile3() == null)) {
-				Change change = new Change("file3", invention.getFile3(), fileTextField3.getText());
-				changeSet.add(change);
-				invention.setFile3(fileTextField3.getText());
+			String[] newFiles = new String[] { fileTextField1.getText(), fileTextField2.getText(), fileTextField3.getText() };
+			String[] oldFiles = new String[] { invention.getFile1(), invention.getFile2(), invention.getFile3() };
+			for (int i = 0; i < 3; i++) {
+				if (!newFiles[i].equals(oldFiles[i]) && !(newFiles[i].equals("") && oldFiles[i] == null)) {
+					String newFile = "";
+					if (!newFiles[i].equals("")) {
+						newFile = FileUpload.getInstance().copyToFilesDirectory(newFiles[i]);
+					}
+					Change change = new Change("file" + i, oldFiles[i], newFile);
+					changeSet.add(change);
+					switch (i) {
+					case 0:
+						invention.setFile1(newFile);
+						break;
+					case 1:
+						invention.setFile2(newFile);
+						break;
+					case 2:
+						invention.setFile3(newFile);
+						break;
+					}
+				}
 			}
 
 			if (!changeSet.isEmpty()) {

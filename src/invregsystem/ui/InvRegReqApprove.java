@@ -28,8 +28,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-import utilities.FileUtil;
-
 public class InvRegReqApprove extends JFrame {
 
 	private final JLabel label_9 = new JLabel();
